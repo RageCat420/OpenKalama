@@ -10,114 +10,116 @@ import javax.annotation.Nonnull;
 import me.matl114.utils.config.BaseAttrKeyValue;
 
 public abstract class Ref<T> {
-   protected Config configReference;
-   @Nonnull
-   Optional<T> defaultValue = Optional.empty();
-   private final List<Consumer<T>> updated = new ArrayList<>();
-   private final List<Predicate<T>> validators = new ArrayList<>();
+    protected Config configReference;
 
-   public boolean hasDefaultValue() {
-      return this.defaultValue.isPresent();
-   }
+    @Nonnull
+    Optional<T> defaultValue = Optional.empty();
 
-   public boolean isValueDifferent() {
-      return this.defaultValue.isPresent() && !Objects.equals(this.defaultValue.get(), this.getValue());
-   }
+    private final List<Consumer<T>> updated = new ArrayList<>();
+    private final List<Predicate<T>> validators = new ArrayList<>();
 
-   public void resetValue() {
-      this.defaultValue.ifPresent(this::setValue);
-   }
+    public boolean hasDefaultValue() {
+        return this.defaultValue.isPresent();
+    }
 
-   public void setDefaultValue(T defaultValue) {
-      this.defaultValue = Optional.ofNullable(defaultValue);
-   }
+    public boolean isValueDifferent() {
+        return this.defaultValue.isPresent() && !Objects.equals(this.defaultValue.get(), this.getValue());
+    }
 
-   public T getDefaultValue() {
-      return this.defaultValue.get();
-   }
+    public void resetValue() {
+        this.defaultValue.ifPresent(this::setValue);
+    }
 
-   public void setConfigReference(Config ref) {
-      if (ref != this.configReference) {
-         this.configReference = ref;
-         if (this.configReference != null) {
-            this.configReference.markForSave();
-         }
-      }
-   }
+    public void setDefaultValue(T defaultValue) {
+        this.defaultValue = Optional.ofNullable(defaultValue);
+    }
 
-   public abstract T getValue();
+    public T getDefaultValue() {
+        return this.defaultValue.get();
+    }
 
-   public abstract void setValue(T var1);
-
-   public void addUpdateListener(Consumer<T> updateListener) {
-      if (updateListener != null) {
-         this.updated.add(updateListener);
-      }
-   }
-
-   public void addUpdateListenerWithUpdate(Consumer<T> updateListener) {
-      if (updateListener != null) {
-         this.updated.add(updateListener);
-
-         try {
-            updateListener.accept(this.getValue());
-         } catch (Throwable var3) {
-         }
-      }
-   }
-
-   public void removeUpdateListener(Predicate<Consumer<T>> removeListener) {
-      this.updated.removeIf(removeListener);
-   }
-
-   public void addValidator(Predicate<T> validator) {
-      this.validators.add(validator);
-   }
-
-   public void removeValidator(Predicate<Predicate<T>> removeListener) {
-      this.validators.removeIf(removeListener);
-   }
-
-   public boolean validateUpdateValue(T val) {
-      try {
-         for (Predicate<T> updateListener : this.validators) {
-            if (!updateListener.test(val)) {
-               return false;
+    public void setConfigReference(Config ref) {
+        if (ref != this.configReference) {
+            this.configReference = ref;
+            if (this.configReference != null) {
+                this.configReference.markForSave();
             }
-         }
+        }
+    }
 
-         return true;
-      } catch (Throwable var4) {
-         return false;
-      }
-   }
+    public abstract T getValue();
 
-   public void callUpdate() {
-      T val = this.getValue();
+    public abstract void setValue(T var1);
 
-      try {
-         this.updated.forEach(i -> i.accept(val));
-      } catch (Throwable var3) {
-      }
+    public void addUpdateListener(Consumer<T> updateListener) {
+        if (updateListener != null) {
+            this.updated.add(updateListener);
+        }
+    }
 
-      if (this.configReference != null) {
-         this.configReference.markForSave();
-      }
-   }
+    public void addUpdateListenerWithUpdate(Consumer<T> updateListener) {
+        if (updateListener != null) {
+            this.updated.add(updateListener);
 
-   public abstract Object getAsPrimitive();
+            try {
+                updateListener.accept(this.getValue());
+            } catch (Throwable var3) {
+            }
+        }
+    }
 
-   public abstract <W> boolean isSameTypeWith(Ref<W> var1);
+    public void removeUpdateListener(Predicate<Consumer<T>> removeListener) {
+        this.updated.removeIf(removeListener);
+    }
 
-   public abstract <W> boolean copyValueFrom(Ref<W> var1);
+    public void addValidator(Predicate<T> validator) {
+        this.validators.add(validator);
+    }
 
-   public final BaseAttrKeyValue<T> createKeyValue(String key) {
-      BaseAttrKeyValue<T> keyValue = this._createKeyValue0(key);
-      keyValue.setUpdater(this::getValue);
-      this.validators.forEach(keyValue::addValidator);
-      keyValue.addListener(this::setValue);
-      return keyValue;
-   }
+    public void removeValidator(Predicate<Predicate<T>> removeListener) {
+        this.validators.removeIf(removeListener);
+    }
 
-   protected abstract BaseAttrKeyValue<T> _createKeyValue0(String var1);
+    public boolean validateUpdateValue(T val) {
+        try {
+            for (Predicate<T> updateListener : this.validators) {
+                if (!updateListener.test(val)) {
+                    return false;
+                }
+            }
+
+            return true;
+        } catch (Throwable var4) {
+            return false;
+        }
+    }
+
+    public void callUpdate() {
+        T val = this.getValue();
+
+        try {
+            this.updated.forEach(i -> i.accept(val));
+        } catch (Throwable var3) {
+        }
+
+        if (this.configReference != null) {
+            this.configReference.markForSave();
+        }
+    }
+
+    public abstract Object getAsPrimitive();
+
+    public abstract <W> boolean isSameTypeWith(Ref<W> var1);
+
+    public abstract <W> boolean copyValueFrom(Ref<W> var1);
+
+    public final BaseAttrKeyValue<T> createKeyValue(String key) {
+        BaseAttrKeyValue<T> keyValue = this._createKeyValue0(key);
+        keyValue.setUpdater(this::getValue);
+        this.validators.forEach(keyValue::addValidator);
+        keyValue.addListener(this::setValue);
+        return keyValue;
+    }
+
+    protected abstract BaseAttrKeyValue<T> _createKeyValue0(String var1);
 }

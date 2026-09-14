@@ -7,5 +7,5 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 
 public interface KalamaHelperHelperA {
-   Vec3d resolvePosition(ArgumentReader var1, PlayerEntity var2, Consumer<Text> var3);
+    Vec3d resolvePosition(ArgumentReader var1, PlayerEntity var2, Consumer<Text> var3);
 }

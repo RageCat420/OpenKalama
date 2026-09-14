@@ -3,15 +3,15 @@ package me.matl114.accessors.gui;
 import net.minecraft.client.gui.Element;
 
 public interface CustomFocusBehaviourScreenAccess {
-   Element getDefaultElement();
+    Element getDefaultElement();
 
-   boolean canFocusButtonWhenClicked();
+    boolean canFocusButtonWhenClicked();
 
-   default boolean autoSelectDefaultElementWhenNotFocused() {
-      return true;
-   }
+    default boolean autoSelectDefaultElementWhenNotFocused() {
+        return true;
+    }
 
-   default boolean enableSwitchUsingNavigation() {
-      return false;
-   }
+    default boolean enableSwitchUsingNavigation() {
+        return false;
+    }
 }

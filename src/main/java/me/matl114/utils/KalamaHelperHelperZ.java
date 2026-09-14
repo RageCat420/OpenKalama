@@ -7,27 +7,27 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 
 class KalamaHelperHelperZ implements KalamaHelperHelperHX {
-   final BlockView val$world;
-   KalamaHelperHelperZ(BlockView var1) {
-      this.val$world = var1;
-   }
+    final BlockView val$world;
 
-   @KalamaHelperHelperA
-   @Override
-   public double getFluidResistance(BlockPos pos) {
-      return this.val$world.getFluidState(pos).getBlastResistance();
-   }
+    KalamaHelperHelperZ(BlockView var1) {
+        this.val$world = var1;
+    }
 
-   @KalamaHelperHelperA
-   @Override
-   public BlockState a(BlockPos pos) {
-      return this.val$world.getBlockState(pos);
-   }
+    @KalamaHelperHelperA
+    @Override
+    public double getFluidResistance(BlockPos pos) {
+        return this.val$world.getFluidState(pos).getBlastResistance();
+    }
 
-   @KalamaHelperHelperA
-   @Override
-   public VoxelShape getCollisionShape(BlockPos pos) {
-      return this.val$world.getBlockState(pos).getCollisionShape(this.val$world, pos);
-   }
+    @KalamaHelperHelperA
+    @Override
+    public BlockState a(BlockPos pos) {
+        return this.val$world.getBlockState(pos);
+    }
 
+    @KalamaHelperHelperA
+    @Override
+    public VoxelShape getCollisionShape(BlockPos pos) {
+        return this.val$world.getBlockState(pos).getCollisionShape(this.val$world, pos);
+    }
 }

@@ -1,4 +1,3 @@
 package me.matl114.hacks.api.a;
 
-public class KalamaHelperHelperB {
-}
+public class KalamaHelperHelperB {}

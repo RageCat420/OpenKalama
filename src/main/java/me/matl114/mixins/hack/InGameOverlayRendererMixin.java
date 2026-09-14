@@ -15,36 +15,33 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin({InGameOverlayRenderer.class})
 public class InGameOverlayRendererMixin {
-   @Inject(
-      method = {"renderInWallOverlay"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private static void onNoRender0(Sprite sprite, MatrixStack matrices, CallbackInfo ci) {
-      if (NoRender.INSTANCE.CH()) {
-         ci.cancel();
-      }
-   }
+    @Inject(
+            method = {"renderInWallOverlay"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    private static void onNoRender0(Sprite sprite, MatrixStack matrices, CallbackInfo ci) {
+        if (NoRender.INSTANCE.CH()) {
+            ci.cancel();
+        }
+    }
 
-   @Inject(
-      method = {"renderUnderwaterOverlay"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private static void onNoRender1(MinecraftClient client, MatrixStack matrices, CallbackInfo ci) {
-      if (NoRender.INSTANCE.CI()) {
-         ci.cancel();
-      }
-   }
+    @Inject(
+            method = {"renderUnderwaterOverlay"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    private static void onNoRender1(MinecraftClient client, MatrixStack matrices, CallbackInfo ci) {
+        if (NoRender.INSTANCE.CI()) {
+            ci.cancel();
+        }
+    }
 
-   @Inject(
-      method = {"renderFireOverlay"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private static void onNoRender2(MinecraftClient client, MatrixStack matrices, CallbackInfo ci) {
-      if (NoRender.INSTANCE.CJ()) {
-         ci.cancel();
-      }
-   }
+    @Inject(
+            method = {"renderFireOverlay"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    private static void onNoRender2(MinecraftClient client, MatrixStack matrices, CallbackInfo ci) {
+        if (NoRender.INSTANCE.CJ()) {
+            ci.cancel();
+        }
+    }
 }

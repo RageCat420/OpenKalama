@@ -15,26 +15,33 @@ import org.spongepowered.asm.mixin.injection.At;
 @Environment(EnvType.CLIENT)
 @Mixin({ScreenHandler.class})
 public class ScreenHandlerFixMixin {
-   @WrapOperation(
-      method = {"onSlotClick"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/screen/ScreenHandler;internalOnSlotClick(IILnet/minecraft/screen/slot/SlotActionType;Lnet/minecraft/entity/player/PlayerEntity;)V"
-      )}
-   )
-   private void wrapSlotClick(ScreenHandler instance, int slotIndex, int button, SlotActionType actionType, PlayerEntity player, Operation<Void> original) {
-      boolean isClient = MinecraftClient.getInstance().world != null && MinecraftClient.getInstance().world.isClient;
+    @WrapOperation(
+            method = {"onSlotClick"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/screen/ScreenHandler;internalOnSlotClick(IILnet/minecraft/screen/slot/SlotActionType;Lnet/minecraft/entity/player/PlayerEntity;)V")
+            })
+    private void wrapSlotClick(
+            ScreenHandler instance,
+            int slotIndex,
+            int button,
+            SlotActionType actionType,
+            PlayerEntity player,
+            Operation<Void> original) {
+        boolean isClient = MinecraftClient.getInstance().world != null && MinecraftClient.getInstance().world.isClient;
 
-      try {
-         if (isClient) {
-            InvTasks.f.set(true);
-         }
+        try {
+            if (isClient) {
+                InvTasks.f.set(true);
+            }
 
-         original.call(new Object[]{instance, slotIndex, button, actionType, player});
-      } finally {
-         if (isClient) {
-            InvTasks.f.set(false);
-         }
-      }
-   }
+            original.call(new Object[] {instance, slotIndex, button, actionType, player});
+        } finally {
+            if (isClient) {
+                InvTasks.f.set(false);
+            }
+        }
+    }
 }

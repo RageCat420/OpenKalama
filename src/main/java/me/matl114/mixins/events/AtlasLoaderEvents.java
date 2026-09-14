@@ -14,25 +14,32 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.At.Shift;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin({AtlasLoader.class})
 public class AtlasLoaderEvents {
-   @Inject(
-      method = {"of"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/texture/atlas/AtlasLoader;<init>(Ljava/util/List;)V",
-         shift = Shift.BEFORE
-      )},
-      locals = LocalCapture.CAPTURE_FAILHARD
-   )
-   private static void loadSources(ResourceManager resourceManager, Identifier id, CallbackInfoReturnable<AtlasLoader> cir, @Local List<AtlasSource> list) {
-      Event<Set<Identifier>> resourceReloadEvent = new Event<>(new LinkedHashSet<>(), false, false, resourceManager, id);
-      RenderListener.w().catchEvent(resourceReloadEvent);
-      list.addAll(resourceReloadEvent.e().stream().map(i -> new SingleAtlasSource(i, Optional.empty())).toList());
-   }
+    @Inject(
+            method = {"of"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target = "Lnet/minecraft/client/texture/atlas/AtlasLoader;<init>(Ljava/util/List;)V",
+                        shift = Shift.BEFORE)
+            },
+            locals = LocalCapture.CAPTURE_FAILHARD)
+    private static void loadSources(
+            ResourceManager resourceManager,
+            Identifier id,
+            CallbackInfoReturnable<AtlasLoader> cir,
+            @Local List<AtlasSource> list) {
+        Event<Set<Identifier>> resourceReloadEvent =
+                new Event<>(new LinkedHashSet<>(), false, false, resourceManager, id);
+        RenderListener.w().catchEvent(resourceReloadEvent);
+        list.addAll(resourceReloadEvent.e().stream()
+                .map(i -> new SingleAtlasSource(i, Optional.empty()))
+                .toList());
+    }
 }

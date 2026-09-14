@@ -12,37 +12,38 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({HandledScreen.class})
 public abstract class HandledScreenMixin extends Screen implements HandledScreenAccess {
-   @Shadow
-   protected int field_2776;
-   @Shadow
-   protected int field_2800;
+    @Shadow
+    protected int field_2776;
 
-   protected HandledScreenMixin(Text title) {
-      super(title);
-   }
+    @Shadow
+    protected int field_2800;
 
-   @Shadow
-   protected abstract Slot method_2386(double var1, double var3);
+    protected HandledScreenMixin(Text title) {
+        super(title);
+    }
 
-   @Unique
-   @Override
-   public Slot reallyGetSlotAt(double var1, double var3) {
-      return this.method_2386(var1, var3);
-   }
+    @Shadow
+    protected abstract Slot method_2386(double var1, double var3);
 
-   @Accessor("x")
-   @Override
-   public abstract int getScreenX();
+    @Unique
+    @Override
+    public Slot reallyGetSlotAt(double var1, double var3) {
+        return this.method_2386(var1, var3);
+    }
 
-   @Accessor("y")
-   @Override
-   public abstract int getScreenY();
+    @Accessor("x")
+    @Override
+    public abstract int getScreenX();
 
-   @Accessor("backgroundWidth")
-   @Override
-   public abstract int getScreenBackgroundX();
+    @Accessor("y")
+    @Override
+    public abstract int getScreenY();
 
-   @Accessor("backgroundHeight")
-   @Override
-   public abstract int getScreenBackgroundY();
+    @Accessor("backgroundWidth")
+    @Override
+    public abstract int getScreenBackgroundX();
+
+    @Accessor("backgroundHeight")
+    @Override
+    public abstract int getScreenBackgroundY();
 }

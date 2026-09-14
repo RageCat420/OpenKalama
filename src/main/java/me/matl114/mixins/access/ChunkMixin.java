@@ -15,12 +15,12 @@ import org.spongepowered.asm.mixin.Shadow;
 @Environment(EnvType.CLIENT)
 @Mixin({Chunk.class})
 public class ChunkMixin implements ChunkAccess {
-   @Shadow
-   @Final
-   protected Map<BlockPos, BlockEntity> field_34543;
+    @Shadow
+    @Final
+    protected Map<BlockPos, BlockEntity> field_34543;
 
-   @Override
-   public Iterable<Entry<BlockPos, BlockEntity>> blockEntityEntries() {
-      return this.field_34543.entrySet();
-   }
+    @Override
+    public Iterable<Entry<BlockPos, BlockEntity>> blockEntityEntries() {
+        return this.field_34543.entrySet();
+    }
 }

@@ -15,8 +15,8 @@ import me.matl114.hacks.modules.render.NoRender;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen.CreativeScreenHandler;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.input.Input;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -44,304 +44,295 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 @Mixin({ClientPlayerEntity.class})
 public abstract class ClientPlayerMixin extends AbstractClientPlayerEntity implements ClientPlayerAccess {
-   @Shadow
-   private double field_3926;
-   @Shadow
-   private double field_3940;
-   @Shadow
-   private double field_3924;
-   @Unique
-   private boolean forceNoFall;
-   @Shadow
-   @Final
-   protected MinecraftClient field_3937;
-   @Shadow
-   private float field_3941;
-   @Shadow
-   private float field_3925;
-   @Shadow
-   public Input field_3913;
-   @Shadow
-   private boolean field_3915;
-   @Unique
-   public HandledScreen keepedInv = null;
-   @Unique
-   public ScreenHandler keepedInvHandler = null;
-   @Unique
-   boolean forceCloseInv = false;
+    @Shadow
+    private double field_3926;
 
-   @Accessor("lastX")
-public abstract double getLastX() ;
+    @Shadow
+    private double field_3940;
 
-   @Accessor("lastBaseY")
-public abstract double getLastBaseY() ;
+    @Shadow
+    private double field_3924;
 
-   @Accessor("lastZ")
-public abstract double getLastZ() ;
+    @Unique
+    private boolean forceNoFall;
 
-   @Accessor("lastOnGround")
-public abstract boolean getLastOnGround() ;
+    @Shadow
+    @Final
+    protected MinecraftClient field_3937;
 
-   @Accessor("lastPitch")
-public abstract float getLastPitch() ;
+    @Shadow
+    private float field_3941;
 
-   @Accessor("lastYaw")
-public abstract float getLastYaw() ;
+    @Shadow
+    private float field_3925;
 
-   @Override
-   public boolean isForceNoFall() {
-      return this.forceNoFall;
-   }
+    @Shadow
+    public Input field_3913;
 
-   @Override
-   public void setForceNoFall(boolean fall) {
-      this.forceNoFall = fall;
-   }
+    @Shadow
+    private boolean field_3915;
 
-   public ClientPlayerMixin(ClientWorld world, GameProfile profile) {
-      super(world, profile);
-   }
+    @Unique
+    public HandledScreen keepedInv = null;
 
-   @Shadow
-   public void method_3137() { }
+    @Unique
+    public ScreenHandler keepedInvHandler = null;
 
-   @Shadow
-   public void tick() { }
+    @Unique
+    boolean forceCloseInv = false;
 
-   @Shadow
-   public void move(MovementType movementType, Vec3d movement) { }
+    @Accessor("lastX")
+    public abstract double getLastX();
 
-   @Shadow
-   protected abstract void method_3136();
+    @Accessor("lastBaseY")
+    public abstract double getLastBaseY();
 
-   @Shadow
-public abstract boolean isSneaking() ;
+    @Accessor("lastZ")
+    public abstract double getLastZ();
 
-   @Shadow
-   public void swingHand(Hand hand) { }
+    @Accessor("lastOnGround")
+    public abstract boolean getLastOnGround();
 
-   @Shadow
-public abstract boolean isUsingItem() ;
+    @Accessor("lastPitch")
+    public abstract float getLastPitch();
 
-   @Unique
-   @Override
-   public void clearKeepedInventory(boolean closeInv) {
-      this.keepedInv = null;
-      ScreenHandler handler = this.keepedInvHandler;
-      this.keepedInvHandler = null;
-      if (closeInv) {
-         this.forceCloseInv = true;
+    @Accessor("lastYaw")
+    public abstract float getLastYaw();
 
-         try {
-            ((ClientPlayerEntity)(Object)this).closeHandledScreen();
-         } catch (Throwable var7) {
-            var7.printStackTrace();
-         } finally {
-            this.forceCloseInv = false;
-         }
-      }
-   }
+    @Override
+    public boolean isForceNoFall() {
+        return this.forceNoFall;
+    }
 
-   @ModifyExpressionValue(
-      method = {"tickNausea"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasStatusEffect(Lnet/minecraft/registry/entry/RegistryEntry;)Z",
-         ordinal = 0
-      )}
-   )
-   public boolean noNausea(boolean val) {
-      return NoRender.INSTANCE.CX() ? false : val;
-   }
+    @Override
+    public void setForceNoFall(boolean fall) {
+        this.forceNoFall = fall;
+    }
 
-   @Inject(
-      method = {"closeHandledScreen"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void closeHandledScreen(CallbackInfo ci) {
-      if (!this.forceCloseInv
-         && InvExtra.INSTANCE.mP.get()
-         && this.field_3937.currentScreen instanceof HandledScreen handled
-         && !(handled.getScreenHandler() instanceof PlayerScreenHandler)
-         && !(handled.getScreenHandler() instanceof CreativeScreenHandler)) {
-         this.keepedInv = handled;
-         this.keepedInvHandler = ((ClientPlayerEntity)(Object)this).currentScreenHandler;
-         this.method_3137();
-         ci.cancel();
-      }
-   }
+    public ClientPlayerMixin(ClientWorld world, GameProfile profile) {
+        super(world, profile);
+    }
 
-   @Unique
-   public double getAttributeValue(RegistryEntry<EntityAttribute> attribute) {
-      return attribute == EntityAttributes.GENERIC_MOVEMENT_SPEED && MovTasks.at().walkSpeed.get() ? MovTasks.at().kS() : super.getAttributeValue(attribute);
-   }
+    @Shadow
+    public void method_3137() {}
 
-   @ModifyExpressionValue(
-      method = {"tickMovement"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z"
-      )}
-   )
-   private boolean noSlowUsingItem(boolean original) {
-      return MovTasks.ao().Gx ? false : original;
-   }
+    @Shadow
+    public void tick() {}
 
-   @WrapOperation(
-      method = {"tickMovement"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/network/ClientPlayerEntity;canStartSprinting()Z"
-      )}
-   )
-   private boolean noSlowUsingItemDoNotBlockSprint1(ClientPlayerEntity instance, Operation<Boolean> original) {
-      if (MovTasks.ao().Gx) {
-         boolean v = this.field_3915;
-         this.field_3915 = false;
+    @Shadow
+    public void move(MovementType movementType, Vec3d movement) {}
 
-         boolean var4;
-         try {
-            var4 = (Boolean)original.call(new Object[]{instance});
-         } finally {
-            this.field_3915 = v;
-         }
+    @Shadow
+    protected abstract void method_3136();
 
-         return var4;
-      } else {
-         return (Boolean)original.call(new Object[]{instance});
-      }
-   }
+    @Shadow
+    public abstract boolean isSneaking();
 
-   @ModifyExpressionValue(
-      method = {"tickMovement"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/network/ClientPlayerEntity;shouldSlowDown()Z"
-      )}
-   )
-   private boolean noSlowSneak(boolean original) {
-      return MovTasks.ao().Vb() ? false : original;
-   }
+    @Shadow
+    public void swingHand(Hand hand) {}
 
-   protected float getVelocityMultiplier() {
-      return MovTasks.ao().whenWithBlock.get() ? 1.0F : super.getVelocityMultiplier();
-   }
+    @Shadow
+    public abstract boolean isUsingItem();
 
-   @Inject(
-      method = {"getPermissionLevel"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   protected void grantAllClientPermissions(CallbackInfoReturnable<Integer> cir) {
-      cir.setReturnValue(4);
-   }
+    @Unique
+    @Override
+    public void clearKeepedInventory(boolean closeInv) {
+        this.keepedInv = null;
+        ScreenHandler handler = this.keepedInvHandler;
+        this.keepedInvHandler = null;
+        if (closeInv) {
+            this.forceCloseInv = true;
 
-   @Unique
-   @Override
-   public void resyncPos() {
-      this.field_3926 = 0.0;
-      this.field_3924 = 0.0;
-      this.field_3940 = 0.0;
-   }
+            try {
+                ((ClientPlayerEntity) (Object) this).closeHandledScreen();
+            } catch (Throwable var7) {
+                var7.printStackTrace();
+            } finally {
+                this.forceCloseInv = false;
+            }
+        }
+    }
 
-   @Unique
-   @Override
-   public void resyncRot() {
-      this.field_3925 = 0.0F;
-      this.field_3941 = 0.0F;
-   }
+    @ModifyExpressionValue(
+            method = {"tickNausea"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/client/network/ClientPlayerEntity;hasStatusEffect(Lnet/minecraft/registry/entry/RegistryEntry;)Z",
+                        ordinal = 0)
+            })
+    public boolean noNausea(boolean val) {
+        return NoRender.INSTANCE.CX() ? false : val;
+    }
 
-   @WrapOperation(
-      method = {"tickMovement"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/network/ClientPlayerEntity;jump()V",
-         ordinal = 0
-      )}
-   )
-   public void onCancelJumpAfterToggle(ClientPlayerEntity instance, Operation<Void> original) {
-   }
+    @Inject(
+            method = {"closeHandledScreen"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    public void closeHandledScreen(CallbackInfo ci) {
+        if (!this.forceCloseInv
+                && InvExtra.INSTANCE.mP.get()
+                && this.field_3937.currentScreen instanceof HandledScreen handled
+                && !(handled.getScreenHandler() instanceof PlayerScreenHandler)
+                && !(handled.getScreenHandler() instanceof CreativeScreenHandler)) {
+            this.keepedInv = handled;
+            this.keepedInvHandler = ((ClientPlayerEntity) (Object) this).currentScreenHandler;
+            this.method_3137();
+            ci.cancel();
+        }
+    }
 
-   public void travel(Vec3d movementInput) {
-      super.travel(movementInput);
-      MoveTimer timer = MovTasks.av();
-      if (timer.isActive()) {
-         for (int i = 0; i < timer.multiply.get(); i++) {
-            this.method_3136();
-            super.travel(movementInput);
-         }
-      }
-   }
+    @Unique
+    public double getAttributeValue(RegistryEntry<EntityAttribute> attribute) {
+        return attribute == EntityAttributes.GENERIC_MOVEMENT_SPEED
+                        && MovTasks.at().walkSpeed.get()
+                ? MovTasks.at().kS()
+                : super.getAttributeValue(attribute);
+    }
 
-   @Unique
-   private boolean shouldDirectionalSprint() {
-      Sprint sprintModule = MovTasks.au();
-      return sprintModule.allDirectionSprint.get() && this.field_3913.movementForward <= -0.8 && sprintModule.Om;
-   }
+    @ModifyExpressionValue(
+            method = {"tickMovement"},
+            at = {@At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z")})
+    private boolean noSlowUsingItem(boolean original) {
+        return MovTasks.ao().Gx ? false : original;
+    }
 
-   @ModifyExpressionValue(
-      method = {"tickMovement"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/input/Input;hasForwardMovement()Z"
-      )}
-   )
-   private boolean allDirectionSprint3(boolean original) {
-      return this.shouldDirectionalSprint() ? true : original;
-   }
+    @WrapOperation(
+            method = {"tickMovement"},
+            at = {
+                @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;canStartSprinting()Z")
+            })
+    private boolean noSlowUsingItemDoNotBlockSprint1(ClientPlayerEntity instance, Operation<Boolean> original) {
+        if (MovTasks.ao().Gx) {
+            boolean v = this.field_3915;
+            this.field_3915 = false;
 
-   @Inject(
-      method = {"isWalking"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   protected void allDirectionSprint4(CallbackInfoReturnable<Boolean> cir) {
-      if (this.shouldDirectionalSprint() && !this.isSubmergedInWater()) {
-         cir.setReturnValue(true);
-      }
-   }
+            boolean var4;
+            try {
+                var4 = (Boolean) original.call(new Object[] {instance});
+            } finally {
+                this.field_3915 = v;
+            }
 
-   @ModifyExpressionValue(
-      method = {"tickNausea"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/gui/screen/Screen;shouldPause()Z"
-      )}
-   )
-   private boolean onPortalGui(boolean original) {
-      return ExtraTasks.d().keepGuiOpenOnPortal.get() ? true : original;
-   }
+            return var4;
+        } else {
+            return (Boolean) original.call(new Object[] {instance});
+        }
+    }
 
-   @Unique
-   public ItemEntity dropItem(ItemStack stack, boolean throwRandomly, boolean retainOwnership) {
-      if (!stack.isEmpty() && this.getWorld().isClient && InvTasks.f.get() && !MinecraftClient.getInstance().isOnThread()) {
-         this.swingHand(Hand.MAIN_HAND);
-         return null;
-      } else {
-         return super.dropItem(stack, throwRandomly, retainOwnership);
-      }
-   }
+    @ModifyExpressionValue(
+            method = {"tickMovement"},
+            at = {@At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;shouldSlowDown()Z")})
+    private boolean noSlowSneak(boolean original) {
+        return MovTasks.ao().Vb() ? false : original;
+    }
 
-   @Inject(
-      method = {"pushOutOfBlocks"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void onBlockVelocity(double x, double z, CallbackInfo ci) {
-      if (MovTasks.aC().noBlockPush.get()) {
-         ci.cancel();
-      }
-   }
+    protected float getVelocityMultiplier() {
+        return MovTasks.ao().whenWithBlock.get() ? 1.0F : super.getVelocityMultiplier();
+    }
 
-   @Override
-   public HandledScreen getKeepedInv() {
-      return this.keepedInv;
-   }
+    @Inject(
+            method = {"getPermissionLevel"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    protected void grantAllClientPermissions(CallbackInfoReturnable<Integer> cir) {
+        cir.setReturnValue(4);
+    }
 
-   @Override
-   public ScreenHandler getKeepedInvHandler() {
-      return this.keepedInvHandler;
-   }
+    @Unique
+    @Override
+    public void resyncPos() {
+        this.field_3926 = 0.0;
+        this.field_3924 = 0.0;
+        this.field_3940 = 0.0;
+    }
+
+    @Unique
+    @Override
+    public void resyncRot() {
+        this.field_3925 = 0.0F;
+        this.field_3941 = 0.0F;
+    }
+
+    @WrapOperation(
+            method = {"tickMovement"},
+            at = {
+                @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;jump()V", ordinal = 0)
+            })
+    public void onCancelJumpAfterToggle(ClientPlayerEntity instance, Operation<Void> original) {}
+
+    public void travel(Vec3d movementInput) {
+        super.travel(movementInput);
+        MoveTimer timer = MovTasks.av();
+        if (timer.isActive()) {
+            for (int i = 0; i < timer.multiply.get(); i++) {
+                this.method_3136();
+                super.travel(movementInput);
+            }
+        }
+    }
+
+    @Unique
+    private boolean shouldDirectionalSprint() {
+        Sprint sprintModule = MovTasks.au();
+        return sprintModule.allDirectionSprint.get() && this.field_3913.movementForward <= -0.8 && sprintModule.Om;
+    }
+
+    @ModifyExpressionValue(
+            method = {"tickMovement"},
+            at = {@At(value = "INVOKE", target = "Lnet/minecraft/client/input/Input;hasForwardMovement()Z")})
+    private boolean allDirectionSprint3(boolean original) {
+        return this.shouldDirectionalSprint() ? true : original;
+    }
+
+    @Inject(
+            method = {"isWalking"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    protected void allDirectionSprint4(CallbackInfoReturnable<Boolean> cir) {
+        if (this.shouldDirectionalSprint() && !this.isSubmergedInWater()) {
+            cir.setReturnValue(true);
+        }
+    }
+
+    @ModifyExpressionValue(
+            method = {"tickNausea"},
+            at = {@At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;shouldPause()Z")})
+    private boolean onPortalGui(boolean original) {
+        return ExtraTasks.d().keepGuiOpenOnPortal.get() ? true : original;
+    }
+
+    @Unique
+    public ItemEntity dropItem(ItemStack stack, boolean throwRandomly, boolean retainOwnership) {
+        if (!stack.isEmpty()
+                && this.getWorld().isClient
+                && InvTasks.f.get()
+                && !MinecraftClient.getInstance().isOnThread()) {
+            this.swingHand(Hand.MAIN_HAND);
+            return null;
+        } else {
+            return super.dropItem(stack, throwRandomly, retainOwnership);
+        }
+    }
+
+    @Inject(
+            method = {"pushOutOfBlocks"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    public void onBlockVelocity(double x, double z, CallbackInfo ci) {
+        if (MovTasks.aC().noBlockPush.get()) {
+            ci.cancel();
+        }
+    }
+
+    @Override
+    public HandledScreen getKeepedInv() {
+        return this.keepedInv;
+    }
+
+    @Override
+    public ScreenHandler getKeepedInvHandler() {
+        return this.keepedInvHandler;
+    }
 }
-

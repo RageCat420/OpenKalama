@@ -1,7 +1,7 @@
 package me.matl114.gui.basic;
 
 public interface SubSelectable {
-   DrawableWidget getSelected();
+    DrawableWidget getSelected();
 
-   <T extends SubSelectable> T setSelected(DrawableWidget var1);
+    <T extends SubSelectable> T setSelected(DrawableWidget var1);
 }

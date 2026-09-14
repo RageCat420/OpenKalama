@@ -1,35 +1,35 @@
 package me.matl114.hooks.impl.xaerowaypoints;
 
 public interface IXWaypoint {
-   int getX();
+    int getX();
 
-   int getY();
+    int getY();
 
-   int getZ();
+    int getZ();
 
-   void setX(int var1);
+    void setX(int var1);
 
-   void setY(int var1);
+    void setY(int var1);
 
-   void setZ(int var1);
+    void setZ(int var1);
 
-   String getName();
+    String getName();
 
-   void setName(String var1);
+    void setName(String var1);
 
-   String getInitials();
+    String getInitials();
 
-   int getColor();
+    int getColor();
 
-   void setColor(int var1);
+    void setColor(int var1);
 
-   int getPurpose();
+    int getPurpose();
 
-   void setPurpose(int var1);
+    void setPurpose(int var1);
 
-   boolean isTemp();
+    boolean isTemp();
 
-   boolean isYInclude();
+    boolean isYInclude();
 
-   long getCreatedAt();
+    long getCreatedAt();
 }

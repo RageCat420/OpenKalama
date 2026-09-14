@@ -5,8 +5,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 
 class KalamaHelperHelperJX implements KalamaHelperHelperHX {
-   @KalamaHelperHelperA
-   public BlockState a(BlockPos pos) {
-      return null;
-   }
+    @KalamaHelperHelperA
+    public BlockState a(BlockPos pos) {
+        return null;
+    }
 }

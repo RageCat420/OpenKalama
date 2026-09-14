@@ -13,51 +13,51 @@ import me.matl114.utils.config.kv.IntListAttrKeyValue;
 import me.matl114.utils.config.kv.TypeConvertAttrKeyValue;
 
 public class IntPrimitiveList extends PrimitiveList<Integer> {
-   public static final WrapperFactory<String, List<Integer>> JP = WrapperFactory.of(str -> {
-      String[] var1 = str.split(",", -1);
-      ArrayList var2 = new ArrayList();
+    public static final WrapperFactory<String, List<Integer>> JP = WrapperFactory.of(
+            str -> {
+                String[] var1 = str.split(",", -1);
+                ArrayList var2 = new ArrayList();
 
-      for (String var6 : var1) {
-         var2.add(Integer.parseInt(var6));
-      }
+                for (String var6 : var1) {
+                    var2.add(Integer.parseInt(var6));
+                }
 
-      return var2;
-   }, arr -> arr.stream().map(String::valueOf).collect(Collectors.joining(",")));
-   public static final WrapperFactory<String, IntPrimitiveList> JQ = IntPrimitiveList.JP.concat(WrapperFactory.of(IntPrimitiveList::new, PrimitiveList::list));
-   public static final NBTType<IntPrimitiveList> TYPE = new NBTType<>(
-      "intprimitivelist",
-      JQ.wrapCodecComapFlatMap(Codec.STRING),
-      (s, x, y, dx, dy) -> new KalamaHelperHelperCX(x, y, dx, dy)
-         .Q(new TypeConvertAttrKeyValue<>(s, JQ, NBTTypes.g).generateValueWidget(0, 0, dx - dy, dy))
-         .Q(
-            WidgetUtils.l(
-               () -> new IntListAttrKeyValue(s.getKeyName(), ((IntPrimitiveList)s.getOriginValue()).list(), JP),
-               lst -> s.valueChangeInternal(null, new IntPrimitiveList(lst)),
-               dx - dy,
-               0,
-               dy,
-               dy
-            )
-         ),
-      JQ,
-      new IntPrimitiveList(List.of())
-   );
+                return var2;
+            },
+            arr -> arr.stream().map(String::valueOf).collect(Collectors.joining(",")));
+    public static final WrapperFactory<String, IntPrimitiveList> JQ =
+            IntPrimitiveList.JP.concat(WrapperFactory.of(IntPrimitiveList::new, PrimitiveList::list));
+    public static final NBTType<IntPrimitiveList> TYPE = new NBTType<>(
+            "intprimitivelist",
+            JQ.wrapCodecComapFlatMap(Codec.STRING),
+            (s, x, y, dx, dy) -> new KalamaHelperHelperCX(x, y, dx, dy)
+                    .Q(new TypeConvertAttrKeyValue<>(s, JQ, NBTTypes.g).generateValueWidget(0, 0, dx - dy, dy))
+                    .Q(WidgetUtils.l(
+                            () -> new IntListAttrKeyValue(
+                                    s.getKeyName(), ((IntPrimitiveList) s.getOriginValue()).list(), JP),
+                            lst -> s.valueChangeInternal(null, new IntPrimitiveList(lst)),
+                            dx - dy,
+                            0,
+                            dy,
+                            dy)),
+            JQ,
+            new IntPrimitiveList(List.of()));
 
-   @Override
-   protected PrimitiveList<Integer> withDefault(List<Integer> list, Optional<Primitive<Integer>> defaultPrimitive) {
-      return new IntPrimitiveList(list, defaultPrimitive);
-   }
+    @Override
+    protected PrimitiveList<Integer> withDefault(List<Integer> list, Optional<Primitive<Integer>> defaultPrimitive) {
+        return new IntPrimitiveList(list, defaultPrimitive);
+    }
 
-   public IntPrimitiveList(List<Integer> list) {
-      super(NBTTypes.c, list);
-   }
+    public IntPrimitiveList(List<Integer> list) {
+        super(NBTTypes.c, list);
+    }
 
-   @Override
-   public NBTType<PrimitiveList<Integer>> type() {
-      return TYPE.cast();
-   }
+    @Override
+    public NBTType<PrimitiveList<Integer>> type() {
+        return TYPE.cast();
+    }
 
-   protected IntPrimitiveList(List<Integer> list, Optional<Primitive<Integer>> defaultPrimitive) {
-      super(NBTTypes.c, list, defaultPrimitive);
-   }
+    protected IntPrimitiveList(List<Integer> list, Optional<Primitive<Integer>> defaultPrimitive) {
+        super(NBTTypes.c, list, defaultPrimitive);
+    }
 }

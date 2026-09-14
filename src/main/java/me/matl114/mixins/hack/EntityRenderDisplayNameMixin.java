@@ -11,14 +11,17 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin({EntityRenderer.class})
 public class EntityRenderDisplayNameMixin {
-   @WrapOperation(
-      method = {"render"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/render/entity/EntityRenderer;hasLabel(Lnet/minecraft/entity/Entity;)Z"
-      )}
-   )
-   private boolean hasLabel(EntityRenderer instance, Entity entity, Operation<Boolean> original) {
-      return entity instanceof PlayerEntity pl && RenderTasks.t().hideVanilla.get() ? false : (Boolean)original.call(new Object[]{instance, entity});
-   }
+    @WrapOperation(
+            method = {"render"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/client/render/entity/EntityRenderer;hasLabel(Lnet/minecraft/entity/Entity;)Z")
+            })
+    private boolean hasLabel(EntityRenderer instance, Entity entity, Operation<Boolean> original) {
+        return entity instanceof PlayerEntity pl && RenderTasks.t().hideVanilla.get()
+                ? false
+                : (Boolean) original.call(new Object[] {instance, entity});
+    }
 }

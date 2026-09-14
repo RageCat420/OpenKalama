@@ -10,14 +10,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({Camera.class})
 public class CameraMixin {
-   @Inject(
-      method = {"getSubmersionType"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private void onGetSubmersionType(CallbackInfoReturnable<CameraSubmersionType> cir) {
-      if (NoRender.INSTANCE.CI()) {
-         cir.setReturnValue(CameraSubmersionType.NONE);
-      }
-   }
+    @Inject(
+            method = {"getSubmersionType"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    private void onGetSubmersionType(CallbackInfoReturnable<CameraSubmersionType> cir) {
+        if (NoRender.INSTANCE.CI()) {
+            cir.setReturnValue(CameraSubmersionType.NONE);
+        }
+    }
 }

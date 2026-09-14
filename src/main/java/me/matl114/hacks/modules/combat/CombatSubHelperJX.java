@@ -5,12 +5,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 
 public record CombatSubHelperJX(BlockState state, Map<PlayerEntity, Double> damageCache) {
-   public BlockState state() {
-      return this.state;
-   }
+    public BlockState state() {
+        return this.state;
+    }
 
-   public Map<PlayerEntity, Double> damageCache() {
-      return this.damageCache;
-   }
-
+    public Map<PlayerEntity, Double> damageCache() {
+        return this.damageCache;
+    }
 }

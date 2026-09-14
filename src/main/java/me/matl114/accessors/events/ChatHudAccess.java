@@ -5,13 +5,13 @@ import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.gui.hud.ChatHudLine.Visible;
 
 public interface ChatHudAccess {
-   void setUniqueMessageId(String var1);
+    void setUniqueMessageId(String var1);
 
-   ArrayList<Visible> getVisibleLines();
+    ArrayList<Visible> getVisibleLines();
 
-   void clearUniqueMessages(String var1);
+    void clearUniqueMessages(String var1);
 
-   static ChatHudAccess of(ChatHud chatHud) {
-      return (ChatHudAccess)chatHud;
-   }
+    static ChatHudAccess of(ChatHud chatHud) {
+        return (ChatHudAccess) chatHud;
+    }
 }

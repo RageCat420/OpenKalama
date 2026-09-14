@@ -5,25 +5,25 @@ import java.util.function.Predicate;
 import org.jetbrains.annotations.NotNull;
 
 public class KalamaHelperHelperA<T> implements Comparable<KalamaHelperHelperA<T>>, Predicate<T> {
-   T value;
-   int priority;
+    T value;
+    int priority;
 
-   public int compareTo(@NotNull KalamaHelperHelperA<T> th) {
-      return this.priority - th.priority;
-   }
+    public int compareTo(@NotNull KalamaHelperHelperA<T> th) {
+        return this.priority - th.priority;
+    }
 
-   @Override
-   public boolean test(T t) {
-      if (this.value instanceof Consumer var3) {
-         var3.accept(t);
-         return true;
-      } else {
-         return this.value instanceof Predicate var4 ? var4.test(t) : false;
-      }
-   }
+    @Override
+    public boolean test(T t) {
+        if (this.value instanceof Consumer var3) {
+            var3.accept(t);
+            return true;
+        } else {
+            return this.value instanceof Predicate var4 ? var4.test(t) : false;
+        }
+    }
 
-   public KalamaHelperHelperA(int priority, T value) {
-      this.priority = priority;
-      this.value = (T)value;
-   }
+    public KalamaHelperHelperA(int priority, T value) {
+        this.priority = priority;
+        this.value = (T) value;
+    }
 }

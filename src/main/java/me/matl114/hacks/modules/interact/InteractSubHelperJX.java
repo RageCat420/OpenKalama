@@ -5,34 +5,33 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
 
-public record InteractSubHelperJX(Mutable startPos, BlockPos targetPos, int itemCount, ItemStack item, int selectedSlot, Hand hand, int way) {
-   public int selectedSlot() {
-      return this.selectedSlot;
-   }
+public record InteractSubHelperJX(
+        Mutable startPos, BlockPos targetPos, int itemCount, ItemStack item, int selectedSlot, Hand hand, int way) {
+    public int selectedSlot() {
+        return this.selectedSlot;
+    }
 
-   public ItemStack item() {
-      return this.item;
-   }
+    public ItemStack item() {
+        return this.item;
+    }
 
-   public int way() {
-      return this.way;
-   }
+    public int way() {
+        return this.way;
+    }
 
-   public Hand hand() {
-      return this.hand;
-   }
+    public Hand hand() {
+        return this.hand;
+    }
 
-   public int itemCount() {
-      return this.itemCount;
-   }
+    public int itemCount() {
+        return this.itemCount;
+    }
 
-   public Mutable startPos() {
-      return this.startPos;
-   }
+    public Mutable startPos() {
+        return this.startPos;
+    }
 
-   
-
-   public BlockPos targetPos() {
-      return this.targetPos;
-   }
+    public BlockPos targetPos() {
+        return this.targetPos;
+    }
 }

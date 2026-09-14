@@ -9,27 +9,28 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 
 class KalamaHelperHelperG {
-   Set<Item> items;
-   boolean blacklist = true;
+    Set<Item> items;
+    boolean blacklist = true;
 
-   public boolean acceptable(ItemStack stack) {
-      return this.blacklist != this.items.contains(stack.getItem());
-   }
+    public boolean acceptable(ItemStack stack) {
+        return this.blacklist != this.items.contains(stack.getItem());
+    }
 
-   public void openModifyItemScreen(Runnable callback) {
-      ScreenAccess.of(new RegistryChooseScreen2<>(Registries.ITEM, this.items, i -> {
-         this.items = i;
-         callback.run();
-      })).openFromCurrent();
-   }
+    public void openModifyItemScreen(Runnable callback) {
+        ScreenAccess.of(new RegistryChooseScreen2<>(Registries.ITEM, this.items, i -> {
+                    this.items = i;
+                    callback.run();
+                }))
+                .openFromCurrent();
+    }
 
-   public KalamaHelperHelperG() {
-      this.items = new LinkedHashSet<>();
-   }
+    public KalamaHelperHelperG() {
+        this.items = new LinkedHashSet<>();
+    }
 
-   public void b(Runnable callback) {
-      this.items.clear();
-      this.blacklist = true;
-      callback.run();
-   }
+    public void b(Runnable callback) {
+        this.items.clear();
+        this.blacklist = true;
+        callback.run();
+    }
 }

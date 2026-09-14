@@ -17,27 +17,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({InGameHud.class})
 public class InGameHudEvents {
-   @Shadow
-   @Final
-   private MinecraftClient field_2035;
-   @Shadow
-   @Final
-   private LayeredDrawer field_47847;
+    @Shadow
+    @Final
+    private MinecraftClient field_2035;
 
-   @Inject(
-      method = {"render"},
-      at = {@At("HEAD")}
-   )
-   private void renderPlayerList(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-      KalamaHelperHelperB.of(this.field_47847).setPos((ctx, tc) -> {
-         VDrawContext vdraw = VDrawContext.P(ctx);
-         vdraw.b();
+    @Shadow
+    @Final
+    private LayeredDrawer field_47847;
 
-         try {
-            RenderListener.r().h(vdraw, tc.getTickDelta(false), this.field_2035.options.hudHidden);
-         } finally {
-            vdraw.c();
-         }
-      });
-   }
+    @Inject(
+            method = {"render"},
+            at = {@At("HEAD")})
+    private void renderPlayerList(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+        KalamaHelperHelperB.of(this.field_47847).setPos((ctx, tc) -> {
+            VDrawContext vdraw = VDrawContext.P(ctx);
+            vdraw.b();
+
+            try {
+                RenderListener.r().h(vdraw, tc.getTickDelta(false), this.field_2035.options.hudHidden);
+            } finally {
+                vdraw.c();
+            }
+        });
+    }
 }

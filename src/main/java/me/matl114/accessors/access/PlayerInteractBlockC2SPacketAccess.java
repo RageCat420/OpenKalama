@@ -12,37 +12,38 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 
 public interface PlayerInteractBlockC2SPacketAccess {
-   void setHand(Hand var1);
+    void setHand(Hand var1);
 
-   void setBlockHitResult(BlockHitResult var1);
+    void setBlockHitResult(BlockHitResult var1);
 
-   void setSequence(int var1);
+    void setSequence(int var1);
 
-   PlayerInteractBlockC2SPacketAccess.UseContext getUseContext();
+    PlayerInteractBlockC2SPacketAccess.UseContext getUseContext();
 
-   default boolean hasUseContext() {
-      return this.getUseContext() != null;
-   }
+    default boolean hasUseContext() {
+        return this.getUseContext() != null;
+    }
 
-   void setUseContext(PlayerInteractBlockC2SPacketAccess.UseContext var1);
+    void setUseContext(PlayerInteractBlockC2SPacketAccess.UseContext var1);
 
-   static PlayerInteractBlockC2SPacketAccess of(PlayerInteractBlockC2SPacket packet) {
-      return (PlayerInteractBlockC2SPacketAccess)packet;
-   }
+    static PlayerInteractBlockC2SPacketAccess of(PlayerInteractBlockC2SPacket packet) {
+        return (PlayerInteractBlockC2SPacketAccess) packet;
+    }
 
-   public record UseContext(ItemStack stack, BlockState oldState, ActionResult actionResult, boolean blockPlace) {
-      public boolean isEmpty() {
-         return this.stack.isEmpty() || !(this.stack.getItem() instanceof BlockItem);
-      }
+    public record UseContext(ItemStack stack, BlockState oldState, ActionResult actionResult, boolean blockPlace) {
+        public boolean isEmpty() {
+            return this.stack.isEmpty() || !(this.stack.getItem() instanceof BlockItem);
+        }
 
-      public BlockPos getPlaceBlockPos(Hand hand, BlockHitResult blockHitResult) {
-         return this.oldState.isAir()
-            ? blockHitResult.getBlockPos()
-            : new ItemPlacementContext(MinecraftClient.getInstance().player, hand, this.stack, blockHitResult).getBlockPos();
-      }
+        public BlockPos getPlaceBlockPos(Hand hand, BlockHitResult blockHitResult) {
+            return this.oldState.isAir()
+                    ? blockHitResult.getBlockPos()
+                    : new ItemPlacementContext(MinecraftClient.getInstance().player, hand, this.stack, blockHitResult)
+                            .getBlockPos();
+        }
 
-      public boolean isAccepted() {
-         return this.actionResult.isAccepted();
-      }
-   }
+        public boolean isAccepted() {
+            return this.actionResult.isAccepted();
+        }
+    }
 }

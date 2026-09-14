@@ -7,23 +7,23 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public interface TaskManager {
-   @Nonnull
-   Map<String, Runnable> b();
+    @Nonnull
+    Map<String, Runnable> b();
 
-   void register(String var1, Runnable var2);
+    void register(String var1, Runnable var2);
 
-   @Nullable
-   Runnable a(String var1);
+    @Nullable
+    Runnable a(String var1);
 
-   @Nonnull
-   Runnable getOrRegister(String var1, Runnable var2);
+    @Nonnull
+    Runnable getOrRegister(String var1, Runnable var2);
 
-   static TaskManager f() {
-      LinkedHashMap var0 = new LinkedHashMap();
-      return new KalamaHelperHelperE(var0);
-   }
+    static TaskManager f() {
+        LinkedHashMap var0 = new LinkedHashMap();
+        return new KalamaHelperHelperE(var0);
+    }
 
-   static TaskManager g(HashMap<String, Runnable> map) {
-      return new KalamaHelperHelperE(map);
-   }
+    static TaskManager g(HashMap<String, Runnable> map) {
+        return new KalamaHelperHelperE(map);
+    }
 }

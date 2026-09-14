@@ -1,13 +1,13 @@
 package me.matl114.utils.config;
 
 public interface KeyValue<T> {
-   String getKeyName();
+    String getKeyName();
 
-   T getOriginValue();
+    T getOriginValue();
 
-   boolean setOriginValue(T var1);
+    boolean setOriginValue(T var1);
 
-   boolean isValueValid(T var1);
+    boolean isValueValid(T var1);
 
-   boolean isValidate();
+    boolean isValidate();
 }

@@ -5,15 +5,15 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 
 public interface EntityAccess<T extends Entity> extends MetadataHolder {
-   void setDataFlag(int var1, boolean var2);
+    void setDataFlag(int var1, boolean var2);
 
-   boolean getDataFlag(int var1);
+    boolean getDataFlag(int var1);
 
-   static <T extends Entity> EntityAccess<T> of(T entity) {
-      return (EntityAccess<T>)entity;
-   }
+    static <T extends Entity> EntityAccess<T> of(T entity) {
+        return (EntityAccess<T>) entity;
+    }
 
-   default boolean checkClientPlayer() {
-      return this == MinecraftClient.getInstance().player;
-   }
+    default boolean checkClientPlayer() {
+        return this == MinecraftClient.getInstance().player;
+    }
 }

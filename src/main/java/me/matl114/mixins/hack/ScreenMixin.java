@@ -10,14 +10,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({Screen.class})
 public class ScreenMixin {
-   @Inject(
-      method = {"renderInGameBackground"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private void renderBackground(DrawContext context, CallbackInfo ci) {
-      if (NoRender.INSTANCE.CN()) {
-         ci.cancel();
-      }
-   }
+    @Inject(
+            method = {"renderInGameBackground"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    private void renderBackground(DrawContext context, CallbackInfo ci) {
+        if (NoRender.INSTANCE.CN()) {
+            ci.cancel();
+        }
+    }
 }

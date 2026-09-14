@@ -22,31 +22,32 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin({DataTracker.class})
 @Environment(EnvType.CLIENT)
 public class DataTrackerEvents {
-   @Final
-   @Shadow
-   private DataTracked field_13333;
+    @Final
+    @Shadow
+    private DataTracked field_13333;
 
-   @Inject(
-      method = {"writeUpdatedEntries"},
-      at = {@At("HEAD")}
-   )
-   private void callDataTrackerEntryUpdateEvents(
-      List<SerializedEntry<?>> entries, CallbackInfo ci, @Local(argsOnly = true) LocalRef<List<SerializedEntry<?>>> entryRef
-   ) {
-      if (!Listener.au().d()) {
-         if (this.field_13333 instanceof Entity entity) {
-            List<SerializedEntry<?>> entryList = new ArrayList<>();
+    @Inject(
+            method = {"writeUpdatedEntries"},
+            at = {@At("HEAD")})
+    private void callDataTrackerEntryUpdateEvents(
+            List<SerializedEntry<?>> entries,
+            CallbackInfo ci,
+            @Local(argsOnly = true) LocalRef<List<SerializedEntry<?>>> entryRef) {
+        if (!Listener.au().d()) {
+            if (this.field_13333 instanceof Entity entity) {
+                List<SerializedEntry<?>> entryList = new ArrayList<>();
 
-            for (SerializedEntry<?> serializedEntry : entries) {
-               Event<SerializedEntry<?>> serializedEntryMutableObject = new Event<>(serializedEntry, true, true, this.field_13333);
-               Listener.au().b(serializedEntryMutableObject);
-               if (!serializedEntryMutableObject.d() && serializedEntryMutableObject.e() != null) {
-                  entryList.add(serializedEntryMutableObject.e());
-               }
+                for (SerializedEntry<?> serializedEntry : entries) {
+                    Event<SerializedEntry<?>> serializedEntryMutableObject =
+                            new Event<>(serializedEntry, true, true, this.field_13333);
+                    Listener.au().b(serializedEntryMutableObject);
+                    if (!serializedEntryMutableObject.d() && serializedEntryMutableObject.e() != null) {
+                        entryList.add(serializedEntryMutableObject.e());
+                    }
+                }
+
+                entryRef.set(entryList);
             }
-
-            entryRef.set(entryList);
-         }
-      }
-   }
+        }
+    }
 }

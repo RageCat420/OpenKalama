@@ -12,33 +12,34 @@ import org.apache.commons.lang3.function.Consumers;
 import org.jetbrains.annotations.Nullable;
 
 public class KalamaHelperHelperUX extends me.matl114.utils.commands.params.impl.KalamaHelperHelperA {
-   public KalamaHelperHelperUX(String argsName) {
-      super(argsName);
-   }
+    public KalamaHelperHelperUX(String argsName) {
+        super(argsName);
+    }
 
-   @Nullable
-   @Override
-   public InputArgument<ExecutePos> consume(CommandExecution execution, List<InputArgument<?>> args, ArgumentReader reader) {
-      if (reader.hasNext()) {
-         int var4 = reader.b();
-         Optional<net.minecraft.util.math.Vec3d> var5 = MovTasks.ab(execution, args, reader, Consumers.nop());
-         if (var5 != null) {
-            return new PosArgumentResult(var5.map(ExecutePos::of), this, reader, var4);
-         } else {
-            reader.c(var4);
-            return super.consume(execution, args, reader);
-         }
-      } else {
-         return new PosArgumentResult(null, this, reader, reader.b());
-      }
-   }
+    @Nullable
+    @Override
+    public InputArgument<ExecutePos> consume(
+            CommandExecution execution, List<InputArgument<?>> args, ArgumentReader reader) {
+        if (reader.hasNext()) {
+            int var4 = reader.b();
+            Optional<net.minecraft.util.math.Vec3d> var5 = MovTasks.ab(execution, args, reader, Consumers.nop());
+            if (var5 != null) {
+                return new PosArgumentResult(var5.map(ExecutePos::of), this, reader, var4);
+            } else {
+                reader.c(var4);
+                return super.consume(execution, args, reader);
+            }
+        } else {
+            return new PosArgumentResult(null, this, reader, reader.b());
+        }
+    }
 
-   @Override
-   public Stream<String> getTab(CommandExecution sender, List<InputArgument<?>> args) {
-      return Stream.concat(super.getTab(sender, args), this.j(sender, args));
-   }
+    @Override
+    public Stream<String> getTab(CommandExecution sender, List<InputArgument<?>> args) {
+        return Stream.concat(super.getTab(sender, args), this.j(sender, args));
+    }
 
-   public Stream<String> j(CommandExecution sender, List<InputArgument<?>> args) {
-      return args.isEmpty() ? Stream.empty() : this.aC(MovTasks.ac(sender, args).stream(), args);
-   }
+    public Stream<String> j(CommandExecution sender, List<InputArgument<?>> args) {
+        return args.isEmpty() ? Stream.empty() : this.aC(MovTasks.ac(sender, args).stream(), args);
+    }
 }

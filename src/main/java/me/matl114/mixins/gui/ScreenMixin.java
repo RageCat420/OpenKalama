@@ -8,38 +8,38 @@ import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.At.Shift;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin({Screen.class})
 public abstract class ScreenMixin extends AbstractParentElement {
-   public Element method_25399() {
-      Element focused = super.getFocused();
-      if (focused == null
-         && this instanceof CustomFocusBehaviourScreenAccess access
-         && access.autoSelectDefaultElementWhenNotFocused()
-         && (focused = access.getDefaultElement()) != null) {
-         this.setFocused(focused);
-      }
+    public Element method_25399() {
+        Element focused = super.getFocused();
+        if (focused == null
+                && this instanceof CustomFocusBehaviourScreenAccess access
+                && access.autoSelectDefaultElementWhenNotFocused()
+                && (focused = access.getDefaultElement()) != null) {
+            this.setFocused(focused);
+        }
 
-      return focused;
-   }
+        return focused;
+    }
 
-   @Inject(
-      method = {"keyPressed"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/gui/screen/Screen;switchFocus(Lnet/minecraft/client/gui/navigation/GuiNavigationPath;)V",
-         shift = Shift.BEFORE
-      )},
-      cancellable = true
-   )
-   private void onKeyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
-      if (this instanceof CustomFocusBehaviourScreenAccess access && !access.enableSwitchUsingNavigation()) {
-         cir.setReturnValue(false);
-      }
-   }
-
+    @Inject(
+            method = {"keyPressed"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/client/gui/screen/Screen;switchFocus(Lnet/minecraft/client/gui/navigation/GuiNavigationPath;)V",
+                        shift = Shift.BEFORE)
+            },
+            cancellable = true)
+    private void onKeyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
+        if (this instanceof CustomFocusBehaviourScreenAccess access && !access.enableSwitchUsingNavigation()) {
+            cir.setReturnValue(false);
+        }
+    }
 }

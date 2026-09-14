@@ -11,22 +11,22 @@ import org.spongepowered.asm.mixin.Unique;
 @Environment(EnvType.CLIENT)
 @Mixin({Screen.class})
 public class ScreenMetadataHolderMixin implements MetadataHolder {
-   @Unique
-   public KalamaHelperHelperB metaData;
+    @Unique
+    public KalamaHelperHelperB metaData;
 
-   @Unique
-   @Override
-   public KalamaHelperHelperB getMetadata() {
-      if (this.metaData == null) {
-         this.metaData = new KalamaHelperHelperB();
-      }
+    @Unique
+    @Override
+    public KalamaHelperHelperB getMetadata() {
+        if (this.metaData == null) {
+            this.metaData = new KalamaHelperHelperB();
+        }
 
-      return this.metaData;
-   }
+        return this.metaData;
+    }
 
-   @Unique
-   @Override
-   public boolean isMetaEmpty() {
-      return this.metaData == null;
-   }
+    @Unique
+    @Override
+    public boolean isMetaEmpty() {
+        return this.metaData == null;
+    }
 }

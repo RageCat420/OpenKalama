@@ -12,14 +12,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin({PlayerAbilities.class})
 @Environment(EnvType.CLIENT)
 public class PlayerAbilityMixin {
-   @Inject(
-      method = {"getFlySpeed"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void getFlySpeed(CallbackInfoReturnable<Float> cir) {
-      if (MovTasks.at().flySpeed.get()) {
-         cir.setReturnValue((float)MovTasks.at().getOverridingFlySpeed());
-      }
-   }
+    @Inject(
+            method = {"getFlySpeed"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    public void getFlySpeed(CallbackInfoReturnable<Float> cir) {
+        if (MovTasks.at().flySpeed.get()) {
+            cir.setReturnValue((float) MovTasks.at().getOverridingFlySpeed());
+        }
+    }
 }

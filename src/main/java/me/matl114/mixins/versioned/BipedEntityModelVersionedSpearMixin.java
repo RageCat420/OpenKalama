@@ -24,52 +24,57 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin({BipedEntityModel.class})
 public class BipedEntityModelVersionedSpearMixin {
-   @Shadow
-   @Final
-   public ModelPart field_27433;
-   @Shadow
-   @Final
-   public ModelPart field_3398;
-   @Shadow
-   @Final
-   public ModelPart field_3401;
+    @Shadow
+    @Final
+    public ModelPart field_27433;
 
-   @Inject(
-      method = {"positionRightArm"},
-      at = {@At("RETURN")}
-   )
-   private void positionRightArm(LivingEntity entity, CallbackInfo ci) {
-      if (entity instanceof PlayerEntity pl && SpearEnhance.INSTANCE.fixOldVersionSpear.get() && SpearEnhance.isUsingSpear(pl)) {
-         Hand hand = pl.getActiveHand();
-         Arm arm = hand == Hand.MAIN_HAND ? pl.getMainArm() : pl.getMainArm().getOpposite();
-         if (arm == Arm.RIGHT) {
-            LancingUtils.positionArmForSpear(this.field_3401, this.field_3398, true, pl.getActiveItem(), pl);
-         }
-      }
-   }
+    @Shadow
+    @Final
+    public ModelPart field_3398;
 
-   @Inject(
-      method = {"positionLeftArm"},
-      at = {@At("RETURN")}
-   )
-   private void positionLefgArm(LivingEntity entity, CallbackInfo ci) {
-      if (entity instanceof PlayerEntity pl && SpearEnhance.INSTANCE.fixOldVersionSpear.get() && SpearEnhance.isUsingSpear(pl)) {
-         Hand hand = pl.getActiveHand();
-         Arm arm = hand == Hand.MAIN_HAND ? pl.getMainArm() : pl.getMainArm().getOpposite();
-         if (arm == Arm.LEFT) {
-            LancingUtils.positionArmForSpear(this.field_27433, this.field_3398, false, pl.getActiveItem(), pl);
-         }
-      }
-   }
+    @Shadow
+    @Final
+    public ModelPart field_3401;
 
-   @ModifyExpressionValue(
-      method = {"setAngles(Lnet/minecraft/entity/LivingEntity;FFFFF)V"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/entity/LivingEntity;getFallFlyingTicks()I"
-      )}
-   )
-   private int setAnglesFallFlyingTicks(int original, @Local(argsOnly = true) LivingEntity p) {
-      return original > 0 && p == MinecraftClient.getInstance().player && ElytraExtra.INSTANCE.afr() && ElytraExtra.INSTANCE.renderFix.get() ? 0 : original;
-   }
+    @Inject(
+            method = {"positionRightArm"},
+            at = {@At("RETURN")})
+    private void positionRightArm(LivingEntity entity, CallbackInfo ci) {
+        if (entity instanceof PlayerEntity pl
+                && SpearEnhance.INSTANCE.fixOldVersionSpear.get()
+                && SpearEnhance.isUsingSpear(pl)) {
+            Hand hand = pl.getActiveHand();
+            Arm arm = hand == Hand.MAIN_HAND ? pl.getMainArm() : pl.getMainArm().getOpposite();
+            if (arm == Arm.RIGHT) {
+                LancingUtils.positionArmForSpear(this.field_3401, this.field_3398, true, pl.getActiveItem(), pl);
+            }
+        }
+    }
+
+    @Inject(
+            method = {"positionLeftArm"},
+            at = {@At("RETURN")})
+    private void positionLefgArm(LivingEntity entity, CallbackInfo ci) {
+        if (entity instanceof PlayerEntity pl
+                && SpearEnhance.INSTANCE.fixOldVersionSpear.get()
+                && SpearEnhance.isUsingSpear(pl)) {
+            Hand hand = pl.getActiveHand();
+            Arm arm = hand == Hand.MAIN_HAND ? pl.getMainArm() : pl.getMainArm().getOpposite();
+            if (arm == Arm.LEFT) {
+                LancingUtils.positionArmForSpear(this.field_27433, this.field_3398, false, pl.getActiveItem(), pl);
+            }
+        }
+    }
+
+    @ModifyExpressionValue(
+            method = {"setAngles(Lnet/minecraft/entity/LivingEntity;FFFFF)V"},
+            at = {@At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getFallFlyingTicks()I")})
+    private int setAnglesFallFlyingTicks(int original, @Local(argsOnly = true) LivingEntity p) {
+        return original > 0
+                        && p == MinecraftClient.getInstance().player
+                        && ElytraExtra.INSTANCE.afr()
+                        && ElytraExtra.INSTANCE.renderFix.get()
+                ? 0
+                : original;
+    }
 }

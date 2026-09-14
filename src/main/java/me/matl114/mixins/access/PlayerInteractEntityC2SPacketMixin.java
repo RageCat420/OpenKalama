@@ -14,36 +14,36 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Environment(EnvType.CLIENT)
 @Mixin({PlayerInteractEntityC2SPacket.class})
 public abstract class PlayerInteractEntityC2SPacketMixin implements PlayerInteractEntityC2SPacketAccess {
-   @Shadow
-   @Final
-   public InteractTypeHandler type;
-   @Shadow
-   @Final
-   public static InteractTypeHandler ATTACK;
+    @Shadow
+    @Final
+    public InteractTypeHandler type;
 
-   @Mutable
-   @Accessor("entityId")
-   @Override
-public abstract void setEntityId(int var1) ;
+    @Shadow
+    @Final
+    public static InteractTypeHandler ATTACK;
 
-   @Mutable
-   @Accessor("entityId")
-   @Override
-public abstract int getEntityId() ;
+    @Mutable
+    @Accessor("entityId")
+    @Override
+    public abstract void setEntityId(int var1);
 
-   @Mutable
-   @Accessor("type")
-   @Override
-public abstract void setType(InteractTypeHandler var1) ;
+    @Mutable
+    @Accessor("entityId")
+    @Override
+    public abstract int getEntityId();
 
-   @Mutable
-   @Accessor("playerSneaking")
-   @Override
-public abstract void setPlayerSneaking(boolean var1) ;
+    @Mutable
+    @Accessor("type")
+    @Override
+    public abstract void setType(InteractTypeHandler var1);
 
-   @Override
-   public boolean isAttack() {
-      return this.type.getType() == ATTACK.getType();
-   }
+    @Mutable
+    @Accessor("playerSneaking")
+    @Override
+    public abstract void setPlayerSneaking(boolean var1);
+
+    @Override
+    public boolean isAttack() {
+        return this.type.getType() == ATTACK.getType();
+    }
 }
-

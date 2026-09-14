@@ -13,18 +13,24 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin({WorldRenderer.class})
 public class WorldRendererEvents {
-   @WrapOperation(
-      method = {"render"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/render/entity/EntityRenderDispatcher;shouldRender(Lnet/minecraft/entity/Entity;Lnet/minecraft/client/render/Frustum;DDD)Z"
-      )}
-   )
-   public boolean onEntityRenderEvent(
-      EntityRenderDispatcher instance, Entity entity, Frustum frustum, double x, double y, double z, Operation<Boolean> original
-   ) {
-      Event<Entity> event = new Event<>(entity, true, false);
-      RenderListener.y().catchEvent(event);
-      return event.d() ? false : (Boolean)original.call(new Object[]{instance, entity, frustum, x, y, z});
-   }
+    @WrapOperation(
+            method = {"render"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/client/render/entity/EntityRenderDispatcher;shouldRender(Lnet/minecraft/entity/Entity;Lnet/minecraft/client/render/Frustum;DDD)Z")
+            })
+    public boolean onEntityRenderEvent(
+            EntityRenderDispatcher instance,
+            Entity entity,
+            Frustum frustum,
+            double x,
+            double y,
+            double z,
+            Operation<Boolean> original) {
+        Event<Entity> event = new Event<>(entity, true, false);
+        RenderListener.y().catchEvent(event);
+        return event.d() ? false : (Boolean) original.call(new Object[] {instance, entity, frustum, x, y, z});
+    }
 }

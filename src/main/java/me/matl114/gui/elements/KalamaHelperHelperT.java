@@ -4,5 +4,5 @@ import net.minecraft.text.OrderedText;
 
 @FunctionalInterface
 public interface KalamaHelperHelperT {
-   OrderedText format(String var1, int var2);
+    OrderedText format(String var1, int var2);
 }

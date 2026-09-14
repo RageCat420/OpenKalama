@@ -13,17 +13,13 @@ import org.spongepowered.asm.mixin.injection.At;
 @Environment(EnvType.CLIENT)
 @Mixin({ClientPlayerEntity.class})
 public class ClientPlayerInputTickMixin {
-   @Shadow
-   public Input field_3913;
+    @Shadow
+    public Input field_3913;
 
-   @ModifyExpressionValue(
-      method = {"tickMovement"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/option/KeyBinding;isPressed()Z"
-      )}
-   )
-   public boolean rewriteSprintPressWithInputFlag(boolean original) {
-      return PlayerInputAccess.of(this.field_3913).isPressingSprint();
-   }
+    @ModifyExpressionValue(
+            method = {"tickMovement"},
+            at = {@At(value = "INVOKE", target = "Lnet/minecraft/client/option/KeyBinding;isPressed()Z")})
+    public boolean rewriteSprintPressWithInputFlag(boolean original) {
+        return PlayerInputAccess.of(this.field_3913).isPressingSprint();
+    }
 }

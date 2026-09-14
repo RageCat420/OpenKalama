@@ -8,11 +8,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class MapClickContext {
-   StringFormat formatter;
-   BiConsumer<RegistryKey<World>, BlockPos> function;
+    StringFormat formatter;
+    BiConsumer<RegistryKey<World>, BlockPos> function;
 
-   public MapClickContext(String format, BiConsumer<RegistryKey<World>, BlockPos> function) {
-      this.formatter = new StringFormat(List.of("pos", "x", "y", "z"), format);
-      this.function = function;
-   }
+    public MapClickContext(String format, BiConsumer<RegistryKey<World>, BlockPos> function) {
+        this.formatter = new StringFormat(List.of("pos", "x", "y", "z"), format);
+        this.function = function;
+    }
 }

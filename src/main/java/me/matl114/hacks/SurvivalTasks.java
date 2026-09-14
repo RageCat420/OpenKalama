@@ -19,98 +19,99 @@ import me.matl114.hacks.modules.survival.XaeroHelper;
 import org.jetbrains.annotations.ApiStatus.Experimental;
 
 public class SurvivalTasks {
-   private static WorldManager d;
-   private static AutoBreed i;
-   private static SeedOre g;
-   private static BaritoneFix m;
-   private static PathManager k;
-   private static VillagerEsp c;
-   private static SearchControl j;
-   public static final ModuleGroup a = new ModuleGroup("Survival");
-   private static AutoLibrarian h;
-   @Experimental
-   private static ElytraFinder l;
-   public static XaeroHelper n;
-   private static BlockFarm e;
-   private static AntiAXray f;
-   private static SchedularSettings b;
+    private static WorldManager d;
+    private static AutoBreed i;
+    private static SeedOre g;
+    private static BaritoneFix m;
+    private static PathManager k;
+    private static VillagerEsp c;
+    private static SearchControl j;
+    public static final ModuleGroup a = new ModuleGroup("Survival");
+    private static AutoLibrarian h;
 
-   public static ElytraFinder n() {
-      return l;
-   }
+    @Experimental
+    private static ElytraFinder l;
 
-   public static BlockFarm g() {
-      return e;
-   }
+    public static XaeroHelper n;
+    private static BlockFarm e;
+    private static AntiAXray f;
+    private static SchedularSettings b;
 
-   public static PathManager m() {
-      return k;
-   }
+    public static ElytraFinder n() {
+        return l;
+    }
 
-   public static AntiAXray h() {
-      return f;
-   }
+    public static BlockFarm g() {
+        return e;
+    }
 
-   public static WorldManager f() {
-      return d;
-   }
+    public static PathManager m() {
+        return k;
+    }
 
-   public static BaritoneFix o() {
-      return m;
-   }
+    public static AntiAXray h() {
+        return f;
+    }
 
-   public static VillagerEsp e() {
-      return c;
-   }
+    public static WorldManager f() {
+        return d;
+    }
 
-   public static void a() {
-   }
+    public static BaritoneFix o() {
+        return m;
+    }
 
-   public static AutoBreed k() {
-      return i;
-   }
+    public static VillagerEsp e() {
+        return c;
+    }
 
-   public static XaeroHelper p() {
-      return n;
-   }
+    public static void a() {}
 
-   private static void b(ModuleManager m) {
-      b = new SchedularSettings().register(m);
-      c = new VillagerEsp().register(m);
-      d = new WorldManager().register(m);
-      e = new BlockFarm().register(m);
-      f = new AntiAXray().register(m);
-      g = new SeedOre().register(m);
-      h = new AutoLibrarian().register(m);
-      i = new AutoBreed().register(m);
-      j = new SearchControl().register(m);
-      k = new PathManager().register(m);
-      SurvivalTasks.m = new BaritoneFix().register(m);
-      n = new XaeroHelper().register(m);
-   }
+    public static AutoBreed k() {
+        return i;
+    }
 
-   public static SchedularSettings d() {
-      return b;
-   }
+    public static XaeroHelper p() {
+        return n;
+    }
 
-   public static SearchControl l() {
-      return j;
-   }
+    private static void b(ModuleManager m) {
+        b = new SchedularSettings().register(m);
+        c = new VillagerEsp().register(m);
+        d = new WorldManager().register(m);
+        e = new BlockFarm().register(m);
+        f = new AntiAXray().register(m);
+        g = new SeedOre().register(m);
+        h = new AutoLibrarian().register(m);
+        i = new AutoBreed().register(m);
+        j = new SearchControl().register(m);
+        k = new PathManager().register(m);
+        SurvivalTasks.m = new BaritoneFix().register(m);
+        n = new XaeroHelper().register(m);
+    }
 
-   public static AutoLibrarian j() {
-      return h;
-   }
+    public static SchedularSettings d() {
+        return b;
+    }
 
-   public static ModuleGroup c() {
-      return a;
-   }
+    public static SearchControl l() {
+        return j;
+    }
 
-   public static SeedOre i() {
-      return g;
-   }
+    public static AutoLibrarian j() {
+        return h;
+    }
 
-   static {
-      a.registerFactories(SurvivalTasks::b);
-      HackModules.registerModuleGroup(a);
-   }
+    public static ModuleGroup c() {
+        return a;
+    }
+
+    public static SeedOre i() {
+        return g;
+    }
+
+    static {
+        a.registerFactories(SurvivalTasks::b);
+        HackModules.registerModuleGroup(a);
+    }
 }

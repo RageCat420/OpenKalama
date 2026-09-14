@@ -17,162 +17,169 @@ import me.matl114.utils.config.kv.AttrKeyValues;
 import me.matl114.utils.config.kv.TypeConvertAttrKeyValue;
 
 public class PrimitiveList<W> implements NBTParsable<PrimitiveList<W>> {
-   final NBTType<W> elementType;
-   final List<W> list;
-   final Optional<Primitive<W>> defaultPrimitive;
-   List<Primitive<W>> _cached;
-   public static final NBTType<PrimitiveList<Object>> TYPE = create();
+    final NBTType<W> elementType;
+    final List<W> list;
+    final Optional<Primitive<W>> defaultPrimitive;
+    List<Primitive<W>> _cached;
+    public static final NBTType<PrimitiveList<Object>> TYPE = create();
 
-   public static <R> Class<PrimitiveList<R>> type(Class<R> clazz) {
-      return (Class)PrimitiveList.class;
-   }
+    public static <R> Class<PrimitiveList<R>> type(Class<R> clazz) {
+        return (Class) PrimitiveList.class;
+    }
 
-   public PrimitiveList(NBTType<W> primitive, List<W> list) {
-      this(primitive, list, Optional.empty());
-   }
+    public PrimitiveList(NBTType<W> primitive, List<W> list) {
+        this(primitive, list, Optional.empty());
+    }
 
-   public PrimitiveList(NBTType<W> primitive, List<W> list, W defaultPrimitive) {
-      this(primitive, list, Optional.of(Primitive.of(primitive, defaultPrimitive)));
-   }
+    public PrimitiveList(NBTType<W> primitive, List<W> list, W defaultPrimitive) {
+        this(primitive, list, Optional.of(Primitive.of(primitive, defaultPrimitive)));
+    }
 
-   protected PrimitiveList(NBTType<W> primitive, List<W> list, Optional<Primitive<W>> defaultPrimitive) {
-      this.elementType = primitive;
-      this.list = new ArrayList<>(list);
-      this.defaultPrimitive = defaultPrimitive.map(entry -> {
-         Preconditions.checkArgument(entry.valueType() == primitive);
-         return entry;
-      });
-   }
+    protected PrimitiveList(NBTType<W> primitive, List<W> list, Optional<Primitive<W>> defaultPrimitive) {
+        this.elementType = primitive;
+        this.list = new ArrayList<>(list);
+        this.defaultPrimitive = defaultPrimitive.map(entry -> {
+            Preconditions.checkArgument(entry.valueType() == primitive);
+            return entry;
+        });
+    }
 
-   public PrimitiveList(List<Primitive<W>> primitiveList, NBTType<W> primitive) {
-      this(primitiveList, primitive, Optional.empty());
-   }
+    public PrimitiveList(List<Primitive<W>> primitiveList, NBTType<W> primitive) {
+        this(primitiveList, primitive, Optional.empty());
+    }
 
-   public PrimitiveList(List<Primitive<W>> primitiveList, NBTType<W> primitive, Optional<Primitive<W>> defaultPrimitive) {
-      this.elementType = primitive;
-      this._cached = primitiveList;
-      this.list = new ArrayList<>(primitiveList.size());
+    public PrimitiveList(
+            List<Primitive<W>> primitiveList, NBTType<W> primitive, Optional<Primitive<W>> defaultPrimitive) {
+        this.elementType = primitive;
+        this._cached = primitiveList;
+        this.list = new ArrayList<>(primitiveList.size());
 
-      for (Primitive<W> entry : primitiveList) {
-         Preconditions.checkArgument(entry.valueType() == primitive);
-         this.list.add(entry.value());
-      }
+        for (Primitive<W> entry : primitiveList) {
+            Preconditions.checkArgument(entry.valueType() == primitive);
+            this.list.add(entry.value());
+        }
 
-      this.defaultPrimitive = defaultPrimitive.map(entryx -> {
-         Preconditions.checkArgument(entryx.valueType() == primitive);
-         return entryx;
-      });
-   }
+        this.defaultPrimitive = defaultPrimitive.map(entryx -> {
+            Preconditions.checkArgument(entryx.valueType() == primitive);
+            return entryx;
+        });
+    }
 
-   public W createNewElement() {
-      return this.defaultPrimitive.map(this::copyPrimitive).orElseGet(this.elementType::createEmpty);
-   }
+    public W createNewElement() {
+        return this.defaultPrimitive.map(this::copyPrimitive).orElseGet(this.elementType::createEmpty);
+    }
 
-   private W copyPrimitive(Primitive<W> value) {
-      return value.valueType().parse(value.valueType().toNbt(value.value()));
-   }
+    private W copyPrimitive(Primitive<W> value) {
+        return value.valueType().parse(value.valueType().toNbt(value.value()));
+    }
 
-   public List<Primitive<W>> toPrimitiveList() {
-      if (this._cached == null) {
-         List<Primitive<W>> cached = new ArrayList<>();
+    public List<Primitive<W>> toPrimitiveList() {
+        if (this._cached == null) {
+            List<Primitive<W>> cached = new ArrayList<>();
 
-         for (W entry : this.list) {
-            cached.add(Primitive.of(this.elementType, entry));
-         }
+            for (W entry : this.list) {
+                cached.add(Primitive.of(this.elementType, entry));
+            }
 
-         this._cached = cached;
-      }
+            this._cached = cached;
+        }
 
-      return this._cached;
-   }
+        return this._cached;
+    }
 
-   public static final <W> NBTType<PrimitiveList<W>> create() {
-      Codec<Primitive<W>> primitiveCodec = (Codec<Primitive<W>>)(Codec)Primitive.TYPE.typeCodec();
-      return new NBTType<PrimitiveList<W>>(
-         "primitivelist",
-         RecordCodecBuilder.<PrimitiveList<W>>create(
-               oInstance -> oInstance.group(
-                     Codec.list(primitiveCodec).fieldOf("data").<PrimitiveList<W>>forGetter(PrimitiveList::toPrimitiveList),
-                     NBTTypes.<W>codec().fieldOf("element_type").<PrimitiveList<W>>forGetter(PrimitiveList::elementType),
-                     primitiveCodec.optionalFieldOf("default_primitive").<PrimitiveList<W>>forGetter(PrimitiveList::defaultPrimitive)
-                  )
-                  .apply(oInstance, PrimitiveList::new)
-            ),
-         (AttrKeyValue.CustomWidgetFactory<PrimitiveList<W>>)(w, x, y, dx, dy) -> {
-            PrimitiveList<W> map = w.getOriginValue();
-            NBTType<W> type = map.elementType();
-            AttrKeyValue.CustomWidgetFactory<List<W>> widgetFactory = (w1, x1, y1, dx1, dy1) -> NBTTypes.generateListModifyButton(
-               w1, type, map::createNewElement, x1, y1, dx1, dy1, 300, 20
-            );
-            WrapperFactory<String, List<W>> stringListWrapperFactory = AttrKeyValues.STR_LIST_FACTORY.concat(WrapperFactory.list(type.stringifyFactory()));
-            WrapperFactory<List<W>, PrimitiveList<W>> wrapperFactory = WrapperFactory.of(
-               mp -> new PrimitiveList<>(map.elementType, mp, map.defaultPrimitive), PrimitiveList::list
-            );
-            return new TypeConvertAttrKeyValue<>(w, wrapperFactory, widgetFactory, stringListWrapperFactory).generateValueWidget(x, y, dx, dy);
-         },
-         (PrimitiveList<W>)new PrimitiveList<>(NBTTypes.g, List.of())
-      );
-   }
+    public static final <W> NBTType<PrimitiveList<W>> create() {
+        Codec<Primitive<W>> primitiveCodec = (Codec<Primitive<W>>) (Codec) Primitive.TYPE.typeCodec();
+        return new NBTType<PrimitiveList<W>>(
+                "primitivelist",
+                RecordCodecBuilder.<PrimitiveList<W>>create(oInstance -> oInstance
+                        .group(
+                                Codec.list(primitiveCodec)
+                                        .fieldOf("data")
+                                        .<PrimitiveList<W>>forGetter(PrimitiveList::toPrimitiveList),
+                                NBTTypes.<W>codec()
+                                        .fieldOf("element_type")
+                                        .<PrimitiveList<W>>forGetter(PrimitiveList::elementType),
+                                primitiveCodec
+                                        .optionalFieldOf("default_primitive")
+                                        .<PrimitiveList<W>>forGetter(PrimitiveList::defaultPrimitive))
+                        .apply(oInstance, PrimitiveList::new)),
+                (AttrKeyValue.CustomWidgetFactory<PrimitiveList<W>>) (w, x, y, dx, dy) -> {
+                    PrimitiveList<W> map = w.getOriginValue();
+                    NBTType<W> type = map.elementType();
+                    AttrKeyValue.CustomWidgetFactory<List<W>> widgetFactory =
+                            (w1, x1, y1, dx1, dy1) -> NBTTypes.generateListModifyButton(
+                                    w1, type, map::createNewElement, x1, y1, dx1, dy1, 300, 20);
+                    WrapperFactory<String, List<W>> stringListWrapperFactory =
+                            AttrKeyValues.STR_LIST_FACTORY.concat(WrapperFactory.list(type.stringifyFactory()));
+                    WrapperFactory<List<W>, PrimitiveList<W>> wrapperFactory = WrapperFactory.of(
+                            mp -> new PrimitiveList<>(map.elementType, mp, map.defaultPrimitive), PrimitiveList::list);
+                    return new TypeConvertAttrKeyValue<>(w, wrapperFactory, widgetFactory, stringListWrapperFactory)
+                            .generateValueWidget(x, y, dx, dy);
+                },
+                (PrimitiveList<W>) new PrimitiveList<>(NBTTypes.g, List.of()));
+    }
 
-   public static <W> Class<PrimitiveList<W>> uA() {
-      return (Class<PrimitiveList<W>>)(Class<?>)PrimitiveList.class;
-   }
+    public static <W> Class<PrimitiveList<W>> uA() {
+        return (Class<PrimitiveList<W>>) (Class<?>) PrimitiveList.class;
+    }
 
-   @Override
-   public NBTType<PrimitiveList<W>> type() {
-      return TYPE.cast();
-   }
+    @Override
+    public NBTType<PrimitiveList<W>> type() {
+        return TYPE.cast();
+    }
 
-   protected PrimitiveList<W> withDefault(List<W> list, Optional<Primitive<W>> defaultPrimitive) {
-      return new PrimitiveList<>(this.elementType, list, defaultPrimitive);
-   }
+    protected PrimitiveList<W> withDefault(List<W> list, Optional<Primitive<W>> defaultPrimitive) {
+        return new PrimitiveList<>(this.elementType, list, defaultPrimitive);
+    }
 
-   @Override
-   public <R> Optional<PrimitiveList<W>> tryTypeConvert(Ref<R> ref) {
-      return ref instanceof NBTRef<?> nbt && nbt.get() instanceof PrimitiveList<?> primitiveList && primitiveList.elementType == this.elementType
-         ? Optional.of(this.withDefault((List<W>)primitiveList.list(), this.defaultPrimitive))
-         : Optional.empty();
-   }
+    @Override
+    public <R> Optional<PrimitiveList<W>> tryTypeConvert(Ref<R> ref) {
+        return ref instanceof NBTRef<?> nbt
+                        && nbt.get() instanceof PrimitiveList<?> primitiveList
+                        && primitiveList.elementType == this.elementType
+                ? Optional.of(this.withDefault((List<W>) primitiveList.list(), this.defaultPrimitive))
+                : Optional.empty();
+    }
 
-   @Override
-   public boolean equals(Object object) {
-      if (this == object) {
-         return true;
-      } else {
-         return !(object instanceof PrimitiveList<?> that)
-            ? false
-            : Objects.equals(this.elementType, that.elementType)
-               && Objects.equals(this.list, that.list)
-               && Objects.equals(this.defaultPrimitive, that.defaultPrimitive);
-      }
-   }
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        } else {
+            return !(object instanceof PrimitiveList<?> that)
+                    ? false
+                    : Objects.equals(this.elementType, that.elementType)
+                            && Objects.equals(this.list, that.list)
+                            && Objects.equals(this.defaultPrimitive, that.defaultPrimitive);
+        }
+    }
 
-   @Override
-   public int hashCode() {
-      return Objects.hash(this.elementType, this.list, this.defaultPrimitive);
-   }
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.elementType, this.list, this.defaultPrimitive);
+    }
 
-   @Override
-   public boolean isSameType(NBTParsable<?> type) {
-      return NBTParsable.super.isSameType(type)
-         && type instanceof PrimitiveList<?> that
-         && that.elementType == this.elementType
-         && Objects.equals(that.defaultPrimitive, this.defaultPrimitive);
-   }
+    @Override
+    public boolean isSameType(NBTParsable<?> type) {
+        return NBTParsable.super.isSameType(type)
+                && type instanceof PrimitiveList<?> that
+                && that.elementType == this.elementType
+                && Objects.equals(that.defaultPrimitive, this.defaultPrimitive);
+    }
 
-   public NBTType<W> elementType() {
-      return this.elementType;
-   }
+    public NBTType<W> elementType() {
+        return this.elementType;
+    }
 
-   public List<W> list() {
-      return this.list;
-   }
+    public List<W> list() {
+        return this.list;
+    }
 
-   public Optional<Primitive<W>> defaultPrimitive() {
-      return this.defaultPrimitive;
-   }
+    public Optional<Primitive<W>> defaultPrimitive() {
+        return this.defaultPrimitive;
+    }
 
-   public List<Primitive<W>> _cached() {
-      return this._cached;
-   }
+    public List<Primitive<W>> _cached() {
+        return this._cached;
+    }
 }

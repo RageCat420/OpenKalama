@@ -12,31 +12,31 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Environment(EnvType.CLIENT)
 @Mixin({PlayerMoveC2SPacket.class})
 public abstract class PlayerMoveC2SPacketMixin implements PlayerMoveC2SPacketAccess {
-   @Unique
-   PlayerMoveC2SPacketAccess.Cause cause;
+    @Unique
+    PlayerMoveC2SPacketAccess.Cause cause;
 
-   @Mutable
-   @Accessor("onGround")
-   @Override
-public abstract void setOnGround(boolean var1) ;
+    @Mutable
+    @Accessor("onGround")
+    @Override
+    public abstract void setOnGround(boolean var1);
 
-   @Mutable
-   @Accessor("pitch")
-   @Override
-public abstract void setPitch(float var1) ;
+    @Mutable
+    @Accessor("pitch")
+    @Override
+    public abstract void setPitch(float var1);
 
-   @Mutable
-   @Accessor("yaw")
-   @Override
-public abstract void setYaw(float var1) ;
+    @Mutable
+    @Accessor("yaw")
+    @Override
+    public abstract void setYaw(float var1);
 
-   @Override
-   public PlayerMoveC2SPacketAccess.Cause getCause() {
-      return this.cause;
-   }
+    @Override
+    public PlayerMoveC2SPacketAccess.Cause getCause() {
+        return this.cause;
+    }
 
-   @Override
-   public void setCause(PlayerMoveC2SPacketAccess.Cause cause) {
-      this.cause = cause;
-   }
+    @Override
+    public void setCause(PlayerMoveC2SPacketAccess.Cause cause) {
+        this.cause = cause;
+    }
 }

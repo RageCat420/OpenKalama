@@ -6,13 +6,13 @@ import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 
 public interface ChatScreenAccess extends ScreenAccess {
-   TextFieldWidget getInputWidget();
+    TextFieldWidget getInputWidget();
 
-   void resetMessageHistoryIndex();
+    void resetMessageHistoryIndex();
 
-   ChatInputSuggestor getSuggestor();
+    ChatInputSuggestor getSuggestor();
 
-   static ChatScreenAccess of(ChatScreen screen) {
-      return (ChatScreenAccess)screen;
-   }
+    static ChatScreenAccess of(ChatScreen screen) {
+        return (ChatScreenAccess) screen;
+    }
 }

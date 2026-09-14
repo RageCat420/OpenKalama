@@ -12,26 +12,25 @@ import me.matl114.utils.config.kv.AttrKeyValues;
 import net.minecraft.util.dynamic.Codecs;
 
 public record JsonData(JsonElement data) implements NBTParsable<JsonData> {
-   public static final NBTType<JsonData> TYPE = new NBTType<>(
-      "jsondata",
-      Codecs.JSON_ELEMENT.xmap(JsonData::new, JsonData::data),
-      BaseAttrKeyValue.getWidgetFactory(),
-      AttrKeyValues.JSON_ELEMENT_FACTORY.concat(WrapperFactory.of(JsonData::new, JsonData::data)),
-      new JsonData(new JsonObject())
-   );
+    public static final NBTType<JsonData> TYPE = new NBTType<>(
+            "jsondata",
+            Codecs.JSON_ELEMENT.xmap(JsonData::new, JsonData::data),
+            BaseAttrKeyValue.getWidgetFactory(),
+            AttrKeyValues.JSON_ELEMENT_FACTORY.concat(WrapperFactory.of(JsonData::new, JsonData::data)),
+            new JsonData(new JsonObject()));
 
-   @Override
-   public NBTType<JsonData> type() {
-      return TYPE;
-   }
+    @Override
+    public NBTType<JsonData> type() {
+        return TYPE;
+    }
 
-   @Nullable
-   public JsonObject jsonObject() {
-      return this.data instanceof JsonObject ? (JsonObject)(Object)this.data : null;
-   }
+    @Nullable
+    public JsonObject jsonObject() {
+        return this.data instanceof JsonObject ? (JsonObject) (Object) this.data : null;
+    }
 
-   @Nonnull
-   public JsonObject jsonOrCreate() {
-      return this.data instanceof JsonObject ? (JsonObject)(Object)this.data : new JsonObject();
-   }
+    @Nonnull
+    public JsonObject jsonOrCreate() {
+        return this.data instanceof JsonObject ? (JsonObject) (Object) this.data : new JsonObject();
+    }
 }

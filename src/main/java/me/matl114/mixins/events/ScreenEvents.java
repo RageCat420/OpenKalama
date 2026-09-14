@@ -19,194 +19,194 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
-import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Environment(EnvType.CLIENT)
 @Mixin({Screen.class})
 public abstract class ScreenEvents extends AbstractParentElement implements MetadataHolder, ScreenAccess {
-   @Unique
-   List<Consumer<Screen>> initializeTasks;
-   @Unique
-   List<Runnable> screenCloseFuture;
-   @Unique
-   Screen parent = null;
+    @Unique
+    List<Consumer<Screen>> initializeTasks;
 
-   @Override
-   public void addInitTask(Consumer<Screen> runnable) {
-      if (this.initializeTasks == null) {
-         this.initializeTasks = new ArrayList<>();
-      }
+    @Unique
+    List<Runnable> screenCloseFuture;
 
-      this.initializeTasks.add(runnable);
-   }
+    @Unique
+    Screen parent = null;
 
-   @Override
-   public void addCloseFuture(Runnable runnable) {
-      if (this.screenCloseFuture == null) {
-         this.screenCloseFuture = new ArrayList<>();
-      }
+    @Override
+    public void addInitTask(Consumer<Screen> runnable) {
+        if (this.initializeTasks == null) {
+            this.initializeTasks = new ArrayList<>();
+        }
 
-      this.screenCloseFuture.add(runnable);
-   }
+        this.initializeTasks.add(runnable);
+    }
 
-   @Inject(
-      method = {"close"},
-      at = {@At("RETURN")}
-   )
-   private void onScreenClsoe(CallbackInfo ci) {
-      Listener.ad().broadcast((Screen)(Object)this);
-      if (this.screenCloseFuture != null) {
-         for (Runnable runnable : this.screenCloseFuture) {
-            runnable.run();
-         }
-      }
-   }
+    @Override
+    public void addCloseFuture(Runnable runnable) {
+        if (this.screenCloseFuture == null) {
+            this.screenCloseFuture = new ArrayList<>();
+        }
 
-   @Inject(
-      method = {"init(Lnet/minecraft/client/MinecraftClient;II)V"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/gui/screen/Screen;setInitialFocus()V",
-         shift = Shift.BEFORE
-      )}
-   )
-   public void onPostInitialization(MinecraftClient client, int width, int height, CallbackInfo ci) {
-      Listener.ai().broadcast((Screen)(Object)this);
-      if (this.initializeTasks != null) {
-         for (Consumer<Screen> runnable : this.initializeTasks) {
-            runnable.accept((Screen)(Object)this);
-         }
-      }
-   }
+        this.screenCloseFuture.add(runnable);
+    }
 
-   @Inject(
-      method = {"init(Lnet/minecraft/client/MinecraftClient;II)V"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/gui/screen/Screen;initTabNavigation()V",
-         shift = Shift.AFTER
-      )}
-   )
-   public void onClearAndInit(CallbackInfo ci) {
-      Listener.ai().broadcast((Screen)(Object)this);
-      if (this.initializeTasks != null) {
-         for (Consumer<Screen> runnable : this.initializeTasks) {
-            runnable.accept((Screen)(Object)this);
-         }
-      }
-   }
+    @Inject(
+            method = {"close"},
+            at = {@At("RETURN")})
+    private void onScreenClsoe(CallbackInfo ci) {
+        Listener.ad().broadcast((Screen) (Object) this);
+        if (this.screenCloseFuture != null) {
+            for (Runnable runnable : this.screenCloseFuture) {
+                runnable.run();
+            }
+        }
+    }
 
-   @Inject(
-      method = {"resize"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/gui/screen/Screen;initTabNavigation()V",
-         shift = Shift.AFTER
-      )}
-   )
-   public void onResize(MinecraftClient client, int width, int height, CallbackInfo ci) {
-      Listener.ai().broadcast((Screen)(Object)this);
-      if (this.initializeTasks != null) {
-         for (Consumer<Screen> runnable : this.initializeTasks) {
-            runnable.accept((Screen)(Object)this);
-         }
-      }
-   }
+    @Inject(
+            method = {"init(Lnet/minecraft/client/MinecraftClient;II)V"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target = "Lnet/minecraft/client/gui/screen/Screen;setInitialFocus()V",
+                        shift = Shift.BEFORE)
+            })
+    public void onPostInitialization(MinecraftClient client, int width, int height, CallbackInfo ci) {
+        Listener.ai().broadcast((Screen) (Object) this);
+        if (this.initializeTasks != null) {
+            for (Consumer<Screen> runnable : this.initializeTasks) {
+                runnable.accept((Screen) (Object) this);
+            }
+        }
+    }
 
-   @Shadow
-   protected abstract <T extends Element & Drawable & Selectable> T method_37063(T var1);
+    @Inject(
+            method = {"init(Lnet/minecraft/client/MinecraftClient;II)V"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target = "Lnet/minecraft/client/gui/screen/Screen;initTabNavigation()V",
+                        shift = Shift.AFTER)
+            })
+    public void onClearAndInit(CallbackInfo ci) {
+        Listener.ai().broadcast((Screen) (Object) this);
+        if (this.initializeTasks != null) {
+            for (Consumer<Screen> runnable : this.initializeTasks) {
+                runnable.accept((Screen) (Object) this);
+            }
+        }
+    }
 
-   @Shadow
-   protected void method_37066(Element child) {
-   }
+    @Inject(
+            method = {"resize"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target = "Lnet/minecraft/client/gui/screen/Screen;initTabNavigation()V",
+                        shift = Shift.AFTER)
+            })
+    public void onResize(MinecraftClient client, int width, int height, CallbackInfo ci) {
+        Listener.ai().broadcast((Screen) (Object) this);
+        if (this.initializeTasks != null) {
+            for (Consumer<Screen> runnable : this.initializeTasks) {
+                runnable.accept((Screen) (Object) this);
+            }
+        }
+    }
 
-   @Shadow
-   protected abstract <T extends Drawable> T method_37060(T var1);
+    @Shadow
+    protected abstract <T extends Element & Drawable & Selectable> T method_37063(T var1);
 
-   @Unique
-   @Override
-   public <T extends Element & Drawable & Selectable> T addDrawableChildTo(T drawable) {
-      if (drawable instanceof DisplayWidget display) {
-         this.method_37060(display);
-         return drawable;
-      } else {
-         return this.method_37063(drawable);
-      }
-   }
+    @Shadow
+    protected void method_37066(Element child) {}
 
-   @Unique
-   @Override
-   public void removeChildFrom(Element val) {
-      this.method_37066(val);
-   }
+    @Shadow
+    protected abstract <T extends Drawable> T method_37060(T var1);
 
-   @Unique
-   @Override
-   public void open() {
-      MinecraftClient.getInstance().setScreen((Screen)(Object)this);
-   }
+    @Unique
+    @Override
+    public <T extends Element & Drawable & Selectable> T addDrawableChildTo(T drawable) {
+        if (drawable instanceof DisplayWidget display) {
+            this.method_37060(display);
+            return drawable;
+        } else {
+            return this.method_37063(drawable);
+        }
+    }
 
-   @Unique
-   @Override
-   public void openFromCurrent() {
-      this.parent = MinecraftClient.getInstance().currentScreen;
-      this.open();
-   }
+    @Unique
+    @Override
+    public void removeChildFrom(Element val) {
+        this.method_37066(val);
+    }
 
-   @Unique
-   @Override
-   public void openFrom(Screen parent) {
-      this.parent = parent;
-      this.open();
-   }
+    @Unique
+    @Override
+    public void open() {
+        MinecraftClient.getInstance().setScreen((Screen) (Object) this);
+    }
 
-   @Unique
-   @Override
-   public void switchToScreen(Screen anotherScreen) {
-      Screen p = this.parent;
-      this.parent = null;
-      ScreenAccess.of(anotherScreen).setParent(p);
-      MinecraftClient.getInstance().setScreen(anotherScreen);
-   }
+    @Unique
+    @Override
+    public void openFromCurrent() {
+        this.parent = MinecraftClient.getInstance().currentScreen;
+        this.open();
+    }
 
-   @Override
-   public void switchFromCurrent() {
-      Screen current = MinecraftClient.getInstance().currentScreen;
-      if (current == null) {
-         this.parent = null;
-      } else {
-         this.parent = ((ScreenEvents)(Object)current).parent;
-         ((ScreenEvents)(Object)current).parent = null;
-      }
+    @Unique
+    @Override
+    public void openFrom(Screen parent) {
+        this.parent = parent;
+        this.open();
+    }
 
-      MinecraftClient.getInstance().setScreen((Screen)(Object)this);
-   }
+    @Unique
+    @Override
+    public void switchToScreen(Screen anotherScreen) {
+        Screen p = this.parent;
+        this.parent = null;
+        ScreenAccess.of(anotherScreen).setParent(p);
+        MinecraftClient.getInstance().setScreen(anotherScreen);
+    }
 
-   @ModifyArgs(
-      method = {"close"},
-      at = @At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/MinecraftClient;setScreen(Lnet/minecraft/client/gui/screen/Screen;)V"
-      )
-   )
-   public void onRedirectReturnScreen(Args args) {
-      if (this.parent != null) {
-         args.set(0, this.parent);
-         this.parent = null;
-      }
-   }
+    @Override
+    public void switchFromCurrent() {
+        Screen current = MinecraftClient.getInstance().currentScreen;
+        if (current == null) {
+            this.parent = null;
+        } else {
+            this.parent = ((ScreenEvents) (Object) current).parent;
+            ((ScreenEvents) (Object) current).parent = null;
+        }
 
-   @Override
-   public Screen getParent() {
-      return this.parent;
-   }
+        MinecraftClient.getInstance().setScreen((Screen) (Object) this);
+    }
 
-   @Override
-   public void setParent(Screen parent) {
-      this.parent = parent;
-   }
+    @ModifyArgs(
+            method = {"close"},
+            at =
+                    @At(
+                            value = "INVOKE",
+                            target =
+                                    "Lnet/minecraft/client/MinecraftClient;setScreen(Lnet/minecraft/client/gui/screen/Screen;)V"))
+    public void onRedirectReturnScreen(Args args) {
+        if (this.parent != null) {
+            args.set(0, this.parent);
+            this.parent = null;
+        }
+    }
+
+    @Override
+    public Screen getParent() {
+        return this.parent;
+    }
+
+    @Override
+    public void setParent(Screen parent) {
+        this.parent = parent;
+    }
 }

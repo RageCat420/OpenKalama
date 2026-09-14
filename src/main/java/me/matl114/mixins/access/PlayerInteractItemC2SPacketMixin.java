@@ -18,41 +18,41 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin({PlayerInteractItemC2SPacket.class})
 public abstract class PlayerInteractItemC2SPacketMixin implements PlayerInteractItemC2SPacketAccess {
-   @Unique
-   ItemStack useContext;
+    @Unique
+    ItemStack useContext;
 
-   @Mutable
-   @Accessor("hand")
-   @Override
-public abstract void setHand(Hand var1) ;
+    @Mutable
+    @Accessor("hand")
+    @Override
+    public abstract void setHand(Hand var1);
 
-   @Mutable
-   @Accessor("yaw")
-   @Override
-public abstract void setYaw(float var1) ;
+    @Mutable
+    @Accessor("yaw")
+    @Override
+    public abstract void setYaw(float var1);
 
-   @Mutable
-   @Accessor("pitch")
-   @Override
-public abstract void setPitch(float var1) ;
+    @Mutable
+    @Accessor("pitch")
+    @Override
+    public abstract void setPitch(float var1);
 
-   @Inject(
-      method = {"<init>(Lnet/minecraft/util/Hand;IFF)V"},
-      at = {@At("RETURN")}
-   )
-   private void trackUseContext(Hand hand, int sequence, float yaw, float pitch, CallbackInfo ci) {
-      if (MinecraftClient.getInstance().player != null) {
-         this.useContext = MinecraftClient.getInstance().player.getStackInHand(hand).copy();
-      }
-   }
+    @Inject(
+            method = {"<init>(Lnet/minecraft/util/Hand;IFF)V"},
+            at = {@At("RETURN")})
+    private void trackUseContext(Hand hand, int sequence, float yaw, float pitch, CallbackInfo ci) {
+        if (MinecraftClient.getInstance().player != null) {
+            this.useContext =
+                    MinecraftClient.getInstance().player.getStackInHand(hand).copy();
+        }
+    }
 
-   @Override
-   public void setItemStack(ItemStack stack) {
-      this.useContext = stack;
-   }
+    @Override
+    public void setItemStack(ItemStack stack) {
+        this.useContext = stack;
+    }
 
-   @Override
-   public ItemStack getItemStack() {
-      return this.useContext;
-   }
+    @Override
+    public ItemStack getItemStack() {
+        return this.useContext;
+    }
 }

@@ -4,13 +4,13 @@ import java.util.Set;
 import net.minecraft.block.Block;
 
 class HackUtilHelperA implements BlockMatcher {
-   @Override
-   public boolean match(Block b) {
-      return false;
-   }
+    @Override
+    public boolean match(Block b) {
+        return false;
+    }
 
-   @Override
-   public Set<Block> getPotentials() {
-      return Set.of();
-   }
+    @Override
+    public Set<Block> getPotentials() {
+        return Set.of();
+    }
 }

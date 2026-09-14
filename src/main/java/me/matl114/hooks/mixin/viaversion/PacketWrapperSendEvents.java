@@ -18,29 +18,31 @@ import org.spongepowered.asm.mixin.Pseudo;
 @Pseudo
 @Mixin({PacketWrapperImpl.class})
 public abstract class PacketWrapperSendEvents implements PacketWrapper {
-   @WrapMethod(
-      method = {"Lcom/viaversion/viaversion/protocol/packet/PacketWrapperImpl;sendToServer0(Ljava/lang/Class;ZZ)V"},
-      remap = false,
-      require = 0
-   )
-   public void onSendToServer(Class<?> protocol, boolean skipCurrentPipeline, boolean currentThread, Operation<Void> operation) {
-      if (this.user() != null && this.user().getChannel() != null) {
-         if (this.getPacketType() != null && this.getPacketType().state() == State.PLAY && !PacketManager.f) {
-            PacketWrapperSendStorageImpl storageImpl = new PacketWrapperSendStorageImpl(
-               System.currentTimeMillis(), this, this.user().getChannel(), bl -> operation.call(new Object[]{protocol, skipCurrentPipeline, bl})
-            );
-            Event<PacketStorage> event = new Event<>(storageImpl, true, false);
-            PacketManager.z().b(event);
-            if (event.d()) {
-               PacketManager.v(storageImpl);
-               return;
+    @WrapMethod(
+            method = {"Lcom/viaversion/viaversion/protocol/packet/PacketWrapperImpl;sendToServer0(Ljava/lang/Class;ZZ)V"
+            },
+            remap = false,
+            require = 0)
+    public void onSendToServer(
+            Class<?> protocol, boolean skipCurrentPipeline, boolean currentThread, Operation<Void> operation) {
+        if (this.user() != null && this.user().getChannel() != null) {
+            if (this.getPacketType() != null && this.getPacketType().state() == State.PLAY && !PacketManager.f) {
+                PacketWrapperSendStorageImpl storageImpl = new PacketWrapperSendStorageImpl(
+                        System.currentTimeMillis(),
+                        this,
+                        this.user().getChannel(),
+                        bl -> operation.call(new Object[] {protocol, skipCurrentPipeline, bl}));
+                Event<PacketStorage> event = new Event<>(storageImpl, true, false);
+                PacketManager.z().b(event);
+                if (event.d()) {
+                    PacketManager.v(storageImpl);
+                    return;
+                }
             }
-         }
 
-         operation.call(new Object[]{protocol, skipCurrentPipeline, currentThread});
-      }
-   }
+            operation.call(new Object[] {protocol, skipCurrentPipeline, currentThread});
+        }
+    }
 
-   public void setId(Object arg0) { }
-
+    public void setId(Object arg0) {}
 }

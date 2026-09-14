@@ -11,22 +11,22 @@ import org.spongepowered.asm.mixin.Unique;
 @Mixin({BlockEntity.class})
 @Environment(EnvType.CLIENT)
 public class BlockEntityMetadataHolderMixin implements MetadataHolder {
-   @Unique
-   public KalamaHelperHelperB metaData;
+    @Unique
+    public KalamaHelperHelperB metaData;
 
-   @Unique
-   @Override
-   public KalamaHelperHelperB getMetadata() {
-      if (this.metaData == null) {
-         this.metaData = new KalamaHelperHelperB();
-      }
+    @Unique
+    @Override
+    public KalamaHelperHelperB getMetadata() {
+        if (this.metaData == null) {
+            this.metaData = new KalamaHelperHelperB();
+        }
 
-      return this.metaData;
-   }
+        return this.metaData;
+    }
 
-   @Unique
-   @Override
-   public boolean isMetaEmpty() {
-      return this.metaData == null;
-   }
+    @Unique
+    @Override
+    public boolean isMetaEmpty() {
+        return this.metaData == null;
+    }
 }

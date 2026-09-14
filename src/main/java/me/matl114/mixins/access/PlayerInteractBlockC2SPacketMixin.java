@@ -14,31 +14,31 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Environment(EnvType.CLIENT)
 @Mixin({PlayerInteractBlockC2SPacket.class})
 public abstract class PlayerInteractBlockC2SPacketMixin implements PlayerInteractBlockC2SPacketAccess {
-   @Unique
-   PlayerInteractBlockC2SPacketAccess.UseContext useContext;
+    @Unique
+    PlayerInteractBlockC2SPacketAccess.UseContext useContext;
 
-   @Mutable
-   @Accessor("hand")
-   @Override
-public abstract void setHand(Hand var1) ;
+    @Mutable
+    @Accessor("hand")
+    @Override
+    public abstract void setHand(Hand var1);
 
-   @Mutable
-   @Accessor("blockHitResult")
-   @Override
-public abstract void setBlockHitResult(BlockHitResult var1) ;
+    @Mutable
+    @Accessor("blockHitResult")
+    @Override
+    public abstract void setBlockHitResult(BlockHitResult var1);
 
-   @Mutable
-   @Accessor("sequence")
-   @Override
-public abstract void setSequence(int var1) ;
+    @Mutable
+    @Accessor("sequence")
+    @Override
+    public abstract void setSequence(int var1);
 
-   @Override
-   public void setUseContext(PlayerInteractBlockC2SPacketAccess.UseContext useContext) {
-      this.useContext = useContext;
-   }
+    @Override
+    public void setUseContext(PlayerInteractBlockC2SPacketAccess.UseContext useContext) {
+        this.useContext = useContext;
+    }
 
-   @Override
-   public PlayerInteractBlockC2SPacketAccess.UseContext getUseContext() {
-      return this.useContext;
-   }
+    @Override
+    public PlayerInteractBlockC2SPacketAccess.UseContext getUseContext() {
+        return this.useContext;
+    }
 }

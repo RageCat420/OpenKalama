@@ -1,4 +1,3 @@
 package me.matl114.versioned.api;
 
-public interface KalamaHelperHelperG {
-}
+public interface KalamaHelperHelperG {}

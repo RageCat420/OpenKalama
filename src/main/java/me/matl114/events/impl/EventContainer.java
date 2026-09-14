@@ -7,19 +7,24 @@ import me.matl114.managers.config.EnumRef;
 import net.minecraft.text.Text;
 
 public class EventContainer implements Supplier<Text> {
-   String a;
+    String a;
 
-   public EventContainer(Supplier var1) {
-      this.b = var1;
-   }
+    public EventContainer(Supplier var1) {
+        this.b = var1;
+    }
 
-   public Text get() {
-      if (this.a == null) {
-         ConfigEnum var1 = (ConfigEnum)((EnumRef)(Object)this.b.get()).get();
-         this.a = "module-meta." + var1.getConfigEnumType().replace("_", "-") + ".";
-      }
+    public Text get() {
+        if (this.a == null) {
+            ConfigEnum var1 = (ConfigEnum) ((EnumRef) (Object) this.b.get()).get();
+            this.a = "module-meta." + var1.getConfigEnumType().replace("_", "-") + ".";
+        }
 
-      return Text.translatable(this.a + ((ConfigEnum)((EnumRef)(Object)this.b.get()).get()).cast().name().toLowerCase(Locale.ROOT));
-   }
-   Supplier b;
+        return Text.translatable(this.a
+                + ((ConfigEnum) ((EnumRef) (Object) this.b.get()).get())
+                        .cast()
+                        .name()
+                        .toLowerCase(Locale.ROOT));
+    }
+
+    Supplier b;
 }

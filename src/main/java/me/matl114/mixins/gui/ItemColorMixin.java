@@ -13,19 +13,19 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Environment(EnvType.CLIENT)
 @Mixin({ItemColors.class})
 public class ItemColorMixin {
-   @ModifyArgs(
-      method = {"create"},
-      at = @At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/color/item/ItemColors;register(Lnet/minecraft/client/color/item/ItemColorProvider;[Lnet/minecraft/item/ItemConvertible;)V",
-         ordinal = -1
-      )
-   )
-   private static void injectColorProvider2(Args args) {
-      ItemColorProvider provider = (ItemColorProvider)args.get(0);
-      args.set(0, (ItemColorProvider)(stack, tintIndex) -> {
-         int injectResult = ModelTasks.e().shouldEnableNewStyle(stack) ? -1 : -999;
-         return injectResult != -999 ? injectResult : provider.getColor(stack, tintIndex);
-      });
-   }
+    @ModifyArgs(
+            method = {"create"},
+            at =
+                    @At(
+                            value = "INVOKE",
+                            target =
+                                    "Lnet/minecraft/client/color/item/ItemColors;register(Lnet/minecraft/client/color/item/ItemColorProvider;[Lnet/minecraft/item/ItemConvertible;)V",
+                            ordinal = -1))
+    private static void injectColorProvider2(Args args) {
+        ItemColorProvider provider = (ItemColorProvider) args.get(0);
+        args.set(0, (ItemColorProvider) (stack, tintIndex) -> {
+            int injectResult = ModelTasks.e().shouldEnableNewStyle(stack) ? -1 : -999;
+            return injectResult != -999 ? injectResult : provider.getColor(stack, tintIndex);
+        });
+    }
 }

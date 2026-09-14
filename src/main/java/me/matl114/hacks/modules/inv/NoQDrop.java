@@ -20,41 +20,46 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 
 public class NoQDrop extends BaseModule {
-   public final FlagRef forceEquipment;
-   public final NBTRef<EntrySet<Item>> gl;
-   public final FlagRef ae;
-   public final ModulePath aD = makePath(Configs.l, "inv-utils.no-q-drop");
-   public final KeyBindRef J;
-   public final FlagRef logToPlayer;
+    public final FlagRef forceEquipment;
+    public final NBTRef<EntrySet<Item>> gl;
+    public final FlagRef ae;
+    public final ModulePath aD = makePath(Configs.l, "inv-utils.no-q-drop");
+    public final KeyBindRef J;
+    public final FlagRef logToPlayer;
 
-   public void onPlayerDropAction(Event<Boolean> eventDrop) {
-      if (this.ae.get()) {
-         ItemStack var2 = InventoryUtils.getSelectedItem().val();
-         if (this.forceEquipment.get() && var2.isDamageable() || this.gl.get().test(var2.getItem())) {
-            if (this.logToPlayer.get()) {
-               Debug.chat(ChatUtils.textFromLegacyString("&c[NoQDrop] &fCancel dropping"), VItem.w().l(var2));
+    public void onPlayerDropAction(Event<Boolean> eventDrop) {
+        if (this.ae.get()) {
+            ItemStack var2 = InventoryUtils.getSelectedItem().val();
+            if (this.forceEquipment.get() && var2.isDamageable()
+                    || this.gl.get().test(var2.getItem())) {
+                if (this.logToPlayer.get()) {
+                    Debug.chat(
+                            ChatUtils.textFromLegacyString("&c[NoQDrop] &fCancel dropping"),
+                            VItem.w().l(var2));
+                }
+
+                eventDrop.cancel();
             }
+        }
+    }
 
-            eventDrop.cancel();
-         }
-      }
-   }
+    public NoQDrop() {
+        super("NoQDrop");
+        this.ae = this.flagBuilder(this.aD.addEnable()).build();
+        this.J = this.moduleEntry(this.aD.addHotkey(), new MultiKeyBind(), this.aD.addEnable())
+                .build();
+        this.forceEquipment = this.flagBuilder(this.aD.add("force-equipment")).build();
+        this.gl = this.builder(this.aD.add("white-list-items"), EntrySet.<Item>parameter())
+                .defaultValue(new EntrySet<Item>(
+                        new Regex("^(.*diamond.*|.*netherite.*|elytra|mace|.*sword)$"), Registries.ITEM))
+                .build();
+        this.logToPlayer = this.flagBuilder(this.aD.add("log-to-player")).build();
+        this.bindFlag(this.ae);
+    }
 
-   public NoQDrop() {
-      super("NoQDrop");
-      this.ae = this.flagBuilder(this.aD.addEnable()).build();
-      this.J = this.moduleEntry(this.aD.addHotkey(), new MultiKeyBind(), this.aD.addEnable()).build();
-      this.forceEquipment = this.flagBuilder(this.aD.add("force-equipment")).build();
-      this.gl = this.builder(this.aD.add("white-list-items"), EntrySet.<Item>parameter())
-         .defaultValue(new EntrySet<Item>(new Regex("^(.*diamond.*|.*netherite.*|elytra|mace|.*sword)$"), Registries.ITEM))
-         .build();
-      this.logToPlayer = this.flagBuilder(this.aD.add("log-to-player")).build();
-      this.bindFlag(this.ae);
-   }
-
-   @Override
-   public void registerAll() {
-      super.registerAll();
-      this.registerListener(Listener.bf(), this::onPlayerDropAction);
-   }
+    @Override
+    public void registerAll() {
+        super.registerAll();
+        this.registerListener(Listener.bf(), this::onPlayerDropAction);
+    }
 }

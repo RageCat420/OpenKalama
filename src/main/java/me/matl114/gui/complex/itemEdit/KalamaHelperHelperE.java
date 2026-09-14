@@ -18,85 +18,96 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 public class KalamaHelperHelperE extends KalamaHelperHelperJ {
-   private final ItemEditScreen bw;
+    private final ItemEditScreen bw;
 
-   EditBoxWidget bu;
-   protected static final Identifier FORMAT_TEXTURE_SPRITE = me.matl114.gui.KalamaHelperHelperB.e;
-   ItemStack bs;
-   NbtAttrKeyValue<ItemStack> br;
-   ExecutableWidget bt;
+    EditBoxWidget bu;
+    protected static final Identifier FORMAT_TEXTURE_SPRITE = me.matl114.gui.KalamaHelperHelperB.e;
+    ItemStack bs;
+    NbtAttrKeyValue<ItemStack> br;
+    ExecutableWidget bt;
 
-   @Override
-   protected void ah() {
-      this.bu = (EditBoxWidget)(Object)this.br
-         .generateEditBox(this.bw.ci.getX() + 10, this.bw.ci.getY() + 10, this.bw.ci.getTextureWidth() - 20, this.bw.ci.getTextureHeight() - 20)
-         .ef();
-      this.bw.ch.setContentDelegate(this.bu);
-   }
+    @Override
+    protected void ah() {
+        this.bu = (EditBoxWidget) (Object) this.br
+                .generateEditBox(
+                        this.bw.ci.getX() + 10,
+                        this.bw.ci.getY() + 10,
+                        this.bw.ci.getTextureWidth() - 20,
+                        this.bw.ci.getTextureHeight() - 20)
+                .ef();
+        this.bw.ch.setContentDelegate(this.bu);
+    }
 
-   public KalamaHelperHelperE(final ItemEditScreen this$0) {
-      super(this$0);
-      this.bw = this$0;
-      this$0.setTitleLabel(Text.translatable("widget.gui.item-edit-screen.snbt-editor").formatted(Formatting.GREEN));
-      this.af();
-   }
+    public KalamaHelperHelperE(final ItemEditScreen this$0) {
+        super(this$0);
+        this.bw = this$0;
+        this$0.setTitleLabel(
+                Text.translatable("widget.gui.item-edit-screen.snbt-editor").formatted(Formatting.GREEN));
+        this.af();
+    }
 
-   protected void init() {
-      this.br.validateAndUpdate();
-      this.bw.v = this.bs.copy();
-   }
+    protected void init() {
+        this.br.validateAndUpdate();
+        this.bw.v = this.bs.copy();
+    }
 
-   @Override
-   protected boolean canConfirm() {
-      return this.br.isValidate();
-   }
+    @Override
+    protected boolean canConfirm() {
+        return this.br.isValidate();
+    }
 
-   protected void af() {
-      this.bs = this.bw.v.copy();
-      NbtCompound var1 = VItem.w().k(this.bs, ItemStackUtils.registry());
-      this.br = new NbtAttrKeyValue<>("", var1, this::validateItemStack);
-      if (!this.br.validateAndUpdate()) {
-         this.cK();
-      }
+    protected void af() {
+        this.bs = this.bw.v.copy();
+        NbtCompound var1 = VItem.w().k(this.bs, ItemStackUtils.registry());
+        this.br = new NbtAttrKeyValue<>("", var1, this::validateItemStack);
+        if (!this.br.validateAndUpdate()) {
+            this.cK();
+        }
 
-      this.bu = (EditBoxWidget)(Object)this.br
-         .generateEditBox(this.bw.ci.getX() + 10, this.bw.ci.getY() + 10, this.bw.ci.getTextureWidth() - 20, this.bw.ci.getTextureHeight() - 20)
-         .ef();
-      this.bt = ExecutableWidget.instance(141, -19, 18, 18)
-         .<ExecutableWidget>eV(IconElement.cm(FORMAT_TEXTURE_SPRITE, ButtonAction.a(() -> this.br.applyFormatting(str -> {
-            if (this.bu != null) {
-               this.bu.setText(str);
-            }
-         }))).aO(TooltipHandler.ap(ChatUtils.parseTranslation("widget.gui.item-edit-screen.formatter.tooltips", ""))).ah(icon -> {
-            if (icon instanceof IconElement) {
-               if (this.br.isValidate()) {
-                  this.bt.setAlpha(1.0F);
-                  return true;
-               } else {
-                  this.bt.setAlpha(0.4F);
-                  return false;
-               }
-            } else {
-               return true;
-            }
-         }))
-         .addToSub(this);
-   }
+        this.bu = (EditBoxWidget) (Object) this.br
+                .generateEditBox(
+                        this.bw.ci.getX() + 10,
+                        this.bw.ci.getY() + 10,
+                        this.bw.ci.getTextureWidth() - 20,
+                        this.bw.ci.getTextureHeight() - 20)
+                .ef();
+        this.bt = ExecutableWidget.instance(141, -19, 18, 18)
+                .<ExecutableWidget>eV(IconElement.cm(
+                                FORMAT_TEXTURE_SPRITE,
+                                ButtonAction.a(() -> this.br.applyFormatting(str -> {
+                                    if (this.bu != null) {
+                                        this.bu.setText(str);
+                                    }
+                                })))
+                        .aO(TooltipHandler.ap(
+                                ChatUtils.parseTranslation("widget.gui.item-edit-screen.formatter.tooltips", "")))
+                        .ah(icon -> {
+                            if (icon instanceof IconElement) {
+                                if (this.br.isValidate()) {
+                                    this.bt.setAlpha(1.0F);
+                                    return true;
+                                } else {
+                                    this.bt.setAlpha(0.4F);
+                                    return false;
+                                }
+                            } else {
+                                return true;
+                            }
+                        }))
+                .addToSub(this);
+    }
 
-   protected ItemStack validateItemStack(NbtElement element) {
-      ItemStack var2 = VItem.w().j((NbtCompound)element, ItemStackUtils.registry());
-      Preconditions.checkArgument(var2 != ItemStack.EMPTY);
-      this.bs = var2;
-      return var2;
-   }
+    protected ItemStack validateItemStack(NbtElement element) {
+        ItemStack var2 = VItem.w().j((NbtCompound) element, ItemStackUtils.registry());
+        Preconditions.checkArgument(var2 != ItemStack.EMPTY);
+        this.bs = var2;
+        return var2;
+    }
 
-   protected void cK() {
-      throw new RuntimeException("Error while parsing itemStack snbt");
-   }
+    protected void cK() {
+        throw new RuntimeException("Error while parsing itemStack snbt");
+    }
 
-
-
-   @Override
-   public void ag() { }
-
+    @Override
+    public void ag() {}
 }

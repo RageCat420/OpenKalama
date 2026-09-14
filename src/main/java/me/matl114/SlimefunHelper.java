@@ -24,70 +24,73 @@ import net.fabricmc.loader.impl.FabricLoaderImpl;
 import net.minecraft.resource.ResourceType;
 
 public class SlimefunHelper implements ModInitializer, PreLaunchEntrypoint {
-   public static Set<String> DEV_NAME = Set.of("matl114", "matl_test", "matl_test2", "mtl", "||matl_test", "||matl_test2", "||mtl");
-   public static final String MOD_ID = "kalama";
-   public static boolean DEV_ENV = false;
-   public static SlimefunHelper instance;
-   public static ModContainer modContainer;
+    public static Set<String> DEV_NAME =
+            Set.of("matl114", "matl_test", "matl_test2", "mtl", "||matl_test", "||matl_test2", "||mtl");
+    public static final String MOD_ID = "kalama";
+    public static boolean DEV_ENV = false;
+    public static SlimefunHelper instance;
+    public static ModContainer modContainer;
 
-   public static SlimefunHelper getInstance() {
-      return instance;
-   }
+    public static SlimefunHelper getInstance() {
+        return instance;
+    }
 
-   public static ModContainer getModContainer() {
-      return modContainer;
-   }
+    public static ModContainer getModContainer() {
+        return modContainer;
+    }
 
-   public void onPreLaunch() {
-   }
+    public void onPreLaunch() {}
 
-   public static void initializeEnvironment() {
-      for (EntrypointContainer<ModInitializer> re : FabricLoaderImpl.INSTANCE.getEntrypointContainers("main", ModInitializer.class)) {
-         if (re.getEntrypoint() == instance) {
-            modContainer = re.getProvider();
-            break;
-         }
-      }
+    public static void initializeEnvironment() {
+        for (EntrypointContainer<ModInitializer> re :
+                FabricLoaderImpl.INSTANCE.getEntrypointContainers("main", ModInitializer.class)) {
+            if (re.getEntrypoint() == instance) {
+                modContainer = re.getProvider();
+                break;
+            }
+        }
 
-      Preconditions.checkNotNull(modContainer);
-   }
+        Preconditions.checkNotNull(modContainer);
+    }
 
-   public void onInitialize() {
-      instance = this;
-      authentication();
-      initializeEnvironment();
-      Debug.a("Kalama, start!");
-      Debug.a("Kalama start loading!");
-      reloadModConfig();
-      ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new KalamaHelperHelperA(this));
-      ModelLoadingPluginManager.registerPlugin((resourceManager, executor) -> CompletableFuture.supplyAsync(() -> {
-         Debug.a("check model plugin work");
-         reloadModConfig();
-         return RenderListener.l(resourceManager);
-      }), (data, pluginContext) -> pluginContext.addModels(data));
-      TaskManagers.init();
-      Tasks.a();
-      Listener.init();
-      RenderListener.init();
-      MainCommand.aE();
-      GuiMain.init();
-      MainTasks.a();
-      BridgeMain.init();
-      KalamaHelperHelperG.d();
-      Debug.a("Kalama loading finish");
-   }
+    public void onInitialize() {
+        instance = this;
+        authentication();
+        initializeEnvironment();
+        Debug.a("Kalama, start!");
+        Debug.a("Kalama start loading!");
+        reloadModConfig();
+        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new KalamaHelperHelperA(this));
+        ModelLoadingPluginManager.registerPlugin(
+                (resourceManager, executor) -> CompletableFuture.supplyAsync(() -> {
+                    Debug.a("check model plugin work");
+                    reloadModConfig();
+                    return RenderListener.l(resourceManager);
+                }),
+                (data, pluginContext) -> pluginContext.addModels(data));
+        TaskManagers.init();
+        Tasks.a();
+        Listener.init();
+        RenderListener.init();
+        MainCommand.aE();
+        GuiMain.init();
+        MainTasks.a();
+        BridgeMain.init();
+        KalamaHelperHelperG.d();
+        Debug.a("Kalama loading finish");
+    }
 
-   public static void authentication() {
-      try {
-         Class.forName("net.minecraft.client.MinecraftClient");
-         DEV_ENV = true;
-         Debug.a("Dev Environment Detected !");
-      } catch (Throwable var1) {
-      }
-   }
+    public static void authentication() {
+        try {
+            Class.forName("net.minecraft.client.MinecraftClient");
+            DEV_ENV = true;
+            Debug.a("Dev Environment Detected !");
+        } catch (Throwable var1) {
+        }
+    }
 
-   public static void reloadModConfig() {
-      Debug.a("Reloading Mod Config");
-      Configs.loadConfigs();
-   }
+    public static void reloadModConfig() {
+        Debug.a("Reloading Mod Config");
+        Configs.loadConfigs();
+    }
 }

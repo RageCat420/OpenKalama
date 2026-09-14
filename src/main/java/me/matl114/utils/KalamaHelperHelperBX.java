@@ -1,4 +1,3 @@
 package me.matl114.utils;
 
-public class KalamaHelperHelperBX {
-}
+public class KalamaHelperHelperBX {}

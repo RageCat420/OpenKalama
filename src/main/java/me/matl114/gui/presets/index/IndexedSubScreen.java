@@ -13,53 +13,52 @@ import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 
 public abstract class IndexedSubScreen<T, W extends Element & Drawable & Selectable> extends KalamaHelperHelperCX {
-   protected int eT;
-   protected int eU;
-   protected ListUnmodifiableWidget eR;
-   protected List<T> b;
-   private ContentDelegateWidget<W> eS;
-   protected T eV = (T)null;
+    protected int eT;
+    protected int eU;
+    protected ListUnmodifiableWidget eR;
+    protected List<T> b;
+    private ContentDelegateWidget<W> eS;
+    protected T eV = (T) null;
 
-   public void bc() { }
+    public void bc() {}
 
-   public void selectIndexToDisplay(T key, boolean force) {
-      if (!Objects.equals(this.eV, key) || force) {
-         if (this.eV != null) {
-            this.bc();
-         }
+    public void selectIndexToDisplay(T key, boolean force) {
+        if (!Objects.equals(this.eV, key) || force) {
+            if (this.eV != null) {
+                this.bc();
+            }
 
-         this.eV = (T)key;
-         this.eS.setContentDelegate(key == null ? null : this.bd((T)key));
-      }
-   }
+            this.eV = (T) key;
+            this.eS.setContentDelegate(key == null ? null : this.bd((T) key));
+        }
+    }
 
-   protected IndexedSubScreen(List<T> list, int x, int y, int dx, int dy, int indexDx, int indexDy) {
-      super(x, y, dx, dy);
-      this.b = list;
-      this.eT = indexDx;
-      this.eU = indexDy;
-      this.af();
-   }
+    protected IndexedSubScreen(List<T> list, int x, int y, int dx, int dy, int indexDx, int indexDy) {
+        super(x, y, dx, dy);
+        this.b = list;
+        this.eT = indexDx;
+        this.eU = indexDy;
+        this.af();
+    }
 
-   public abstract T bf();
+    public abstract T bf();
 
-   protected void af() {
-      ListEntryWidgetController var1 = ListEntryWidgetController.immutable(
-         this.b, str -> ExecutableWidget.instance(0, 0, this.eT, this.eU).eV(this.be(str)), this.eU, this.eT
-      );
-      this.eR = new ListUnmodifiableWidget(var1, 0, 0, this.eT + 4, this.dy).addToSub(this);
-      this.eS = new ContentDelegateWidget(this.eT, 0, this.dx - this.eT, this.dy).addToSub(this);
-      Object var2 = this.bf();
-      this.selectIndexToDisplay((T)var2, false);
-   }
+    protected void af() {
+        ListEntryWidgetController var1 = ListEntryWidgetController.immutable(
+                this.b, str -> ExecutableWidget.instance(0, 0, this.eT, this.eU).eV(this.be(str)), this.eU, this.eT);
+        this.eR = new ListUnmodifiableWidget(var1, 0, 0, this.eT + 4, this.dy).addToSub(this);
+        this.eS = new ContentDelegateWidget(this.eT, 0, this.dx - this.eT, this.dy).addToSub(this);
+        Object var2 = this.bf();
+        this.selectIndexToDisplay((T) var2, false);
+    }
 
-   protected abstract W bd(T var1);
+    protected abstract W bd(T var1);
 
-   protected abstract ElementHandler be(T var1);
+    protected abstract ElementHandler be(T var1);
 
-   public W gl() {
-      return this.eS.ef();
-   }
+    public W gl() {
+        return this.eS.ef();
+    }
 
-   public void setGlobal(T var1) { }
+    public void setGlobal(T var1) {}
 }

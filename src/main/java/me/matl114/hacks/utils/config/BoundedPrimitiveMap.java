@@ -7,8 +7,8 @@ import com.mojang.serialization.JavaOps;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Map.Entry;
+import java.util.Objects;
 import me.matl114.managers.config.NBTType;
 import me.matl114.utils.CodecUtils;
 import me.matl114.utils.config.WidgetFactory;
@@ -18,82 +18,97 @@ import me.matl114.utils.config.kv.WrapperAttrKeyValue;
 import org.apache.commons.lang3.function.TriFunction;
 
 public class BoundedPrimitiveMap<W, T> {
-   protected final Map<W, T> map;
+    protected final Map<W, T> map;
 
-   public BoundedPrimitiveMap(List<W> keys, Map<W, T> map, NBTType<T> type) {
-      this.map = new LinkedHashMap<>(map.size());
+    public BoundedPrimitiveMap(List<W> keys, Map<W, T> map, NBTType<T> type) {
+        this.map = new LinkedHashMap<>(map.size());
 
-      for (Object var5 : keys) {
-         Object var6 = map.get(var5);
-         if (var6 == null) {
-            var6 = type.createEmpty();
-         }
-
-         this.map.put((W)var5, (T)var6);
-      }
-   }
-
-   @Override
-   public int hashCode() {
-      return Objects.hashCode(this.map);
-   }
-
-   @Override
-   public boolean equals(Object object) {
-      if (this == object) {
-         return true;
-      } else {
-         return object instanceof BoundedPrimitiveMap var2 ? Objects.equals(this.map, var2.map) : false;
-      }
-   }
-
-   public Map<W, T> toMap() {
-      return this.map;
-   }
-
-   public static <S, T, W extends BoundedPrimitiveMap<S, T>> NBTType<W> create(
-      String what,
-      TriFunction<List<S>, Map<S, T>, NBTType<T>, W> creator,
-      List<S> baseLookup,
-      Codec<S> keyCodec,
-      WidgetFactory<S> keyWidget,
-      NBTType<T> ptype,
-      int keyLabelWidth,
-      int listWidth,
-      int listHeight
-   ) {
-      WrapperFactory<Map<S, T>, W> var9 = WrapperFactory.of(map -> creator.apply(baseLookup, map, ptype), BoundedPrimitiveMap::toMap);
-      WrapperFactory<String, S> var10 = WrapperFactory.fromCodec(keyCodec, JavaOps.INSTANCE);
-      return new NBTType<>(
-         what,
-         CodecUtils.arrayMapCodec(Codec.STRING, ptype.typeCodec()).xmap(map -> {
-            Map<S, T> var2 = new LinkedHashMap<>(map.size());
-
-            for (Entry<String, T> var4 : map.entrySet()) {
-               DataResult<Pair<S, Object>> var5 = keyCodec.decode(JavaOps.INSTANCE, var4.getKey());
-               if (var5.isSuccess()) {
-                  var2.put(var5.getOrThrow().getFirst(), var4.getValue());
-               }
+        for (Object var5 : keys) {
+            Object var6 = map.get(var5);
+            if (var6 == null) {
+                var6 = type.createEmpty();
             }
 
-            return var2;
-         }, map -> {
-            Map<String, T> var2 = new LinkedHashMap<>(map.size());
+            this.map.put((W) var5, (T) var6);
+        }
+    }
 
-            for (Entry<S, T> var4 : map.entrySet()) {
-               DataResult<Object> var5 = keyCodec.encodeStart(JavaOps.INSTANCE, var4.getKey());
-               if (var5.isSuccess()) {
-                  var2.put((String)var5.getOrThrow(), var4.getValue());
-               }
-            }
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.map);
+    }
 
-            return var2;
-         }).xmap(map -> creator.apply(baseLookup, map, ptype), BoundedPrimitiveMap::toMap),
-         (w, x, y, dx, dy) -> NBTTypes.generateBoundedListModifyButton(
-            new WrapperAttrKeyValue<>(w, var9), baseLookup, ptype, keyWidget, x, y, dx, dy, keyLabelWidth, listWidth, listHeight
-         ),
-         AttrKeyValues.STR_MAP_FACTORY.concat(WrapperFactory.map(var10, ptype.stringifyFactory())).concat(var9),
-         creator.apply(baseLookup, Map.of(), ptype)
-      );
-   }
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        } else {
+            return object instanceof BoundedPrimitiveMap var2 ? Objects.equals(this.map, var2.map) : false;
+        }
+    }
+
+    public Map<W, T> toMap() {
+        return this.map;
+    }
+
+    public static <S, T, W extends BoundedPrimitiveMap<S, T>> NBTType<W> create(
+            String what,
+            TriFunction<List<S>, Map<S, T>, NBTType<T>, W> creator,
+            List<S> baseLookup,
+            Codec<S> keyCodec,
+            WidgetFactory<S> keyWidget,
+            NBTType<T> ptype,
+            int keyLabelWidth,
+            int listWidth,
+            int listHeight) {
+        WrapperFactory<Map<S, T>, W> var9 =
+                WrapperFactory.of(map -> creator.apply(baseLookup, map, ptype), BoundedPrimitiveMap::toMap);
+        WrapperFactory<String, S> var10 = WrapperFactory.fromCodec(keyCodec, JavaOps.INSTANCE);
+        return new NBTType<>(
+                what,
+                CodecUtils.arrayMapCodec(Codec.STRING, ptype.typeCodec())
+                        .xmap(
+                                map -> {
+                                    Map<S, T> var2 = new LinkedHashMap<>(map.size());
+
+                                    for (Entry<String, T> var4 : map.entrySet()) {
+                                        DataResult<Pair<S, Object>> var5 =
+                                                keyCodec.decode(JavaOps.INSTANCE, var4.getKey());
+                                        if (var5.isSuccess()) {
+                                            var2.put(var5.getOrThrow().getFirst(), var4.getValue());
+                                        }
+                                    }
+
+                                    return var2;
+                                },
+                                map -> {
+                                    Map<String, T> var2 = new LinkedHashMap<>(map.size());
+
+                                    for (Entry<S, T> var4 : map.entrySet()) {
+                                        DataResult<Object> var5 = keyCodec.encodeStart(JavaOps.INSTANCE, var4.getKey());
+                                        if (var5.isSuccess()) {
+                                            var2.put((String) var5.getOrThrow(), var4.getValue());
+                                        }
+                                    }
+
+                                    return var2;
+                                })
+                        .xmap(map -> creator.apply(baseLookup, map, ptype), BoundedPrimitiveMap::toMap),
+                (w, x, y, dx, dy) -> NBTTypes.generateBoundedListModifyButton(
+                        new WrapperAttrKeyValue<>(w, var9),
+                        baseLookup,
+                        ptype,
+                        keyWidget,
+                        x,
+                        y,
+                        dx,
+                        dy,
+                        keyLabelWidth,
+                        listWidth,
+                        listHeight),
+                AttrKeyValues.STR_MAP_FACTORY
+                        .concat(WrapperFactory.map(var10, ptype.stringifyFactory()))
+                        .concat(var9),
+                creator.apply(baseLookup, Map.of(), ptype));
+    }
 }

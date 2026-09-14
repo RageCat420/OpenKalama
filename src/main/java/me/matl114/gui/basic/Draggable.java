@@ -4,9 +4,9 @@ import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
 
 public interface Draggable extends Element {
-   boolean startDrag(Screen var1, double var2, double var4);
+    boolean startDrag(Screen var1, double var2, double var4);
 
-   boolean isDragging();
+    boolean isDragging();
 
-   void releaseDrag(Screen var1, double var2, double var4);
+    void releaseDrag(Screen var1, double var2, double var4);
 }

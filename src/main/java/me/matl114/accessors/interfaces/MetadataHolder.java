@@ -4,8 +4,8 @@ import javax.annotation.Nonnull;
 import me.matl114.utils.containers.KalamaHelperHelperB;
 
 public interface MetadataHolder {
-   @Nonnull
-   KalamaHelperHelperB getMetadata();
+    @Nonnull
+    KalamaHelperHelperB getMetadata();
 
-   boolean isMetaEmpty();
+    boolean isMetaEmpty();
 }

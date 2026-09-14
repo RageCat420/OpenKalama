@@ -1,7 +1,7 @@
 package me.matl114.versioned.api;
 
 public @interface KalamaHelperHelperB {
-   String b() default "";
+    String b() default "";
 
-   String a() default "";
+    String a() default "";
 }

@@ -15,16 +15,14 @@ import xaero.hud.minimap.world.state.MinimapWorldStateUpdater;
 @Environment(EnvType.CLIENT)
 @Mixin({MinimapWorldStateUpdater.class})
 public class XaeroMinimapSaveMixin {
-   @WrapOperation(
-      method = {"Lxaero/hud/minimap/world/state/MinimapWorldStateUpdater;getAutoRootContainerPath(I)Lxaero/hud/path/XaeroPath;"},
-      at = {@At(
-         value = "FIELD",
-         target = "Lnet/minecraft/client/network/ServerInfo;address:Ljava/lang/String;"
-      )},
-      require = 0
-   )
-   private String redirectGetServerAddress(ServerInfo info, Operation<String> operation) {
-      String address = (String)operation.call(new Object[]{info});
-      return ServerStorage.INSTANCE.xi.get() ? ServerStorage.INSTANCE.IY(address) : address;
-   }
+    @WrapOperation(
+            method = {
+                "Lxaero/hud/minimap/world/state/MinimapWorldStateUpdater;getAutoRootContainerPath(I)Lxaero/hud/path/XaeroPath;"
+            },
+            at = {@At(value = "FIELD", target = "Lnet/minecraft/client/network/ServerInfo;address:Ljava/lang/String;")},
+            require = 0)
+    private String redirectGetServerAddress(ServerInfo info, Operation<String> operation) {
+        String address = (String) operation.call(new Object[] {info});
+        return ServerStorage.INSTANCE.xi.get() ? ServerStorage.INSTANCE.IY(address) : address;
+    }
 }

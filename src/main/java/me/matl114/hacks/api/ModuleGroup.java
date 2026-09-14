@@ -1,13 +1,13 @@
 package me.matl114.hacks.api;
 
 public class ModuleGroup extends ModuleManager {
-   String metaData;
+    String metaData;
 
-   public String getName() {
-      return this.metaData;
-   }
+    public String getName() {
+        return this.metaData;
+    }
 
-   public ModuleGroup(String name) {
-      this.metaData = name;
-   }
+    public ModuleGroup(String name) {
+        this.metaData = name;
+    }
 }

@@ -1,9 +1,9 @@
 package me.matl114.hacks.modules.interact;
 
 public interface InteractSubHelperX {
-   int countDown();
+    int countDown();
 
-   void cancel();
+    void cancel();
 
-   boolean canRun();
+    boolean canRun();
 }

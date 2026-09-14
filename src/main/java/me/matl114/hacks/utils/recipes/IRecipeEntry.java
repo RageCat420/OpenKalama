@@ -3,14 +3,13 @@ package me.matl114.hacks.utils.recipes;
 import net.minecraft.item.ItemStack;
 
 public interface IRecipeEntry {
-   IRecipeEntry EMPTY = new HackUtilHelperA();
+    IRecipeEntry EMPTY = new HackUtilHelperA();
 
-   String Co();
+    String Co();
 
-   ItemStack Ct();
+    ItemStack Ct();
 
-   String id();
+    String id();
 
-   RecipeIngredient[] ingredient();
-
+    RecipeIngredient[] ingredient();
 }

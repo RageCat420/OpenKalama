@@ -18,45 +18,50 @@ import net.minecraft.item.SwordItem;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.At.Shift;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({ItemRenderer.class})
 public class SpearHeldItemRenderMixin {
-   @Inject(
-      method = {"renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemDisplayContext;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/util/math/MatrixStack;push()V",
-         shift = Shift.AFTER
-      )}
-   )
-   private void onRenderItem(
-      ItemStack stack,
-      ItemDisplayContext renderMode,
-      boolean leftHanded,
-      MatrixStack matrices,
-      VertexConsumerProvider vertexConsumers,
-      int light,
-      int overlay,
-      BakedModel model,
-      CallbackInfo ci,
-      @Local(argsOnly = true) LocalRef<BakedModel> modelRef
-   ) {
-      boolean bl = renderMode == ItemDisplayContext.GUI || renderMode == ItemDisplayContext.GROUND || renderMode == ItemDisplayContext.FIXED;
-      if (!bl) {
-         Item item = stack.getItem();
-         if (item instanceof SwordItem && SpearEnhance.INSTANCE.replaceViaSpearModel.get() && VItem.w().b(stack)) {
-            Identifier id = SpearEnhance.INSTANCE.dZ.get(item);
-            if (id != null) {
-               BakedModel model2 = RenderListener.getCustomModelOf(id);
-               if (model2 != null) {
-                  modelRef.set(model2);
-               }
+    @Inject(
+            method = {
+                "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemDisplayContext;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V"
+            },
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target = "Lnet/minecraft/client/util/math/MatrixStack;push()V",
+                        shift = Shift.AFTER)
+            })
+    private void onRenderItem(
+            ItemStack stack,
+            ItemDisplayContext renderMode,
+            boolean leftHanded,
+            MatrixStack matrices,
+            VertexConsumerProvider vertexConsumers,
+            int light,
+            int overlay,
+            BakedModel model,
+            CallbackInfo ci,
+            @Local(argsOnly = true) LocalRef<BakedModel> modelRef) {
+        boolean bl = renderMode == ItemDisplayContext.GUI
+                || renderMode == ItemDisplayContext.GROUND
+                || renderMode == ItemDisplayContext.FIXED;
+        if (!bl) {
+            Item item = stack.getItem();
+            if (item instanceof SwordItem
+                    && SpearEnhance.INSTANCE.replaceViaSpearModel.get()
+                    && VItem.w().b(stack)) {
+                Identifier id = SpearEnhance.INSTANCE.dZ.get(item);
+                if (id != null) {
+                    BakedModel model2 = RenderListener.getCustomModelOf(id);
+                    if (model2 != null) {
+                        modelRef.set(model2);
+                    }
+                }
             }
-         }
-      }
-   }
+        }
+    }
 }

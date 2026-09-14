@@ -6,11 +6,12 @@ import me.matl114.managers.Configs;
 import me.matl114.managers.config.FlagRef;
 
 public class ModelExtra extends BaseModule {
-   public final FlagRef enableBlockModelProtect;
-   public final ModulePath iv = makePath(Configs.q, "model-config");
+    public final FlagRef enableBlockModelProtect;
+    public final ModulePath iv = makePath(Configs.q, "model-config");
 
-   public ModelExtra() {
-      super("ModelExtra");
-      this.enableBlockModelProtect = this.flagBuilder(this.iv.add("enable-block-model-protect")).build();
-   }
+    public ModelExtra() {
+        super("ModelExtra");
+        this.enableBlockModelProtect =
+                this.flagBuilder(this.iv.add("enable-block-model-protect")).build();
+    }
 }

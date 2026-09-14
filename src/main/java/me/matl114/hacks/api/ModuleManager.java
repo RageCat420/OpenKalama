@@ -7,39 +7,42 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public abstract class ModuleManager extends AbstractManager<BaseModule> {
-   public List<Consumer<ModuleManager>> registeringFunctions = new ArrayList<>();
+    public List<Consumer<ModuleManager>> registeringFunctions = new ArrayList<>();
 
-   public void unregisterFactories(Predicate<Consumer<ModuleManager>> function) {
-      this.registeringFunctions.removeIf(function);
-   }
+    public void unregisterFactories(Predicate<Consumer<ModuleManager>> function) {
+        this.registeringFunctions.removeIf(function);
+    }
 
-   public List<BaseModule> getModules() {
-      return Collections.unmodifiableList(this.registered);
-   }
+    public List<BaseModule> getModules() {
+        return Collections.unmodifiableList(this.registered);
+    }
 
-   @Override
-   public void loadModules() {
-      this.registeringFunctions.forEach(consumer -> consumer.accept(this));
-   }
+    @Override
+    public void loadModules() {
+        this.registeringFunctions.forEach(consumer -> consumer.accept(this));
+    }
 
-   public void registerFactories(Consumer<ModuleManager> function) {
-      this.registeringFunctions.add(function);
-      function.accept(this);
-   }
+    public void registerFactories(Consumer<ModuleManager> function) {
+        this.registeringFunctions.add(function);
+        function.accept(this);
+    }
 
-   public BaseModule getModule(String name) {
-      return this.registered.stream().filter(s -> name.equalsIgnoreCase(s.getName())).findFirst().orElse(null);
-   }
+    public BaseModule getModule(String name) {
+        return this.registered.stream()
+                .filter(s -> name.equalsIgnoreCase(s.getName()))
+                .findFirst()
+                .orElse(null);
+    }
 
-   public void registerModule(BaseModule module) {
-      super.registerModule(module);
-      module.onCreate();
-   }
+    public void registerModule(BaseModule module) {
+        super.registerModule(module);
+        module.onCreate();
+    }
 
-   public void unregisterModule(BaseModule module) {
-      super.unregisterModule(module);
-      module.onRemove();
-   }
+    public void unregisterModule(BaseModule module) {
+        super.unregisterModule(module);
+        module.onRemove();
+    }
 
-   public abstract String getName();
+    public abstract String getName();
 }

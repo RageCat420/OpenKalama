@@ -19,100 +19,95 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.At.Shift;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin({PlayerEntity.class})
-public abstract class PlayerEntityMixin
-   extends LivingEntity
-   implements LivingEntityAccess<PlayerEntity>,
-   EntityInternalAccess<PlayerEntity>,
-   PlayerInternalAccess {
-   @Unique
-   PredictorImpl predictorImpl;
+public abstract class PlayerEntityMixin extends LivingEntity
+        implements LivingEntityAccess<PlayerEntity>, EntityInternalAccess<PlayerEntity>, PlayerInternalAccess {
+    @Unique
+    PredictorImpl predictorImpl;
 
-   protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
-      super(entityType, world);
-   }
+    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+        super(entityType, world);
+    }
 
-   @ModifyExpressionValue(
-      method = {"getBlockBreakingSpeed"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/entity/player/PlayerEntity;getAttributeValue(Lnet/minecraft/registry/entry/RegistryEntry;)D",
-         ordinal = 1
-      )}
-   )
-   private double onBlockBreakingSpeedAttrWrongValueFix(double original) {
-      return original < 1.0E-5 ? 1.0 : original;
-   }
+    @ModifyExpressionValue(
+            method = {"getBlockBreakingSpeed"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/entity/player/PlayerEntity;getAttributeValue(Lnet/minecraft/registry/entry/RegistryEntry;)D",
+                        ordinal = 1)
+            })
+    private double onBlockBreakingSpeedAttrWrongValueFix(double original) {
+        return original < 1.0E-5 ? 1.0 : original;
+    }
 
-   @Inject(
-      method = {"<init>"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/entity/LivingEntity;<init>(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)V",
-         shift = Shift.AFTER
-      )}
-   )
-   private void onInit(World world, BlockPos pos, float yaw, GameProfile gameProfile, CallbackInfo ci) {
-      this.predictorImpl = new PredictorImpl(this);
-   }
+    @Inject(
+            method = {"<init>"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/entity/LivingEntity;<init>(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)V",
+                        shift = Shift.AFTER)
+            })
+    private void onInit(World world, BlockPos pos, float yaw, GameProfile gameProfile, CallbackInfo ci) {
+        this.predictorImpl = new PredictorImpl(this);
+    }
 
-   @Override
-   public Predictor getPositionPredictor() {
-      if (this.predictorImpl == null) {
-         this.predictorImpl = new PredictorImpl(this);
-      }
+    @Override
+    public Predictor getPositionPredictor() {
+        if (this.predictorImpl == null) {
+            this.predictorImpl = new PredictorImpl(this);
+        }
 
-      return this.predictorImpl;
-   }
+        return this.predictorImpl;
+    }
 
-   @Inject(
-      method = {"tick"},
-      at = {@At("RETURN")}
-   )
-   private void positionRecordTick(CallbackInfo ci) {
-      if (this.predictorImpl == null) {
-         this.predictorImpl = new PredictorImpl(this);
-      }
+    @Inject(
+            method = {"tick"},
+            at = {@At("RETURN")})
+    private void positionRecordTick(CallbackInfo ci) {
+        if (this.predictorImpl == null) {
+            this.predictorImpl = new PredictorImpl(this);
+        }
 
-      this.predictorImpl.tick();
-   }
+        this.predictorImpl.tick();
+    }
 
-   @Override
-   public PredictorImpl getPredictorImpl() {
-      if (this.predictorImpl == null) {
-         this.predictorImpl = new PredictorImpl(this);
-      }
+    @Override
+    public PredictorImpl getPredictorImpl() {
+        if (this.predictorImpl == null) {
+            this.predictorImpl = new PredictorImpl(this);
+        }
 
-      return this.predictorImpl;
-   }
+        return this.predictorImpl;
+    }
 
-   @Inject(
-      method = {"getBlockInteractionRange"},
-      at = {@At("RETURN")},
-      cancellable = true
-   )
-   private void getBlockInteractionRange(CallbackInfoReturnable<Double> cir) {
-      double reach = InteractExtra.INSTANCE.reachDistance.get();
-      if (reach > 1.0E-6) {
-         cir.setReturnValue(cir.getReturnValueD() + reach);
-      }
-   }
+    @Inject(
+            method = {"getBlockInteractionRange"},
+            at = {@At("RETURN")},
+            cancellable = true)
+    private void getBlockInteractionRange(CallbackInfoReturnable<Double> cir) {
+        double reach = InteractExtra.INSTANCE.reachDistance.get();
+        if (reach > 1.0E-6) {
+            cir.setReturnValue(cir.getReturnValueD() + reach);
+        }
+    }
 
-   @Inject(
-      method = {"getEntityInteractionRange"},
-      at = {@At("RETURN")},
-      cancellable = true
-   )
-   private void getEntityInteractionRange(CallbackInfoReturnable<Double> cir) {
-      if (CombatExtra.INSTANCE.sg.get() > 0.1) {
-         cir.setReturnValue(CombatExtra.INSTANCE.getAttackRange());
-      }
-   }
-
+    @Inject(
+            method = {"getEntityInteractionRange"},
+            at = {@At("RETURN")},
+            cancellable = true)
+    private void getEntityInteractionRange(CallbackInfoReturnable<Double> cir) {
+        if (CombatExtra.INSTANCE.sg.get() > 0.1) {
+            cir.setReturnValue(CombatExtra.INSTANCE.getAttackRange());
+        }
+    }
 }

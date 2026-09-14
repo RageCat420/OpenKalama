@@ -12,20 +12,19 @@ import org.spongepowered.asm.mixin.injection.At;
 @Environment(EnvType.CLIENT)
 @Mixin({AbstractSoundInstance.class})
 public class SoundInstanceMixin implements SoundInstanceAccess {
-   @Unique
-   Float scaleVolume;
+    @Unique
+    Float scaleVolume;
 
-   @ModifyReturnValue(
-      method = {"getVolume"},
-      at = {@At("RETURN")}
-   )
-   private float getVolume(float volumn) {
-      return this.scaleVolume == null ? volumn : volumn * this.scaleVolume;
-   }
+    @ModifyReturnValue(
+            method = {"getVolume"},
+            at = {@At("RETURN")})
+    private float getVolume(float volumn) {
+        return this.scaleVolume == null ? volumn : volumn * this.scaleVolume;
+    }
 
-   @Unique
-   @Override
-   public void setScale(double scale) {
-      this.scaleVolume = (float)scale;
-   }
+    @Unique
+    @Override
+    public void setScale(double scale) {
+        this.scaleVolume = (float) scale;
+    }
 }

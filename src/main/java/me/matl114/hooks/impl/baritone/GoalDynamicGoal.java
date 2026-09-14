@@ -6,35 +6,35 @@ import java.util.function.Supplier;
 import net.minecraft.util.math.Vec3d;
 
 public final class GoalDynamicGoal implements Goal {
-   private final Supplier<Vec3d> targetSupplier;
-   private final double radius;
+    private final Supplier<Vec3d> targetSupplier;
+    private final double radius;
 
-   public GoalDynamicGoal(Supplier<Vec3d> targetSupplier, double radius) {
-      this.targetSupplier = targetSupplier;
-      this.radius = radius;
-   }
+    public GoalDynamicGoal(Supplier<Vec3d> targetSupplier, double radius) {
+        this.targetSupplier = targetSupplier;
+        this.radius = radius;
+    }
 
-   public boolean isInGoal(int x, int y, int z) {
-      Vec3d target = this.targetSupplier.get();
-      if (target == null) {
-         return false;
-      } else {
-         double dx = x - target.getX();
-         double dy = y - target.getY();
-         double dz = z - target.getZ();
-         return dx * dx + dy * dy + dz * dz <= this.radius * this.radius;
-      }
-   }
+    public boolean isInGoal(int x, int y, int z) {
+        Vec3d target = this.targetSupplier.get();
+        if (target == null) {
+            return false;
+        } else {
+            double dx = x - target.getX();
+            double dy = y - target.getY();
+            double dz = z - target.getZ();
+            return dx * dx + dy * dy + dz * dz <= this.radius * this.radius;
+        }
+    }
 
-   public double heuristic(int x, int y, int z) {
-      Vec3d target = this.targetSupplier.get();
-      if (target == null) {
-         return Double.POSITIVE_INFINITY;
-      } else {
-         double dx = x - target.getX();
-         double dy = y - target.getY();
-         double dz = z - target.getZ();
-         return GoalBlock.calculate(dx, (int)dy, dz);
-      }
-   }
+    public double heuristic(int x, int y, int z) {
+        Vec3d target = this.targetSupplier.get();
+        if (target == null) {
+            return Double.POSITIVE_INFINITY;
+        } else {
+            double dx = x - target.getX();
+            double dy = y - target.getY();
+            double dz = z - target.getZ();
+            return GoalBlock.calculate(dx, (int) dy, dz);
+        }
+    }
 }

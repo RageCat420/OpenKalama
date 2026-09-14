@@ -24,107 +24,120 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.option.KeyBinding;
 
 public class GuiMove extends BaseModule {
-   public final FlagRef allGuiMove;
-   public final FlagRef noShiftInChest;
-   public final KeyBindRef J;
-   public KeyBinding[] qj;
-   public ModulePath iE = makePath(Configs.l, "inventory.gui-move");
-   public KeyBinding[] qk;
-   public final FlagRef ae = this.flagBuilder(this.iE.addEnable()).build();
+    public final FlagRef allGuiMove;
+    public final FlagRef noShiftInChest;
+    public final KeyBindRef J;
+    public KeyBinding[] qj;
+    public ModulePath iE = makePath(Configs.l, "inventory.gui-move");
+    public KeyBinding[] qk;
+    public final FlagRef ae = this.flagBuilder(this.iE.addEnable()).build();
 
-   public boolean handle(KeyBinding keyBinding, int keyCode, int action) {
-      if (keyBinding.boundKey.getCode() != keyCode) {
-         return false;
-      } else if (action == 1) {
-         keyBinding.setPressed(true);
-         return true;
-      } else if (action == 0) {
-         keyBinding.setPressed(false);
-         return true;
-      } else {
-         return false;
-      }
-   }
+    public boolean handle(KeyBinding keyBinding, int keyCode, int action) {
+        if (keyBinding.boundKey.getCode() != keyCode) {
+            return false;
+        } else if (action == 1) {
+            keyBinding.setPressed(true);
+            return true;
+        } else if (action == 0) {
+            keyBinding.setPressed(false);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-   public boolean checkCustomWidget(DrawableWidget drawableWidget) {
-      DrawableWidget var2 = WidgetUtils.a(drawableWidget);
-      return var2 != null && WidgetUtils.isInputWidget(var2);
-   }
+    public boolean checkCustomWidget(DrawableWidget drawableWidget) {
+        DrawableWidget var2 = WidgetUtils.a(drawableWidget);
+        return var2 != null && WidgetUtils.isInputWidget(var2);
+    }
 
-   public KeyBinding[] getBindings() {
-      this.initBinding();
-      return this.noShiftInChest.get() && mc.currentScreen instanceof HandledScreen ? this.qk : this.qj;
-   }
+    public KeyBinding[] getBindings() {
+        this.initBinding();
+        return this.noShiftInChest.get() && mc.currentScreen instanceof HandledScreen ? this.qk : this.qj;
+    }
 
-   public GuiMove() {
-      super("GuiMove");
-      this.J = this.toggleHotkey(this.iE.addHotkey(), new MultiKeyBind(), this.iE.addEnable()).build();
-      this.allGuiMove = this.flagBuilder(this.iE.add("all-gui-move")).build();
-      this.noShiftInChest = this.builder(this.iE.add("no-shift-in-chest"), FlagRef.TYPE).defaultValue(true).build();
-      this.bindFlag(this.ae);
-   }
+    public GuiMove() {
+        super("GuiMove");
+        this.J = this.toggleHotkey(this.iE.addHotkey(), new MultiKeyBind(), this.iE.addEnable())
+                .build();
+        this.allGuiMove = this.flagBuilder(this.iE.add("all-gui-move")).build();
+        this.noShiftInChest = this.builder(this.iE.add("no-shift-in-chest"), FlagRef.TYPE)
+                .defaultValue(true)
+                .build();
+        this.bindFlag(this.ae);
+    }
 
-   public void yF(Event<KeyboardAction> eventInput) {
-      if (!checkNull()) {
-         if (this.ae.get()) {
-            if (this.skip()) {
-               return;
+    public void yF(Event<KeyboardAction> eventInput) {
+        if (!checkNull()) {
+            if (this.ae.get()) {
+                if (this.skip()) {
+                    return;
+                }
+
+                int var2 = ((KeyboardAction) eventInput.b).keyCode();
+                int var3 = ((KeyboardAction) eventInput.b).action();
+
+                for (KeyBinding var7 : this.getBindings()) {
+                    if (this.handle(var7, var2, var3)) {}
+                }
             }
+        }
+    }
 
-            int var2 = ((KeyboardAction)eventInput.b).keyCode();
-            int var3 = ((KeyboardAction)eventInput.b).action();
+    public void onPostSetScreen(Event<Screen> event) {
+        if (!checkNull()) {
+            if (this.ae.get() && event.b != null) {
+                this.initBinding();
 
-            for (KeyBinding var7 : this.getBindings()) {
-               if (this.handle(var7, var2, var3)) {
-               }
+                for (KeyBinding var5 : this.getBindings()) {
+                    var5.setPressed(SimpleInputManager.h().isKeyPressed(var5.boundKey.getCode()));
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   public void onPostSetScreen(Event<Screen> event) {
-      if (!checkNull()) {
-         if (this.ae.get() && event.b != null) {
-            this.initBinding();
+    private void initBinding() {
+        if (this.qj == null || this.qk == null) {
+            this.qj = new KeyBinding[] {
+                mc.options.forwardKey,
+                mc.options.backKey,
+                mc.options.leftKey,
+                mc.options.rightKey,
+                mc.options.jumpKey,
+                mc.options.sneakKey,
+                mc.options.sprintKey
+            };
+            this.qk = new KeyBinding[] {
+                mc.options.forwardKey,
+                mc.options.backKey,
+                mc.options.leftKey,
+                mc.options.rightKey,
+                mc.options.jumpKey,
+                mc.options.sprintKey
+            };
+        }
+    }
 
-            for (KeyBinding var5 : this.getBindings()) {
-               var5.setPressed(SimpleInputManager.h().isKeyPressed(var5.boundKey.getCode()));
-            }
-         }
-      }
-   }
+    @Override
+    public void registerAll() {
+        super.registerAll();
+        this.registerListener(Listener.bp(), this::yF);
+        this.registerListener(Listener.ag(), this::onPostSetScreen);
+    }
 
-   private void initBinding() {
-      if (this.qj == null || this.qk == null) {
-         this.qj = new KeyBinding[]{
-            mc.options.forwardKey, mc.options.backKey, mc.options.leftKey, mc.options.rightKey, mc.options.jumpKey, mc.options.sneakKey, mc.options.sprintKey
-         };
-         this.qk = new KeyBinding[]{
-            mc.options.forwardKey, mc.options.backKey, mc.options.leftKey, mc.options.rightKey, mc.options.jumpKey, mc.options.sprintKey
-         };
-      }
-   }
-
-   @Override
-   public void registerAll() {
-      super.registerAll();
-      this.registerListener(Listener.bp(), this::yF);
-      this.registerListener(Listener.ag(), this::onPostSetScreen);
-   }
-
-   public boolean skip() {
-      if (mc.currentScreen == null
-         || mc.currentScreen instanceof CreativeInventoryScreen
-         || mc.currentScreen instanceof ChatScreen
-         || mc.currentScreen instanceof SignEditScreen
-         || mc.currentScreen instanceof AnvilScreen
-         || mc.currentScreen instanceof CommandBlockScreen
-         || mc.currentScreen instanceof StructureBlockScreen
-         || mc.currentScreen.getFocused() instanceof TextFieldWidget
-         || mc.currentScreen.getFocused() instanceof DrawableWidget var2 && this.checkCustomWidget(var2)) {
-         return true;
-      } else {
-         return this.allGuiMove.get() ? false : !(mc.currentScreen instanceof HandledScreen);
-      }
-   }
+    public boolean skip() {
+        if (mc.currentScreen == null
+                || mc.currentScreen instanceof CreativeInventoryScreen
+                || mc.currentScreen instanceof ChatScreen
+                || mc.currentScreen instanceof SignEditScreen
+                || mc.currentScreen instanceof AnvilScreen
+                || mc.currentScreen instanceof CommandBlockScreen
+                || mc.currentScreen instanceof StructureBlockScreen
+                || mc.currentScreen.getFocused() instanceof TextFieldWidget
+                || mc.currentScreen.getFocused() instanceof DrawableWidget var2 && this.checkCustomWidget(var2)) {
+            return true;
+        } else {
+            return this.allGuiMove.get() ? false : !(mc.currentScreen instanceof HandledScreen);
+        }
+    }
 }

@@ -10,19 +10,17 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Environment(EnvType.CLIENT)
 @Mixin(
-   value = {ClientLoginNetworkHandler.class},
-   priority = Integer.MAX_VALUE
-)
+        value = {ClientLoginNetworkHandler.class},
+        priority = Integer.MAX_VALUE)
 public class ClientLoginNetworkHandlerMixin {
-   @ModifyArg(
-      method = {"onSuccess"},
-      at = @At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/network/packet/BrandCustomPayload;<init>(Ljava/lang/String;)V"
-      )
-   )
-   private String changeBrandName(String string) {
-      String brand = ClientExtra.INSTANCE.clientBrandName.getValue();
-      return brand != null && !brand.isEmpty() ? brand : string;
-   }
+    @ModifyArg(
+            method = {"onSuccess"},
+            at =
+                    @At(
+                            value = "INVOKE",
+                            target = "Lnet/minecraft/network/packet/BrandCustomPayload;<init>(Ljava/lang/String;)V"))
+    private String changeBrandName(String string) {
+        String brand = ClientExtra.INSTANCE.clientBrandName.getValue();
+        return brand != null && !brand.isEmpty() ? brand : string;
+    }
 }

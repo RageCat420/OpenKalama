@@ -10,43 +10,43 @@ import net.minecraft.util.math.Vec3d;
 
 @Modifiable
 public class EntityHelper {
-   public static Vec3d getEntityVelocity(Entity entity) {
-      return entity.getVelocity();
-   }
+    public static Vec3d getEntityVelocity(Entity entity) {
+        return entity.getVelocity();
+    }
 
-   public static void setEntityVelocity(Entity entity, Vec3d velocity) {
-      entity.setVelocity(velocity);
-   }
+    public static void setEntityVelocity(Entity entity, Vec3d velocity) {
+        entity.setVelocity(velocity);
+    }
 
-   public static EntityType getEntityTypeByName(String name) {
-      return (EntityType)EntityType.get(name).orElse(null);
-   }
+    public static EntityType getEntityTypeByName(String name) {
+        return (EntityType) EntityType.get(name).orElse(null);
+    }
 
-   public static void setEntityFlag(Entity entity, int flag, boolean value) {
-      EntityAccess.of(entity).setDataFlag(flag, value);
-   }
+    public static void setEntityFlag(Entity entity, int flag, boolean value) {
+        EntityAccess.of(entity).setDataFlag(flag, value);
+    }
 
-   public static String getEntityTypeName(EntityType entityType) {
-      return EntityType.getId(entityType).toString();
-   }
+    public static String getEntityTypeName(EntityType entityType) {
+        return EntityType.getId(entityType).toString();
+    }
 
-   public static boolean getEntityFlag(Entity entity, int flag) {
-      return EntityAccess.of(entity).getDataFlag(flag);
-   }
+    public static boolean getEntityFlag(Entity entity, int flag) {
+        return EntityAccess.of(entity).getDataFlag(flag);
+    }
 
-   public static EntityType getEntityType(Entity entity) {
-      return entity.getType();
-   }
+    public static EntityType getEntityType(Entity entity) {
+        return entity.getType();
+    }
 
-   public static EntityPose getEntityPose(Entity entity) {
-      return entity.getPose();
-   }
+    public static EntityPose getEntityPose(Entity entity) {
+        return entity.getPose();
+    }
 
-   public static int getEntityId(Entity entity) {
-      return entity.getId();
-   }
+    public static int getEntityId(Entity entity) {
+        return entity.getId();
+    }
 
-   public static void setEntityPose(Entity entity, String pose) {
-      entity.setPose(EntityPose.valueOf(pose.toUpperCase(Locale.ROOT)));
-   }
+    public static void setEntityPose(Entity entity, String pose) {
+        entity.setPose(EntityPose.valueOf(pose.toUpperCase(Locale.ROOT)));
+    }
 }

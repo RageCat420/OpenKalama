@@ -17,21 +17,21 @@ import xaeroplus.util.BaritonePathHelper;
 @Environment(EnvType.CLIENT)
 @Mixin({BaritonePathHelper.class})
 public class XaeroPlusBaritonePathHelperMixin {
-   @Inject(
-      method = {"getBaritonePath"},
-      at = {@At("HEAD")},
-      cancellable = true,
-      expect = 0,
-      require = 0,
-      remap = false
-   )
-   private static void hookGetBaritonePath(CallbackInfoReturnable<List<BlockPos>> cir) {
-      if (XaeroHelper.INSTANCE.xplusBaritoneElytraPathFix.get() && BaritoneHooks.getInstance().isBaritoneElytraProcessing()) {
-         List<BlockPos> currentBlockPos = BaritoneHooks.getInstance().getCurrentNetherPath();
-         if (!currentBlockPos.isEmpty()) {
-            cir.setReturnValue(currentBlockPos);
-            return;
-         }
-      }
-   }
+    @Inject(
+            method = {"getBaritonePath"},
+            at = {@At("HEAD")},
+            cancellable = true,
+            expect = 0,
+            require = 0,
+            remap = false)
+    private static void hookGetBaritonePath(CallbackInfoReturnable<List<BlockPos>> cir) {
+        if (XaeroHelper.INSTANCE.xplusBaritoneElytraPathFix.get()
+                && BaritoneHooks.getInstance().isBaritoneElytraProcessing()) {
+            List<BlockPos> currentBlockPos = BaritoneHooks.getInstance().getCurrentNetherPath();
+            if (!currentBlockPos.isEmpty()) {
+                cir.setReturnValue(currentBlockPos);
+                return;
+            }
+        }
+    }
 }

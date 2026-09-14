@@ -18,76 +18,82 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.At.Shift;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({Generic3x3ContainerScreen.class})
-public abstract class DispenserCraftScreenMixin extends HandledScreen<Generic3x3ContainerScreenHandler> implements TileInventory {
-   @Unique
-   private BlockPos pos;
-   @Unique
-   private Block cacheBlockType;
-   @Unique
-   private ClientWorld world;
-   @Unique
-   private ContainerPosition containerPosition;
+public abstract class DispenserCraftScreenMixin extends HandledScreen<Generic3x3ContainerScreenHandler>
+        implements TileInventory {
+    @Unique
+    private BlockPos pos;
 
-   @Shadow
-   protected abstract void init();
+    @Unique
+    private Block cacheBlockType;
 
-   @Unique
-   @Override
-   public BlockPos getPos() {
-      return this.pos;
-   }
+    @Unique
+    private ClientWorld world;
 
-   @Unique
-   @Override
-   public Block getBlockType() {
-      return this.cacheBlockType;
-   }
+    @Unique
+    private ContainerPosition containerPosition;
 
-   @Unique
-   @Override
-   public ClientWorld getWorld() {
-      return this.world;
-   }
+    @Shadow
+    protected abstract void init();
 
-   @Unique
-   @Override
-   public ContainerPosition getContainerPosition() {
-      return this.containerPosition;
-   }
+    @Unique
+    @Override
+    public BlockPos getPos() {
+        return this.pos;
+    }
 
-   @Unique
-   @Override
-   public HandledScreen<?> castHandled() {
-      return this;
-   }
+    @Unique
+    @Override
+    public Block getBlockType() {
+        return this.cacheBlockType;
+    }
 
-   public DispenserCraftScreenMixin(ScreenHandler handler, PlayerInventory inventory, Text title) {
-      super((Generic3x3ContainerScreenHandler)handler, inventory, title);
-   }
+    @Unique
+    @Override
+    public ClientWorld getWorld() {
+        return this.world;
+    }
 
-   @Inject(
-      method = {"<init>"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/gui/screen/ingame/HandledScreen;<init>(Lnet/minecraft/screen/ScreenHandler;Lnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/text/Text;)V",
-         shift = Shift.AFTER
-      )}
-   )
-   protected void tryInitBlockPos(Generic3x3ContainerScreenHandler handler, PlayerInventory inventory, Text title, CallbackInfo ci) {
-      this.world = MinecraftClient.getInstance().world;
-      this.pos = InvTasks.predictScreenFrom(b -> b == Blocks.DISPENSER || b == Blocks.DROPPER);
-      if (this.pos != null && this.world != null) {
-         this.cacheBlockType = this.world.getBlockState(this.pos).getBlock();
-         this.containerPosition = ContainerPosition.ofSingle(this.world, this.pos);
-      }
+    @Unique
+    @Override
+    public ContainerPosition getContainerPosition() {
+        return this.containerPosition;
+    }
 
-      if (this.handler instanceof TileInventory.Handler handler1) {
-         handler1.sync(this);
-      }
-   }
+    @Unique
+    @Override
+    public HandledScreen<?> castHandled() {
+        return this;
+    }
+
+    public DispenserCraftScreenMixin(ScreenHandler handler, PlayerInventory inventory, Text title) {
+        super((Generic3x3ContainerScreenHandler) handler, inventory, title);
+    }
+
+    @Inject(
+            method = {"<init>"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/client/gui/screen/ingame/HandledScreen;<init>(Lnet/minecraft/screen/ScreenHandler;Lnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/text/Text;)V",
+                        shift = Shift.AFTER)
+            })
+    protected void tryInitBlockPos(
+            Generic3x3ContainerScreenHandler handler, PlayerInventory inventory, Text title, CallbackInfo ci) {
+        this.world = MinecraftClient.getInstance().world;
+        this.pos = InvTasks.predictScreenFrom(b -> b == Blocks.DISPENSER || b == Blocks.DROPPER);
+        if (this.pos != null && this.world != null) {
+            this.cacheBlockType = this.world.getBlockState(this.pos).getBlock();
+            this.containerPosition = ContainerPosition.ofSingle(this.world, this.pos);
+        }
+
+        if (this.handler instanceof TileInventory.Handler handler1) {
+            handler1.sync(this);
+        }
+    }
 }

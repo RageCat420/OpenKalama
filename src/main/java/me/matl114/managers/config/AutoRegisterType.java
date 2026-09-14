@@ -4,5 +4,5 @@ import java.util.HashSet;
 import java.util.Set;
 
 public interface AutoRegisterType {
-   Set<Class<? extends AutoRegisterType>> registered = new HashSet<>();
+    Set<Class<? extends AutoRegisterType>> registered = new HashSet<>();
 }

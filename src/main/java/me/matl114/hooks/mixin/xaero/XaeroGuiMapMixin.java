@@ -15,39 +15,35 @@ import xaero.map.gui.IRightClickableElement;
 @Environment(EnvType.CLIENT)
 @Mixin({GuiMap.class})
 public abstract class XaeroGuiMapMixin implements IRightClickableElement, XaeroGuiMapAccess {
-   @Shadow
-   private RegistryKey<World> rightClickDim;
-   @Shadow(
-      remap = false
-   )
-   private int rightClickX;
-   @Shadow(
-      remap = false
-   )
-   private int rightClickY;
-   @Shadow(
-      remap = false
-   )
-   private int rightClickZ;
+    @Shadow
+    private RegistryKey<World> rightClickDim;
 
-   @Override
-   public RegistryKey<World> getRightClickDim() {
-      return this.rightClickDim;
-   }
+    @Shadow(remap = false)
+    private int rightClickX;
 
-   @Override
-   public int getRightClickX() {
-      return this.rightClickX;
-   }
+    @Shadow(remap = false)
+    private int rightClickY;
 
-   @Override
-   public int getRightClickY() {
-      return this.rightClickY;
-   }
+    @Shadow(remap = false)
+    private int rightClickZ;
 
-   @Override
-   public int getRightClickZ() {
-      return this.rightClickZ;
-   }
+    @Override
+    public RegistryKey<World> getRightClickDim() {
+        return this.rightClickDim;
+    }
 
+    @Override
+    public int getRightClickX() {
+        return this.rightClickX;
+    }
+
+    @Override
+    public int getRightClickY() {
+        return this.rightClickY;
+    }
+
+    @Override
+    public int getRightClickZ() {
+        return this.rightClickZ;
+    }
 }

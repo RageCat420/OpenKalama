@@ -16,42 +16,36 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 
 public class KalamaHelperHelperF {
-   ItemStack sample;
+    ItemStack sample;
 
-   public DrawableWidget factory(int x, int y) {
-      KalamaHelperHelperCX var3 = new KalamaHelperHelperCX(x, y, 0, 0);
-      var3.Q(
-         DisplayWidget.instance(1, 1, 49, 19)
-            .setRenderHandler(LabelElement.instance(Text.translatable("widget.gui.item-edit-screen.nbt-editor.generic.hide-flag")))
-      );
-      VHideFlag[] var4 = ItemStackUtils.getHideFlags();
+    public DrawableWidget factory(int x, int y) {
+        KalamaHelperHelperCX var3 = new KalamaHelperHelperCX(x, y, 0, 0);
+        var3.Q(DisplayWidget.instance(1, 1, 49, 19)
+                .setRenderHandler(LabelElement.instance(
+                        Text.translatable("widget.gui.item-edit-screen.nbt-editor.generic.hide-flag"))));
+        VHideFlag[] var4 = ItemStackUtils.getHideFlags();
 
-      for (int var5 = 0; var5 < var4.length; var5++) {
-         VHideFlag var6 = var4[var5];
-         var3.Q(
-            ExecutableWidget.instance(51 + 20 * var5, 1, 18, 18)
-               .eV(
-                  IconElement.co(
-                        ButtonElement.bH,
-                        ButtonElement.bJ,
-                        ButtonAction.a(() -> var6.setHideFlag(this.sample, !var6.isHide(this.sample))),
-                        bl -> var6.isHide(this.sample)
-                     )
-                     .aO(TooltipHandler.ap(List.of(Text.literal(var6.displayName()))))
-               )
-         );
-      }
+        for (int var5 = 0; var5 < var4.length; var5++) {
+            VHideFlag var6 = var4[var5];
+            var3.Q(ExecutableWidget.instance(51 + 20 * var5, 1, 18, 18)
+                    .eV(IconElement.co(
+                                    ButtonElement.bH,
+                                    ButtonElement.bJ,
+                                    ButtonAction.a(() -> var6.setHideFlag(this.sample, !var6.isHide(this.sample))),
+                                    bl -> var6.isHide(this.sample))
+                            .aO(TooltipHandler.ap(List.of(Text.literal(var6.displayName()))))));
+        }
 
-      return var3;
-   }
+        return var3;
+    }
 
-   public KalamaHelperHelperF(ItemStack stack) {
-      this.sample = stack.copy();
-   }
+    public KalamaHelperHelperF(ItemStack stack) {
+        this.sample = stack.copy();
+    }
 
-   public void applyChange(ItemStack stack) {
-      for (VHideFlag var5 : ItemStackUtils.getHideFlags()) {
-         var5.setHideFlag(stack, var5.isHide(this.sample));
-      }
-   }
+    public void applyChange(ItemStack stack) {
+        for (VHideFlag var5 : ItemStackUtils.getHideFlags()) {
+            var5.setHideFlag(stack, var5.isHide(this.sample));
+        }
+    }
 }

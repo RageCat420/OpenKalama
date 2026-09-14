@@ -8,26 +8,28 @@ import me.matl114.utils.config.BaseAttrKeyValue;
 import me.matl114.utils.config.WrapperFactory;
 
 public abstract class ListAttrKeyValue<T> extends BaseAttrKeyValue<List<T>> {
-   protected List<Predicate<T>> elementValidators = new ArrayList<>();
+    protected List<Predicate<T>> elementValidators = new ArrayList<>();
 
-   public ListAttrKeyValue(
-      String key, List<T> value, AttrKeyValue.CustomWidgetFactory<List<T>> customWidgetFactory, WrapperFactory<String, List<T>> wrapperFactory
-   ) {
-      super(key, value, customWidgetFactory, wrapperFactory);
-   }
+    public ListAttrKeyValue(
+            String key,
+            List<T> value,
+            AttrKeyValue.CustomWidgetFactory<List<T>> customWidgetFactory,
+            WrapperFactory<String, List<T>> wrapperFactory) {
+        super(key, value, customWidgetFactory, wrapperFactory);
+    }
 
-   @Override
-   public <W extends AttrKeyValue<List<T>>> W copy() {
-      ListAttrKeyValue<T> val = super.copy();
-      val.elementValidators = new ArrayList<>(val.elementValidators);
-      return (W)val;
-   }
+    @Override
+    public <W extends AttrKeyValue<List<T>>> W copy() {
+        ListAttrKeyValue<T> val = super.copy();
+        val.elementValidators = new ArrayList<>(val.elementValidators);
+        return (W) val;
+    }
 
-   public abstract List<AttrKeyValue<T>> createAttrKeyValueForElements();
+    public abstract List<AttrKeyValue<T>> createAttrKeyValueForElements();
 
-   public abstract AttrKeyValue<T> createNewAttrKeyValueElement();
+    public abstract AttrKeyValue<T> createNewAttrKeyValueElement();
 
-   public List<Predicate<T>> getElementValidators() {
-      return this.elementValidators;
-   }
+    public List<Predicate<T>> getElementValidators() {
+        return this.elementValidators;
+    }
 }

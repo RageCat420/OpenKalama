@@ -5,10 +5,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
 class KalamaHelperHelperF implements KalamaHelperHelperZ {
-   private final Gson loader = new GsonBuilder().create();
+    private final Gson loader = new GsonBuilder().create();
 
-   @Override
-   public String format(JsonElement jsonElement) {
-      return this.loader.toJson(jsonElement);
-   }
+    @Override
+    public String format(JsonElement jsonElement) {
+        return this.loader.toJson(jsonElement);
+    }
 }

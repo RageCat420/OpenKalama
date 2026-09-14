@@ -10,21 +10,18 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.World;
 
 public class WorldStorage extends IStorage {
-   public static final Codec<WorldStorage> CODEC = RecordCodecBuilder.create(
-      instance -> instance.group(
-            World.CODEC.fieldOf("dim").forGetter(IStorage::getDimension), Codec.unboundedMap(Codec.STRING, VNbt.a).fieldOf("storage").forGetter(v -> v.b)
-         )
-         .apply(instance, WorldStorage::new)
-   );
+    public static final Codec<WorldStorage> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                    World.CODEC.fieldOf("dim").forGetter(IStorage::getDimension),
+                    Codec.unboundedMap(Codec.STRING, VNbt.a).fieldOf("storage").forGetter(v -> v.b))
+            .apply(instance, WorldStorage::new));
 
-   public WorldStorage(RegistryKey<World> dimension) {
-      this(dimension, new ConcurrentHashMap<>());
-   }
+    public WorldStorage(RegistryKey<World> dimension) {
+        this(dimension, new ConcurrentHashMap<>());
+    }
 
-   public WorldStorage() {
-   }
+    public WorldStorage() {}
 
-   public WorldStorage(RegistryKey<World> dimension, Map<String, NbtElement> storage) {
-      super(dimension, storage);
-   }
+    public WorldStorage(RegistryKey<World> dimension, Map<String, NbtElement> storage) {
+        super(dimension, storage);
+    }
 }

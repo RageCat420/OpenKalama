@@ -14,16 +14,21 @@ import org.spongepowered.asm.mixin.injection.At;
 @Environment(EnvType.CLIENT)
 @Mixin({PlayerEntityRenderer.class})
 public class PlayerEntityRendererMixin {
-   @ModifyExpressionValue(
-      method = {"setupTransforms(Lnet/minecraft/client/network/AbstractClientPlayerEntity;Lnet/minecraft/client/util/math/MatrixStack;FFFF)V"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;isFallFlying()Z"
-      )}
-   )
-   public boolean onSetUpTransforms(boolean original, @Local(argsOnly = true) AbstractClientPlayerEntity player) {
-      return player == MinecraftClient.getInstance().player && original && ElytraExtra.INSTANCE.afr() && ElytraExtra.INSTANCE.renderFix.get()
-         ? false
-         : original;
-   }
+    @ModifyExpressionValue(
+            method = {
+                "setupTransforms(Lnet/minecraft/client/network/AbstractClientPlayerEntity;Lnet/minecraft/client/util/math/MatrixStack;FFFF)V"
+            },
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;isFallFlying()Z")
+            })
+    public boolean onSetUpTransforms(boolean original, @Local(argsOnly = true) AbstractClientPlayerEntity player) {
+        return player == MinecraftClient.getInstance().player
+                        && original
+                        && ElytraExtra.INSTANCE.afr()
+                        && ElytraExtra.INSTANCE.renderFix.get()
+                ? false
+                : original;
+    }
 }

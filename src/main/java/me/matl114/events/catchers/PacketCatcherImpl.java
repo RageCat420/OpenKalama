@@ -5,16 +5,15 @@ import me.matl114.events.Event;
 import net.minecraft.network.packet.Packet;
 
 public class PacketCatcherImpl<T extends Packet<?>> extends AbstractTypedPacketCatcher<T> {
-   Predicate<Event<T>> predicate;
+    Predicate<Event<T>> predicate;
 
-   @Override
-   public boolean a(Event<T> packet) {
-      return this.predicate.test(packet);
-   }
+    @Override
+    public boolean a(Event<T> packet) {
+        return this.predicate.test(packet);
+    }
 
-   public PacketCatcherImpl(Class<T> packetClass, Predicate<Event<T>> predicate) {
-      super(packetClass);
-      this.predicate = predicate;
-   }
-
+    public PacketCatcherImpl(Class<T> packetClass, Predicate<Event<T>> predicate) {
+        super(packetClass);
+        this.predicate = predicate;
+    }
 }

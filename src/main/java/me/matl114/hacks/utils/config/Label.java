@@ -13,31 +13,29 @@ import me.matl114.utils.ChatUtils;
 import net.minecraft.text.Text;
 
 public record Label(String label) implements NBTParsable<Label> {
-   public static NBTType<Label> TYPE = new NBTType<>(
-      "label",
-      Codec.STRING.xmap(Label::new, Label::label),
-      (w, x, y, dx, dy) -> {
-         String label = ((Label)w.getOriginValue()).label();
-         return DisplayWidget.instance(x, y, dx, dy)
-            .setRenderHandler(
-               new RawTextElement(Text.translatableWithFallback(label, label), -1).aO(TooltipHandler.ap(ChatUtils.parseTranslation(label + ".tooltips", "")))
-            );
-      },
-      new Label("")
-   );
+    public static NBTType<Label> TYPE = new NBTType<>(
+            "label",
+            Codec.STRING.xmap(Label::new, Label::label),
+            (w, x, y, dx, dy) -> {
+                String label = ((Label) w.getOriginValue()).label();
+                return DisplayWidget.instance(x, y, dx, dy)
+                        .setRenderHandler(new RawTextElement(Text.translatableWithFallback(label, label), -1)
+                                .aO(TooltipHandler.ap(ChatUtils.parseTranslation(label + ".tooltips", ""))));
+            },
+            new Label(""));
 
-   @Override
-   public NBTType<Label> type() {
-      return TYPE;
-   }
+    @Override
+    public NBTType<Label> type() {
+        return TYPE;
+    }
 
-   @Override
-   public boolean isSameType(NBTParsable<?> type) {
-      return Objects.equals(type, this);
-   }
+    @Override
+    public boolean isSameType(NBTParsable<?> type) {
+        return Objects.equals(type, this);
+    }
 
-   @Override
-   public <W> Optional<Label> tryTypeConvert(Ref<W> ref) {
-      return ref.getValue() instanceof Label label ? Optional.of(new Label(this.label())) : Optional.empty();
-   }
+    @Override
+    public <W> Optional<Label> tryTypeConvert(Ref<W> ref) {
+        return ref.getValue() instanceof Label label ? Optional.of(new Label(this.label())) : Optional.empty();
+    }
 }

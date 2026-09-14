@@ -10,44 +10,47 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public class RegistryChooseScreen<T> extends ConfirmingBigScreen {
-   protected ContentDelegateWidget<ListRegistrySelectWidget<T>> as;
-   Registry<T> aq;
-   protected ListRegistrySelectWidget<T> ar;
-   Consumer<T> c;
-   protected static final int WIDTH = 240;
+    protected ContentDelegateWidget<ListRegistrySelectWidget<T>> as;
+    Registry<T> aq;
+    protected ListRegistrySelectWidget<T> ar;
+    Consumer<T> c;
+    protected static final int WIDTH = 240;
 
-   @Override
-   protected void c() {
-      Object var1 = this.ar.getSelectedRegistry();
-      if (this.c != null) {
-         this.c.accept((T)var1);
-      }
+    @Override
+    protected void c() {
+        Object var1 = this.ar.getSelectedRegistry();
+        if (this.c != null) {
+            this.c.accept((T) var1);
+        }
 
-      this.close();
-   }
+        this.close();
+    }
 
-   @Override
-   protected void init() {
-      super.init();
-      this.as = new ContentDelegateWidget<ListRegistrySelectWidget<T>>(this.x + this.backgroundWidth / 2 - 120, this.y, 240, 240)
-         .setContentDelegate(this.ar)
-         .addTo(this);
-   }
+    @Override
+    protected void init() {
+        super.init();
+        this.as = new ContentDelegateWidget<ListRegistrySelectWidget<T>>(
+                        this.x + this.backgroundWidth / 2 - 120, this.y, 240, 240)
+                .setContentDelegate(this.ar)
+                .addTo(this);
+    }
 
-   public RegistryChooseScreen(Registry<T> registry, Consumer<T> callback, String filterInput) {
-      super(Text.empty());
-      this.aq = registry;
-      this.c = callback;
-      this.setTitleLabel(Text.translatable("widget.gui.registry-choose-screen.title").formatted(Formatting.AQUA));
-      this.ar = ListRegistrySelectWidget.registry(this.aq, ValueAccessor.holder(filterInput), 0, CONTENT_START_Y + 20, 240, 240, 20);
-   }
+    public RegistryChooseScreen(Registry<T> registry, Consumer<T> callback, String filterInput) {
+        super(Text.empty());
+        this.aq = registry;
+        this.c = callback;
+        this.setTitleLabel(
+                Text.translatable("widget.gui.registry-choose-screen.title").formatted(Formatting.AQUA));
+        this.ar = ListRegistrySelectWidget.registry(
+                this.aq, ValueAccessor.holder(filterInput), 0, CONTENT_START_Y + 20, 240, 240, 20);
+    }
 
-   public RegistryChooseScreen(Registry<T> registry, Consumer<T> callback) {
-      this(registry, callback, "");
-   }
+    public RegistryChooseScreen(Registry<T> registry, Consumer<T> callback) {
+        this(registry, callback, "");
+    }
 
-   @Override
-   protected boolean canConfirm(ElementHandler elementHandler) {
-      return this.ar.getSelectedRegistry() != null;
-   }
+    @Override
+    protected boolean canConfirm(ElementHandler elementHandler) {
+        return this.ar.getSelectedRegistry() != null;
+    }
 }

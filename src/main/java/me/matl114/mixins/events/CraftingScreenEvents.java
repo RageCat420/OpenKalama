@@ -17,25 +17,24 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Environment(EnvType.CLIENT)
 @Mixin({CraftingScreen.class})
 public abstract class CraftingScreenEvents implements RecipeBookProvider {
-   @Shadow
-   @Final
-   private RecipeBookWidget field_2880;
+    @Shadow
+    @Final
+    private RecipeBookWidget field_2880;
 
-   @ModifyArg(
-      method = {"init"},
-      at = @At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/gui/widget/TexturedButtonWidget;<init>(IIIILnet/minecraft/client/gui/screen/ButtonTextures;Lnet/minecraft/client/gui/widget/ButtonWidget$PressAction;)V"
-      ),
-      index = 5
-   )
-   public PressAction modifyPressAction(PressAction pressAction) {
-      return button -> {
-         pressAction.onPress(button);
-         if (!Listener.aj().d()) {
-            Listener.aj().broadcast(new KalamaHelperHelperG(this, this.field_2880, button));
-         }
-      };
-   }
-
+    @ModifyArg(
+            method = {"init"},
+            at =
+                    @At(
+                            value = "INVOKE",
+                            target =
+                                    "Lnet/minecraft/client/gui/widget/TexturedButtonWidget;<init>(IIIILnet/minecraft/client/gui/screen/ButtonTextures;Lnet/minecraft/client/gui/widget/ButtonWidget$PressAction;)V"),
+            index = 5)
+    public PressAction modifyPressAction(PressAction pressAction) {
+        return button -> {
+            pressAction.onPress(button);
+            if (!Listener.aj().d()) {
+                Listener.aj().broadcast(new KalamaHelperHelperG(this, this.field_2880, button));
+            }
+        };
+    }
 }

@@ -14,39 +14,40 @@ import xaero.hud.minimap.world.MinimapWorld;
 import xaero.hud.minimap.world.MinimapWorldManager;
 
 public class XaeroWaypointFactoryImpl implements IXWaypointFactory {
-   public static final XaeroWaypointFactoryImpl INSTANCE = new XaeroWaypointFactoryImpl();
+    public static final XaeroWaypointFactoryImpl INSTANCE = new XaeroWaypointFactoryImpl();
 
-   @Override
-   public IXWaypoint createWaypoint(int x, int y, int z, String name, String initials, int color, int type, boolean temp, boolean yIncluded) {
-      return new WaypointWrapper(new Waypoint(x, y, z, name, initials, color, type, temp, yIncluded));
-   }
+    @Override
+    public IXWaypoint createWaypoint(
+            int x, int y, int z, String name, String initials, int color, int type, boolean temp, boolean yIncluded) {
+        return new WaypointWrapper(new Waypoint(x, y, z, name, initials, color, type, temp, yIncluded));
+    }
 
-   @Nullable
-   @Override
-   public IXWaypointAccess getCurrentWaypointSet() {
-      MinimapWorldManager world = ((MinimapSession)BuiltInHudModules.MINIMAP.getCurrentSession()).getWorldManager();
-      if (world == null) {
-         return null;
-      } else {
-         MinimapWorld set = world.getCurrentWorld();
-         if (set == null) {
+    @Nullable
+    @Override
+    public IXWaypointAccess getCurrentWaypointSet() {
+        MinimapWorldManager world = ((MinimapSession) BuiltInHudModules.MINIMAP.getCurrentSession()).getWorldManager();
+        if (world == null) {
             return null;
-         } else {
-            WaypointSet acc = set.getCurrentWaypointSet();
-            return acc == null ? null : new XaeroWaypointSetImpl(acc);
-         }
-      }
-   }
+        } else {
+            MinimapWorld set = world.getCurrentWorld();
+            if (set == null) {
+                return null;
+            } else {
+                WaypointSet acc = set.getCurrentWaypointSet();
+                return acc == null ? null : new XaeroWaypointSetImpl(acc);
+            }
+        }
+    }
 
-   @Nullable
-   @Override
-   public RegistryKey<World> getCurrentWorld() {
-      MinimapWorldManager world = ((MinimapSession)BuiltInHudModules.MINIMAP.getCurrentSession()).getWorldManager();
-      if (world == null) {
-         return null;
-      } else {
-         MinimapWorld acc = world.getCurrentWorld();
-         return acc == null ? null : acc.getDimId();
-      }
-   }
+    @Nullable
+    @Override
+    public RegistryKey<World> getCurrentWorld() {
+        MinimapWorldManager world = ((MinimapSession) BuiltInHudModules.MINIMAP.getCurrentSession()).getWorldManager();
+        if (world == null) {
+            return null;
+        } else {
+            MinimapWorld acc = world.getCurrentWorld();
+            return acc == null ? null : acc.getDimId();
+        }
+    }
 }

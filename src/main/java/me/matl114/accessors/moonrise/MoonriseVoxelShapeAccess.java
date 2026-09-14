@@ -6,31 +6,31 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.shape.VoxelShape;
 
 public interface MoonriseVoxelShapeAccess {
-   double moonrise$offsetX();
+    double moonrise$offsetX();
 
-   double moonrise$offsetY();
+    double moonrise$offsetY();
 
-   double moonrise$offsetZ();
+    double moonrise$offsetZ();
 
-   double[] moonrise$rootCoordinatesX();
+    double[] moonrise$rootCoordinatesX();
 
-   double[] moonrise$rootCoordinatesY();
+    double[] moonrise$rootCoordinatesY();
 
-   double[] moonrise$rootCoordinatesZ();
+    double[] moonrise$rootCoordinatesZ();
 
-   Box moonrise$getSingleAABBRepresentation();
+    Box moonrise$getSingleAABBRepresentation();
 
-   CachedToAABBs moonrise$cachedToAABBs();
+    CachedToAABBs moonrise$cachedToAABBs();
 
-   void moonriss$setCachedToAABBs(CachedToAABBs var1);
+    void moonriss$setCachedToAABBs(CachedToAABBs var1);
 
-   boolean moonrise$isFullBlock();
+    boolean moonrise$isFullBlock();
 
-   CachedShapeData moonrise$getCachedVoxelData();
+    CachedShapeData moonrise$getCachedVoxelData();
 
-   void moonrise$initCache();
+    void moonrise$initCache();
 
-   static MoonriseVoxelShapeAccess of(VoxelShape voxel) {
-      return (MoonriseVoxelShapeAccess)voxel;
-   }
+    static MoonriseVoxelShapeAccess of(VoxelShape voxel) {
+        return (MoonriseVoxelShapeAccess) voxel;
+    }
 }

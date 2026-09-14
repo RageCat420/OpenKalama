@@ -13,56 +13,66 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public class StringListModifyScreen<T> extends ConfirmingBigScreen {
-   private static final int WIDTH = 240;
-   ListAttrKeyValue<T> r;
-   ListEntryWidgetController t;
-   List<AttrKeyValue<T>> b;
-   Consumer<ListAttrKeyValue<T>> s;
+    private static final int WIDTH = 240;
+    ListAttrKeyValue<T> r;
+    ListEntryWidgetController t;
+    List<AttrKeyValue<T>> b;
+    Consumer<ListAttrKeyValue<T>> s;
 
-   public void tick() {
-      super.tick();
-      this.r.valueChangeInternal(this, this.b.stream().map(KeyValue::getOriginValue).toList());
-   }
+    public void tick() {
+        super.tick();
+        this.r.valueChangeInternal(
+                this, this.b.stream().map(KeyValue::getOriginValue).toList());
+    }
 
-   @Override
-   protected void init() {
-      super.init();
-      short var1 = 320;
-      new me.matl114.gui.complex.config.KalamaHelperHelperD(
-            this.t, this.x + (this.backgroundWidth - var1) / 2, this.y + CONTENT_START_Y, var1, this.content_end_y - CONTENT_START_Y
-         )
-         .addTo(this);
-   }
+    @Override
+    protected void init() {
+        super.init();
+        short var1 = 320;
+        new me.matl114.gui.complex.config.KalamaHelperHelperD(
+                        this.t,
+                        this.x + (this.backgroundWidth - var1) / 2,
+                        this.y + CONTENT_START_Y,
+                        var1,
+                        this.content_end_y - CONTENT_START_Y)
+                .addTo(this);
+    }
 
-   @Override
-   protected void c() {
-      this.r.valueChangeInternal(this, this.b.stream().map(KeyValue::getOriginValue).toList());
-      if (this.r.isValidate()) {
-         this.s.accept(this.r);
-      }
+    @Override
+    protected void c() {
+        this.r.valueChangeInternal(
+                this, this.b.stream().map(KeyValue::getOriginValue).toList());
+        if (this.r.isValidate()) {
+            this.s.accept(this.r);
+        }
 
-      this.close();
-   }
+        this.close();
+    }
 
-   public StringListModifyScreen(ListAttrKeyValue<T> list, Consumer<ListAttrKeyValue<T>> consumer) {
-      super(Text.empty());
-      this.setTitleLabel(Text.translatable("widget.gui.string-list-modify-screen.title").formatted(Formatting.GREEN));
-      this.r = list;
-      this.b = new ArrayList<>(this.r.createAttrKeyValueForElements());
-      this.s = consumer;
-      this.t = ListEntryWidgetController.mutable(
-         this.b,
-         this.r::createNewAttrKeyValueElement,
-         stringAttrKeyValue -> McWidgetHelpers.d(
-            0, 1, 240, 18, stringAttrKeyValue, stringAttrKeyValue.getValue(), McWidgetHelpers.getWrongRedTextBoxColorProvider(stringAttrKeyValue::isValidate)
-         ),
-         20,
-         240
-      );
-   }
+    public StringListModifyScreen(ListAttrKeyValue<T> list, Consumer<ListAttrKeyValue<T>> consumer) {
+        super(Text.empty());
+        this.setTitleLabel(
+                Text.translatable("widget.gui.string-list-modify-screen.title").formatted(Formatting.GREEN));
+        this.r = list;
+        this.b = new ArrayList<>(this.r.createAttrKeyValueForElements());
+        this.s = consumer;
+        this.t = ListEntryWidgetController.mutable(
+                this.b,
+                this.r::createNewAttrKeyValueElement,
+                stringAttrKeyValue -> McWidgetHelpers.d(
+                        0,
+                        1,
+                        240,
+                        18,
+                        stringAttrKeyValue,
+                        stringAttrKeyValue.getValue(),
+                        McWidgetHelpers.getWrongRedTextBoxColorProvider(stringAttrKeyValue::isValidate)),
+                20,
+                240);
+    }
 
-   @Override
-   protected boolean canConfirm(ElementHandler elementHandler) {
-      return this.r.isValidate();
-   }
+    @Override
+    protected boolean canConfirm(ElementHandler elementHandler) {
+        return this.r.isValidate();
+    }
 }

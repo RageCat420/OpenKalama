@@ -20,29 +20,38 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin({WorldRenderer.class})
 public class WorldRenderMixin {
-   @WrapOperation(
-      method = {"hasBlindnessOrDarkness"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/entity/LivingEntity;hasStatusEffect(Lnet/minecraft/registry/entry/RegistryEntry;)Z"
-      )}
-   )
-   public boolean hasBlindnessOrDarkness(LivingEntity instance, RegistryEntry<StatusEffect> effect, Operation<Boolean> original) {
-      if (NoRender.INSTANCE.CY() && Objects.equals(effect, StatusEffects.DARKNESS)) {
-         return false;
-      } else {
-         return NoRender.INSTANCE.CZ() && Objects.equals(effect, StatusEffects.BLINDNESS) ? false : (Boolean)original.call(new Object[]{instance, effect});
-      }
-   }
+    @WrapOperation(
+            method = {"hasBlindnessOrDarkness"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/entity/LivingEntity;hasStatusEffect(Lnet/minecraft/registry/entry/RegistryEntry;)Z")
+            })
+    public boolean hasBlindnessOrDarkness(
+            LivingEntity instance, RegistryEntry<StatusEffect> effect, Operation<Boolean> original) {
+        if (NoRender.INSTANCE.CY() && Objects.equals(effect, StatusEffects.DARKNESS)) {
+            return false;
+        } else {
+            return NoRender.INSTANCE.CZ() && Objects.equals(effect, StatusEffects.BLINDNESS)
+                    ? false
+                    : (Boolean) original.call(new Object[] {instance, effect});
+        }
+    }
 
-   @Inject(
-      method = {"renderWeather"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private void noRenderRainSnow(LightmapTextureManager manager, float tickDelta, double cameraX, double cameraY, double cameraZ, CallbackInfo ci) {
-      if (NoRender.INSTANCE.CS()) {
-         ci.cancel();
-      }
-   }
+    @Inject(
+            method = {"renderWeather"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    private void noRenderRainSnow(
+            LightmapTextureManager manager,
+            float tickDelta,
+            double cameraX,
+            double cameraY,
+            double cameraZ,
+            CallbackInfo ci) {
+        if (NoRender.INSTANCE.CS()) {
+            ci.cancel();
+        }
+    }
 }

@@ -25,37 +25,41 @@ import xaero.map.mods.gui.Waypoint;
 @Environment(EnvType.CLIENT)
 @Mixin({GuiRightClickMenu.class})
 public class XaeroGuiRightClickMenuMixin {
-   @WrapOperation(
-      method = {"Lxaero/map/gui/dropdown/rightclick/GuiRightClickMenu;getMenu(Lxaero/map/gui/IRightClickableElement;Lxaero/map/gui/GuiMap;III)Lxaero/map/gui/dropdown/rightclick/GuiRightClickMenu;"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lxaero/map/gui/IRightClickableElement;getRightClickOptions()Ljava/util/ArrayList;"
-      )},
-      remap = false
-   )
-   private static ArrayList<RightClickOption> onRightClickOptionsAdd(
-      IRightClickableElement rightClickable, Operation<ArrayList<RightClickOption>> original, @Local(argsOnly = true) GuiMap screen
-   ) {
-      ArrayList<RightClickOption> contexts = (ArrayList<RightClickOption>)original.call(new Object[]{rightClickable});
-      if (screen instanceof XaeroGuiMapAccess access) {
-         ArrayList<MapClickContext> list = new ArrayList<>();
-         RegistryKey<World> world = access.getRightClickDim();
-         BlockPos pos;
-         if (rightClickable instanceof HoveredMapElementHolder<?, ?> hoveredMapElementHolder
-            && hoveredMapElementHolder.getElement() instanceof Waypoint waypoint) {
-            pos = new BlockPos(waypoint.getX(), waypoint.getY(), waypoint.getZ());
-         } else {
-            pos = new BlockPos(access.getRightClickX(), access.getRightClickY(), access.getRightClickZ());
-         }
-
-         XaeroHooks.getWorldMapRightClickOption().h(list, world, pos);
-         if (!list.isEmpty()) {
-            for (MapClickContext re : list) {
-               contexts.add(new RightClickPosOption(re, world, pos, contexts.size(), screen));
+    @WrapOperation(
+            method = {
+                "Lxaero/map/gui/dropdown/rightclick/GuiRightClickMenu;getMenu(Lxaero/map/gui/IRightClickableElement;Lxaero/map/gui/GuiMap;III)Lxaero/map/gui/dropdown/rightclick/GuiRightClickMenu;"
+            },
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target = "Lxaero/map/gui/IRightClickableElement;getRightClickOptions()Ljava/util/ArrayList;")
+            },
+            remap = false)
+    private static ArrayList<RightClickOption> onRightClickOptionsAdd(
+            IRightClickableElement rightClickable,
+            Operation<ArrayList<RightClickOption>> original,
+            @Local(argsOnly = true) GuiMap screen) {
+        ArrayList<RightClickOption> contexts =
+                (ArrayList<RightClickOption>) original.call(new Object[] {rightClickable});
+        if (screen instanceof XaeroGuiMapAccess access) {
+            ArrayList<MapClickContext> list = new ArrayList<>();
+            RegistryKey<World> world = access.getRightClickDim();
+            BlockPos pos;
+            if (rightClickable instanceof HoveredMapElementHolder<?, ?> hoveredMapElementHolder
+                    && hoveredMapElementHolder.getElement() instanceof Waypoint waypoint) {
+                pos = new BlockPos(waypoint.getX(), waypoint.getY(), waypoint.getZ());
+            } else {
+                pos = new BlockPos(access.getRightClickX(), access.getRightClickY(), access.getRightClickZ());
             }
-         }
-      }
 
-      return contexts;
-   }
+            XaeroHooks.getWorldMapRightClickOption().h(list, world, pos);
+            if (!list.isEmpty()) {
+                for (MapClickContext re : list) {
+                    contexts.add(new RightClickPosOption(re, world, pos, contexts.size(), screen));
+                }
+            }
+        }
+
+        return contexts;
+    }
 }

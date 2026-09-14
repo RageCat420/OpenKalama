@@ -8,46 +8,46 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 
 public interface ClientPlayerEntityAccess extends LivingEntityAccess<ClientPlayerEntity> {
-   LegalMovementManager getLegalMovementManager();
+    LegalMovementManager getLegalMovementManager();
 
-   void onPlayerInputPackets();
+    void onPlayerInputPackets();
 
-   default void resyncSprint() {
-      this.setLastSprintFlag(!((Entity)(Object)this).isSprinting());
-   }
+    default void resyncSprint() {
+        this.setLastSprintFlag(!((Entity) (Object) this).isSprinting());
+    }
 
-   void setLastSprintFlag(boolean var1);
+    void setLastSprintFlag(boolean var1);
 
-   default void resyncSneak() {
-      this.setLastSneakFlag(!((Entity)(Object)this).isSneaking());
-   }
+    default void resyncSneak() {
+        this.setLastSneakFlag(!((Entity) (Object) this).isSneaking());
+    }
 
-   void setLastSneakFlag(boolean var1);
+    void setLastSneakFlag(boolean var1);
 
-   default void resyncOnGround() {
-      this.setLastOnGroundFlag(!((Entity)(Object)this).isOnGround());
-   }
+    default void resyncOnGround() {
+        this.setLastOnGroundFlag(!((Entity) (Object) this).isOnGround());
+    }
 
-   void setLastOnGroundFlag(boolean var1);
+    void setLastOnGroundFlag(boolean var1);
 
-   default void resyncPos() {
-      this.setLastPos(Vec3d.ZERO);
-   }
+    default void resyncPos() {
+        this.setLastPos(Vec3d.ZERO);
+    }
 
-   void setLastPos(Vec3d var1);
+    void setLastPos(Vec3d var1);
 
-   default void resyncRot() {
-      this.setLastRot(0.0F, 0.0F);
-   }
+    default void resyncRot() {
+        this.setLastRot(0.0F, 0.0F);
+    }
 
-   void setLastRot(float var1, float var2);
+    void setLastRot(float var1, float var2);
 
-   void resyncMovementPacket();
+    void resyncMovementPacket();
 
-   void resyncInput();
+    void resyncInput();
 
-   @Nonnull
-   static ClientPlayerEntityAccess of(@Nonnull ClientPlayerEntity player) {
-      return (ClientPlayerEntityAccess)player;
-   }
+    @Nonnull
+    static ClientPlayerEntityAccess of(@Nonnull ClientPlayerEntity player) {
+        return (ClientPlayerEntityAccess) player;
+    }
 }

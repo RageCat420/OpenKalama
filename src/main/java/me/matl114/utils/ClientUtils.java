@@ -12,33 +12,40 @@ import net.minecraft.client.MinecraftClient;
 
 @Modifiable
 public class ClientUtils {
-   private static final MinecraftClient mc = MinecraftClient.getInstance();
+    private static final MinecraftClient mc = MinecraftClient.getInstance();
 
-   public static CompletableFuture<List<String>> getServerCommandTabResult(String command) {
-      StringReader var1 = new StringReader(command);
-      var1.skip();
-      CommandDispatcher<net.minecraft.command.CommandSource> var2 = mc.getNetworkHandler().getCommandDispatcher();
-      ParseResults<net.minecraft.command.CommandSource> var3 = var2.parse(var1, mc.getNetworkHandler().getCommandSource());
-      return mc.getNetworkHandler()
-         .getCommandDispatcher()
-         .getCompletionSuggestions(var3)
-         .thenApply(suggestions -> suggestions.getList().stream().<String>map(Suggestion::getText).sorted().toList());
-   }
+    public static CompletableFuture<List<String>> getServerCommandTabResult(String command) {
+        StringReader var1 = new StringReader(command);
+        var1.skip();
+        CommandDispatcher<net.minecraft.command.CommandSource> var2 =
+                mc.getNetworkHandler().getCommandDispatcher();
+        ParseResults<net.minecraft.command.CommandSource> var3 =
+                var2.parse(var1, mc.getNetworkHandler().getCommandSource());
+        return mc.getNetworkHandler()
+                .getCommandDispatcher()
+                .getCompletionSuggestions(var3)
+                .thenApply(suggestions -> suggestions.getList().stream()
+                        .<String>map(Suggestion::getText)
+                        .sorted()
+                        .toList());
+    }
 
-   public static boolean isPlayerOnline() {
-      return mc.player != null && !mc.disconnecting;
-   }
+    public static boolean isPlayerOnline() {
+        return mc.player != null && !mc.disconnecting;
+    }
 
-   public static boolean isNetworkConnecting() {
-      return mc.getServer() != null;
-   }
+    public static boolean isNetworkConnecting() {
+        return mc.getServer() != null;
+    }
 
-   public static List<String> getServerCommands() {
-      return mc.getNetworkHandler().getCommandDispatcher().getRoot().getChildren().stream().<String>map(CommandNode::getName).toList();
-   }
+    public static List<String> getServerCommands() {
+        return mc.getNetworkHandler().getCommandDispatcher().getRoot().getChildren().stream()
+                .<String>map(CommandNode::getName)
+                .toList();
+    }
 
-   public static CompletableFuture<List<String>> c() {
-      String var0 = "/version ";
-      return getServerCommandTabResult(var0);
-   }
+    public static CompletableFuture<List<String>> c() {
+        String var0 = "/version ";
+        return getServerCommandTabResult(var0);
+    }
 }

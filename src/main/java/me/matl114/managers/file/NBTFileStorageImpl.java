@@ -12,89 +12,86 @@ import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtOps;
 
 public class NBTFileStorageImpl extends FileStorageImpl {
-   NbtCompound nbtCompound;
+    NbtCompound nbtCompound;
 
-   @Override
-   public void i() {
-      this.nbtCompound = new NbtCompound();
-      this.file.delete();
-      this.f = true;
-   }
+    @Override
+    public void i() {
+        this.nbtCompound = new NbtCompound();
+        this.file.delete();
+        this.f = true;
+    }
 
-   public void write() {
-      this.ensureParentDir();
-      File var1 = new File(this.file.getParentFile(), this.file.getName() + ".tmp");
-      if (var1.exists()) {
-         var1.delete();
-      }
+    public void write() {
+        this.ensureParentDir();
+        File var1 = new File(this.file.getParentFile(), this.file.getName() + ".tmp");
+        if (var1.exists()) {
+            var1.delete();
+        }
 
-      try {
-         NbtIo.write(this.nbtCompound, var1.toPath());
-      } catch (IOException var4) {
-         throw new RuntimeException("Failed to save " + this.file, var4);
-      }
+        try {
+            NbtIo.write(this.nbtCompound, var1.toPath());
+        } catch (IOException var4) {
+            throw new RuntimeException("Failed to save " + this.file, var4);
+        }
 
-      try {
-         FileUtils.b(var1, this.file);
-      } catch (IOException var3) {
-         throw new RuntimeException("Failed to save " + this.file, var3);
-      }
+        try {
+            FileUtils.b(var1, this.file);
+        } catch (IOException var3) {
+            throw new RuntimeException("Failed to save " + this.file, var3);
+        }
 
-      this.g = false;
-   }
+        this.g = false;
+    }
 
-   public NBTFileStorageImpl(File file) {
-      super(file);
-      this.h();
-   }
+    public NBTFileStorageImpl(File file) {
+        super(file);
+        this.h();
+    }
 
-   @Override
-   public <W> DataResult<W> e(Codec<W> codec) {
-      return codec.parse(NbtOps.INSTANCE, this.nbtCompound);
-   }
+    @Override
+    public <W> DataResult<W> e(Codec<W> codec) {
+        return codec.parse(NbtOps.INSTANCE, this.nbtCompound);
+    }
 
-   @Override
-   public <W> DataResult<?> f(Codec<W> codec, W value) {
-      DataResult<NbtElement> var3 = codec.encodeStart(NbtOps.INSTANCE, value);
-      var3.result().ifPresent(result -> this.write(result, NbtOps.INSTANCE));
-      return var3;
-   }
+    @Override
+    public <W> DataResult<?> f(Codec<W> codec, W value) {
+        DataResult<NbtElement> var3 = codec.encodeStart(NbtOps.INSTANCE, value);
+        var3.result().ifPresent(result -> this.write(result, NbtOps.INSTANCE));
+        return var3;
+    }
 
-   @Override
-   public <T> void write(T value, DynamicOps<T> ops) {
-      this.nbtCompound = (NbtCompound)ops.convertTo(NbtOps.INSTANCE, value);
-      this.g = true;
-   }
+    @Override
+    public <T> void write(T value, DynamicOps<T> ops) {
+        this.nbtCompound = (NbtCompound) ops.convertTo(NbtOps.INSTANCE, value);
+        this.g = true;
+    }
 
-   @Override
-   public <T, W extends T> W b(DynamicOps<T> ops) {
-      return (W)(ops == NbtOps.INSTANCE ? this.nbtCompound : NbtOps.INSTANCE.convertTo(ops, this.nbtCompound));
-   }
+    @Override
+    public <T, W extends T> W b(DynamicOps<T> ops) {
+        return (W) (ops == NbtOps.INSTANCE ? this.nbtCompound : NbtOps.INSTANCE.convertTo(ops, this.nbtCompound));
+    }
 
-   @Override
-   public void h() {
-      if (!this.file.exists()) {
-         this.nbtCompound = new NbtCompound();
-         this.g = false;
-      } else {
-         try {
-            this.nbtCompound = NbtIo.read(this.file.toPath());
-         } catch (Throwable var2) {
-            throw new RuntimeException(var2);
-         }
+    @Override
+    public void h() {
+        if (!this.file.exists()) {
+            this.nbtCompound = new NbtCompound();
+            this.g = false;
+        } else {
+            try {
+                this.nbtCompound = NbtIo.read(this.file.toPath());
+            } catch (Throwable var2) {
+                throw new RuntimeException(var2);
+            }
 
-         this.g = false;
-      }
-   }
+            this.g = false;
+        }
+    }
 
-   @Override
-   public <T, W extends T> W c(DynamicOps<T> ops) {
-      return (W)NbtOps.INSTANCE.convertTo(ops, this.nbtCompound);
-   }
+    @Override
+    public <T, W extends T> W c(DynamicOps<T> ops) {
+        return (W) NbtOps.INSTANCE.convertTo(ops, this.nbtCompound);
+    }
 
-
-
-   @Override
-   public void g() { }
-
+    @Override
+    public void g() {}
 }

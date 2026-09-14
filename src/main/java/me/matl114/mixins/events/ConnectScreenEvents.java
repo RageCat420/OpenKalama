@@ -14,40 +14,42 @@ import net.minecraft.client.network.ServerAddress;
 import net.minecraft.client.network.ServerInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.At.Shift;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({ConnectScreen.class})
 public class ConnectScreenEvents {
-   @Inject(
-      method = {"connect(Lnet/minecraft/client/gui/screen/Screen;Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/client/network/ServerAddress;Lnet/minecraft/client/network/ServerInfo;ZLnet/minecraft/client/network/CookieStorage;)V"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/gui/screen/multiplayer/ConnectScreen;<init>(Lnet/minecraft/client/gui/screen/Screen;Lnet/minecraft/text/Text;)V",
-         shift = Shift.BEFORE
-      )},
-      cancellable = true
-   )
-   private static void onPreConnect(
-      Screen screen,
-      MinecraftClient client,
-      ServerAddress address,
-      ServerInfo info,
-      boolean quickPlay,
-      CookieStorage cookieStorage,
-      CallbackInfo ci,
-      @Local(argsOnly = true) LocalRef<ServerAddress> infoLocalRef
-   ) {
-      Event<ServerAddress> infoEvent = new Event<>(address, true, true, info);
-      Listener.Q().catchEvent(infoEvent);
-      if (infoEvent.d()) {
-         ci.cancel();
-      }
+    @Inject(
+            method = {
+                "connect(Lnet/minecraft/client/gui/screen/Screen;Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/client/network/ServerAddress;Lnet/minecraft/client/network/ServerInfo;ZLnet/minecraft/client/network/CookieStorage;)V"
+            },
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/client/gui/screen/multiplayer/ConnectScreen;<init>(Lnet/minecraft/client/gui/screen/Screen;Lnet/minecraft/text/Text;)V",
+                        shift = Shift.BEFORE)
+            },
+            cancellable = true)
+    private static void onPreConnect(
+            Screen screen,
+            MinecraftClient client,
+            ServerAddress address,
+            ServerInfo info,
+            boolean quickPlay,
+            CookieStorage cookieStorage,
+            CallbackInfo ci,
+            @Local(argsOnly = true) LocalRef<ServerAddress> infoLocalRef) {
+        Event<ServerAddress> infoEvent = new Event<>(address, true, true, info);
+        Listener.Q().catchEvent(infoEvent);
+        if (infoEvent.d()) {
+            ci.cancel();
+        }
 
-      if (infoEvent.b != address) {
-         infoLocalRef.set(infoEvent.b);
-      }
-   }
+        if (infoEvent.b != address) {
+            infoLocalRef.set(infoEvent.b);
+        }
+    }
 }

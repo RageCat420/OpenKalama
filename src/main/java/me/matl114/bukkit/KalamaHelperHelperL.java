@@ -5,26 +5,26 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public interface KalamaHelperHelperL {
-   long getTimestamp();
+    long getTimestamp();
 
-   @Nullable
-   URL g();
+    @Nullable
+    URL g();
 
-   boolean j();
+    boolean j();
 
-   boolean a();
+    boolean a();
 
-   void setSkin(@Nullable URL var1, @Nullable KalamaHelperHelperM var2);
+    void setSkin(@Nullable URL var1, @Nullable KalamaHelperHelperM var2);
 
-   @NotNull
-   KalamaHelperHelperM f();
+    @NotNull
+    KalamaHelperHelperM f();
 
-   void d(@Nullable URL var1);
+    void d(@Nullable URL var1);
 
-   void clear();
+    void clear();
 
-   void h(@Nullable URL var1);
+    void h(@Nullable URL var1);
 
-   @Nullable
-   URL c();
+    @Nullable
+    URL c();
 }

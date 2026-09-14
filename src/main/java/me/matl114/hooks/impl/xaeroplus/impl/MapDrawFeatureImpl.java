@@ -5,17 +5,17 @@ import xaeroplus.Globals;
 import xaeroplus.feature.render.DrawFeature;
 
 public record MapDrawFeatureImpl(String id, DrawFeature feature) implements IMapDrawFeature {
-   public MapDrawFeatureImpl(DrawFeature feature) {
-      this(feature.id(), feature);
-   }
+    public MapDrawFeatureImpl(DrawFeature feature) {
+        this(feature.id(), feature);
+    }
 
-   @Override
-   public void register() {
-      Globals.drawManager.registry().register(this.feature);
-   }
+    @Override
+    public void register() {
+        Globals.drawManager.registry().register(this.feature);
+    }
 
-   @Override
-   public void unregister() {
-      Globals.drawManager.registry().unregister(this.id);
-   }
+    @Override
+    public void unregister() {
+        Globals.drawManager.registry().unregister(this.id);
+    }
 }

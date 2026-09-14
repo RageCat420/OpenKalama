@@ -9,44 +9,44 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
 public interface TileInventory {
-   @Nullable
-   BlockPos getPos();
+    @Nullable
+    BlockPos getPos();
 
-   @Nullable
-   ClientWorld getWorld();
+    @Nullable
+    ClientWorld getWorld();
 
-   @Nullable
-   Block getBlockType();
+    @Nullable
+    Block getBlockType();
 
-   @Nullable
-   ContainerPosition getContainerPosition();
+    @Nullable
+    ContainerPosition getContainerPosition();
 
-   @Nullable
-   default boolean isVirtual() {
-      return this.getContainerPosition() == null;
-   }
+    @Nullable
+    default boolean isVirtual() {
+        return this.getContainerPosition() == null;
+    }
 
-   static TileInventory of(HandledScreen<?> handledScreen) {
-      return (TileInventory)handledScreen;
-   }
+    static TileInventory of(HandledScreen<?> handledScreen) {
+        return (TileInventory) handledScreen;
+    }
 
-   HandledScreen<?> castHandled();
+    HandledScreen<?> castHandled();
 
-   default ScreenHandler castHandler() {
-      return this.castHandled().getScreenHandler();
-   }
+    default ScreenHandler castHandler() {
+        return this.castHandled().getScreenHandler();
+    }
 
-   public interface Handler extends TileInventory {
-      @Override
-      default HandledScreen<?> castHandled() {
-         throw new UnsupportedOperationException();
-      }
+    public interface Handler extends TileInventory {
+        @Override
+        default HandledScreen<?> castHandled() {
+            throw new UnsupportedOperationException();
+        }
 
-      @Override
-      default ScreenHandler castHandler() {
-         return (ScreenHandler)(Object)this;
-      }
+        @Override
+        default ScreenHandler castHandler() {
+            return (ScreenHandler) (Object) this;
+        }
 
-      void sync(TileInventory var1);
-   }
+        void sync(TileInventory var1);
+    }
 }

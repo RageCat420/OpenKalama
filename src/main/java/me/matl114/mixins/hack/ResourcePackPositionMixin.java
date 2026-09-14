@@ -11,12 +11,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 @Mixin({ResourcePackPosition.class})
 public class ResourcePackPositionMixin {
-   @Inject(
-      method = {"fixedPosition"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private void ignoreFixPosition(CallbackInfoReturnable<Boolean> cir) {
-      cir.setReturnValue(false);
-   }
+    @Inject(
+            method = {"fixedPosition"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    private void ignoreFixPosition(CallbackInfoReturnable<Boolean> cir) {
+        cir.setReturnValue(false);
+    }
 }

@@ -28,77 +28,102 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 public class RegistryAttrKeyValue<T> extends BaseAttrKeyValue<T> {
-   Registry<T> registry;
+    Registry<T> registry;
 
-   public RegistryAttrKeyValue(String key, @Nonnull T value, Registry<T> registry) {
-      super(key, value, RegistryAttrKeyValue::generateRegistryValueWidget, stringifyFactory(registry));
-      this.registry = registry;
-   }
+    public RegistryAttrKeyValue(String key, @Nonnull T value, Registry<T> registry) {
+        super(key, value, RegistryAttrKeyValue::generateRegistryValueWidget, stringifyFactory(registry));
+        this.registry = registry;
+    }
 
-   public RegistryAttrKeyValue(String key, String value, Registry<T> registry, @Nullable T origin) {
-      super(key, Optional.ofNullable(origin), RegistryAttrKeyValue::generateRegistryValueWidget, stringifyFactory(registry));
-      this.registry = registry;
-      this.valueChange(null, value);
-   }
+    public RegistryAttrKeyValue(String key, String value, Registry<T> registry, @Nullable T origin) {
+        super(
+                key,
+                Optional.ofNullable(origin),
+                RegistryAttrKeyValue::generateRegistryValueWidget,
+                stringifyFactory(registry));
+        this.registry = registry;
+        this.valueChange(null, value);
+    }
 
-   public static <T> WrapperFactory<String, T> stringifyFactory(Registry<T> registry) {
-      return WrapperFactory.of(s -> {
-         Identifier id = Identifier.tryParse(s);
-         Optional<T> val = registry.getOrEmpty(id);
-         if (val.isPresent()) {
-            return val.get();
-         } else {
-            throw WrapperFactory.PARSE_FAILURE;
-         }
-      }, v -> registry.getId(v).toString());
-   }
+    public static <T> WrapperFactory<String, T> stringifyFactory(Registry<T> registry) {
+        return WrapperFactory.of(
+                s -> {
+                    Identifier id = Identifier.tryParse(s);
+                    Optional<T> val = registry.getOrEmpty(id);
+                    if (val.isPresent()) {
+                        return val.get();
+                    } else {
+                        throw WrapperFactory.PARSE_FAILURE;
+                    }
+                },
+                v -> registry.getId(v).toString());
+    }
 
-   public static <T> DrawableWidget generateRegistryValueWidget(AttrKeyValue<T> attr, int x, int y, int inputDx, int dy) {
-      return attr instanceof RegistryAttrKeyValue keyValue
-         ? generateTextInputWithRegistrySearch(keyValue.registry, attr, x, y, inputDx, dy)
-         : BaseAttrKeyValue.generateTextInputValueWidget(attr, x, y, inputDx, dy);
-   }
+    public static <T> DrawableWidget generateRegistryValueWidget(
+            AttrKeyValue<T> attr, int x, int y, int inputDx, int dy) {
+        return attr instanceof RegistryAttrKeyValue keyValue
+                ? generateTextInputWithRegistrySearch(keyValue.registry, attr, x, y, inputDx, dy)
+                : BaseAttrKeyValue.generateTextInputValueWidget(attr, x, y, inputDx, dy);
+    }
 
-   public static <T, W> DrawableWidget generateTextInputWithRegistrySearch(Registry<T> registry, AttrKeyValue<W> attr, int x, int y, int inputDx, int dy) {
-      ContentDelegateWidget<TextFieldWidget> interactPlace = McWidgetHelpers.d(
-         dy, 0, inputDx - 2 * dy, dy, attr, attr.getValue(), McWidgetHelpers.getWrongRedTextBoxColorProvider(attr::isValidate)
-      );
-      TextFieldWidget widget = (TextFieldWidget)interactPlace.ef();
-      final RegistryDisplays$IIcon<T> icon = RegistryDisplays.g(registry);
-      DrawableWidget show = DisplayWidget.instance(0, 0, dy, dy).setRenderHandler(new RenderHandler() {
-         @Override
-         public void renderAtCentered(DrawableWidget element, VDrawContext context, int mouseX, int mouseY, float delta, float alpha, boolean shouldHighlight) {
-            if (attr.isValidate()) {
-               try {
-                  String input = attr.getValue();
-                  if (Objects.equals(input, "minecraft:default")) {
-                     int startIndexX = (element.getTextureHeight() - 16) / 2;
-                     icon.a(startIndexX, startIndexX, context, null);
-                  } else {
-                     Identifier identifier = Identifier.tryParse(attr.getValue());
-                     T value = (T)registry.get(identifier);
-                     int startIndexX = (element.getTextureHeight() - 16) / 2;
-                     icon.a(startIndexX, startIndexX, context, value);
-                  }
-               } catch (Throwable var13) {
-               }
+    public static <T, W> DrawableWidget generateTextInputWithRegistrySearch(
+            Registry<T> registry, AttrKeyValue<W> attr, int x, int y, int inputDx, int dy) {
+        ContentDelegateWidget<TextFieldWidget> interactPlace = McWidgetHelpers.d(
+                dy,
+                0,
+                inputDx - 2 * dy,
+                dy,
+                attr,
+                attr.getValue(),
+                McWidgetHelpers.getWrongRedTextBoxColorProvider(attr::isValidate));
+        TextFieldWidget widget = (TextFieldWidget) interactPlace.ef();
+        final RegistryDisplays$IIcon<T> icon = RegistryDisplays.g(registry);
+        DrawableWidget show = DisplayWidget.instance(0, 0, dy, dy).setRenderHandler(new RenderHandler() {
+            @Override
+            public void renderAtCentered(
+                    DrawableWidget element,
+                    VDrawContext context,
+                    int mouseX,
+                    int mouseY,
+                    float delta,
+                    float alpha,
+                    boolean shouldHighlight) {
+                if (attr.isValidate()) {
+                    try {
+                        String input = attr.getValue();
+                        if (Objects.equals(input, "minecraft:default")) {
+                            int startIndexX = (element.getTextureHeight() - 16) / 2;
+                            icon.a(startIndexX, startIndexX, context, null);
+                        } else {
+                            Identifier identifier = Identifier.tryParse(attr.getValue());
+                            T value = (T) registry.get(identifier);
+                            int startIndexX = (element.getTextureHeight() - 16) / 2;
+                            icon.a(startIndexX, startIndexX, context, value);
+                        }
+                    } catch (Throwable var13) {
+                    }
+                }
             }
-         }
-      });
-      ExecutableWidget select = ExecutableWidget.instance(inputDx - dy, 0, dy, dy)
-         .eV(IconElement.cm(KalamaHelperHelperB.d, ButtonAction.a(() -> openRegistrySearch(registry, widget))).aO(TooltipHandler.ap(KalamaHelperHelperB.a())));
-      return new KalamaHelperHelperCX(x, y, inputDx, dy).Q(show).Q(interactPlace).Q(select);
-   }
+        });
+        ExecutableWidget select = ExecutableWidget.instance(inputDx - dy, 0, dy, dy)
+                .eV(IconElement.cm(KalamaHelperHelperB.d, ButtonAction.a(() -> openRegistrySearch(registry, widget)))
+                        .aO(TooltipHandler.ap(KalamaHelperHelperB.a())));
+        return new KalamaHelperHelperCX(x, y, inputDx, dy)
+                .Q(show)
+                .Q(interactPlace)
+                .Q(select);
+    }
 
-   private static <T> void openRegistrySearch(Registry<T> registry, TextFieldWidget widget) {
-      ScreenAccess.of(new RegistryChooseScreen<>(registry, var -> {
-         if (var != null) {
-            widget.setText(registry.getId(var).toString());
-         }
-      })).openFromCurrent();
-   }
+    private static <T> void openRegistrySearch(Registry<T> registry, TextFieldWidget widget) {
+        ScreenAccess.of(new RegistryChooseScreen<>(registry, var -> {
+                    if (var != null) {
+                        widget.setText(registry.getId(var).toString());
+                    }
+                }))
+                .openFromCurrent();
+    }
 
-   public Registry<T> getRegistry() {
-      return this.registry;
-   }
+    public Registry<T> getRegistry() {
+        return this.registry;
+    }
 }

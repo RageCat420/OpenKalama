@@ -6,10 +6,10 @@ import javax.annotation.Nullable;
 import me.matl114.utils.commands.params.ArgumentReader;
 
 public interface ArgumentType<T> {
-   @Nullable
-   InputArgument<T> consume(CommandExecution var1, List<InputArgument<?>> var2, ArgumentReader var3);
+    @Nullable
+    InputArgument<T> consume(CommandExecution var1, List<InputArgument<?>> var2, ArgumentReader var3);
 
-   String getArgsName();
+    String getArgsName();
 
-   Stream<String> getTab(CommandExecution var1, List<InputArgument<?>> var2);
+    Stream<String> getTab(CommandExecution var1, List<InputArgument<?>> var2);
 }

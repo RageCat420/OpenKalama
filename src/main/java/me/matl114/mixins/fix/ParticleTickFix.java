@@ -12,19 +12,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({Particle.class})
 public class ParticleTickFix {
-   @Shadow
-   protected boolean field_3862;
-   @Shadow
-   @Final
-   protected ClientWorld field_3851;
+    @Shadow
+    protected boolean field_3862;
 
-   @Inject(
-      method = {"move(DDD)V"},
-      at = {@At("HEAD")}
-   )
-   private void onMove(CallbackInfo ci) {
-      if (this.field_3851.isClient() && RenderTasks.H().optimizeParticleTick.get()) {
-         this.field_3862 = false;
-      }
-   }
+    @Shadow
+    @Final
+    protected ClientWorld field_3851;
+
+    @Inject(
+            method = {"move(DDD)V"},
+            at = {@At("HEAD")})
+    private void onMove(CallbackInfo ci) {
+        if (this.field_3851.isClient() && RenderTasks.H().optimizeParticleTick.get()) {
+            this.field_3862 = false;
+        }
+    }
 }

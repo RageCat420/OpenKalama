@@ -19,62 +19,66 @@ import net.minecraft.util.math.Vec3d;
 
 @Modifiable
 public class MineTasks {
-   private static PacketMine g;
-   private static QueueMine f;
-   @Modifiable
-   public static final ModuleGroup b = new ModuleGroup("Mine");
-   private static MineExtra c;
-   private static final MinecraftClient a = MinecraftClient.getInstance();
-   private static MineBot e;
-   private static MineArua h;
-   private static MiningProgressManager d;
+    private static PacketMine g;
+    private static QueueMine f;
 
-   public static MiningProgressManager f() {
-      return d;
-   }
+    @Modifiable
+    public static final ModuleGroup b = new ModuleGroup("Mine");
 
-   public static MineBot g() {
-      return e;
-   }
+    private static MineExtra c;
+    private static final MinecraftClient a = MinecraftClient.getInstance();
+    private static MineBot e;
+    private static MineArua h;
+    private static MiningProgressManager d;
 
-   public static MineArua j() {
-      return h;
-   }
+    public static MiningProgressManager f() {
+        return d;
+    }
 
-   private static void initModules(ModuleManager m) {
-      c = new MineExtra().register(m);
-      d = new MiningProgressManager().register(m);
-      e = new MineBot().register(m);
-      f = new QueueMine().register(m);
-      g = new PacketMine().register(m);
-      h = new MineArua().register(m);
-   }
+    public static MineBot g() {
+        return e;
+    }
 
-   public static PacketMine i() {
-      return g;
-   }
+    public static MineArua j() {
+        return h;
+    }
 
-   public static boolean distanceOutOfReach(BlockPos pos1, Vec3d playerPos) {
-      return pos1 != null && playerPos != null ? new Box(pos1).squaredMagnitude(playerPos) > MathUtils.a(InteractExtra.INSTANCE.getBlockReachDistance()) : true;
-   }
+    private static void initModules(ModuleManager m) {
+        c = new MineExtra().register(m);
+        d = new MiningProgressManager().register(m);
+        e = new MineBot().register(m);
+        f = new QueueMine().register(m);
+        g = new PacketMine().register(m);
+        h = new MineArua().register(m);
+    }
 
-   public static QueueMine h() {
-      return f;
-   }
+    public static PacketMine i() {
+        return g;
+    }
 
-   static {
-      b.registerFactories(MineTasks::initModules);
-      HackModules.registerModuleGroup(b);
-   }
+    public static boolean distanceOutOfReach(BlockPos pos1, Vec3d playerPos) {
+        return pos1 != null && playerPos != null
+                ? new Box(pos1).squaredMagnitude(playerPos)
+                        > MathUtils.a(InteractExtra.INSTANCE.getBlockReachDistance())
+                : true;
+    }
 
-   public static ModuleGroup d() {
-      return b;
-   }
+    public static QueueMine h() {
+        return f;
+    }
 
-   public static void init() {
-   }
+    static {
+        b.registerFactories(MineTasks::initModules);
+        HackModules.registerModuleGroup(b);
+    }
 
-   public static MineExtra e() {
-      return c;
-   }
+    public static ModuleGroup d() {
+        return b;
+    }
+
+    public static void init() {}
+
+    public static MineExtra e() {
+        return c;
+    }
 }

@@ -6,21 +6,21 @@ import me.matl114.gui.basic.ExecutableWidget;
 import me.matl114.utils.ScreenUtils;
 
 public class BoxElement extends AbstractElement {
-   private final ButtonAction action;
+    private final ButtonAction action;
 
-   @Override
-   public boolean d(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
-      return this.action != null && widget.isSelected() && ScreenUtils.l(keyCode)
-         ? this.action.d(this, widget, 0)
-         : super.d(widget, keyCode, scanCode, modifiers, isPress);
-   }
+    @Override
+    public boolean d(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
+        return this.action != null && widget.isSelected() && ScreenUtils.l(keyCode)
+                ? this.action.d(this, widget, 0)
+                : super.d(widget, keyCode, scanCode, modifiers, isPress);
+    }
 
-   public BoxElement(ButtonAction action) {
-      this.action = action;
-   }
+    public BoxElement(ButtonAction action) {
+        this.action = action;
+    }
 
-   @Override
-   public boolean a(ExecutableWidget element, double mouseX, double mouseY, int button) {
-      return this.action != null && this.action.d(this, element, button);
-   }
+    @Override
+    public boolean a(ExecutableWidget element, double mouseX, double mouseY, int button) {
+        return this.action != null && this.action.d(this, element, button);
+    }
 }

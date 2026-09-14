@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE, ElementType.FIELD})
 @Retention(RetentionPolicy.SOURCE)
 public @interface KalamaHelperHelperD {
-   boolean isEnabled() default false;
+    boolean isEnabled() default false;
 }

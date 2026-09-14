@@ -26,46 +26,47 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin({ElytraCommand.class})
 public abstract class ElytraCommandMixin extends Command {
-   public ElytraCommandMixin(IBaritone iBaritone, String... strings) {
-      super(iBaritone, strings);
-   }
+    public ElytraCommandMixin(IBaritone iBaritone, String... strings) {
+        super(iBaritone, strings);
+    }
 
-   @ModifyExpressionValue(
-      method = {"execute"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/world/World;getRegistryKey()Lnet/minecraft/registry/RegistryKey;"
-      )},
-      require = 0
-   )
-   private RegistryKey<World> onExecuteNetherSupport(RegistryKey<World> original) {
-      if (BaritoneFix.INSTANCE.dimensionFix.get() && original != World.NETHER) {
-         BaritoneFix.INSTANCE.logI18N("message.module.baritone-fix.ignore-dimension-limit", new Object[0]);
-         return World.NETHER;
-      } else {
-         return original;
-      }
-   }
+    @ModifyExpressionValue(
+            method = {"execute"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target = "Lnet/minecraft/world/World;getRegistryKey()Lnet/minecraft/registry/RegistryKey;")
+            },
+            require = 0)
+    private RegistryKey<World> onExecuteNetherSupport(RegistryKey<World> original) {
+        if (BaritoneFix.INSTANCE.dimensionFix.get() && original != World.NETHER) {
+            BaritoneFix.INSTANCE.logI18N("message.module.baritone-fix.ignore-dimension-limit", new Object[0]);
+            return World.NETHER;
+        } else {
+            return original;
+        }
+    }
 
-   @Inject(
-      method = {"execute"},
-      at = {@At("HEAD")},
-      require = 0,
-      remap = false
-   )
-   private void onAutoImportSeedValue(String par1, IArgConsumer par2, CallbackInfo ci) {
-      if (BaritoneFix.INSTANCE.autoImportSeed.get()) {
-         SeedOre seedOre = SeedOre.INSTANCE;
-         if (seedOre.hasCurrentSeed()) {
-            long seed = seedOre.getCurrentSeed();
-            if (seed != (Long)BaritoneAPI.getSettings().elytraNetherSeed.value && SeedOre.isSeedValid(seed)) {
-               Debug.chat(Text.literal("[BaritoneFix]").formatted(Formatting.RED), "Auto import the cached world seed", ChatUtils.getDisplayedLong(seed));
-               BaritoneAPI.getSettings().elytraNetherSeed.value = seed;
+    @Inject(
+            method = {"execute"},
+            at = {@At("HEAD")},
+            require = 0,
+            remap = false)
+    private void onAutoImportSeedValue(String par1, IArgConsumer par2, CallbackInfo ci) {
+        if (BaritoneFix.INSTANCE.autoImportSeed.get()) {
+            SeedOre seedOre = SeedOre.INSTANCE;
+            if (seedOre.hasCurrentSeed()) {
+                long seed = seedOre.getCurrentSeed();
+                if (seed != (Long) BaritoneAPI.getSettings().elytraNetherSeed.value && SeedOre.isSeedValid(seed)) {
+                    Debug.chat(
+                            Text.literal("[BaritoneFix]").formatted(Formatting.RED),
+                            "Auto import the cached world seed",
+                            ChatUtils.getDisplayedLong(seed));
+                    BaritoneAPI.getSettings().elytraNetherSeed.value = seed;
+                }
             }
-         }
 
-         Debug.chat("[BaritoneFix] Using seed", BaritoneAPI.getSettings().elytraNetherSeed.value);
-      }
-   }
-
+            Debug.chat("[BaritoneFix] Using seed", BaritoneAPI.getSettings().elytraNetherSeed.value);
+        }
+    }
 }

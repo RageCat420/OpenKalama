@@ -19,74 +19,78 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Environment(EnvType.CLIENT)
 @Mixin({GenericContainerScreenHandler.class})
-public abstract class ChestScreenHandlerMixin extends ScreenHandler implements TileInventory.Handler, EntityInventory.Handler<VehicleInventory> {
-   @Unique
-   private BlockPos pos;
-   @Unique
-   private Block cacheBlockType;
-   @Unique
-   private ClientWorld world;
-   @Unique
-   private ContainerPosition containerPosition;
-   @Unique
-   VehicleInventory vehicleEntity;
+public abstract class ChestScreenHandlerMixin extends ScreenHandler
+        implements TileInventory.Handler, EntityInventory.Handler<VehicleInventory> {
+    @Unique
+    private BlockPos pos;
 
-   protected ChestScreenHandlerMixin(ScreenHandlerType<?> type, int syncId) {
-      super(type, syncId);
-   }
+    @Unique
+    private Block cacheBlockType;
 
-   @Unique
-   @Override
-   public BlockPos getPos() {
-      return this.pos;
-   }
+    @Unique
+    private ClientWorld world;
 
-   @Unique
-   @Override
-   public Block getBlockType() {
-      return this.cacheBlockType;
-   }
+    @Unique
+    private ContainerPosition containerPosition;
 
-   @Unique
-   @Override
-   public ClientWorld getWorld() {
-      return this.world;
-   }
+    @Unique
+    VehicleInventory vehicleEntity;
 
-   @Unique
-   @Override
-   public ContainerPosition getContainerPosition() {
-      return this.containerPosition;
-   }
+    protected ChestScreenHandlerMixin(ScreenHandlerType<?> type, int syncId) {
+        super(type, syncId);
+    }
 
-   @Nullable
-   public VehicleInventory getOwner() {
-      return this.vehicleEntity;
-   }
+    @Unique
+    @Override
+    public BlockPos getPos() {
+        return this.pos;
+    }
 
-   @Override
-   public void sync(EntityInventory<VehicleInventory> inventory) {
-      this.vehicleEntity = inventory.getOwner();
-   }
+    @Unique
+    @Override
+    public Block getBlockType() {
+        return this.cacheBlockType;
+    }
 
-   @Override
-   public HandledScreen<?> castHandled() {
-      throw new UnsupportedOperationException();
-   }
+    @Unique
+    @Override
+    public ClientWorld getWorld() {
+        return this.world;
+    }
 
-   @Override
-   public ScreenHandler castHandler() {
-      return this;
-   }
+    @Unique
+    @Override
+    public ContainerPosition getContainerPosition() {
+        return this.containerPosition;
+    }
 
-   @Override
-   public void sync(TileInventory tileInventory) {
-      this.world = tileInventory.getWorld();
-      this.containerPosition = tileInventory.getContainerPosition();
-      this.pos = this.containerPosition.vO().YO();
-      this.cacheBlockType = this.world.getBlockState(this.pos).getBlock();
-   }
+    @Nullable
+    public VehicleInventory getOwner() {
+        return this.vehicleEntity;
+    }
 
-   public void canUse(Object arg0) { }
+    @Override
+    public void sync(EntityInventory<VehicleInventory> inventory) {
+        this.vehicleEntity = inventory.getOwner();
+    }
 
+    @Override
+    public HandledScreen<?> castHandled() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ScreenHandler castHandler() {
+        return this;
+    }
+
+    @Override
+    public void sync(TileInventory tileInventory) {
+        this.world = tileInventory.getWorld();
+        this.containerPosition = tileInventory.getContainerPosition();
+        this.pos = this.containerPosition.vO().YO();
+        this.cacheBlockType = this.world.getBlockState(this.pos).getBlock();
+    }
+
+    public void canUse(Object arg0) {}
 }

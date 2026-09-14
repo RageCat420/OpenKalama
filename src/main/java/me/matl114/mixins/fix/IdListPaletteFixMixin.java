@@ -15,21 +15,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 @Mixin({IdListPalette.class})
 public class IdListPaletteFixMixin {
-   @Shadow
-   @Final
-   private IndexedIterable<?> field_12828;
+    @Shadow
+    @Final
+    private IndexedIterable<?> field_12828;
 
-   @Inject(
-      method = {"get"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/world/chunk/EntryMissingException;<init>(I)V"
-      )},
-      cancellable = true
-   )
-   private void get(CallbackInfoReturnable<Object> cir) {
-      if (ClientExtra.INSTANCE.fixPaletteException.get()) {
-         cir.setReturnValue(this.field_12828.get(0));
-      }
-   }
+    @Inject(
+            method = {"get"},
+            at = {@At(value = "INVOKE", target = "Lnet/minecraft/world/chunk/EntryMissingException;<init>(I)V")},
+            cancellable = true)
+    private void get(CallbackInfoReturnable<Object> cir) {
+        if (ClientExtra.INSTANCE.fixPaletteException.get()) {
+            cir.setReturnValue(this.field_12828.get(0));
+        }
+    }
 }

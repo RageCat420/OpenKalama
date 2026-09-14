@@ -11,26 +11,24 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Environment(EnvType.CLIENT)
 @Mixin({ClientPlayNetworkHandler.class})
 public class ParticleCountLimitMixin {
-   @ModifyVariable(
-      method = {"onParticle"},
-      at = @At("HEAD"),
-      index = 1,
-      argsOnly = true
-   )
-   private ParticleS2CPacket onParticle(ParticleS2CPacket packet) {
-      return packet.getCount() > 1000
-         ? new ParticleS2CPacket(
-            packet.getParameters(),
-            packet.isLongDistance(),
-            packet.getX(),
-            packet.getY(),
-            packet.getZ(),
-            packet.getOffsetX(),
-            packet.getOffsetY(),
-            packet.getOffsetZ(),
-            packet.getSpeed(),
-            1000
-         )
-         : packet;
-   }
+    @ModifyVariable(
+            method = {"onParticle"},
+            at = @At("HEAD"),
+            index = 1,
+            argsOnly = true)
+    private ParticleS2CPacket onParticle(ParticleS2CPacket packet) {
+        return packet.getCount() > 1000
+                ? new ParticleS2CPacket(
+                        packet.getParameters(),
+                        packet.isLongDistance(),
+                        packet.getX(),
+                        packet.getY(),
+                        packet.getZ(),
+                        packet.getOffsetX(),
+                        packet.getOffsetY(),
+                        packet.getOffsetZ(),
+                        packet.getSpeed(),
+                        1000)
+                : packet;
+    }
 }

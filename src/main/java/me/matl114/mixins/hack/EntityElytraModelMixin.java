@@ -15,21 +15,17 @@ import org.spongepowered.asm.mixin.injection.At;
 @Environment(EnvType.CLIENT)
 @Mixin({ElytraEntityModel.class})
 public class EntityElytraModelMixin {
-   @ModifyExpressionValue(
-      method = {"setAngles(Lnet/minecraft/entity/LivingEntity;FFFFF)V"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/entity/LivingEntity;isFallFlying()Z"
-      )}
-   )
-   private boolean updateBipedRenderState(boolean original, @Local(argsOnly = true) LivingEntity livingEntity) {
-      if (original && livingEntity == MinecraftClient.getInstance().player) {
-         ElytraExtra elytraExtra = MovTasks.ax();
-         if (elytraExtra.renderFix.get() && elytraExtra.afr()) {
-            return false;
-         }
-      }
+    @ModifyExpressionValue(
+            method = {"setAngles(Lnet/minecraft/entity/LivingEntity;FFFFF)V"},
+            at = {@At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;isFallFlying()Z")})
+    private boolean updateBipedRenderState(boolean original, @Local(argsOnly = true) LivingEntity livingEntity) {
+        if (original && livingEntity == MinecraftClient.getInstance().player) {
+            ElytraExtra elytraExtra = MovTasks.ax();
+            if (elytraExtra.renderFix.get() && elytraExtra.afr()) {
+                return false;
+            }
+        }
 
-      return original;
-   }
+        return original;
+    }
 }

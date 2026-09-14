@@ -9,23 +9,24 @@ import net.minecraft.registry.entry.RegistryEntryList.Named;
 import net.minecraft.registry.tag.TagKey;
 
 public record HackUtilHelperC(TagKey<Block> blockTagKey) implements BlockMatcher {
-   public TagKey<Block> Lf() {
-      return this.blockTagKey;
-   }
+    public TagKey<Block> Lf() {
+        return this.blockTagKey;
+    }
 
-   @Override
-   public Set<Block> getPotentials() {
-      Named<Block> var1 = (Named<Block>)Registries.BLOCK.getEntryList(this.blockTagKey).orElseThrow();
-      return var1.stream().map(RegistryEntry::value).collect(Collectors.toUnmodifiableSet());
-   }
+    @Override
+    public Set<Block> getPotentials() {
+        Named<Block> var1 =
+                (Named<Block>) Registries.BLOCK.getEntryList(this.blockTagKey).orElseThrow();
+        return var1.stream().map(RegistryEntry::value).collect(Collectors.toUnmodifiableSet());
+    }
 
-   @Override
-   public boolean match(Block b) {
-      return b.getRegistryEntry().isIn(this.blockTagKey);
-   }
+    @Override
+    public boolean match(Block b) {
+        return b.getRegistryEntry().isIn(this.blockTagKey);
+    }
 
-   @Override
-   public boolean equals(Object o) {
-      return o instanceof HackUtilHelperC && ((HackUtilHelperC)o).blockTagKey == this.blockTagKey;
-   }
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof HackUtilHelperC && ((HackUtilHelperC) o).blockTagKey == this.blockTagKey;
+    }
 }

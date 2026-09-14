@@ -32,145 +32,148 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class EntrySet<T> implements NBTParsable<EntrySet<T>>, Predicate<T> {
-   final Registry<T> registry;
-   final Set<T> set;
-   List<Identifier> data;
-   public static final NBTType<EntrySet<Object>> TYPE = create();
+    final Registry<T> registry;
+    final Set<T> set;
+    List<Identifier> data;
+    public static final NBTType<EntrySet<Object>> TYPE = create();
 
-   public static <T> Class<EntrySet<T>> parameter() {
-      return (Class<EntrySet<T>>)(Class<?>)EntrySet.class;
-   }
+    public static <T> Class<EntrySet<T>> parameter() {
+        return (Class<EntrySet<T>>) (Class<?>) EntrySet.class;
+    }
 
-   public EntrySet(Regex regex, Registry<T> registry) {
-      this.registry = registry;
-      this.set = new LinkedHashSet<>();
+    public EntrySet(Regex regex, Registry<T> registry) {
+        this.registry = registry;
+        this.set = new LinkedHashSet<>();
 
-      for (Identifier re : registry.getIds()) {
-         if (regex.test(re.getPath())) {
-            this.set.add((T)registry.get(re));
-         }
-      }
-   }
-
-   public EntrySet(Registry<T> registry, Collection<T> set) {
-      this.registry = registry;
-      this.set = new LinkedHashSet<>(set);
-   }
-
-   public EntrySet(List<Identifier> data, Registry<T> registry) {
-      this.registry = registry;
-      this.data = new ArrayList<>(data);
-      this.set = new LinkedHashSet<>();
-
-      for (Identifier id : data) {
-         if (id != null) {
-            registry.getOrEmpty(id).ifPresent(this.set::add);
-         }
-      }
-   }
-
-   public List<Identifier> idList() {
-      if (this.data == null) {
-         List<Identifier> cached = new ArrayList<>(this.set.size());
-
-         for (T entry : this.set) {
-            Identifier id = this.registry.getId(entry);
-            if (id != null) {
-               cached.add(id);
+        for (Identifier re : registry.getIds()) {
+            if (regex.test(re.getPath())) {
+                this.set.add((T) registry.get(re));
             }
-         }
+        }
+    }
 
-         this.data = cached;
-      }
+    public EntrySet(Registry<T> registry, Collection<T> set) {
+        this.registry = registry;
+        this.set = new LinkedHashSet<>(set);
+    }
 
-      return this.data;
-   }
+    public EntrySet(List<Identifier> data, Registry<T> registry) {
+        this.registry = registry;
+        this.data = new ArrayList<>(data);
+        this.set = new LinkedHashSet<>();
 
-   public List<T> list() {
-      return this.set.stream().toList();
-   }
+        for (Identifier id : data) {
+            if (id != null) {
+                registry.getOrEmpty(id).ifPresent(this.set::add);
+            }
+        }
+    }
 
-   public static <T> NBTType<EntrySet<T>> create() {
-      return new NBTType<>(
-         "entryset",
-         RecordCodecBuilder.<EntrySet<T>>create(
-               instance -> instance.group(
-                     Codec.list(Identifier.CODEC).fieldOf("data").forGetter(EntrySet::idList),
-                     ((Codec<Registry<T>>)Registries.REGISTRIES.getCodec()).fieldOf("key_type").forGetter(EntrySet::registry)
-                  )
-                  .apply(instance, EntrySet::new)
-            ),
-         EntrySet::generateValueWidget,
-         (EntrySet<T>)new EntrySet<>(Registries.BLOCK, Set.of())
-      );
-   }
+    public List<Identifier> idList() {
+        if (this.data == null) {
+            List<Identifier> cached = new ArrayList<>(this.set.size());
 
-   private static <T> DrawableWidget generateValueWidget(AttrKeyValue<EntrySet<T>> attr, int x, int y, int dx, int dy) {
-      return new KalamaHelperHelperCX(x, y, dx, dy)
-         .Q(
-            new ExecutableWidget(dy, 0, dx - dy, dy)
-               .eV(
-                  new ButtonElement(TextProvider.c(KalamaHelperHelperB.i), ButtonAction.a(() -> openRegistrySelectScreen(attr)))
-                     .aO(TooltipHandler.ap(KalamaHelperHelperB.b()))
-               )
-         )
-         .Q(DisplayWidget.instance(0, 0, dy - 1, dy).setRenderHandler(IconElement.cm(KalamaHelperHelperB.f, ButtonAction.c())));
-   }
+            for (T entry : this.set) {
+                Identifier id = this.registry.getId(entry);
+                if (id != null) {
+                    cached.add(id);
+                }
+            }
 
-   private static <T> void openRegistrySelectScreen(AttrKeyValue<EntrySet<T>> attr) {
-      EntrySet<T> current = attr.getOriginValue();
-      ScreenAccess.of(new RegistryChooseScreen2<>(current.registry, current.set, selected -> {
-         if (selected != null) {
-            attr.valueChangeInternal(null, new EntrySet<>(current.registry, selected));
-         }
-      })).openFromCurrent();
-   }
+            this.data = cached;
+        }
 
-   @Override
-   public NBTType<EntrySet<T>> type() {
-      return TYPE.cast();
-   }
+        return this.data;
+    }
 
-   @Override
-   public boolean equals(Object object) {
-      if (this == object) {
-         return true;
-      } else {
-         return !(object instanceof EntrySet<?> that) ? false : Objects.equals(this.registry, that.registry) && Objects.equals(this.set, that.set);
-      }
-   }
+    public List<T> list() {
+        return this.set.stream().toList();
+    }
 
-   @Override
-   public int hashCode() {
-      return Objects.hash(this.registry, this.set);
-   }
+    public static <T> NBTType<EntrySet<T>> create() {
+        return new NBTType<>(
+                "entryset",
+                RecordCodecBuilder.<EntrySet<T>>create(instance -> instance.group(
+                                Codec.list(Identifier.CODEC).fieldOf("data").forGetter(EntrySet::idList),
+                                ((Codec<Registry<T>>) Registries.REGISTRIES.getCodec())
+                                        .fieldOf("key_type")
+                                        .forGetter(EntrySet::registry))
+                        .apply(instance, EntrySet::new)),
+                EntrySet::generateValueWidget,
+                (EntrySet<T>) new EntrySet<>(Registries.BLOCK, Set.of()));
+    }
 
-   @Override
-   public boolean isSameType(NBTParsable<?> type) {
-      return NBTParsable.super.isSameType(type) && type instanceof EntrySet<?> that && that.registry == this.registry;
-   }
+    private static <T> DrawableWidget generateValueWidget(
+            AttrKeyValue<EntrySet<T>> attr, int x, int y, int dx, int dy) {
+        return new KalamaHelperHelperCX(x, y, dx, dy)
+                .Q(new ExecutableWidget(dy, 0, dx - dy, dy)
+                        .eV(new ButtonElement(
+                                        TextProvider.c(KalamaHelperHelperB.i),
+                                        ButtonAction.a(() -> openRegistrySelectScreen(attr)))
+                                .aO(TooltipHandler.ap(KalamaHelperHelperB.b()))))
+                .Q(DisplayWidget.instance(0, 0, dy - 1, dy)
+                        .setRenderHandler(IconElement.cm(KalamaHelperHelperB.f, ButtonAction.c())));
+    }
 
-   @Override
-   public <W> Optional<EntrySet<T>> tryTypeConvert(Ref<W> ref) {
-      return ref instanceof NBTRef nbt && nbt.get() instanceof RegistryRegex<?> oldRegex && oldRegex.registry == this.registry
-         ? Optional.of(new EntrySet<>(oldRegex.getParent(), (Registry<T>)oldRegex.registry))
-         : Optional.empty();
-   }
+    private static <T> void openRegistrySelectScreen(AttrKeyValue<EntrySet<T>> attr) {
+        EntrySet<T> current = attr.getOriginValue();
+        ScreenAccess.of(new RegistryChooseScreen2<>(current.registry, current.set, selected -> {
+                    if (selected != null) {
+                        attr.valueChangeInternal(null, new EntrySet<>(current.registry, selected));
+                    }
+                }))
+                .openFromCurrent();
+    }
 
-   @Override
-   public boolean test(T t) {
-      return this.set.contains(t);
-   }
+    @Override
+    public NBTType<EntrySet<T>> type() {
+        return TYPE.cast();
+    }
 
-   public Registry<T> registry() {
-      return this.registry;
-   }
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        } else {
+            return !(object instanceof EntrySet<?> that)
+                    ? false
+                    : Objects.equals(this.registry, that.registry) && Objects.equals(this.set, that.set);
+        }
+    }
 
-   public Set<T> set() {
-      return this.set;
-   }
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.registry, this.set);
+    }
 
-   public List<Identifier> data() {
-      return this.data;
-   }
+    @Override
+    public boolean isSameType(NBTParsable<?> type) {
+        return NBTParsable.super.isSameType(type) && type instanceof EntrySet<?> that && that.registry == this.registry;
+    }
+
+    @Override
+    public <W> Optional<EntrySet<T>> tryTypeConvert(Ref<W> ref) {
+        return ref instanceof NBTRef nbt
+                        && nbt.get() instanceof RegistryRegex<?> oldRegex
+                        && oldRegex.registry == this.registry
+                ? Optional.of(new EntrySet<>(oldRegex.getParent(), (Registry<T>) oldRegex.registry))
+                : Optional.empty();
+    }
+
+    @Override
+    public boolean test(T t) {
+        return this.set.contains(t);
+    }
+
+    public Registry<T> registry() {
+        return this.registry;
+    }
+
+    public Set<T> set() {
+        return this.set;
+    }
+
+    public List<Identifier> data() {
+        return this.data;
+    }
 }

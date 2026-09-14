@@ -15,17 +15,16 @@ import org.spongepowered.asm.mixin.injection.At;
 @Environment(EnvType.CLIENT)
 @Mixin({WorldProvider.class})
 public class BaritoneWorldSaveMixin {
-   @WrapOperation(
-      method = {"a(Lnet/minecraft/world/World;)V", "Lbaritone/cache/WorldProvider;getSaveDirectories(Lnet/minecraft/world/World;)Ljava/util/Optional;"},
-      at = {@At(
-         value = "FIELD",
-         target = "Lnet/minecraft/client/network/ServerInfo;address:Ljava/lang/String;"
-      )},
-      require = 0,
-      expect = 0
-   )
-   private String onWorldLoadAddressRemap(ServerInfo instance, Operation<String> original) {
-      String address = (String)original.call(new Object[]{instance});
-      return ServerStorage.INSTANCE.enableProxyBaritoneStorage.get() ? ServerStorage.INSTANCE.IY(address) : address;
-   }
+    @WrapOperation(
+            method = {
+                "a(Lnet/minecraft/world/World;)V",
+                "Lbaritone/cache/WorldProvider;getSaveDirectories(Lnet/minecraft/world/World;)Ljava/util/Optional;"
+            },
+            at = {@At(value = "FIELD", target = "Lnet/minecraft/client/network/ServerInfo;address:Ljava/lang/String;")},
+            require = 0,
+            expect = 0)
+    private String onWorldLoadAddressRemap(ServerInfo instance, Operation<String> original) {
+        String address = (String) original.call(new Object[] {instance});
+        return ServerStorage.INSTANCE.enableProxyBaritoneStorage.get() ? ServerStorage.INSTANCE.IY(address) : address;
+    }
 }

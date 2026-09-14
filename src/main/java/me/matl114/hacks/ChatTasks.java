@@ -20,96 +20,98 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
 public class ChatTasks {
-   private static ChatSpamFix i;
-   private static EncryptChat g;
-   private static final LimitedSpeedExecutor k = new LimitedSpeedExecutor(new IntRef(5));
-   public static final MinecraftClient j = MinecraftClient.getInstance();
-   @Modifiable
-   public static final ModuleGroup a = new ModuleGroup("Chat");
-   private static ChatCombine e;
-   private static InGuiChatBox f;
-   private static ClientSideCommand d;
-   private static ChatExtra b;
-   private static PlayerChat h;
-   private static ChatTools c;
+    private static ChatSpamFix i;
+    private static EncryptChat g;
+    private static final LimitedSpeedExecutor k = new LimitedSpeedExecutor(new IntRef(5));
+    public static final MinecraftClient j = MinecraftClient.getInstance();
 
-   public static LimitedSpeedExecutor n() {
-      return k;
-   }
+    @Modifiable
+    public static final ModuleGroup a = new ModuleGroup("Chat");
 
-   public static ChatTools g() {
-      return c;
-   }
+    private static ChatCombine e;
+    private static InGuiChatBox f;
+    private static ClientSideCommand d;
+    private static ChatExtra b;
+    private static PlayerChat h;
+    private static ChatTools c;
 
-   public static ChatSpamFix m() {
-      return i;
-   }
+    public static LimitedSpeedExecutor n() {
+        return k;
+    }
 
-   public static ClientSideCommand h() {
-      return d;
-   }
+    public static ChatTools g() {
+        return c;
+    }
 
-   public static ChatExtra f() {
-      return b;
-   }
+    public static ChatSpamFix m() {
+        return i;
+    }
 
-   public static ModuleGroup e() {
-      return a;
-   }
+    public static ClientSideCommand h() {
+        return d;
+    }
 
-   public static void init() {
-   }
+    public static ChatExtra f() {
+        return b;
+    }
 
-   public static EncryptChat k() {
-      return g;
-   }
+    public static ModuleGroup e() {
+        return a;
+    }
 
-   private static void b(ModuleManager m) {
-      b = new ChatExtra().register(m);
-      c = new ChatTools().register(m);
-      d = new ClientSideCommand().register(m);
-      e = new ChatCombine().register(m);
-      f = new InGuiChatBox().register(m);
-      g = new EncryptChat().register(m);
-      h = new PlayerChat().register(m);
-      i = new ChatSpamFix().register(m);
-   }
+    public static void init() {}
 
-   public static void d(Text text) {
-      k.a(() -> j.inGameHud.getChatHud().addMessage(text));
-   }
+    public static EncryptChat k() {
+        return g;
+    }
 
-   public static PlayerChat l() {
-      return h;
-   }
+    private static void b(ModuleManager m) {
+        b = new ChatExtra().register(m);
+        c = new ChatTools().register(m);
+        d = new ClientSideCommand().register(m);
+        e = new ChatCombine().register(m);
+        f = new InGuiChatBox().register(m);
+        g = new EncryptChat().register(m);
+        h = new PlayerChat().register(m);
+        i = new ChatSpamFix().register(m);
+    }
 
-   public static InGuiChatBox j() {
-      return f;
-   }
+    public static void d(Text text) {
+        k.a(() -> j.inGameHud.getChatHud().addMessage(text));
+    }
 
-   public static void sayMessage(String chatText, boolean addToHistory) {
-      if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().player.networkHandler != null) {
-         chatText = f().normalizeSendText(chatText);
-         if (addToHistory) {
-            MinecraftClient.getInstance().inGameHud.getChatHud().addToMessageHistory(chatText);
-         }
+    public static PlayerChat l() {
+        return h;
+    }
 
-         if (chatText.startsWith("/")) {
-            MinecraftClient.getInstance().player.networkHandler.sendChatCommand(chatText.substring(1));
-         } else {
-            MinecraftClient.getInstance().player.networkHandler.sendChatMessage(chatText);
-         }
-      }
-   }
+    public static InGuiChatBox j() {
+        return f;
+    }
 
-   public static ChatCombine i() {
-      return e;
-   }
+    public static void sayMessage(String chatText, boolean addToHistory) {
+        if (MinecraftClient.getInstance().player != null
+                && MinecraftClient.getInstance().player.networkHandler != null) {
+            chatText = f().normalizeSendText(chatText);
+            if (addToHistory) {
+                MinecraftClient.getInstance().inGameHud.getChatHud().addToMessageHistory(chatText);
+            }
 
-   static {
-      a.registerFactories(ChatTasks::b);
-      HackModules.registerModuleGroup(a);
-      Tasks.e(player -> k.reset());
-      MainCommand.aI(KalamaHelperHelperNX::new);
-   }
+            if (chatText.startsWith("/")) {
+                MinecraftClient.getInstance().player.networkHandler.sendChatCommand(chatText.substring(1));
+            } else {
+                MinecraftClient.getInstance().player.networkHandler.sendChatMessage(chatText);
+            }
+        }
+    }
+
+    public static ChatCombine i() {
+        return e;
+    }
+
+    static {
+        a.registerFactories(ChatTasks::b);
+        HackModules.registerModuleGroup(a);
+        Tasks.e(player -> k.reset());
+        MainCommand.aI(KalamaHelperHelperNX::new);
+    }
 }

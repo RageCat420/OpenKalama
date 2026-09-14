@@ -8,35 +8,36 @@ import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
 enum KalamaHelperHelperD {
-   mb,
-   me,
-   mc,
-   md;
+    mb,
+    me,
+    mc,
+    md;
 
-   @Nullable
-   public static KalamaHelperHelperD tM(String raw) {
-      return switch (raw) {
-         case "arbitrary" -> mb;
-         case "nearest" -> mc;
-         case "furthest" -> md;
-         case "random" -> me;
-         default -> null;
-      };
-   }
+    @Nullable
+    public static KalamaHelperHelperD tM(String raw) {
+        return switch (raw) {
+            case "arbitrary" -> mb;
+            case "nearest" -> mc;
+            case "furthest" -> md;
+            case "random" -> me;
+            default -> null;
+        };
+    }
 
-   public void tN(Vec3d origin, List<Entity> entities) {
-      switch (this) {
-         case mb:
-         default:
-            break;
-         case me:
-            entities.sort(Comparator.comparingDouble(entity -> entity.squaredDistanceTo(origin)));
-            break;
-         case mc:
-            entities.sort(Comparator.<Entity>comparingDouble(entity -> entity.squaredDistanceTo(origin)).reversed());
-            break;
-         case md:
-            Collections.shuffle(entities);
-      }
-   }
+    public void tN(Vec3d origin, List<Entity> entities) {
+        switch (this) {
+            case mb:
+            default:
+                break;
+            case me:
+                entities.sort(Comparator.comparingDouble(entity -> entity.squaredDistanceTo(origin)));
+                break;
+            case mc:
+                entities.sort(Comparator.<Entity>comparingDouble(entity -> entity.squaredDistanceTo(origin))
+                        .reversed());
+                break;
+            case md:
+                Collections.shuffle(entities);
+        }
+    }
 }

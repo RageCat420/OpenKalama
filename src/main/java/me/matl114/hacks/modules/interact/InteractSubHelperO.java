@@ -5,17 +5,17 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 
 public class InteractSubHelperO {
-   int expireTick;
-   BlockPos a;
-   BlockState c;
+    int expireTick;
+    BlockPos a;
+    BlockState c;
 
-   public boolean expire() {
-      return Tasks.b() > this.expireTick;
-   }
+    public boolean expire() {
+        return Tasks.b() > this.expireTick;
+    }
 
-   public InteractSubHelperO(BlockPos blockPos, int lastTicks, BlockState targetState) {
-      this.a = blockPos;
-      this.expireTick = lastTicks + Tasks.b();
-      this.c = targetState;
-   }
+    public InteractSubHelperO(BlockPos blockPos, int lastTicks, BlockState targetState) {
+        this.a = blockPos;
+        this.expireTick = lastTicks + Tasks.b();
+        this.c = targetState;
+    }
 }

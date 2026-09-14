@@ -5,17 +5,21 @@ import me.matl114.utils.commands.params.api.ArgumentType;
 import me.matl114.utils.commands.params.types.EntitySelector;
 
 public class OptionalArgumentResult extends AbstractArgumentResult<EntitySelector> {
-   private final String rawString;
+    private final String rawString;
 
-   @Override
-   public String a() {
-      return this.rawString;
-   }
+    @Override
+    public String a() {
+        return this.rawString;
+    }
 
-   public OptionalArgumentResult(EntitySelector selector, ArgumentType<EntitySelector> type, ArgumentReader reader, int startIndex, boolean parseSuccess) {
-      super(selector, type, reader, startIndex);
-      this.h = parseSuccess;
-      this.rawString = selector == null ? null : String.join(" ", reader.getArgsInRange(startIndex, this.e));
-   }
-
+    public OptionalArgumentResult(
+            EntitySelector selector,
+            ArgumentType<EntitySelector> type,
+            ArgumentReader reader,
+            int startIndex,
+            boolean parseSuccess) {
+        super(selector, type, reader, startIndex);
+        this.h = parseSuccess;
+        this.rawString = selector == null ? null : String.join(" ", reader.getArgsInRange(startIndex, this.e));
+    }
 }

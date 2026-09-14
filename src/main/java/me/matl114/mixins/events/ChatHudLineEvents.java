@@ -10,18 +10,18 @@ import org.spongepowered.asm.mixin.Unique;
 @Environment(EnvType.CLIENT)
 @Mixin({ChatHudLine.class})
 public class ChatHudLineEvents implements ChatHudLineAccess {
-   @Unique
-   private String uniqueMessageId;
+    @Unique
+    private String uniqueMessageId;
 
-   @Unique
-   @Override
-   public void setUniqueMessageId(String uniqueMessageId) {
-      this.uniqueMessageId = uniqueMessageId;
-   }
+    @Unique
+    @Override
+    public void setUniqueMessageId(String uniqueMessageId) {
+        this.uniqueMessageId = uniqueMessageId;
+    }
 
-   @Unique
-   @Override
-   public String getUniqueMessageId() {
-      return this.uniqueMessageId;
-   }
+    @Unique
+    @Override
+    public String getUniqueMessageId() {
+        return this.uniqueMessageId;
+    }
 }

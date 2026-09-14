@@ -19,73 +19,68 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 @Mixin({Entity.class})
 public abstract class EntityMixin<T extends Entity> implements EntityAccess<T>, EntityInternalAccess<T> {
-   @Unique
-   byte renderTracked = 0;
-   @Unique
-   boolean clientGlowEffect = false;
-   @Unique
-   Predictor predictorInstance;
+    @Unique
+    byte renderTracked = 0;
 
-   @Unique
-   @Override
-   public byte renderTrackedLevel() {
-      return this.renderTracked;
-   }
+    @Unique
+    boolean clientGlowEffect = false;
 
-   @Unique
-   @Override
-   public void markRenderTracked(byte tracked) {
-      this.renderTracked = tracked;
-   }
+    @Unique
+    Predictor predictorInstance;
 
-   @Override
-   public void setGlow0(boolean glow) {
-      this.clientGlowEffect = glow;
-   }
+    @Unique
+    @Override
+    public byte renderTrackedLevel() {
+        return this.renderTracked;
+    }
 
-   @Inject(
-      method = {"isGlowing"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void onGlowEffect(CallbackInfoReturnable<Boolean> cir) {
-      if (this.clientGlowEffect) {
-         cir.setReturnValue(true);
-      }
-   }
+    @Unique
+    @Override
+    public void markRenderTracked(byte tracked) {
+        this.renderTracked = tracked;
+    }
 
-   @WrapWithCondition(
-      method = {"pushAwayFrom"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/entity/Entity;addVelocity(DDD)V"
-      )}
-   )
-   public boolean onEntityNoPush(Entity instance, double deltaX, double deltaY, double deltaZ) {
-      return !MovTasks.aC().noEntityPush.get();
-   }
+    @Override
+    public void setGlow0(boolean glow) {
+        this.clientGlowEffect = glow;
+    }
 
-   @Unique
-   @Override
-   public Predictor getPositionPredictor() {
-      if (this.predictorInstance == null) {
-         this.predictorInstance = new SimpleEntityPredictor((Entity)(Object)this);
-      }
+    @Inject(
+            method = {"isGlowing"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    public void onGlowEffect(CallbackInfoReturnable<Boolean> cir) {
+        if (this.clientGlowEffect) {
+            cir.setReturnValue(true);
+        }
+    }
 
-      return this.predictorInstance;
-   }
+    @WrapWithCondition(
+            method = {"pushAwayFrom"},
+            at = {@At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;addVelocity(DDD)V")})
+    public boolean onEntityNoPush(Entity instance, double deltaX, double deltaY, double deltaZ) {
+        return !MovTasks.aC().noEntityPush.get();
+    }
 
-   @Inject(
-      method = {"isInvisibleTo"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private void noInvisiblity(CallbackInfoReturnable<Boolean> cir) {
-      if (NoRender.INSTANCE.Da()) {
-         cir.setReturnValue(false);
-      }
-   }
+    @Unique
+    @Override
+    public Predictor getPositionPredictor() {
+        if (this.predictorInstance == null) {
+            this.predictorInstance = new SimpleEntityPredictor((Entity) (Object) this);
+        }
 
-   public void getDataFlag(Object arg0) { }
+        return this.predictorInstance;
+    }
 
+    @Inject(
+            method = {"isInvisibleTo"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    private void noInvisiblity(CallbackInfoReturnable<Boolean> cir) {
+        if (NoRender.INSTANCE.Da()) {
+            cir.setReturnValue(false);
+        }
+    }
+
+    public void getDataFlag(Object arg0) {}
 }

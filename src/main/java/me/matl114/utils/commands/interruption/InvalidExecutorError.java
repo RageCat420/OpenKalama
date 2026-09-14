@@ -3,19 +3,19 @@ package me.matl114.utils.commands.interruption;
 import me.matl114.utils.commands.params.api.CommandExecution;
 
 public class InvalidExecutorError extends ArgumentException {
-   boolean s;
+    boolean s;
 
-   @Override
-   public boolean isConditionError() {
-      return true;
-   }
+    @Override
+    public boolean isConditionError() {
+        return true;
+    }
 
-   public InvalidExecutorError(boolean shouldConsoleExecute) {
-      this.s = shouldConsoleExecute;
-   }
+    public InvalidExecutorError(boolean shouldConsoleExecute) {
+        this.s = shouldConsoleExecute;
+    }
 
-   @Override
-   public void handleAbort(CommandExecution sender, InterruptionHandler command) {
-      command.handleExecutorInvalid(sender, this.s);
-   }
+    @Override
+    public void handleAbort(CommandExecution sender, InterruptionHandler command) {
+        command.handleExecutorInvalid(sender, this.s);
+    }
 }

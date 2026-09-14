@@ -17,18 +17,22 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin({ChunkPacker.class})
 @Environment(EnvType.CLIENT)
 public class BaritoneChunkPackerFixMixin {
-   @Unique
-   private static final BlockState a = Blocks.AIR.getDefaultState();
+    @Unique
+    private static final BlockState a = Blocks.AIR.getDefaultState();
 
-   @WrapOperation(
-      method = {"a(Lnet/minecraft/world/chunk/WorldChunk;)Lbaritone/cache/CachedChunk;"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lbaritone/utils/BlockStateInterface;a(Lnet/minecraft/world/chunk/WorldChunk;III)Lnet/minecraft/block/BlockState;"
-      )},
-      require = 0
-   )
-   private static BlockState fixWorldAccessIndexOutOfBound(WorldChunk chunk, int x, int y, int z, Operation<BlockState> original) {
-      return y >= 0 && y < chunk.getSectionArray().length << 4 ? (BlockState)original.call(new Object[]{chunk, x, y, z}) : a;
-   }
+    @WrapOperation(
+            method = {"a(Lnet/minecraft/world/chunk/WorldChunk;)Lbaritone/cache/CachedChunk;"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lbaritone/utils/BlockStateInterface;a(Lnet/minecraft/world/chunk/WorldChunk;III)Lnet/minecraft/block/BlockState;")
+            },
+            require = 0)
+    private static BlockState fixWorldAccessIndexOutOfBound(
+            WorldChunk chunk, int x, int y, int z, Operation<BlockState> original) {
+        return y >= 0 && y < chunk.getSectionArray().length << 4
+                ? (BlockState) original.call(new Object[] {chunk, x, y, z})
+                : a;
+    }
 }

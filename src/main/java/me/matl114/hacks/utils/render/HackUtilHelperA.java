@@ -10,23 +10,20 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Vec3d;
 
 class HackUtilHelperA extends KalamaHelperHelperG<List<Vec3d>> {
-   @Override
-   public void a(MatrixStack matrices) {
-      if (!this.entries.isEmpty()) {
-         Vec3d var2 = RenderUtils.getCameraPos().negate();
-         VRender.getInstance().h((op, vtx) -> {
-            for (KalamaHelperHelperK var6 : this.entries) {
-               List<Vec3d> var7 = ((List<Vec3d>)var6.val()).stream().map(s -> s.add(var2)).toList();
-               op.drawLines(matrices, vtx, var7, var6.index());
-            }
-         });
-      }
-   }
+    @Override
+    public void a(MatrixStack matrices) {
+        if (!this.entries.isEmpty()) {
+            Vec3d var2 = RenderUtils.getCameraPos().negate();
+            VRender.getInstance().h((op, vtx) -> {
+                for (KalamaHelperHelperK var6 : this.entries) {
+                    List<Vec3d> var7 = ((List<Vec3d>) var6.val())
+                            .stream().map(s -> s.add(var2)).toList();
+                    op.drawLines(matrices, vtx, var7, var6.index());
+                }
+            });
+        }
+    }
 
-   @Override
-   public void b(VDrawContext vDrawContext) {
-   }
-
-
-
-   }
+    @Override
+    public void b(VDrawContext vDrawContext) {}
+}

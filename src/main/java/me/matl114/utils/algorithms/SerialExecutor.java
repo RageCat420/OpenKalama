@@ -8,35 +8,35 @@ import java.util.function.Consumer;
 import org.jetbrains.annotations.NotNull;
 
 public class SerialExecutor implements Runnable, Executor {
-   Consumer<Runnable> e;
-   final Queue<Runnable> d = new ConcurrentLinkedQueue<>();
-   final AtomicBoolean f = new AtomicBoolean(false);
+    Consumer<Runnable> e;
+    final Queue<Runnable> d = new ConcurrentLinkedQueue<>();
+    final AtomicBoolean f = new AtomicBoolean(false);
 
-   public SerialExecutor(Consumer<Runnable> asyncRunner) {
-      this.e = asyncRunner;
-   }
+    public SerialExecutor(Consumer<Runnable> asyncRunner) {
+        this.e = asyncRunner;
+    }
 
-   @Override
-   public void execute(@NotNull Runnable runnable) {
-      this.d(runnable);
-   }
+    @Override
+    public void execute(@NotNull Runnable runnable) {
+        this.d(runnable);
+    }
 
-   public void d(Runnable task) {
-      this.d.add(task);
-      this.e.accept(this);
-   }
+    public void d(Runnable task) {
+        this.d.add(task);
+        this.e.accept(this);
+    }
 
-   @Override
-   public void run() {
-      if (this.f.compareAndSet(false, true)) {
-         try {
-            while (!this.d.isEmpty()) {
-               Runnable var1 = this.d.poll();
-               var1.run();
+    @Override
+    public void run() {
+        if (this.f.compareAndSet(false, true)) {
+            try {
+                while (!this.d.isEmpty()) {
+                    Runnable var1 = this.d.poll();
+                    var1.run();
+                }
+            } finally {
+                this.f.set(false);
             }
-         } finally {
-            this.f.set(false);
-         }
-      }
-   }
+        }
+    }
 }

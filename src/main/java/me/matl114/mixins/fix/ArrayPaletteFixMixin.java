@@ -14,21 +14,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 @Mixin({ArrayPalette.class})
 public class ArrayPaletteFixMixin<T> {
-   @Shadow
-   @Final
-   private T[] field_12904;
+    @Shadow
+    @Final
+    private T[] field_12904;
 
-   @Inject(
-      method = {"get"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/world/chunk/EntryMissingException;<init>(I)V"
-      )},
-      cancellable = true
-   )
-   private void onException(int id, CallbackInfoReturnable<T> cir) {
-      if (ClientExtra.INSTANCE.fixPaletteException.get()) {
-         cir.setReturnValue(this.field_12904[0]);
-      }
-   }
+    @Inject(
+            method = {"get"},
+            at = {@At(value = "INVOKE", target = "Lnet/minecraft/world/chunk/EntryMissingException;<init>(I)V")},
+            cancellable = true)
+    private void onException(int id, CallbackInfoReturnable<T> cir) {
+        if (ClientExtra.INSTANCE.fixPaletteException.get()) {
+            cir.setReturnValue(this.field_12904[0]);
+        }
+    }
 }

@@ -21,29 +21,32 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin({HeldItemFeatureRenderer.class})
 public class HeldItemFeatureRendererVersionedSpearMixin {
-   @Inject(
-      method = {"renderItem"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/render/item/HeldItemRenderer;renderItem(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemDisplayContext;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"
-      )}
-   )
-   private void onRenderItemSpear1(
-      LivingEntity entity,
-      ItemStack stack,
-      ItemDisplayContext transformationMode,
-      Arm arm,
-      MatrixStack matrices,
-      VertexConsumerProvider vertexConsumers,
-      int light,
-      CallbackInfo ci
-   ) {
-      if (entity instanceof PlayerEntity pl && SpearEnhance.INSTANCE.fixOldVersionSpear.get() && SpearEnhance.isUsingSpear(pl)) {
-         Hand hand = pl.getActiveHand();
-         Arm arm1 = hand == Hand.MAIN_HAND ? pl.getMainArm() : pl.getMainArm().getOpposite();
-         if (arm1 == arm) {
-            LancingUtils.applyHeldItemFeatureArm(matrices, pl.getItemUseTime(), arm, stack);
-         }
-      }
-   }
+    @Inject(
+            method = {"renderItem"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/client/render/item/HeldItemRenderer;renderItem(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemDisplayContext;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V")
+            })
+    private void onRenderItemSpear1(
+            LivingEntity entity,
+            ItemStack stack,
+            ItemDisplayContext transformationMode,
+            Arm arm,
+            MatrixStack matrices,
+            VertexConsumerProvider vertexConsumers,
+            int light,
+            CallbackInfo ci) {
+        if (entity instanceof PlayerEntity pl
+                && SpearEnhance.INSTANCE.fixOldVersionSpear.get()
+                && SpearEnhance.isUsingSpear(pl)) {
+            Hand hand = pl.getActiveHand();
+            Arm arm1 =
+                    hand == Hand.MAIN_HAND ? pl.getMainArm() : pl.getMainArm().getOpposite();
+            if (arm1 == arm) {
+                LancingUtils.applyHeldItemFeatureArm(matrices, pl.getItemUseTime(), arm, stack);
+            }
+        }
+    }
 }

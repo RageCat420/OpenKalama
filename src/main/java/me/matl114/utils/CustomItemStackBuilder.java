@@ -17,90 +17,90 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class CustomItemStackBuilder {
-   List<Text> b;
-   ItemStack a = new ItemStack(Items.STONE);
+    List<Text> b;
+    ItemStack a = new ItemStack(Items.STONE);
 
-   public CustomItemStackBuilder g() {
-      this.b.clear();
-      return this;
-   }
+    public CustomItemStackBuilder g() {
+        this.b.clear();
+        return this;
+    }
 
-   public CustomItemStackBuilder skullHash(String owner) {
-      ItemStackUtils.setOrRemoveChange(this.a, DataComponentTypes.PROFILE, VRecord.h(owner));
-      return this;
-   }
+    public CustomItemStackBuilder skullHash(String owner) {
+        ItemStackUtils.setOrRemoveChange(this.a, DataComponentTypes.PROFILE, VRecord.h(owner));
+        return this;
+    }
 
-   public CustomItemStackBuilder type(Item type) {
-      if (type != Items.AIR) {
-         int var2 = Math.min(1, this.a.getCount());
-         this.a = this.a.copyComponentsToNewStackIgnoreEmpty(type, var2);
-      }
+    public CustomItemStackBuilder type(Item type) {
+        if (type != Items.AIR) {
+            int var2 = Math.min(1, this.a.getCount());
+            this.a = this.a.copyComponentsToNewStackIgnoreEmpty(type, var2);
+        }
 
-      return this;
-   }
+        return this;
+    }
 
-   public CustomItemStackBuilder name(Text name) {
-      ItemStackUtils.setOrRemoveChange(this.a, DataComponentTypes.CUSTOM_NAME, name);
-      return this;
-   }
+    public CustomItemStackBuilder name(Text name) {
+        ItemStackUtils.setOrRemoveChange(this.a, DataComponentTypes.CUSTOM_NAME, name);
+        return this;
+    }
 
-   public static CustomItemStackBuilder a() {
-      return new CustomItemStackBuilder();
-   }
+    public static CustomItemStackBuilder a() {
+        return new CustomItemStackBuilder();
+    }
 
-   public CustomItemStackBuilder() {
-      this.b = new ArrayList<>();
-   }
+    public CustomItemStackBuilder() {
+        this.b = new ArrayList<>();
+    }
 
-   public CustomItemStackBuilder l(String hash) {
-      ItemStackUtils.setOrRemoveChange(
-         this.a,
-         DataComponentTypes.PROFILE,
-         VRecord.staticProfile(
-            UUID.nameUUIDFromBytes(hash.getBytes(StandardCharsets.UTF_8)), "CS-CoreLib", BukkitItemStackUtils.buildPropertyMap(VRecord.k(), hash)
-         )
-      );
-      return this;
-   }
+    public CustomItemStackBuilder l(String hash) {
+        ItemStackUtils.setOrRemoveChange(
+                this.a,
+                DataComponentTypes.PROFILE,
+                VRecord.staticProfile(
+                        UUID.nameUUIDFromBytes(hash.getBytes(StandardCharsets.UTF_8)),
+                        "CS-CoreLib",
+                        BukkitItemStackUtils.buildPropertyMap(VRecord.k(), hash)));
+        return this;
+    }
 
-   public CustomItemStackBuilder h(Text tooltip) {
-      this.b.add(tooltip);
-      return this;
-   }
+    public CustomItemStackBuilder h(Text tooltip) {
+        this.b.add(tooltip);
+        return this;
+    }
 
-   public CustomItemStackBuilder b(String type) {
-      return this.type((Item)Registries.ITEM.get(Identifier.tryParse(type)));
-   }
+    public CustomItemStackBuilder b(String type) {
+        return this.type((Item) Registries.ITEM.get(Identifier.tryParse(type)));
+    }
 
-   public ItemStack build() {
-      return this.a.copy();
-   }
+    public ItemStack build() {
+        return this.a.copy();
+    }
 
-   public CustomItemStackBuilder k(VHideFlag flag) {
-      flag.setHideFlag(this.a, true);
-      return this;
-   }
+    public CustomItemStackBuilder k(VHideFlag flag) {
+        flag.setHideFlag(this.a, true);
+        return this;
+    }
 
-   public CustomItemStackBuilder glint() {
-      ItemStackUtils.setOrRemoveChange(this.a, DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, Boolean.TRUE);
-      return this;
-   }
+    public CustomItemStackBuilder glint() {
+        ItemStackUtils.setOrRemoveChange(this.a, DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, Boolean.TRUE);
+        return this;
+    }
 
-   public CustomItemStackBuilder amount(int amount) {
-      this.a.setCount(amount);
-      return this;
-   }
+    public CustomItemStackBuilder amount(int amount) {
+        this.a.setCount(amount);
+        return this;
+    }
 
-   public CustomItemStackBuilder i(String tooltip) {
-      return this.h(ChatUtils.textFromLegacyString(tooltip));
-   }
+    public CustomItemStackBuilder i(String tooltip) {
+        return this.h(ChatUtils.textFromLegacyString(tooltip));
+    }
 
-   public CustomItemStackBuilder e(String name) {
-      return this.name(ChatUtils.textFromLegacyString(name));
-   }
+    public CustomItemStackBuilder e(String name) {
+        return this.name(ChatUtils.textFromLegacyString(name));
+    }
 
-   public CustomItemStackBuilder endLore() {
-      ItemStackUtils.setOrRemoveChange(this.a, DataComponentTypes.LORE, new LoreComponent(List.copyOf(this.b)));
-      return this;
-   }
+    public CustomItemStackBuilder endLore() {
+        ItemStackUtils.setOrRemoveChange(this.a, DataComponentTypes.LORE, new LoreComponent(List.copyOf(this.b)));
+        return this;
+    }
 }

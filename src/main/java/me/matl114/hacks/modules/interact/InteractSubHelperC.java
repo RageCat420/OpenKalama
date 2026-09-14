@@ -5,17 +5,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 
 public interface InteractSubHelperC {
-   KalamaHelperHelperK<ItemStack> Uv();
+    KalamaHelperHelperK<ItemStack> Uv();
 
-   static InteractSubHelperC Uy(InteractSubHelperFX itemStack) {
-      return itemStack == null ? null : new InteractSubHelperF(itemStack);
-   }
+    static InteractSubHelperC Uy(InteractSubHelperFX itemStack) {
+        return itemStack == null ? null : new InteractSubHelperF(itemStack);
+    }
 
-   static InteractSubHelperC Uw() {
-      return new InteractSubHelperE();
-   }
+    static InteractSubHelperC Uw() {
+        return new InteractSubHelperE();
+    }
 
-   static InteractSubHelperC Ux(Hand hand) {
-      return new InteractSubHelperD(hand);
-   }
+    static InteractSubHelperC Ux(Hand hand) {
+        return new InteractSubHelperD(hand);
+    }
 }

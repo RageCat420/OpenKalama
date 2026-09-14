@@ -20,20 +20,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 @Mixin({WorldChunk.class})
 public class WorldChunkEvents {
-   @Shadow
-   @Final
-   private World field_12858;
+    @Shadow
+    @Final
+    private World field_12858;
 
-   @Inject(
-      method = {"setBlockState"},
-      at = {@At("TAIL")}
-   )
-   private void onSetBlockState(BlockPos pos, BlockState state, boolean moved, CallbackInfoReturnable<BlockState> cir) {
-      if (this.field_12858 instanceof ClientWorld world && MinecraftClient.getInstance().world == world) {
-         BlockState oldState = (BlockState)cir.getReturnValue();
-         if (oldState != null) {
-            Listener.aW().broadcast(new KalamaHelperHelperD(world, pos, (BlockState)cir.getReturnValue(), state));
-         }
-      }
-   }
+    @Inject(
+            method = {"setBlockState"},
+            at = {@At("TAIL")})
+    private void onSetBlockState(
+            BlockPos pos, BlockState state, boolean moved, CallbackInfoReturnable<BlockState> cir) {
+        if (this.field_12858 instanceof ClientWorld world && MinecraftClient.getInstance().world == world) {
+            BlockState oldState = (BlockState) cir.getReturnValue();
+            if (oldState != null) {
+                Listener.aW().broadcast(new KalamaHelperHelperD(world, pos, (BlockState) cir.getReturnValue(), state));
+            }
+        }
+    }
 }

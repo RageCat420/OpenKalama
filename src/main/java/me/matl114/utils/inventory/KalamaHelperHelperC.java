@@ -4,17 +4,17 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 
 public class KalamaHelperHelperC extends ImmutableInventory {
-   List<ItemStack> val$itemStackSupplier;
+    List<ItemStack> val$itemStackSupplier;
 
-   public KalamaHelperHelperC(List<ItemStack> itemStacks) {
-      this.val$itemStackSupplier = itemStacks;
-   }
+    public KalamaHelperHelperC(List<ItemStack> itemStacks) {
+        this.val$itemStackSupplier = itemStacks;
+    }
 
-   public int size() {
-      return this.val$itemStackSupplier.size();
-   }
+    public int size() {
+        return this.val$itemStackSupplier.size();
+    }
 
-   public ItemStack getStack(int slot) {
-      return this.val$itemStackSupplier.get(slot);
-   }
+    public ItemStack getStack(int slot) {
+        return this.val$itemStackSupplier.get(slot);
+    }
 }

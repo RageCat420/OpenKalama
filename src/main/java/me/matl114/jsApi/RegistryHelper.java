@@ -9,17 +9,20 @@ import net.minecraft.util.Identifier;
 
 @Modifiable
 public class RegistryHelper {
-   private static MinecraftClient mc = MinecraftClient.getInstance();
+    private static MinecraftClient mc = MinecraftClient.getInstance();
 
-   public static <T> String getIdInRegistry(Registry<T> registry, T value) {
-      return Objects.requireNonNull(registry.getId(value)).toString();
-   }
+    public static <T> String getIdInRegistry(Registry<T> registry, T value) {
+        return Objects.requireNonNull(registry.getId(value)).toString();
+    }
 
-   public static <T> Registry<T> getRegistry(String resourceKey) {
-      return (Registry<T>)mc.getNetworkHandler().getRegistryManager().getOptional(RegistryKey.ofRegistry(Identifier.tryParse(resourceKey))).orElseThrow();
-   }
+    public static <T> Registry<T> getRegistry(String resourceKey) {
+        return (Registry<T>) mc.getNetworkHandler()
+                .getRegistryManager()
+                .getOptional(RegistryKey.ofRegistry(Identifier.tryParse(resourceKey)))
+                .orElseThrow();
+    }
 
-   public static <T> T getInRegistry(Registry<T> registry, String key) {
-      return (T)registry.get(Identifier.tryParse(key));
-   }
+    public static <T> T getInRegistry(Registry<T> registry, String key) {
+        return (T) registry.get(Identifier.tryParse(key));
+    }
 }

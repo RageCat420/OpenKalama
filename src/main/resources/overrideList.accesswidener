@@ -19,7 +19,6 @@ accessible field net/minecraft/nbt/NbtCompound entries Ljava/util/Map;
 accessible field net/minecraft/text/TextColor FORMATTING_TO_COLOR Ljava/util/Map;
 accessible method net/minecraft/util/Identifier <init> (Ljava/lang/String;Ljava/lang/String;)V
 accessible field net/minecraft/component/type/ItemEnchantmentsComponent showInTooltip Z
-accessible field net/minecraft/item/equipment/trim/ArmorTrim showInTooltip Z
 accessible field net/minecraft/item/ItemStack components Lnet/minecraft/component/ComponentMapImpl;
 accessible field net/minecraft/component/ComponentMapImpl changedComponents Lit/unimi/dsi/fastutil/objects/Reference2ObjectMap;
 accessible method net/minecraft/component/ComponentMapImpl onWrite ()V
@@ -45,7 +44,6 @@ accessible method net/minecraft/util/shape/ArrayVoxelShape <init> (Lnet/minecraf
 accessible method net/minecraft/world/chunk/PalettedContainer get (I)Ljava/lang/Object;
 accessible field net/minecraft/util/shape/BitSetVoxelSet storage Ljava/util/BitSet;
 accessible field net/minecraft/entity/Entity dimensions Lnet/minecraft/entity/EntityDimensions;
-accessible method net/minecraft/client/world/ClientWorld method_31592 ()Lnet/minecraft/world/entity/EntityLookup;
 accessible field net/minecraft/world/biome/source/BiomeAccess seed J
 accessible field net/minecraft/server/MinecraftServer session Lnet/minecraft/world/level/storage/LevelStorage$Session;
 accessible field net/minecraft/world/gen/placementmodifier/CountPlacementModifier count Lnet/minecraft/util/math/intprovider/IntProvider;
@@ -75,7 +73,6 @@ accessible method net/minecraft/item/BlockItem getPlacementState (Lnet/minecraft
 accessible field net/minecraft/client/network/PendingUpdateManager sequence I
 accessible method net/minecraft/client/render/GameRenderer getFov (Lnet/minecraft/client/render/Camera;FZ)D
 accessible field net/minecraft/client/gui/DrawContext guiAtlasManager Lnet/minecraft/client/texture/GuiAtlasManager;
-accessible field net/minecraft/particle/TintedParticleEffect color I
 accessible field net/minecraft/entity/effect/StatusEffectInstance duration I
 accessible field net/minecraft/client/world/ClientChunkManager$ClientChunkMap radius I
 accessible field net/minecraft/client/world/ClientChunkManager$ClientChunkMap centerChunkX I

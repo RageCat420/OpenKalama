@@ -11,16 +11,15 @@ import org.spongepowered.asm.mixin.injection.At;
 @Environment(EnvType.CLIENT)
 @Mixin({InventoryBehavior.class})
 public class InventoryBehaviourMixin {
-   @ModifyExpressionValue(
-      method = {"a(ZLjava/util/function/Predicate;)Z", "Lbaritone/behavior/InventoryBehavior;throwaway(ZLjava/util/function/Predicate;)Z"},
-      at = {@At(
-         value = "FIELD",
-         target = "Lbaritone/api/Settings$Setting;value:Ljava/lang/Object;"
-      )},
-      require = 0,
-      remap = false
-   )
-   private Object modifyInventoryCheck(Object original) {
-      return BaritoneFix.INSTANCE.enableInventoryFireworks.get() ? true : original;
-   }
+    @ModifyExpressionValue(
+            method = {
+                "a(ZLjava/util/function/Predicate;)Z",
+                "Lbaritone/behavior/InventoryBehavior;throwaway(ZLjava/util/function/Predicate;)Z"
+            },
+            at = {@At(value = "FIELD", target = "Lbaritone/api/Settings$Setting;value:Ljava/lang/Object;")},
+            require = 0,
+            remap = false)
+    private Object modifyInventoryCheck(Object original) {
+        return BaritoneFix.INSTANCE.enableInventoryFireworks.get() ? true : original;
+    }
 }

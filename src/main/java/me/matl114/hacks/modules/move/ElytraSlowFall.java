@@ -15,43 +15,44 @@ import me.matl114.managers.input.MultiKeyBind;
 import me.matl114.utils.EntityUtils;
 
 public class ElytraSlowFall extends BaseModule implements HackUtilHelperJ {
-   public final ModulePath sn;
-   public final FlagRef so;
-   public final ModulePath fu = makePath(Configs.m, "velocity-management");
-   static HackUtilHelperD cy;
-   public final ModulePath sm = this.fu.add("floating-utils");
-   public final KeyBindRef sp;
+    public final ModulePath sn;
+    public final FlagRef so;
+    public final ModulePath fu = makePath(Configs.m, "velocity-management");
+    static HackUtilHelperD cy;
+    public final ModulePath sm = this.fu.add("floating-utils");
+    public final KeyBindRef sp;
 
-   public ElytraSlowFall() {
-      super("ElytraSlowFall");
-      this.sn = this.sm.add("elytra-slow-falling");
-      this.so = this.flagBuilder(this.sn.addEnable()).build();
-      this.sp = this.toggleHotkey(this.sn.addHotkey(), new MultiKeyBind(), this.sn.addEnable()).build();
-      if (cy == null) {
-         cy = new HackUtilHelperD(this::cast);
-         MovTasks.j.SJ(() -> cy);
-      }
+    public ElytraSlowFall() {
+        super("ElytraSlowFall");
+        this.sn = this.sm.add("elytra-slow-falling");
+        this.so = this.flagBuilder(this.sn.addEnable()).build();
+        this.sp = this.toggleHotkey(this.sn.addHotkey(), new MultiKeyBind(), this.sn.addEnable())
+                .build();
+        if (cy == null) {
+            cy = new HackUtilHelperD(this::cast);
+            MovTasks.j.SJ(() -> cy);
+        }
 
-      cy.mN(this::cast);
-      this.bindFlag(this.so);
-   }
+        cy.mN(this::cast);
+        this.bindFlag(this.so);
+    }
 
-   @Override
-   public void bb(Event<LegalMovementManager> movementManagerEvent) {
-      if (this.so.get() && mc.player.isFallFlying() && !mc.player.isOnGround()) {
-         boolean var2 = Tasks.b() % 2 == 0;
-         ((LegalMovementManager)movementManagerEvent.b).pushImportantRotation(true, var2);
-         EntityUtils.setEntityPitchSafe(mc.player, 0.0F);
-         if (var2) {
-            PlayerStateManager.nT(mc.player, mc.player.getYaw() + 180.0F);
-         }
+    @Override
+    public void bb(Event<LegalMovementManager> movementManagerEvent) {
+        if (this.so.get() && mc.player.isFallFlying() && !mc.player.isOnGround()) {
+            boolean var2 = Tasks.b() % 2 == 0;
+            ((LegalMovementManager) movementManagerEvent.b).pushImportantRotation(true, var2);
+            EntityUtils.setEntityPitchSafe(mc.player, 0.0F);
+            if (var2) {
+                PlayerStateManager.nT(mc.player, mc.player.getYaw() + 180.0F);
+            }
 
-         ((LegalMovementManager)movementManagerEvent.b).c();
-      }
-   }
+            ((LegalMovementManager) movementManagerEvent.b).c();
+        }
+    }
 
-   @Override
-   public boolean postModify(Event<LegalMovementManager> movementManagerEvent, boolean enabledThisTick) {
-      return true;
-   }
+    @Override
+    public boolean postModify(Event<LegalMovementManager> movementManagerEvent, boolean enabledThisTick) {
+        return true;
+    }
 }

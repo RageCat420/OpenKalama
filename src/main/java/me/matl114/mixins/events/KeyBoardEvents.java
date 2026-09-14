@@ -11,37 +11,32 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(
-   value = {Keyboard.class},
-   priority = 1
-)
+        value = {Keyboard.class},
+        priority = 1)
 public class KeyBoardEvents {
-   @Inject(
-      method = {"onKey"},
-      cancellable = true,
-      at = {@At(
-         value = "FIELD",
-         target = "Lnet/minecraft/client/Keyboard;debugCrashStartTime:J",
-         ordinal = 0
-      )}
-   )
-   private void onKeyboardInput(long windowPointer, int key, int scanCode, int action, int modifiers, CallbackInfo ci) {
-      if (SimpleInputManager.h().onKeyInput(key, scanCode, modifiers, action)) {
-         ci.cancel();
-      }
-   }
+    @Inject(
+            method = {"onKey"},
+            cancellable = true,
+            at = {@At(value = "FIELD", target = "Lnet/minecraft/client/Keyboard;debugCrashStartTime:J", ordinal = 0)})
+    private void onKeyboardInput(
+            long windowPointer, int key, int scanCode, int action, int modifiers, CallbackInfo ci) {
+        if (SimpleInputManager.h().onKeyInput(key, scanCode, modifiers, action)) {
+            ci.cancel();
+        }
+    }
 
-   @Inject(
-      method = {"onChar"},
-      cancellable = true,
-      at = {@At(
-         value = "FIELD",
-         target = "Lnet/minecraft/client/Keyboard;client:Lnet/minecraft/client/MinecraftClient;",
-         ordinal = 0
-      )}
-   )
-   private void onChar(long window, int codePoint, int modifiers, CallbackInfo ci) {
-      if (SimpleInputManager.h().onCharTyped(codePoint, modifiers)) {
-         ci.cancel();
-      }
-   }
+    @Inject(
+            method = {"onChar"},
+            cancellable = true,
+            at = {
+                @At(
+                        value = "FIELD",
+                        target = "Lnet/minecraft/client/Keyboard;client:Lnet/minecraft/client/MinecraftClient;",
+                        ordinal = 0)
+            })
+    private void onChar(long window, int codePoint, int modifiers, CallbackInfo ci) {
+        if (SimpleInputManager.h().onCharTyped(codePoint, modifiers)) {
+            ci.cancel();
+        }
+    }
 }

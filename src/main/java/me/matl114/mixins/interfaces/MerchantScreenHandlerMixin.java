@@ -12,17 +12,17 @@ import org.spongepowered.asm.mixin.Unique;
 @Environment(EnvType.CLIENT)
 @Mixin({MerchantScreenHandler.class})
 public class MerchantScreenHandlerMixin implements EntityInventory.Handler<VillagerEntity> {
-   @Unique
-   VillagerEntity owner;
+    @Unique
+    VillagerEntity owner;
 
-   @Nullable
-   @Unique
-   public VillagerEntity getOwner() {
-      return this.owner;
-   }
+    @Nullable
+    @Unique
+    public VillagerEntity getOwner() {
+        return this.owner;
+    }
 
-   @Override
-   public void sync(EntityInventory<VillagerEntity> inventory) {
-      this.owner = inventory.getOwner();
-   }
+    @Override
+    public void sync(EntityInventory<VillagerEntity> inventory) {
+        this.owner = inventory.getOwner();
+    }
 }

@@ -4,22 +4,22 @@ import net.minecraft.text.CharacterVisitor;
 import net.minecraft.text.Style;
 
 public class SimpleOrderedTextVisitor implements CharacterVisitor {
-   StringBuilder builder;
+    StringBuilder builder;
 
-   public SimpleOrderedTextVisitor() {
-      this.builder = new StringBuilder();
-   }
+    public SimpleOrderedTextVisitor() {
+        this.builder = new StringBuilder();
+    }
 
-   public StringBuilder getContent() {
-      return this.builder;
-   }
+    public StringBuilder getContent() {
+        return this.builder;
+    }
 
-   public SimpleOrderedTextVisitor(StringBuilder bu) {
-      this.builder = bu;
-   }
+    public SimpleOrderedTextVisitor(StringBuilder bu) {
+        this.builder = bu;
+    }
 
-   public boolean accept(int index, Style style, int codePoint) {
-      this.builder.appendCodePoint(codePoint);
-      return true;
-   }
+    public boolean accept(int index, Style style, int codePoint) {
+        this.builder.appendCodePoint(codePoint);
+        return true;
+    }
 }

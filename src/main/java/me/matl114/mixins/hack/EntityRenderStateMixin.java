@@ -11,19 +11,22 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin({PlayerEntityRenderer.class})
 public class EntityRenderStateMixin {
-   @ModifyExpressionValue(
-      method = {"setupTransforms(Lnet/minecraft/client/network/AbstractClientPlayerEntity;Lnet/minecraft/client/util/math/MatrixStack;FFFF)V"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;isFallFlying()Z"
-      )}
-   )
-   private boolean updateBipedRenderState(boolean original, @Local(argsOnly = true) AbstractClientPlayerEntity livingEntity) {
-      return livingEntity.isFallFlying()
-            && livingEntity == MinecraftClient.getInstance().player
-            && ElytraExtra.INSTANCE.renderFix.get()
-            && ElytraExtra.INSTANCE.afr()
-         ? false
-         : original;
-   }
+    @ModifyExpressionValue(
+            method = {
+                "setupTransforms(Lnet/minecraft/client/network/AbstractClientPlayerEntity;Lnet/minecraft/client/util/math/MatrixStack;FFFF)V"
+            },
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;isFallFlying()Z")
+            })
+    private boolean updateBipedRenderState(
+            boolean original, @Local(argsOnly = true) AbstractClientPlayerEntity livingEntity) {
+        return livingEntity.isFallFlying()
+                        && livingEntity == MinecraftClient.getInstance().player
+                        && ElytraExtra.INSTANCE.renderFix.get()
+                        && ElytraExtra.INSTANCE.afr()
+                ? false
+                : original;
+    }
 }

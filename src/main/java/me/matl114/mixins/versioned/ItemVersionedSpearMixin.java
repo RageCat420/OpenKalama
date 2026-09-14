@@ -14,15 +14,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 @Mixin({Item.class})
 public class ItemVersionedSpearMixin {
-   @Inject(
-      method = {"getMaxUseTime"},
-      at = {@At("RETURN")},
-      cancellable = true
-   )
-   private void fixSpearUse2(ItemStack stack, LivingEntity user, CallbackInfoReturnable<Integer> cir) {
-      int val = cir.getReturnValueI();
-      if (val == 0 && SpearEnhance.INSTANCE.fixOldVersionSpear.get() && SpearEnhance.INSTANCE.hasRealComponent(stack)) {
-         cir.setReturnValue(72000);
-      }
-   }
+    @Inject(
+            method = {"getMaxUseTime"},
+            at = {@At("RETURN")},
+            cancellable = true)
+    private void fixSpearUse2(ItemStack stack, LivingEntity user, CallbackInfoReturnable<Integer> cir) {
+        int val = cir.getReturnValueI();
+        if (val == 0
+                && SpearEnhance.INSTANCE.fixOldVersionSpear.get()
+                && SpearEnhance.INSTANCE.hasRealComponent(stack)) {
+            cir.setReturnValue(72000);
+        }
+    }
 }

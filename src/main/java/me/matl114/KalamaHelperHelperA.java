@@ -8,16 +8,15 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 
 class KalamaHelperHelperA implements SimpleSynchronousResourceReloadListener {
-   public void reload(ResourceManager manager) {
-      Debug.a("Resource reload called for Kalama");
-      SlimefunHelper.reloadModConfig();
-      RenderListener.k(manager);
-   }
+    public void reload(ResourceManager manager) {
+        Debug.a("Resource reload called for Kalama");
+        SlimefunHelper.reloadModConfig();
+        RenderListener.k(manager);
+    }
 
-   KalamaHelperHelperA(final SlimefunHelper this$0) {
-   }
+    KalamaHelperHelperA(final SlimefunHelper this$0) {}
 
-   public Identifier getFabricId() {
-      return CommonUtils.b("reload_listener");
-   }
+    public Identifier getFabricId() {
+        return CommonUtils.b("reload_listener");
+    }
 }

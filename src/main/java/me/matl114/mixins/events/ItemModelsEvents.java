@@ -15,20 +15,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin({ItemModels.class})
 @Environment(EnvType.CLIENT)
 public class ItemModelsEvents {
-   @Inject(
-      method = {"getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   public void getCustomItemModel(ItemStack stack, CallbackInfoReturnable<BakedModel> cir) {
-      Event<BakedModel> bakedModelEvent = new Event<>(null, true, true, stack);
-      RenderListener.n().catchEvent(bakedModelEvent);
-      if (!bakedModelEvent.d()) {
-         BakedModel model = bakedModelEvent.e();
-         if (model != null) {
-            cir.setReturnValue(model);
-            cir.cancel();
-         }
-      }
-   }
+    @Inject(
+            method = {"getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    public void getCustomItemModel(ItemStack stack, CallbackInfoReturnable<BakedModel> cir) {
+        Event<BakedModel> bakedModelEvent = new Event<>(null, true, true, stack);
+        RenderListener.n().catchEvent(bakedModelEvent);
+        if (!bakedModelEvent.d()) {
+            BakedModel model = bakedModelEvent.e();
+            if (model != null) {
+                cir.setReturnValue(model);
+                cir.cancel();
+            }
+        }
+    }
 }

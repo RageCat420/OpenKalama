@@ -16,17 +16,19 @@ import org.spongepowered.asm.mixin.injection.At;
 @Environment(EnvType.CLIENT)
 @Mixin({EntityType.class})
 public class EntityTypeEvents {
-   @WrapOperation(
-      method = {"create(Lnet/minecraft/world/World;)Lnet/minecraft/entity/Entity;"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/entity/EntityType$EntityFactory;create(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)Lnet/minecraft/entity/Entity;"
-      )}
-   )
-   private <T extends Entity> T onCreate(EntityFactory<T> instance, EntityType<T> tEntityType, World world, Operation<T> original) {
-      T val = (T)original.call(new Object[]{instance, tEntityType, world});
-      Event<Entity> event = new Event<>(val, true, true, tEntityType);
-      Listener.aS().b(event);
-      return (T)(event.d() ? null : event.e());
-   }
+    @WrapOperation(
+            method = {"create(Lnet/minecraft/world/World;)Lnet/minecraft/entity/Entity;"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/entity/EntityType$EntityFactory;create(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)Lnet/minecraft/entity/Entity;")
+            })
+    private <T extends Entity> T onCreate(
+            EntityFactory<T> instance, EntityType<T> tEntityType, World world, Operation<T> original) {
+        T val = (T) original.call(new Object[] {instance, tEntityType, world});
+        Event<Entity> event = new Event<>(val, true, true, tEntityType);
+        Listener.aS().b(event);
+        return (T) (event.d() ? null : event.e());
+    }
 }

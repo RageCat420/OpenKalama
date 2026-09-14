@@ -5,12 +5,12 @@ import me.matl114.gui.basic.DrawableWidget;
 import me.matl114.hacks.utils.recipes.IRecipeEntry;
 
 class KalamaHelperHelperH extends SlimefunEntryListScreen<IRecipeEntry> {
-   KalamaHelperHelperH(List<IRecipeEntry> recipeEntries) {
-      super(recipeEntries);
-   }
+    KalamaHelperHelperH(List<IRecipeEntry> recipeEntries) {
+        super(recipeEntries);
+    }
 
-   @Override
-   public DrawableWidget cz(IRecipeEntry entry) {
-      return eH(entry);
-   }
+    @Override
+    public DrawableWidget cz(IRecipeEntry entry) {
+        return eH(entry);
+    }
 }

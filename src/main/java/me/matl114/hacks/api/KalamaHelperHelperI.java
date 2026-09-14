@@ -6,15 +6,15 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 
 public class KalamaHelperHelperI extends ModuleEntry {
-   Supplier<Text> this$0;
+    Supplier<Text> this$0;
 
-   @Override
-   public MutableText getMetaData() {
-      return (MutableText)(Object)this.this$0.get();
-   }
+    @Override
+    public MutableText getMetaData() {
+        return (MutableText) (Object) this.this$0.get();
+    }
 
-   public KalamaHelperHelperI(Config config, String[] path, String[] hotkeyPath, Supplier<Text> provider) {
-      super(config, path, hotkeyPath);
-      this.this$0 = provider;
-   }
+    public KalamaHelperHelperI(Config config, String[] path, String[] hotkeyPath, Supplier<Text> provider) {
+        super(config, path, hotkeyPath);
+        this.this$0 = provider;
+    }
 }

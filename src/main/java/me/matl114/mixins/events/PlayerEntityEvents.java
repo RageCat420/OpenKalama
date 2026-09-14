@@ -18,35 +18,38 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin({PlayerEntity.class})
 public class PlayerEntityEvents {
-   @Inject(
-      method = {"travel"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private void onPlayerTravel(Vec3d movementInput, CallbackInfo ci, @Local(argsOnly = true) LocalRef<Vec3d> move) {
-      if ((Object)this instanceof ClientPlayerEntity clientPlayerEntity) {
-         Event<Vec3d> event = new Event<>(movementInput, true, true, clientPlayerEntity);
-         Listener.aH().catchEvent(event);
-         if (event.d()) {
-            ci.cancel();
-         } else if (!ClientPlayerAccess.of(clientPlayerEntity).getLegalMovementManager().preTravelTick(clientPlayerEntity, event) || event.d()) {
-            ci.cancel();
-            ClientPlayerAccess.of(clientPlayerEntity).getLegalMovementManager().postTravelTick(clientPlayerEntity, event);
-         } else if (event.b != movementInput) {
-            move.set(event.b);
-         }
-      }
-   }
+    @Inject(
+            method = {"travel"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    private void onPlayerTravel(Vec3d movementInput, CallbackInfo ci, @Local(argsOnly = true) LocalRef<Vec3d> move) {
+        if ((Object) this instanceof ClientPlayerEntity clientPlayerEntity) {
+            Event<Vec3d> event = new Event<>(movementInput, true, true, clientPlayerEntity);
+            Listener.aH().catchEvent(event);
+            if (event.d()) {
+                ci.cancel();
+            } else if (!ClientPlayerAccess.of(clientPlayerEntity)
+                            .getLegalMovementManager()
+                            .preTravelTick(clientPlayerEntity, event)
+                    || event.d()) {
+                ci.cancel();
+                ClientPlayerAccess.of(clientPlayerEntity)
+                        .getLegalMovementManager()
+                        .postTravelTick(clientPlayerEntity, event);
+            } else if (event.b != movementInput) {
+                move.set(event.b);
+            }
+        }
+    }
 
-   @Inject(
-      method = {"travel"},
-      at = {@At("RETURN")}
-   )
-   private void onPlayerTravelReturn(Vec3d movementInput, CallbackInfo ci) {
-      if ((Object)this instanceof ClientPlayerEntity clientPlayerEntity) {
-         ClientPlayerAccess.of(clientPlayerEntity)
-            .getLegalMovementManager()
-            .postTravelTick(clientPlayerEntity, new Event<>(movementInput, false, false, clientPlayerEntity));
-      }
-   }
+    @Inject(
+            method = {"travel"},
+            at = {@At("RETURN")})
+    private void onPlayerTravelReturn(Vec3d movementInput, CallbackInfo ci) {
+        if ((Object) this instanceof ClientPlayerEntity clientPlayerEntity) {
+            ClientPlayerAccess.of(clientPlayerEntity)
+                    .getLegalMovementManager()
+                    .postTravelTick(clientPlayerEntity, new Event<>(movementInput, false, false, clientPlayerEntity));
+        }
+    }
 }

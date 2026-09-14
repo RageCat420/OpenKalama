@@ -5,23 +5,23 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 
 public interface ClientAccess {
-   static ClientAccess of(MinecraftClient client) {
-      return (ClientAccess)client;
-   }
+    static ClientAccess of(MinecraftClient client) {
+        return (ClientAccess) client;
+    }
 
-   ClientAccess clone();
+    ClientAccess clone();
 
-   void setItemUseCooldown(int var1);
+    void setItemUseCooldown(int var1);
 
-   void setAttackCooldown(int var1);
+    void setAttackCooldown(int var1);
 
-   int getAttackCooldown();
+    int getAttackCooldown();
 
-   int getItemUseCooldown();
+    int getItemUseCooldown();
 
-   void simulateRightClick();
+    void simulateRightClick();
 
-   void simulateLeftClick();
+    void simulateLeftClick();
 
-   ActionResult simulateUseItem(Hand var1);
+    ActionResult simulateUseItem(Hand var1);
 }

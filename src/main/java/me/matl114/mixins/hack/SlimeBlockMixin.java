@@ -10,25 +10,26 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.At.Shift;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({SlimeBlock.class})
 public class SlimeBlockMixin {
-   @Inject(
-      method = {"onSteppedOn"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/entity/Entity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V",
-         shift = Shift.BEFORE
-      )},
-      cancellable = true
-   )
-   private void onDisableSlimeBlockVelocityModify(World world, BlockPos pos, BlockState state, Entity entity, CallbackInfo ci) {
-      if (MovTasks.ao().whenSpecialBlock.get()) {
-         ci.cancel();
-      }
-   }
+    @Inject(
+            method = {"onSteppedOn"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target = "Lnet/minecraft/entity/Entity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V",
+                        shift = Shift.BEFORE)
+            },
+            cancellable = true)
+    private void onDisableSlimeBlockVelocityModify(
+            World world, BlockPos pos, BlockState state, Entity entity, CallbackInfo ci) {
+        if (MovTasks.ao().whenSpecialBlock.get()) {
+            ci.cancel();
+        }
+    }
 }

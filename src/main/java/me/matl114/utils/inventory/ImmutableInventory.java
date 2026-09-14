@@ -5,37 +5,34 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 
 public abstract class ImmutableInventory implements Inventory {
-   public void setStack(int slot, ItemStack stack) {
-   }
+    public void setStack(int slot, ItemStack stack) {}
 
-   public boolean canPlayerUse(PlayerEntity player) {
-      return false;
-   }
+    public boolean canPlayerUse(PlayerEntity player) {
+        return false;
+    }
 
-   public boolean isEmpty() {
-      int size = this.size();
+    public boolean isEmpty() {
+        int size = this.size();
 
-      for (int re = 0; re < size; re++) {
-         ItemStack item = this.getStack(re);
-         if (!item.isEmpty()) {
-            return false;
-         }
-      }
+        for (int re = 0; re < size; re++) {
+            ItemStack item = this.getStack(re);
+            if (!item.isEmpty()) {
+                return false;
+            }
+        }
 
-      return true;
-   }
+        return true;
+    }
 
-   public void markDirty() {
-   }
+    public void markDirty() {}
 
-   public void clear() {
-   }
+    public void clear() {}
 
-   public ItemStack removeStack(int slot, int amount) {
-      return ItemStack.EMPTY;
-   }
+    public ItemStack removeStack(int slot, int amount) {
+        return ItemStack.EMPTY;
+    }
 
-   public ItemStack removeStack(int slot) {
-      return ItemStack.EMPTY;
-   }
+    public ItemStack removeStack(int slot) {
+        return ItemStack.EMPTY;
+    }
 }

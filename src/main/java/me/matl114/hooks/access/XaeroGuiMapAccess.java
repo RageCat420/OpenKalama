@@ -4,11 +4,11 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.World;
 
 public interface XaeroGuiMapAccess {
-   RegistryKey<World> getRightClickDim();
+    RegistryKey<World> getRightClickDim();
 
-   int getRightClickX();
+    int getRightClickX();
 
-   int getRightClickY();
+    int getRightClickY();
 
-   int getRightClickZ();
+    int getRightClickZ();
 }

@@ -1,17 +1,15 @@
 package me.matl114.versioned.api;
 
 public record KalamaHelperHelperD(int light, int overlay, int outlineColor) {
-   public int outlineColor() {
-      return this.outlineColor;
-   }
+    public int outlineColor() {
+        return this.outlineColor;
+    }
 
-   public int light() {
-      return this.light;
-   }
+    public int light() {
+        return this.light;
+    }
 
-   
-
-   public int overlay() {
-      return this.overlay;
-   }
+    public int overlay() {
+        return this.overlay;
+    }
 }

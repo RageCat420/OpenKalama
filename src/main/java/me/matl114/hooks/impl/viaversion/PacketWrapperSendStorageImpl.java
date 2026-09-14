@@ -12,50 +12,51 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 public class PacketWrapperSendStorageImpl implements PacketStorage {
-   long timeStamp;
-   PacketType<?> type0;
-   PacketWrapper wrapper;
-   Channel channel;
-   Consumer<Boolean> sendOperation;
+    long timeStamp;
+    PacketType<?> type0;
+    PacketWrapper wrapper;
+    Channel channel;
+    Consumer<Boolean> sendOperation;
 
-   public PacketWrapperSendStorageImpl(long timeStamp, PacketWrapper wrapper, Channel channel, Consumer<Boolean> sendOperation) {
-      this.timeStamp = timeStamp;
-      this.wrapper = wrapper;
-      this.channel = channel;
-      this.sendOperation = sendOperation;
-   }
+    public PacketWrapperSendStorageImpl(
+            long timeStamp, PacketWrapper wrapper, Channel channel, Consumer<Boolean> sendOperation) {
+        this.timeStamp = timeStamp;
+        this.wrapper = wrapper;
+        this.channel = channel;
+        this.sendOperation = sendOperation;
+    }
 
-   @Override
-   public long timestampMS() {
-      return this.timeStamp;
-   }
+    @Override
+    public long timestampMS() {
+        return this.timeStamp;
+    }
 
-   @Nullable
-   @Override
-   public PacketType<?> packetType() {
-      if (this.type0 == null) {
-         com.viaversion.viaversion.api.protocol.packet.PacketType type = this.wrapper.getPacketType();
-         if (type != null) {
-            Identifier id = Identifier.ofVanilla(type.getName().toLowerCase(Locale.ROOT));
-            this.type0 = Listener.d(id, false);
-         }
-      }
+    @Nullable
+    @Override
+    public PacketType<?> packetType() {
+        if (this.type0 == null) {
+            com.viaversion.viaversion.api.protocol.packet.PacketType type = this.wrapper.getPacketType();
+            if (type != null) {
+                Identifier id = Identifier.ofVanilla(type.getName().toLowerCase(Locale.ROOT));
+                this.type0 = Listener.d(id, false);
+            }
+        }
 
-      return this.type0;
-   }
+        return this.type0;
+    }
 
-   @Override
-   public NetworkSide side() {
-      return NetworkSide.SERVERBOUND;
-   }
+    @Override
+    public NetworkSide side() {
+        return NetworkSide.SERVERBOUND;
+    }
 
-   @Override
-   public void send() {
-      this.sendOperation.accept(this.channel.eventLoop().inEventLoop());
-   }
+    @Override
+    public void send() {
+        this.sendOperation.accept(this.channel.eventLoop().inEventLoop());
+    }
 
-   @Override
-   public void handle() {
-      throw new UnsupportedOperationException("Not supported side.");
-   }
+    @Override
+    public void handle() {
+        throw new UnsupportedOperationException("Not supported side.");
+    }
 }

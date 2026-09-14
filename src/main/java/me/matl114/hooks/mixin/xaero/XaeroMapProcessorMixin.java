@@ -15,16 +15,14 @@ import xaero.map.MapProcessor;
 @Environment(EnvType.CLIENT)
 @Mixin({MapProcessor.class})
 public class XaeroMapProcessorMixin {
-   @WrapOperation(
-      method = {"Lxaero/map/MapProcessor;getMainId(ILnet/minecraft/client/network/ClientPlayNetworkHandler;)Ljava/lang/String;"},
-      at = {@At(
-         value = "FIELD",
-         target = "Lnet/minecraft/client/network/ServerInfo;address:Ljava/lang/String;"
-      )},
-      require = 0
-   )
-   private String onGetServerAddressRemap(ServerInfo info, Operation<String> operation) {
-      String address = (String)operation.call(new Object[]{info});
-      return ServerStorage.INSTANCE.xi.get() ? ServerStorage.INSTANCE.IY(address) : address;
-   }
+    @WrapOperation(
+            method = {
+                "Lxaero/map/MapProcessor;getMainId(ILnet/minecraft/client/network/ClientPlayNetworkHandler;)Ljava/lang/String;"
+            },
+            at = {@At(value = "FIELD", target = "Lnet/minecraft/client/network/ServerInfo;address:Ljava/lang/String;")},
+            require = 0)
+    private String onGetServerAddressRemap(ServerInfo info, Operation<String> operation) {
+        String address = (String) operation.call(new Object[] {info});
+        return ServerStorage.INSTANCE.xi.get() ? ServerStorage.INSTANCE.IY(address) : address;
+    }
 }

@@ -5,15 +5,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 
 public interface VEntity {
-   VEntity INSTANCE = new Entity_v1_21_1();
+    VEntity INSTANCE = new Entity_v1_21_1();
 
-   NbtCompound c(Entity var1);
+    NbtCompound c(Entity var1);
 
-   static VEntity getInstance() {
-      return INSTANCE;
-   }
+    static VEntity getInstance() {
+        return INSTANCE;
+    }
 
-   static NbtCompound b(Entity entity) {
-      return getInstance().c(entity);
-   }
+    static NbtCompound b(Entity entity) {
+        return getInstance().c(entity);
+    }
 }

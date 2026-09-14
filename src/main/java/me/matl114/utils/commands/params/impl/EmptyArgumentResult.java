@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE, ElementType.FIELD})
 @Retention(RetentionPolicy.SOURCE)
 public @interface EmptyArgumentResult {
-   String resultAsString() default "";
+    String resultAsString() default "";
 }

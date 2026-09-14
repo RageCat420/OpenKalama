@@ -18,18 +18,13 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Environment(EnvType.CLIENT)
 @Mixin({Serialized.class})
 public class TagPacketSerializerEvents {
-   @ModifyArg(
-      method = {"loadTo"},
-      at = @At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/registry/Registry;populateTags(Ljava/util/Map;)V"
-      )
-   )
-   public <T> Map<TagKey<T>, List<RegistryEntry<T>>> modifyTagLoad(
-      Map<TagKey<T>, List<RegistryEntry<T>>> tagEntries, @Local(argsOnly = true) Registry<T> registry
-   ) {
-      Event<Map<TagKey<T>, List<RegistryEntry<T>>>> event = new Event<>(tagEntries, false, true, registry.getKey());
-      Listener.R().b((Event)event);
-      return event.b != tagEntries ? event.b : tagEntries;
-   }
+    @ModifyArg(
+            method = {"loadTo"},
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/registry/Registry;populateTags(Ljava/util/Map;)V"))
+    public <T> Map<TagKey<T>, List<RegistryEntry<T>>> modifyTagLoad(
+            Map<TagKey<T>, List<RegistryEntry<T>>> tagEntries, @Local(argsOnly = true) Registry<T> registry) {
+        Event<Map<TagKey<T>, List<RegistryEntry<T>>>> event = new Event<>(tagEntries, false, true, registry.getKey());
+        Listener.R().b((Event) event);
+        return event.b != tagEntries ? event.b : tagEntries;
+    }
 }

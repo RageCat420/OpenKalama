@@ -12,45 +12,44 @@ import net.minecraft.util.Language;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class SubCommandImpl implements SubCommand {
-   String b;
-   String[] help;
-   String f;
-   KalamaHelperHelperA e;
+    String b;
+    String[] help;
+    String f;
+    KalamaHelperHelperA e;
 
-   @Override
-   public String c() {
-      return this.b;
-   }
+    @Override
+    public String c() {
+        return this.b;
+    }
 
-   @NotNull
-   @Override
-   public ArgumentInputStream b(CommandExecution execution, ArgumentReader args) {
-      return this.e.c(execution, args);
-   }
+    @NotNull
+    @Override
+    public ArgumentInputStream b(CommandExecution execution, ArgumentReader args) {
+        return this.e.c(execution, args);
+    }
 
-   @Override
-   public String a() {
-      return this.f;
-   }
+    @Override
+    public String a() {
+        return this.f;
+    }
 
-   @Override
-   public Stream<String> getHelp(String prefix) {
-      return Arrays.stream(this.help).map(s -> prefix + Language.getInstance().get(s, s));
-   }
+    @Override
+    public Stream<String> getHelp(String prefix) {
+        return Arrays.stream(this.help).map(s -> prefix + Language.getInstance().get(s, s));
+    }
 
-   @Override
-   public void setPermission(String permission) {
-      this.f = permission;
-   }
+    @Override
+    public void setPermission(String permission) {
+        this.f = permission;
+    }
 
-   public SubCommandImpl(String name, KalamaHelperHelperA argsTemplate, List<String> help) {
-      this(name, argsTemplate, help.toArray(String[]::new));
-   }
+    public SubCommandImpl(String name, KalamaHelperHelperA argsTemplate, List<String> help) {
+        this(name, argsTemplate, help.toArray(String[]::new));
+    }
 
-   public SubCommandImpl(String name, KalamaHelperHelperA argsTemplate, String... help) {
-      this.b = Objects.requireNonNull(name);
-      this.e = argsTemplate;
-      this.help = help;
-   }
-
+    public SubCommandImpl(String name, KalamaHelperHelperA argsTemplate, String... help) {
+        this.b = Objects.requireNonNull(name);
+        this.e = argsTemplate;
+        this.help = help;
+    }
 }

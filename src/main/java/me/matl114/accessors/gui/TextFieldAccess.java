@@ -5,17 +5,17 @@ import me.matl114.utils.config.PropertyTracker;
 import net.minecraft.client.gui.widget.ClickableWidget;
 
 public interface TextFieldAccess {
-   void setListener(PropertyTracker<TextFieldAccess, String> var1);
+    void setListener(PropertyTracker<TextFieldAccess, String> var1);
 
-   void setBorderColorProvider(KalamaHelperHelperIX var1);
+    void setBorderColorProvider(KalamaHelperHelperIX var1);
 
-   boolean canStartDrag(double var1, double var3);
+    boolean canStartDrag(double var1, double var3);
 
-   void dragSelect(int var1, int var2, boolean var3);
+    void dragSelect(int var1, int var2, boolean var3);
 
-   void resetSelect();
+    void resetSelect();
 
-   static TextFieldAccess of(ClickableWidget clickableWidget) {
-      return (TextFieldAccess)clickableWidget;
-   }
+    static TextFieldAccess of(ClickableWidget clickableWidget) {
+        return (TextFieldAccess) clickableWidget;
+    }
 }

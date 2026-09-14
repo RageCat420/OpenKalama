@@ -15,33 +15,39 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.At.Shift;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({CobwebBlock.class})
 public class CobwebBlockMixin {
-   @Inject(
-      method = {"onEntityCollision"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/entity/Entity;slowMovement(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/Vec3d;)V",
-         shift = Shift.BEFORE
-      )},
-      cancellable = true
-   )
-   public void onEntityCollision(
-      BlockState state, World world, BlockPos pos, Entity entity, CallbackInfo ci, @Local Vec3d vec3d, @Local LocalRef<Vec3d> vec3dLocalRef
-   ) {
-      if (entity == MinecraftClient.getInstance().player) {
-         Event<Vec3d> slowMovement = new Event<>(vec3d, true, true, pos);
-         Listener.ay().catchEvent(slowMovement);
-         if (slowMovement.d()) {
-            ci.cancel();
-         } else if (slowMovement.b != vec3d) {
-            vec3dLocalRef.set(slowMovement.b);
-         }
-      }
-   }
+    @Inject(
+            method = {"onEntityCollision"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/entity/Entity;slowMovement(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/Vec3d;)V",
+                        shift = Shift.BEFORE)
+            },
+            cancellable = true)
+    public void onEntityCollision(
+            BlockState state,
+            World world,
+            BlockPos pos,
+            Entity entity,
+            CallbackInfo ci,
+            @Local Vec3d vec3d,
+            @Local LocalRef<Vec3d> vec3dLocalRef) {
+        if (entity == MinecraftClient.getInstance().player) {
+            Event<Vec3d> slowMovement = new Event<>(vec3d, true, true, pos);
+            Listener.ay().catchEvent(slowMovement);
+            if (slowMovement.d()) {
+                ci.cancel();
+            } else if (slowMovement.b != vec3d) {
+                vec3dLocalRef.set(slowMovement.b);
+            }
+        }
+    }
 }

@@ -15,22 +15,23 @@ import org.spongepowered.asm.mixin.injection.At;
 @Environment(EnvType.CLIENT)
 @Mixin({DecoderHandler.class})
 public class DecoderByteBufExceptionFixMixin {
-   @WrapOperation(
-      method = {"decode"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/network/codec/PacketCodec;decode(Ljava/lang/Object;)Ljava/lang/Object;"
-      )}
-   )
-   public Object onDecodeException(PacketCodec instance, Object object, Operation<Object> original) {
-      try {
-         return original.call(new Object[]{instance, object});
-      } catch (DecoderException var6) {
-         if (ExtraTasks.d().noDisconnectOnPacketDecode.get() && object instanceof ByteBuf buf) {
-            buf.skipBytes(buf.readableBytes());
-         }
+    @WrapOperation(
+            method = {"decode"},
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/network/codec/PacketCodec;decode(Ljava/lang/Object;)Ljava/lang/Object;")
+            })
+    public Object onDecodeException(PacketCodec instance, Object object, Operation<Object> original) {
+        try {
+            return original.call(new Object[] {instance, object});
+        } catch (DecoderException var6) {
+            if (ExtraTasks.d().noDisconnectOnPacketDecode.get() && object instanceof ByteBuf buf) {
+                buf.skipBytes(buf.readableBytes());
+            }
 
-         throw var6;
-      }
-   }
+            throw var6;
+        }
+    }
 }

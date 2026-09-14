@@ -6,48 +6,48 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class MoveSubHelperAg implements Comparable<MoveSubHelperAg> {
-   private final int Qt;
-   private final int Qs;
-   private final MoveSubHelperBX modifier;
+    private final int Qt;
+    private final int Qs;
+    private final MoveSubHelperBX modifier;
 
-   public int compareTo(@NotNull MoveSubHelperAg timedModifier) {
-      return Integer.compare(this.modifier.ba(), timedModifier.modifier.ba());
-   }
+    public int compareTo(@NotNull MoveSubHelperAg timedModifier) {
+        return Integer.compare(this.modifier.ba(), timedModifier.modifier.ba());
+    }
 
-   public MoveSubHelperAg(int startTicks, int lastTicks, MoveSubHelperBX modifier) {
-      this.Qs = Tasks.b() + startTicks;
-      this.Qt = Tasks.b() + startTicks + lastTicks;
-      this.modifier = modifier;
-   }
+    public MoveSubHelperAg(int startTicks, int lastTicks, MoveSubHelperBX modifier) {
+        this.Qs = Tasks.b() + startTicks;
+        this.Qt = Tasks.b() + startTicks + lastTicks;
+        this.modifier = modifier;
+    }
 
-   public boolean ahA(PlayerInputUtils$Input input) {
-      if (this.isExpired()) {
-         return true;
-      } else {
-         if (Tasks.b() >= this.Qs) {
-            this.modifier.gS(input);
-         }
+    public boolean ahA(PlayerInputUtils$Input input) {
+        if (this.isExpired()) {
+            return true;
+        } else {
+            if (Tasks.b() >= this.Qs) {
+                this.modifier.gS(input);
+            }
 
-         return false;
-      }
-   }
+            return false;
+        }
+    }
 
-   public MoveSubHelperAg(int lastTicks, MoveSubHelperBX modifier) {
-      this(0, lastTicks, modifier);
-   }
+    public MoveSubHelperAg(int lastTicks, MoveSubHelperBX modifier) {
+        this(0, lastTicks, modifier);
+    }
 
-   public boolean isExpired() {
-      return Tasks.b() > this.Qt;
-   }
+    public boolean isExpired() {
+        return Tasks.b() > this.Qt;
+    }
 
-   public boolean ahB(ClientPlayerEntity player) {
-      if (this.isExpired()) {
-         return false;
-      } else if (Tasks.b() >= this.Qs && this.modifier.gU()) {
-         this.modifier.gT(player);
-         return true;
-      } else {
-         return false;
-      }
-   }
+    public boolean ahB(ClientPlayerEntity player) {
+        if (this.isExpired()) {
+            return false;
+        } else if (Tasks.b() >= this.Qs && this.modifier.gU()) {
+            this.modifier.gT(player);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

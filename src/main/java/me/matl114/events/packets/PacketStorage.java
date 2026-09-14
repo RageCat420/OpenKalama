@@ -5,14 +5,14 @@ import net.minecraft.network.NetworkSide;
 import net.minecraft.network.packet.PacketType;
 
 public interface PacketStorage {
-   void send();
+    void send();
 
-   void handle();
+    void handle();
 
-   @Nullable
-   PacketType<?> packetType();
+    @Nullable
+    PacketType<?> packetType();
 
-   long timestampMS();
+    long timestampMS();
 
-   NetworkSide side();
+    NetworkSide side();
 }

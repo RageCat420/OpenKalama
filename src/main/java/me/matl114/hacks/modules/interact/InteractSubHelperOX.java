@@ -12,39 +12,42 @@ import net.minecraft.text.Text;
 
 public record InteractSubHelperOX(InteractSubHelperC hand, EntitySelector entity) implements InteractSubHelperT {
 
-   public EntitySelector wZ() {
-      return this.entity;
-   }
+    public EntitySelector wZ() {
+        return this.entity;
+    }
 
-   @Override
-   public InteractSubHelperC c() {
-      return this.hand;
-   }
+    @Override
+    public InteractSubHelperC c() {
+        return this.hand;
+    }
 
-   @Override
-   public String a() {
-      return "attack";
-   }
+    @Override
+    public String a() {
+        return "attack";
+    }
 
-   @Override
-   public void execute(InteractManager manager, PlayerEntity player) {
-      Entity var3 = this.entity.amM(PlayerStateManager.oq());
-      if (var3 != null) {
-         KalamaHelperHelperK var4 = this.hand.Uv();
-         if (var4 != null) {
-            Runnable var5 = InvExtra.INSTANCE.swapInventoryIndexToHand(var4.index());
-            if (var5 != null) {
-               CombatTasks.n().Yh(var3);
-               if (InteractManager.INSTANCE.logAction.get()) {
-                  Text var6 = EntityUtils.getEntityDisplayable(var3);
-                  manager.logI18NSub("Interact", "message.module.interact-manager.interact.attack", new Object[]{var6});
-               }
+    @Override
+    public void execute(InteractManager manager, PlayerEntity player) {
+        Entity var3 = this.entity.amM(PlayerStateManager.oq());
+        if (var3 != null) {
+            KalamaHelperHelperK var4 = this.hand.Uv();
+            if (var4 != null) {
+                Runnable var5 = InvExtra.INSTANCE.swapInventoryIndexToHand(var4.index());
+                if (var5 != null) {
+                    CombatTasks.n().Yh(var3);
+                    if (InteractManager.INSTANCE.logAction.get()) {
+                        Text var6 = EntityUtils.getEntityDisplayable(var3);
+                        manager.logI18NSub(
+                                "Interact", "message.module.interact-manager.interact.attack", new Object[] {var6});
+                    }
 
-               var5.run();
+                    var5.run();
+                }
+            } else if (InteractManager.INSTANCE.logAction.get()) {
+                manager.logI18NSub("Interact", "message.module.interact-manager.interact.no-item", new Object[] {
+                    this.hand.toString()
+                });
             }
-         } else if (InteractManager.INSTANCE.logAction.get()) {
-            manager.logI18NSub("Interact", "message.module.interact-manager.interact.no-item", new Object[]{this.hand.toString()});
-         }
-      }
-   }
+        }
+    }
 }

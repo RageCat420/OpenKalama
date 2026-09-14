@@ -6,9 +6,9 @@ import net.minecraft.client.gui.LayeredDrawer;
 import net.minecraft.client.render.RenderTickCounter;
 
 public interface KalamaHelperHelperB {
-   static KalamaHelperHelperB of(LayeredDrawer drawer) {
-      return (KalamaHelperHelperB)drawer;
-   }
+    static KalamaHelperHelperB of(LayeredDrawer drawer) {
+        return (KalamaHelperHelperB) drawer;
+    }
 
-   void setPos(BiConsumer<DrawContext, RenderTickCounter> var1);
+    void setPos(BiConsumer<DrawContext, RenderTickCounter> var1);
 }

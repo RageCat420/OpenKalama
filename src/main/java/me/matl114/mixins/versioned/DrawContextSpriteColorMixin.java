@@ -11,35 +11,56 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({DrawContext.class})
 public abstract class DrawContextSpriteColorMixin {
-   @Shadow
-   public abstract void method_48466(
-      Identifier var1,
-      int var2,
-      int var3,
-      int var4,
-      int var5,
-      int var6,
-      float var7,
-      float var8,
-      float var9,
-      float var10,
-      float var11,
-      float var12,
-      float var13,
-      float var14
-   );
+    @Shadow
+    public abstract void method_48466(
+            Identifier var1,
+            int var2,
+            int var3,
+            int var4,
+            int var5,
+            int var6,
+            float var7,
+            float var8,
+            float var9,
+            float var10,
+            float var11,
+            float var12,
+            float var13,
+            float var14);
 
-   @Inject(
-      method = {"drawTexturedQuad(Lnet/minecraft/util/Identifier;IIIIIFFFF)V"},
-      at = {@At("HEAD")},
-      cancellable = true
-   )
-   private void addColorArguments(Identifier texture, int x1, int x2, int y1, int y2, int z, float u1, float u2, float v1, float v2, CallbackInfo ci) {
-      if (DrawContext_v1_21_1.colorOverride.get()) {
-         ci.cancel();
-         this.method_48466(
-            texture, x1, x2, y1, y2, z, u1, u2, v1, v2, DrawContext_v1_21_1.n(), DrawContext_v1_21_1.o(), DrawContext_v1_21_1.p(), DrawContext_v1_21_1.q()
-         );
-      }
-   }
+    @Inject(
+            method = {"drawTexturedQuad(Lnet/minecraft/util/Identifier;IIIIIFFFF)V"},
+            at = {@At("HEAD")},
+            cancellable = true)
+    private void addColorArguments(
+            Identifier texture,
+            int x1,
+            int x2,
+            int y1,
+            int y2,
+            int z,
+            float u1,
+            float u2,
+            float v1,
+            float v2,
+            CallbackInfo ci) {
+        if (DrawContext_v1_21_1.colorOverride.get()) {
+            ci.cancel();
+            this.method_48466(
+                    texture,
+                    x1,
+                    x2,
+                    y1,
+                    y2,
+                    z,
+                    u1,
+                    u2,
+                    v1,
+                    v2,
+                    DrawContext_v1_21_1.n(),
+                    DrawContext_v1_21_1.o(),
+                    DrawContext_v1_21_1.p(),
+                    DrawContext_v1_21_1.q());
+        }
+    }
 }

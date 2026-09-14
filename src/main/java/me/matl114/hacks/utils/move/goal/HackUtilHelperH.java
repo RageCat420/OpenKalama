@@ -1,4 +1,3 @@
 package me.matl114.hacks.utils.move.goal;
 
-public class HackUtilHelperH {
-}
+public class HackUtilHelperH {}

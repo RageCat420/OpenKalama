@@ -10,28 +10,35 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 
 public class ChatScreenTextFieldWidget extends TextFieldWidget {
-   ChatScreen chatScreen;
+    ChatScreen chatScreen;
 
-   public ChatScreenTextFieldWidget(ChatScreen chatScreen) {
-      super(MinecraftClient.getInstance().advanceValidatingTextRenderer, 4, chatScreen.height - 12, chatScreen.width - 4, 12, Text.translatable("chat.editBox"));
-      this.chatScreen = chatScreen;
-   }
+    public ChatScreenTextFieldWidget(ChatScreen chatScreen) {
+        super(
+                MinecraftClient.getInstance().advanceValidatingTextRenderer,
+                4,
+                chatScreen.height - 12,
+                chatScreen.width - 4,
+                12,
+                Text.translatable("chat.editBox"));
+        this.chatScreen = chatScreen;
+    }
 
-   public String getText() {
-      return super.getText();
-   }
+    public String getText() {
+        return super.getText();
+    }
 
-   protected MutableText getNarrationMessage() {
-      return super.getNarrationMessage().append(ChatScreenAccess.of(this.chatScreen).getSuggestor().getNarration());
-   }
+    protected MutableText getNarrationMessage() {
+        return super.getNarrationMessage()
+                .append(ChatScreenAccess.of(this.chatScreen).getSuggestor().getNarration());
+    }
 
-   public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
-      if (ChatTasks.g().obfLoginMessage.get()) {
-         if (!ChatTasks.f().onChatObfRender(this, context, mouseX, mouseY, delta)) {
+    public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
+        if (ChatTasks.g().obfLoginMessage.get()) {
+            if (!ChatTasks.f().onChatObfRender(this, context, mouseX, mouseY, delta)) {
+                super.renderWidget(context, mouseX, mouseY, delta);
+            }
+        } else {
             super.renderWidget(context, mouseX, mouseY, delta);
-         }
-      } else {
-         super.renderWidget(context, mouseX, mouseY, delta);
-      }
-   }
+        }
+    }
 }

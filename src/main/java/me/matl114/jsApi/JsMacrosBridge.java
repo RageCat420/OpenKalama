@@ -6,27 +6,27 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 public interface JsMacrosBridge {
-   boolean isItemEmpty(Object var1);
+    boolean isItemEmpty(Object var1);
 
-   ItemStack e(Object var1);
+    ItemStack e(Object var1);
 
-   Object h(Object var1) throws Throwable;
+    Object h(Object var1) throws Throwable;
 
-   static JsMacrosBridge i() {
-      return KalamaHelperHelperP.INSTANCE;
-   }
+    static JsMacrosBridge i() {
+        return KalamaHelperHelperP.INSTANCE;
+    }
 
-   Object newBlockData(BlockState var1, BlockEntity var2, BlockPos var3);
+    Object newBlockData(BlockState var1, BlockEntity var2, BlockPos var3);
 
-   Object d();
+    Object d();
 
-   Object b(Object var1);
+    Object b(Object var1);
 
-   default <T> T j(Object what, Class<T> type) {
-      return (T)(type.isInstance(what) ? type.cast(what) : this.a(what, type));
-   }
+    default <T> T j(Object what, Class<T> type) {
+        return (T) (type.isInstance(what) ? type.cast(what) : this.a(what, type));
+    }
 
-   Object f(ItemStack var1);
+    Object f(ItemStack var1);
 
-   <T> T a(Object var1, Class<T> var2);
+    <T> T a(Object var1, Class<T> var2);
 }

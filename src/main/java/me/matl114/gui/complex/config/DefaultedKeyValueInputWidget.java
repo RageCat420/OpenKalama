@@ -6,16 +6,19 @@ import me.matl114.gui.basic.DrawableWidget;
 import net.minecraft.text.Text;
 
 public class DefaultedKeyValueInputWidget extends GenericBackGroundScreen {
-   DrawableWidget reference;
+    DrawableWidget reference;
 
-   @Override
-   protected void init() {
-      super.init();
-      new ContentDelegateWidget<DrawableWidget>(this.x, this.y, 0, 0).setContentDelegate(this.reference).addTo(this);
-   }
+    @Override
+    protected void init() {
+        super.init();
+        new ContentDelegateWidget<DrawableWidget>(this.x, this.y, 0, 0)
+                .setContentDelegate(this.reference)
+                .addTo(this);
+    }
 
-   public DefaultedKeyValueInputWidget(Text title, int backgroundWidth, int backgroundDefaultHeight, DrawableWidget widget) {
-      super(title, backgroundWidth, backgroundDefaultHeight);
-      this.reference = widget;
-   }
+    public DefaultedKeyValueInputWidget(
+            Text title, int backgroundWidth, int backgroundDefaultHeight, DrawableWidget widget) {
+        super(title, backgroundWidth, backgroundDefaultHeight);
+        this.reference = widget;
+    }
 }

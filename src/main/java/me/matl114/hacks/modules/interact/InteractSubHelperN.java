@@ -5,29 +5,30 @@ import net.minecraft.util.math.Direction;
 
 // $VF: synthetic class
 class InteractSubHelperN {
-  static int[] b;
-  static int[] a;
-   static {
-      try {
-         b[Direction.DOWN.ordinal()] = 1;
-      } catch (NoSuchFieldError var4) {
-      }
+    static int[] b;
+    static int[] a;
 
-      try {
-         b[Direction.UP.ordinal()] = 2;
-      } catch (NoSuchFieldError var3) {
-      }
+    static {
+        try {
+            b[Direction.DOWN.ordinal()] = 1;
+        } catch (NoSuchFieldError var4) {
+        }
 
-      a = new int[ModulePreset.values().length];
+        try {
+            b[Direction.UP.ordinal()] = 2;
+        } catch (NoSuchFieldError var3) {
+        }
 
-      try {
-         a[ModulePreset.fg.ordinal()] = 1;
-      } catch (NoSuchFieldError var2) {
-      }
+        a = new int[ModulePreset.values().length];
 
-      try {
-         a[ModulePreset.fh.ordinal()] = 2;
-      } catch (NoSuchFieldError var1) {
-      }
-   }
+        try {
+            a[ModulePreset.fg.ordinal()] = 1;
+        } catch (NoSuchFieldError var2) {
+        }
+
+        try {
+            a[ModulePreset.fh.ordinal()] = 2;
+        } catch (NoSuchFieldError var1) {
+        }
+    }
 }

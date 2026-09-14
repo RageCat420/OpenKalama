@@ -1,4 +1,3 @@
 package me.matl114.utils.j;
 
-public @interface KalamaHelperHelperA {
-}
+public @interface KalamaHelperHelperA {}

@@ -1,5 +1,5 @@
 package me.matl114.commands;
 
 public interface KalamaHelperHelperB {
-   void onCommandReload(MainCommand var1);
+    void onCommandReload(MainCommand var1);
 }

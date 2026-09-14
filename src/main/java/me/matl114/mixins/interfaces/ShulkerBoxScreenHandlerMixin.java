@@ -14,44 +14,47 @@ import org.spongepowered.asm.mixin.Unique;
 @Environment(EnvType.CLIENT)
 @Mixin({ShulkerBoxScreenHandler.class})
 public class ShulkerBoxScreenHandlerMixin implements TileInventory.Handler {
-   @Unique
-   private BlockPos pos;
-   @Unique
-   private Block cacheBlockType;
-   @Unique
-   private ClientWorld world;
-   @Unique
-   private ContainerPosition containerPosition;
+    @Unique
+    private BlockPos pos;
 
-   @Unique
-   @Override
-   public BlockPos getPos() {
-      return this.pos;
-   }
+    @Unique
+    private Block cacheBlockType;
 
-   @Unique
-   @Override
-   public Block getBlockType() {
-      return this.cacheBlockType;
-   }
+    @Unique
+    private ClientWorld world;
 
-   @Unique
-   @Override
-   public ClientWorld getWorld() {
-      return this.world;
-   }
+    @Unique
+    private ContainerPosition containerPosition;
 
-   @Unique
-   @Override
-   public ContainerPosition getContainerPosition() {
-      return this.containerPosition;
-   }
+    @Unique
+    @Override
+    public BlockPos getPos() {
+        return this.pos;
+    }
 
-   @Override
-   public void sync(TileInventory tileInventory) {
-      this.pos = tileInventory.getPos();
-      this.cacheBlockType = tileInventory.getBlockType();
-      this.world = tileInventory.getWorld();
-      this.containerPosition = tileInventory.getContainerPosition();
-   }
+    @Unique
+    @Override
+    public Block getBlockType() {
+        return this.cacheBlockType;
+    }
+
+    @Unique
+    @Override
+    public ClientWorld getWorld() {
+        return this.world;
+    }
+
+    @Unique
+    @Override
+    public ContainerPosition getContainerPosition() {
+        return this.containerPosition;
+    }
+
+    @Override
+    public void sync(TileInventory tileInventory) {
+        this.pos = tileInventory.getPos();
+        this.cacheBlockType = tileInventory.getBlockType();
+        this.world = tileInventory.getWorld();
+        this.containerPosition = tileInventory.getContainerPosition();
+    }
 }

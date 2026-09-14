@@ -6,9 +6,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;
 
 public interface ChunkAccess {
-   Iterable<Entry<BlockPos, BlockEntity>> blockEntityEntries();
+    Iterable<Entry<BlockPos, BlockEntity>> blockEntityEntries();
 
-   static ChunkAccess of(Chunk chunk) {
-      return (ChunkAccess)chunk;
-   }
+    static ChunkAccess of(Chunk chunk) {
+        return (ChunkAccess) chunk;
+    }
 }

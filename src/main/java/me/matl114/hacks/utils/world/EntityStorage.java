@@ -10,24 +10,22 @@ import net.minecraft.util.Uuids;
 import net.minecraft.world.World;
 
 public class EntityStorage extends IStorage {
-   public static final Codec<EntityStorage> CODEC = RecordCodecBuilder.create(
-      instance -> instance.group(
-            Uuids.CODEC.fieldOf("uuid").forGetter(EntityStorage::getUuid), Codec.unboundedMap(Codec.STRING, VNbt.a).fieldOf("storage").forGetter(v -> v.b)
-         )
-         .apply(instance, EntityStorage::new)
-   );
-   public final UUID uuid;
+    public static final Codec<EntityStorage> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                    Uuids.CODEC.fieldOf("uuid").forGetter(EntityStorage::getUuid),
+                    Codec.unboundedMap(Codec.STRING, VNbt.a).fieldOf("storage").forGetter(v -> v.b))
+            .apply(instance, EntityStorage::new));
+    public final UUID uuid;
 
-   public EntityStorage(UUID uuid, Map<String, NbtElement> elementMap) {
-      super(World.OVERWORLD, elementMap);
-      this.uuid = uuid;
-   }
+    public EntityStorage(UUID uuid, Map<String, NbtElement> elementMap) {
+        super(World.OVERWORLD, elementMap);
+        this.uuid = uuid;
+    }
 
-   public EntityStorage(UUID uuid) {
-      this(uuid, null);
-   }
+    public EntityStorage(UUID uuid) {
+        this(uuid, null);
+    }
 
-   public UUID getUuid() {
-      return this.uuid;
-   }
+    public UUID getUuid() {
+        return this.uuid;
+    }
 }

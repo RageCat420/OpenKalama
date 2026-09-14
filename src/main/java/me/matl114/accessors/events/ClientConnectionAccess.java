@@ -6,15 +6,15 @@ import net.minecraft.network.NetworkState;
 import net.minecraft.network.packet.Packet;
 
 public interface ClientConnectionAccess {
-   void handlePacket(Packet<?> var1);
+    void handlePacket(Packet<?> var1);
 
-   NetworkState<?> getOutboundState();
+    NetworkState<?> getOutboundState();
 
-   NetworkState<?> getInboundState();
+    NetworkState<?> getInboundState();
 
-   void sendByteBuf(ByteBuf var1);
+    void sendByteBuf(ByteBuf var1);
 
-   static ClientConnectionAccess of(ClientConnection connection) {
-      return (ClientConnectionAccess)connection;
-   }
+    static ClientConnectionAccess of(ClientConnection connection) {
+        return (ClientConnectionAccess) connection;
+    }
 }

@@ -21,33 +21,34 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Environment(EnvType.CLIENT)
 @Mixin({InventoryScreen.class})
-public abstract class InventoryScreenEvents extends AbstractInventoryScreen<PlayerScreenHandler> implements RecipeBookProvider {
-   @Shadow
-   @Final
-   private RecipeBookWidget field_2929;
+public abstract class InventoryScreenEvents extends AbstractInventoryScreen<PlayerScreenHandler>
+        implements RecipeBookProvider {
+    @Shadow
+    @Final
+    private RecipeBookWidget field_2929;
 
-   public InventoryScreenEvents(PlayerScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
-      super(screenHandler, playerInventory, text);
-   }
+    public InventoryScreenEvents(PlayerScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
+        super(screenHandler, playerInventory, text);
+    }
 
-   @ModifyArg(
-      method = {"init"},
-      at = @At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/gui/widget/TexturedButtonWidget;<init>(IIIILnet/minecraft/client/gui/screen/ButtonTextures;Lnet/minecraft/client/gui/widget/ButtonWidget$PressAction;)V"
-      ),
-      index = 5
-   )
-   public PressAction modifyPressAction(PressAction pressAction) {
-      return button -> {
-         pressAction.onPress(button);
-         if (!Listener.aj().d()) {
-            Event<KalamaHelperHelperG> toggleRecipeBook = new Event<>(new KalamaHelperHelperG(this, this.field_2929, button), false, false);
-            Listener.aj().catchEvent(toggleRecipeBook);
-         }
-      };
-   }
+    @ModifyArg(
+            method = {"init"},
+            at =
+                    @At(
+                            value = "INVOKE",
+                            target =
+                                    "Lnet/minecraft/client/gui/widget/TexturedButtonWidget;<init>(IIIILnet/minecraft/client/gui/screen/ButtonTextures;Lnet/minecraft/client/gui/widget/ButtonWidget$PressAction;)V"),
+            index = 5)
+    public PressAction modifyPressAction(PressAction pressAction) {
+        return button -> {
+            pressAction.onPress(button);
+            if (!Listener.aj().d()) {
+                Event<KalamaHelperHelperG> toggleRecipeBook =
+                        new Event<>(new KalamaHelperHelperG(this, this.field_2929, button), false, false);
+                Listener.aj().catchEvent(toggleRecipeBook);
+            }
+        };
+    }
 
-   public void drawBackground(Object arg0, Object arg1, Object arg2, Object arg3) { }
-
+    public void drawBackground(Object arg0, Object arg1, Object arg2, Object arg3) {}
 }

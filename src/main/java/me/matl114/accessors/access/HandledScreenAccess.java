@@ -6,18 +6,18 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.screen.slot.Slot;
 
 public interface HandledScreenAccess extends ScreenAccess {
-   @Nullable
-   Slot reallyGetSlotAt(double var1, double var3);
+    @Nullable
+    Slot reallyGetSlotAt(double var1, double var3);
 
-   static HandledScreenAccess of(HandledScreen var0) {
-      return (HandledScreenAccess)var0;
-   }
+    static HandledScreenAccess of(HandledScreen var0) {
+        return (HandledScreenAccess) var0;
+    }
 
-   int getScreenX();
+    int getScreenX();
 
-   int getScreenY();
+    int getScreenY();
 
-   int getScreenBackgroundX();
+    int getScreenBackgroundX();
 
-   int getScreenBackgroundY();
+    int getScreenBackgroundY();
 }

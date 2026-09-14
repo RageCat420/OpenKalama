@@ -9,40 +9,39 @@ import me.matl114.hacks.modules.models.NewStyleModel;
 import me.matl114.hacks.modules.models.SlimefunModels;
 
 public class ModelTasks {
-   private static SlimefunModels e;
-   public static final ModuleGroup a = new ModuleGroup("Model");
-   private static NewStyleModel d;
-   private static ModelExtra b;
-   private static CustomTextures c;
+    private static SlimefunModels e;
+    public static final ModuleGroup a = new ModuleGroup("Model");
+    private static NewStyleModel d;
+    private static ModelExtra b;
+    private static CustomTextures c;
 
-   public static SlimefunModels f() {
-      return e;
-   }
+    public static SlimefunModels f() {
+        return e;
+    }
 
-   public static NewStyleModel e() {
-      return d;
-   }
+    public static NewStyleModel e() {
+        return d;
+    }
 
-   public static void init() {
-   }
+    public static void init() {}
 
-   private static void initModule(ModuleManager m) {
-      b = new ModelExtra().register(m);
-      c = new CustomTextures().register(m);
-      d = new NewStyleModel().register(m);
-      e = new SlimefunModels().register(m);
-   }
+    private static void initModule(ModuleManager m) {
+        b = new ModelExtra().register(m);
+        c = new CustomTextures().register(m);
+        d = new NewStyleModel().register(m);
+        e = new SlimefunModels().register(m);
+    }
 
-   public static CustomTextures d() {
-      return c;
-   }
+    public static CustomTextures d() {
+        return c;
+    }
 
-   static {
-      a.registerFactories(ModelTasks::initModule);
-      HackModules.registerModuleGroup(a);
-   }
+    static {
+        a.registerFactories(ModelTasks::initModule);
+        HackModules.registerModuleGroup(a);
+    }
 
-   public static ModelExtra c() {
-      return b;
-   }
+    public static ModelExtra c() {
+        return b;
+    }
 }

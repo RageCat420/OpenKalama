@@ -17,28 +17,28 @@ import org.spongepowered.asm.mixin.Unique;
 @Environment(EnvType.CLIENT)
 @Mixin({FireworkRocketEntity.class})
 public abstract class FireworkRocketEntityMixin extends Entity implements FireworkRocketEntityAccess {
-   @Shadow
-   @Final
-   private static TrackedData<OptionalInt> field_7611;
-   @Shadow
-   private int field_7613;
+    @Shadow
+    @Final
+    private static TrackedData<OptionalInt> field_7611;
 
-   public FireworkRocketEntityMixin(EntityType<?> type, World world) {
-      super(type, world);
-   }
+    @Shadow
+    private int field_7613;
 
-   @Unique
-   @Override
-   public boolean isFallFlyingAccelerator() {
-      return ((OptionalInt)(Object)this.dataTracker.get(field_7611)).isPresent();
-   }
+    public FireworkRocketEntityMixin(EntityType<?> type, World world) {
+        super(type, world);
+    }
 
-   @Unique
-   @Override
-   public int getLiveTicks() {
-      return this.field_7613;
-   }
+    @Unique
+    @Override
+    public boolean isFallFlyingAccelerator() {
+        return ((OptionalInt) (Object) this.dataTracker.get(field_7611)).isPresent();
+    }
 
-   public void writeCustomDataToNbt(Object arg0) { }
+    @Unique
+    @Override
+    public int getLiveTicks() {
+        return this.field_7613;
+    }
 
+    public void writeCustomDataToNbt(Object arg0) {}
 }

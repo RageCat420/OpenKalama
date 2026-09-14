@@ -20,38 +20,41 @@ import org.spongepowered.asm.mixin.injection.At;
 @Environment(EnvType.CLIENT)
 @Mixin({SignBlockEntityRenderer.class})
 public class SignBlockEntityRendererFixMixin {
-   @WrapWithCondition(
-      method = {"render(Lnet/minecraft/block/entity/SignBlockEntity;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/block/BlockState;Lnet/minecraft/block/AbstractSignBlock;Lnet/minecraft/block/WoodType;Lnet/minecraft/client/model/Model;)V"},
-      at = {@At(
-         value = "INVOKE",
-         target = "Lnet/minecraft/client/render/block/entity/SignBlockEntityRenderer;renderText(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/SignText;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IIIZ)V"
-      )}
-   )
-   public boolean onSignBlockEntityStateUpdate(
-      SignBlockEntityRenderer instance,
-      BlockPos pos,
-      SignText signText,
-      MatrixStack matrices,
-      VertexConsumerProvider vertexConsumers,
-      int light,
-      int lineHeight,
-      int lineWidth,
-      boolean front,
-      @Local(argsOnly = true) SignBlockEntity signBlockEntity
-   ) {
-      RenderOptimize optimize = RenderTasks.H();
-      if (optimize.optimizeBlockLabelRender.get()
-         && signBlockEntity instanceof MetadataHolder holder
-         && holder.getMetadata().b(optimize, "kalama:render_optimize/render_controller") instanceof RenderOptimize$RenderController controller) {
-         if (controller.b() && !front) {
-            return false;
-         }
+    @WrapWithCondition(
+            method = {
+                "render(Lnet/minecraft/block/entity/SignBlockEntity;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/block/BlockState;Lnet/minecraft/block/AbstractSignBlock;Lnet/minecraft/block/WoodType;Lnet/minecraft/client/model/Model;)V"
+            },
+            at = {
+                @At(
+                        value = "INVOKE",
+                        target =
+                                "Lnet/minecraft/client/render/block/entity/SignBlockEntityRenderer;renderText(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/SignText;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IIIZ)V")
+            })
+    public boolean onSignBlockEntityStateUpdate(
+            SignBlockEntityRenderer instance,
+            BlockPos pos,
+            SignText signText,
+            MatrixStack matrices,
+            VertexConsumerProvider vertexConsumers,
+            int light,
+            int lineHeight,
+            int lineWidth,
+            boolean front,
+            @Local(argsOnly = true) SignBlockEntity signBlockEntity) {
+        RenderOptimize optimize = RenderTasks.H();
+        if (optimize.optimizeBlockLabelRender.get()
+                && signBlockEntity instanceof MetadataHolder holder
+                && holder.getMetadata().b(optimize, "kalama:render_optimize/render_controller")
+                        instanceof RenderOptimize$RenderController controller) {
+            if (controller.b() && !front) {
+                return false;
+            }
 
-         if (controller.a() && front) {
-            return false;
-         }
-      }
+            if (controller.a() && front) {
+                return false;
+            }
+        }
 
-      return true;
-   }
+        return true;
+    }
 }

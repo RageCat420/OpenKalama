@@ -8,41 +8,39 @@ import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 
 public interface ListEntryWidgetController {
-   boolean d(int var1);
+    boolean d(int var1);
 
-   static <W, T extends Element & Drawable & Selectable> ListEntryWidgetController immutable(
-      List<W> originData, Function<W, T> widgetFactory, int height, int width
-   ) {
-      return new KalamaHelperHelperJ(originData, widgetFactory, height, width);
-   }
+    static <W, T extends Element & Drawable & Selectable> ListEntryWidgetController immutable(
+            List<W> originData, Function<W, T> widgetFactory, int height, int width) {
+        return new KalamaHelperHelperJ(originData, widgetFactory, height, width);
+    }
 
-   boolean f(int var1);
+    boolean f(int var1);
 
-   int b();
+    int b();
 
-   boolean j();
+    boolean j();
 
-   void markDirty(boolean var1);
+    void markDirty(boolean var1);
 
-   <T extends Element & Drawable & Selectable> T getEntryWidget(int var1);
+    <T extends Element & Drawable & Selectable> T getEntryWidget(int var1);
 
-   static <W, T extends Element & Drawable & Selectable> ListEntryWidgetController mutable(
-      List<W> originData, Supplier<W> newData, Function<W, T> widgetFactory, int height, int width
-   ) {
-      return new KalamaHelperHelperG(originData, height, width, newData, widgetFactory);
-   }
+    static <W, T extends Element & Drawable & Selectable> ListEntryWidgetController mutable(
+            List<W> originData, Supplier<W> newData, Function<W, T> widgetFactory, int height, int width) {
+        return new KalamaHelperHelperG(originData, height, width, newData, widgetFactory);
+    }
 
-   int a();
+    int a();
 
-   boolean e(int var1);
+    boolean e(int var1);
 
-   int c();
+    int c();
 
-   void resync();
+    void resync();
 
-   boolean i();
+    boolean i();
 
-   boolean h(int var1);
+    boolean h(int var1);
 
-   boolean g(int var1);
+    boolean g(int var1);
 }

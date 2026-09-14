@@ -6,13 +6,13 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.ApiStatus.Experimental;
 
 public enum ConnectionProxy$Type implements ConfigEnum {
-   SOCKS,
-   HTTP,
-   @Experimental
-   HTTPS;
+    SOCKS,
+    HTTP,
+    @Experimental
+    HTTPS;
 
-   @Override
-   public Text resultAsString() {
-      return Text.literal(this.name().toLowerCase(Locale.ROOT));
-   }
+    @Override
+    public Text resultAsString() {
+        return Text.literal(this.name().toLowerCase(Locale.ROOT));
+    }
 }

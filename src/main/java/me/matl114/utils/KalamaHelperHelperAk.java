@@ -6,29 +6,29 @@ import java.util.function.Function;
 import net.minecraft.nbt.NbtCompound;
 
 public class KalamaHelperHelperAk {
-   NbtCompound b;
-   Either<UUID, String> a;
-   KalamaHelperHelperAd c;
+    NbtCompound b;
+    Either<UUID, String> a;
+    KalamaHelperHelperAd c;
 
-   public KalamaHelperHelperAd d() {
-      return this.c;
-   }
+    public KalamaHelperHelperAd d() {
+        return this.c;
+    }
 
-   public KalamaHelperHelperAk(Either<UUID, String> source, NbtCompound config, KalamaHelperHelperAd data) {
-      this.a = source;
-      this.b = config;
-      this.c = data;
-   }
+    public KalamaHelperHelperAk(Either<UUID, String> source, NbtCompound config, KalamaHelperHelperAd data) {
+        this.a = source;
+        this.b = config;
+        this.c = data;
+    }
 
-   public Either<UUID, String> b() {
-      return this.a;
-   }
+    public Either<UUID, String> b() {
+        return this.a;
+    }
 
-   public String getDisplayName() {
-      return (String)(Object)this.b().map(UUID::toString, Function.identity());
-   }
+    public String getDisplayName() {
+        return (String) (Object) this.b().map(UUID::toString, Function.identity());
+    }
 
-   public NbtCompound c() {
-      return this.b;
-   }
+    public NbtCompound c() {
+        return this.b;
+    }
 }
