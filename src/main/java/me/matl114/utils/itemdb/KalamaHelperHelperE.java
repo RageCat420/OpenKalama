@@ -31,7 +31,8 @@ class KalamaHelperHelperE implements ItemStackData {
       return obj == this || obj instanceof ItemStackData var2 && var2.isValid() && var2.ge().isEmpty();
    }
 
-   public JsonElement getAsJson() {
+   @Override
+   public JsonElement gb() {
       return JsonNull.INSTANCE;
    }
 
@@ -39,9 +40,9 @@ class KalamaHelperHelperE implements ItemStackData {
    public void resolveItemStack() {
    }
 
-
-
    @Override
-   public ItemStack gf() { return null; }
+   public ItemStack gf() {
+      return ItemStack.EMPTY;
+   }
 
 }

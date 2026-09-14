@@ -19,7 +19,8 @@ public class TaskManageScreen extends IndexedScreen<Pair<String, TaskManager>, L
    protected Map<String, TaskManager> tasks;
    private static String selectingTaskManager;
 
-   protected ElementHandler createIndexHandler(Pair<String, TaskManager> val) {
+   @Override
+   protected ElementHandler be(Pair<String, TaskManager> val) {
       return new ButtonElement(TextProvider.c(Text.literal((String)val.getFirst())), ButtonAction.a(() -> this.setGlobal(val)))
          .cA(ButtonElement.bH)
          .cC(ButtonElement.bI)
@@ -34,7 +35,8 @@ public class TaskManageScreen extends IndexedScreen<Pair<String, TaskManager>, L
       super(list.entrySet().stream().map(CollectionUtils::entryToPair).toList(), backgroundWidth, backgroundHeight);
    }
 
-   protected ListUnmodifiableWidget createSelectingDisplayWidget(Pair<String, TaskManager> val) {
+   @Override
+   protected ListUnmodifiableWidget bd(Pair<String, TaskManager> val) {
       ListEntryWidgetController var2 = ListEntryWidgetController.immutable(
          ((TaskManager)val.getSecond()).b().entrySet().stream().map(CollectionUtils::entryToPair).toList(),
          pair -> new KalamaHelperHelperCX(0, 0, 0, 0),
@@ -53,7 +55,4 @@ public class TaskManageScreen extends IndexedScreen<Pair<String, TaskManager>, L
 
 
 
-   @Override
-   public ElementHandler be(Object arg0, Object arg1) { return null; }
-
-}
+   }

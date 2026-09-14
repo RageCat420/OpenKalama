@@ -70,7 +70,7 @@ public class SurvivalSubHelperC {
    public Block o;
    private static final AttrKeyValue<Boolean> f = AttrKeyValue.bool("Lapis");
    private static final AttrKeyValue<Boolean> b = AttrKeyValue.bool("Iron");
-   private static final Map<String, Pair<Block, Block>> k = ImmutableMap.builder()
+   private static final Map<String, Pair<Block, Block>> k = ImmutableMap.<String, Pair<Block, Block>>builder()
       .put("Coal", Pair.of(Blocks.COAL_ORE, Blocks.DEEPSLATE_COAL_ORE))
       .put("Iron", Pair.of(Blocks.IRON_ORE, Blocks.DEEPSLATE_IRON_ORE))
       .put("Gold", Pair.of(Blocks.GOLD_ORE, Blocks.DEEPSLATE_GOLD_ORE))
@@ -96,8 +96,8 @@ public class SurvivalSubHelperC {
    ) {
       PlacedFeature var7 = (PlacedFeature)oreRegistry.getOrThrow(oreKey).value();
       int var8 = ((IndexedFeatures)indexer.get(genStep)).indexMapping().applyAsInt(var7);
-      Pair var9 = k.getOrDefault(active.getKeyName(), Pair.of(Blocks.IRON_ORE, Blocks.IRON_ORE));
-      SurvivalSubHelperC var10 = new SurvivalSubHelperC(var7, (Block)var9.getFirst(), (Block)var9.getSecond(), genStep, var8, active, color);
+      Pair<Block, Block> var9 = k.getOrDefault(active.getKeyName(), Pair.of(Blocks.IRON_ORE, Blocks.IRON_ORE));
+      SurvivalSubHelperC var10 = new SurvivalSubHelperC(var7, var9.getFirst(), var9.getSecond(), genStep, var8, active, color);
       map.put(var7, var10);
    }
 
@@ -154,16 +154,20 @@ public class SurvivalSubHelperC {
 
    public static Map<RegistryKey<Biome>, List<SurvivalSubHelperC>> getRegistry() {
       WrapperLookup var0 = BuiltinRegistries.createWrapperLookup();
-      Impl var1 = var0.getWrapperOrThrow(RegistryKeys.PLACED_FEATURE);
-      Map var2 = ((WorldPreset)var0.getWrapperOrThrow(RegistryKeys.WORLD_PRESET).getOrThrow(WorldPresets.DEFAULT).value())
+      Impl<PlacedFeature> var1 = var0.getWrapperOrThrow(RegistryKeys.PLACED_FEATURE);
+      Map<RegistryKey<DimensionOptions>, DimensionOptions> var2 = var0.getWrapperOrThrow(RegistryKeys.WORLD_PRESET)
+         .getOrThrow(WorldPresets.DEFAULT)
+         .value()
          .createDimensionsRegistryHolder()
          .dimensions();
-      RegistryKey var3 = CommonUtils.getCurrentDimensionOption();
-      DimensionOptions var4 = (DimensionOptions)var2.get(var3);
-      Set var5 = var4.chunkGenerator().getBiomeSource().getBiomes();
-      List var6 = var5.stream().toList();
-      List var7 = PlacedFeatureIndexer.collectIndexedFeatures(var6, biomeEntry -> ((Biome)biomeEntry.value()).getGenerationSettings().getFeatures(), true);
-      HashMap var8 = new HashMap();
+      RegistryKey<DimensionOptions> var3 = CommonUtils.getCurrentDimensionOption();
+      DimensionOptions var4 = var2.get(var3);
+      Set<RegistryEntry<Biome>> var5 = var4.chunkGenerator().getBiomeSource().getBiomes();
+      List<RegistryEntry<Biome>> var6 = var5.stream().toList();
+      List<IndexedFeatures> var7 = PlacedFeatureIndexer.collectIndexedFeatures(
+         var6, biomeEntry -> biomeEntry.value().getGenerationSettings().getFeatures(), true
+      );
+      Map<PlacedFeature, SurvivalSubHelperC> var8 = new HashMap<>();
       registerOre(var8, var7, var1, OrePlacedFeatures.ORE_COAL_LOWER, 6, a, new Color(47, 44, 54));
       registerOre(var8, var7, var1, OrePlacedFeatures.ORE_COAL_UPPER, 6, a, new Color(47, 44, 54));
       registerOre(var8, var7, var1, OrePlacedFeatures.ORE_IRON_MIDDLE, 6, b, new Color(236, 173, 119));
@@ -189,18 +193,18 @@ public class SurvivalSubHelperC {
       registerOre(var8, var7, var1, OrePlacedFeatures.ORE_QUARTZ_DELTAS, 7, i, new Color(205, 205, 205));
       registerOre(var8, var7, var1, OrePlacedFeatures.ORE_DEBRIS_SMALL, 7, j, new Color(209, 27, 245));
       registerOre(var8, var7, var1, OrePlacedFeatures.ORE_ANCIENT_DEBRIS_LARGE, 7, j, new Color(209, 27, 245));
-      HashMap var9 = new HashMap();
+      Map<RegistryKey<Biome>, List<SurvivalSubHelperC>> var9 = new HashMap<>();
       var6.forEach(
          biome -> {
-            var9.put((RegistryKey)biome.getKey().get(), new ArrayList());
-            ((Biome)biome.value())
+            var9.put(biome.getKey().get(), new ArrayList<>());
+            biome.value()
                .getGenerationSettings()
                .getFeatures()
                .stream()
                .flatMap(RegistryEntryList::stream)
                .<PlacedFeature>map(RegistryEntry::value)
                .filter(var8::containsKey)
-               .forEach(feature -> ((List)var9.get(biome.getKey().get())).add((SurvivalSubHelperC)var8.get(feature)));
+               .forEach(feature -> var9.get(biome.getKey().get()).add(var8.get(feature)));
          }
       );
       return var9;

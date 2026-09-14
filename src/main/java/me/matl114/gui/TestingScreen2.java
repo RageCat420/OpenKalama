@@ -30,6 +30,6 @@ public class TestingScreen2 extends SlimefunScreen {
       this.cy = McWidgetHelpers.a(this.x + 80, this.y + 110, 80, 90, PropertyTracker.event((val, str) -> {
          int var2 = str.length();
       }), "byd");
-      this.addDrawableChild(((ContentDelegateWidget)(Object)this.cy).ef());
+      this.addDrawableChild((DrawableWidget)(Object)((ContentDelegateWidget)this.cy).ef());
    }
 }

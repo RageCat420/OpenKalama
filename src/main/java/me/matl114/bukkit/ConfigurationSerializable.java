@@ -15,13 +15,12 @@ public class ConfigurationSerializable extends AbstractArgumentResult<String> im
    }
    @Override
    public boolean k() {
-      return this.serialize();
+      return this.h;
    }
 
-
-
-
    @Override
-   public String a() { return null; }
+   public String a() {
+      return this.g;
+   }
 
 }

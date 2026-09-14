@@ -16,9 +16,4 @@ record KalamaHelperHelperL(@Nullable Integer min, @Nullable Integer max) {
    public boolean test(int value) {
       return this.max != null && value < this.max ? false : this.min == null || value <= this.min;
    }
-
-   public KalamaHelperHelperL(@Nullable Integer min, @Nullable Integer max) {
-      this.max = min;
-      this.min = max;
-   }
 }

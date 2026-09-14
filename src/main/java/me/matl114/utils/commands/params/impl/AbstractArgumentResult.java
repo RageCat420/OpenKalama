@@ -4,11 +4,11 @@ import me.matl114.utils.commands.params.ArgumentReader;
 import me.matl114.utils.commands.params.api.ArgumentType;
 import me.matl114.utils.commands.params.api.InputArgument;
 
-public class AbstractArgumentResult<T> implements InputArgument<T> {
-   int e;
-   boolean f;
-   int d;
-   final T g;
+public abstract class AbstractArgumentResult<T> implements InputArgument<T> {
+   public int e;
+   public boolean f;
+   public int d;
+   public final T g;
    public final ArgumentType<T> b;
    public boolean h = true;
    public final ArgumentReader c;
@@ -24,7 +24,8 @@ public class AbstractArgumentResult<T> implements InputArgument<T> {
       }
    }
 
-   public boolean isParseSuccess() {
+   @Override
+   public boolean k() {
       return this.h;
    }
 

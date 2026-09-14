@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({MerchantScreen.class})
 @Environment(EnvType.CLIENT)
-public class VillagerTradeScreenMixin extends HandledScreen<MerchantScreenHandler> implements MerchantScreenAccess {
+public abstract class VillagerTradeScreenMixin extends HandledScreen<MerchantScreenHandler> implements MerchantScreenAccess {
    @Shadow
    private int field_19161;
 
@@ -28,7 +28,7 @@ public class VillagerTradeScreenMixin extends HandledScreen<MerchantScreenHandle
 
    @Accessor("selectedIndex")
    @Override
-   public int getSelectedIndex() { }
+public abstract int getSelectedIndex() ;
 
    @Unique
    @Override
@@ -37,3 +37,4 @@ public class VillagerTradeScreenMixin extends HandledScreen<MerchantScreenHandle
       this.method_2496();
    }
 }
+

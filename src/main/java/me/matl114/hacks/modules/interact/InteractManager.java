@@ -404,7 +404,7 @@ public class InteractManager extends BaseModule {
    }
 
    private ArgumentType<Object> targetDispatchArgument(int index, String name, boolean allowTarget) {
-      DispatchArgumentType var4 = new DispatchArgumentType<ExecuteRotation>(name)
+      DispatchArgumentType<Object> var4 = new DispatchArgumentType<Object>(name)
          .registerArgumentDispatcher(index, "look", new RotationArgumentType(name + "_look"))
          .registerArgumentDispatcher(index, "pos", new KalamaHelperHelperUX(name + "_pos"));
       if (allowTarget) {

@@ -162,6 +162,13 @@ public class SimpleInputManager implements IInputManager {
 
 
    @Override
-   public void a(Object arg0) { }
+   public void b(IHotKey var1) {
+      this.unregisterHotKeys(var1);
+   }
+
+   @Override
+   public void a(IHotKey var1) {
+      this.registerHotKeys(var1);
+   }
 
 }

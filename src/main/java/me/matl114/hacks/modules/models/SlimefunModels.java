@@ -84,7 +84,7 @@ public class SlimefunModels extends BaseModule {
       this.iA.clear();
       LinkedHashSet var3 = new LinkedHashSet();
       List<ResourcePack> var4 = resourceManager.streamResourcePacks().toList();
-      List var5 = this.pathPatternForSlimefunModel.get();
+      List<String> var5 = this.pathPatternForSlimefunModel.get();
       String var6 = var5.stream().map(i -> "(" + i + ")").collect(Collectors.joining("|"));
       Predicate var7 = Pattern.compile(var6).asMatchPredicate();
 

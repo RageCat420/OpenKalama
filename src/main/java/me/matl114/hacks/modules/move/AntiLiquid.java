@@ -84,9 +84,9 @@ public class AntiLiquid extends BaseModule implements HackUtilHelperJ {
 
    public AntiLiquid() {
       super("AntiLiquid");
+      this.mode = this.builder(this.gR.add("mode"), AntiLiquid$Mode.class).defaultValue(AntiLiquid$Mode.NONE).build();
       this.ae = this.flagBuilder(this.gR.addEnable()).build();
       this.J = this.moduleEntry(this.gR.addHotkey(), new MultiKeyBind(), this.gR.addEnable(), moduleMeta(() -> this.mode)).build();
-      this.mode = this.builder(this.gR.add("mode"), AntiLiquid$Mode.class).defaultValue(AntiLiquid$Mode.NONE).build();
       this.waterExpandCheck = this.doubleBuilder(this.gR.add("water-expand-check")).defaultValue(0.2).build();
       this.enableNotFly = this.flagBuilder(this.gR.add("enable-not-fly")).build();
       this.enableFly = this.flagBuilder(this.gR.add("enable-fly")).build();

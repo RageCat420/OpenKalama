@@ -208,7 +208,7 @@ public class ClientExtra extends BaseModule {
          int var2 = (int)InventoryUtils.computePlayerInventory(s -> s.isOf(Items.TOTEM_OF_UNDYING) ? (double)s.getCount() : null, false);
          Debug.a("  - TotemCount: " + var2);
          if (mc.world != null) {
-            List var3 = mc.world.getPlayers();
+            List<AbstractClientPlayerEntity> var3 = mc.world.getPlayers();
             Debug.a("  - Players in visual range: " + var3.size());
 
             for (AbstractClientPlayerEntity var6 : var3.stream()

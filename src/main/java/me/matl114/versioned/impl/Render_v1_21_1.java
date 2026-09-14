@@ -45,7 +45,8 @@ public class Render_v1_21_1 implements VRender, me.matl114.versioned.api.KalamaH
       }
    }
 
-   public void createSpriteTexturedLayer(Sprite sprite, KalamaHelperHelperJ callback) {
+   @Override
+   public void n(Sprite sprite, KalamaHelperHelperJ callback) {
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
       RenderSystem.disableCull();
       Tessellator var3 = RenderSystem.renderThreadTesselator();
@@ -73,7 +74,8 @@ public class Render_v1_21_1 implements VRender, me.matl114.versioned.api.KalamaH
       }
    }
 
-   public void createGuiLayer(KalamaHelperHelperJ callback) {
+   @Override
+   public void o(KalamaHelperHelperJ callback) {
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
       RenderSystem.disableCull();
       Tessellator var2 = RenderSystem.renderThreadTesselator();
@@ -88,7 +90,8 @@ public class Render_v1_21_1 implements VRender, me.matl114.versioned.api.KalamaH
       RenderSystem.enableCull();
    }
 
-   public void createGuiTexturedLayer(Identifier path, KalamaHelperHelperJ callback) {
+   @Override
+   public void m(Identifier path, KalamaHelperHelperJ callback) {
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
       RenderSystem.disableCull();
       Tessellator var3 = RenderSystem.renderThreadTesselator();
@@ -104,7 +107,8 @@ public class Render_v1_21_1 implements VRender, me.matl114.versioned.api.KalamaH
       RenderSystem.enableCull();
    }
 
-   public void drawLine(MatrixStack matrixStack, VertexConsumer consumer, Vec3d prevV, Vec3d nextV, int color) {
+   @Override
+   public void e(MatrixStack matrixStack, VertexConsumer consumer, Vec3d prevV, Vec3d nextV, int color) {
       Vector3f var6 = prevV.toVector3f();
       Vector3f var7 = nextV.toVector3f();
       Entry var8 = matrixStack.peek();
@@ -112,7 +116,8 @@ public class Render_v1_21_1 implements VRender, me.matl114.versioned.api.KalamaH
       consumer.vertex(var8, var7).color(color);
    }
 
-   public void createTriangleStripLayer(KalamaHelperHelperJ callback, boolean hasCulling) {
+   @Override
+   public void l(KalamaHelperHelperJ callback, boolean hasCulling) {
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
       Tessellator var3 = RenderSystem.renderThreadTesselator();
       RenderSystem.setShader(GameRenderer::getPositionColorProgram);
@@ -132,7 +137,8 @@ public class Render_v1_21_1 implements VRender, me.matl114.versioned.api.KalamaH
       }
    }
 
-   public void createLinesLayer(KalamaHelperHelperJ callback) {
+   @Override
+   public void h(KalamaHelperHelperJ callback) {
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
       Tessellator var2 = RenderSystem.renderThreadTesselator();
       RenderSystem.setShader(GameRenderer::getPositionColorProgram);
@@ -144,7 +150,8 @@ public class Render_v1_21_1 implements VRender, me.matl114.versioned.api.KalamaH
       }
    }
 
-   public void drawOutlinedBox(MatrixStack matrix4f, VertexConsumer bufferBuilder, Vec3d from, Vec3d to, int cachedRenderColor) {
+   @Override
+   public void a(MatrixStack matrix4f, VertexConsumer bufferBuilder, Vec3d from, Vec3d to, int cachedRenderColor) {
       Entry var6 = matrix4f.peek();
       float var7 = (float)from.getX();
       float var8 = (float)from.getY();
@@ -191,7 +198,8 @@ public class Render_v1_21_1 implements VRender, me.matl114.versioned.api.KalamaH
       }
    }
 
-   public void createLineStripLayer(KalamaHelperHelperJ callback) {
+   @Override
+   public void i(KalamaHelperHelperJ callback) {
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
       Tessellator var2 = RenderSystem.renderThreadTesselator();
       RenderSystem.setShader(GameRenderer::getPositionColorProgram);
@@ -203,7 +211,8 @@ public class Render_v1_21_1 implements VRender, me.matl114.versioned.api.KalamaH
       }
    }
 
-   public void createTrianglesLayer(KalamaHelperHelperJ callback, boolean hasCulling) {
+   @Override
+   public void k(KalamaHelperHelperJ callback, boolean hasCulling) {
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
       Tessellator var3 = RenderSystem.renderThreadTesselator();
       RenderSystem.setShader(GameRenderer::getPositionColorProgram);
@@ -223,7 +232,8 @@ public class Render_v1_21_1 implements VRender, me.matl114.versioned.api.KalamaH
       }
    }
 
-   public void drawSolidBoxQuad(MatrixStack matrixStack, VertexConsumer bufferBuilder, Vec3d from, Vec3d to, int cachedRenderColor) {
+   @Override
+   public void b(MatrixStack matrixStack, VertexConsumer bufferBuilder, Vec3d from, Vec3d to, int cachedRenderColor) {
       Entry var6 = matrixStack.peek();
       float var7 = (float)from.x;
       float var8 = (float)from.y;
@@ -257,7 +267,8 @@ public class Render_v1_21_1 implements VRender, me.matl114.versioned.api.KalamaH
       bufferBuilder.vertex(var6, var7, var11, var9).color(cachedRenderColor);
    }
 
-   public void drawItemCameraCoord(
+   @Override
+   public void A(
       ItemStack itemStack, MatrixStack stack, Vec3d vec3d, ItemDisplayContext context, me.matl114.versioned.api.KalamaHelperHelperD displayInfo
    ) {
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -267,13 +278,14 @@ public class Render_v1_21_1 implements VRender, me.matl114.versioned.api.KalamaH
       }
 
       mc.getItemRenderer()
-         .renderItem(itemStack, context, displayInfo.dM(), displayInfo.oG(), stack, mc.gameRenderer.buffers.getEntityVertexConsumers(), mc.world, -999);
+         .renderItem(itemStack, context, displayInfo.light(), displayInfo.overlay(), stack, mc.gameRenderer.buffers.getEntityVertexConsumers(), mc.world, -999);
       if (!var6) {
          stack.translate(-vec3d.x, -vec3d.y, -vec3d.z);
       }
    }
 
-   public void createQuadsLayer(KalamaHelperHelperJ callback, boolean hasCulling) {
+   @Override
+   public void j(KalamaHelperHelperJ callback, boolean hasCulling) {
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
       Tessellator var3 = RenderSystem.renderThreadTesselator();
       RenderSystem.setShader(GameRenderer::getPositionColorProgram);
@@ -318,15 +330,10 @@ public class Render_v1_21_1 implements VRender, me.matl114.versioned.api.KalamaH
             mc.getBufferBuilders().getEntityVertexConsumers(),
             displayInfo.layerType(),
             displayInfo.backgroundColor(),
-            displayInfo.backgroundColor()
+            displayInfo.light()
          );
       mc.getBufferBuilders().getEntityVertexConsumers().draw();
       stack.pop();
    }
-
-
-
-   @Override
-   public void o(Object arg0) { }
 
 }

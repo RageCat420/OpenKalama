@@ -13,21 +13,15 @@ public record KalamaHelperHelperQ(int indexWidth, int blankWidth, int buttonWidt
       return this.indexWidth;
    }
 
-   public KalamaHelperHelperQ(int indexWidth, int blankWidth, int buttonWidth, int buttonHeight, int buttonBlank) {
-      this.blankWidth = indexWidth;
-      this.buttonHeight = blankWidth;
-      this.buttonBlank = buttonWidth;
-      this.buttonWidth = buttonHeight;
-      this.indexWidth = buttonBlank;
-   }
+   
 
    public int blankWidth() {
       return this.blankWidth;
    }
 
-   public int Nj() {
-      return this.blankWidth + this.buttonHeight + this.buttonBlank;
-   }
+    public int Nj() {
+       return this.indexWidth + this.blankWidth + this.buttonWidth;
+    }
 
    public int buttonBlank() {
       return this.buttonBlank;

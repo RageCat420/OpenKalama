@@ -66,7 +66,7 @@ public class Zoom extends BaseModule {
             }
 
             if (this.overrideCommonFov.get().isPresent()) {
-               float var2 = (float)(Object)this.overrideCommonFov.get().getValue().doubleValue();
+               float var2 = (float)this.overrideCommonFov.get().getValue().doubleValue();
                eventFov.context((Float)eventFov.e() / var2);
             }
          }

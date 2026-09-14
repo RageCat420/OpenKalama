@@ -13,24 +13,24 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Environment(EnvType.CLIENT)
 @Mixin({PlayerInteractBlockC2SPacket.class})
-public class PlayerInteractBlockC2SPacketMixin implements PlayerInteractBlockC2SPacketAccess {
+public abstract class PlayerInteractBlockC2SPacketMixin implements PlayerInteractBlockC2SPacketAccess {
    @Unique
    PlayerInteractBlockC2SPacketAccess.UseContext useContext;
 
    @Mutable
    @Accessor("hand")
    @Override
-   public void setHand(Hand var1) { }
+public abstract void setHand(Hand var1) ;
 
    @Mutable
    @Accessor("blockHitResult")
    @Override
-   public void setBlockHitResult(BlockHitResult var1) { }
+public abstract void setBlockHitResult(BlockHitResult var1) ;
 
    @Mutable
    @Accessor("sequence")
    @Override
-   public void setSequence(int var1) { }
+public abstract void setSequence(int var1) ;
 
    @Override
    public void setUseContext(PlayerInteractBlockC2SPacketAccess.UseContext useContext) {

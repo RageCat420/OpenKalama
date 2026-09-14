@@ -7,7 +7,7 @@ import me.matl114.utils.config.AttrKeyValue;
 import me.matl114.utils.config.BaseAttrKeyValue;
 import me.matl114.utils.config.WrapperFactory;
 
-public class ListAttrKeyValue<T> extends BaseAttrKeyValue<List<T>> {
+public abstract class ListAttrKeyValue<T> extends BaseAttrKeyValue<List<T>> {
    protected List<Predicate<T>> elementValidators = new ArrayList<>();
 
    public ListAttrKeyValue(
@@ -23,9 +23,9 @@ public class ListAttrKeyValue<T> extends BaseAttrKeyValue<List<T>> {
       return (W)val;
    }
 
-   public List<AttrKeyValue<T>> createAttrKeyValueForElements() { }
+   public abstract List<AttrKeyValue<T>> createAttrKeyValueForElements();
 
-   public AttrKeyValue<T> createNewAttrKeyValueElement() { }
+   public abstract AttrKeyValue<T> createNewAttrKeyValueElement();
 
    public List<Predicate<T>> getElementValidators() {
       return this.elementValidators;

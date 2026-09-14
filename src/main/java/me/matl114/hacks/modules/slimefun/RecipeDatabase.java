@@ -364,8 +364,8 @@ public class RecipeDatabase extends BaseModule {
                if (var4 != null) {
                   var4 = var4.replaceAll("§.", "");
                   if (this.rpTitle.get().test(var4)) {
-                     Listener.C(new TimedPacketCatcherImpl(InventoryS2CPacket.class, 20, packetEvent -> {
-                        InventoryS2CPacket var3x = (InventoryS2CPacket)packetEvent.e();
+                     Listener.C(new TimedPacketCatcherImpl<InventoryS2CPacket>(InventoryS2CPacket.class, 20, packetEvent -> {
+                        InventoryS2CPacket var3x = packetEvent.e();
                         if (var3x.getSyncId() == ((GenericContainerScreenHandler)var3.getScreenHandler()).syncId) {
                            mc.executeSync(() -> this.onScreenContent(var3));
                            return true;

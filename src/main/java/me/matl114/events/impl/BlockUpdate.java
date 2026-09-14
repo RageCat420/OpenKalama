@@ -11,12 +11,7 @@ public record BlockUpdate(ColorSampler titleTextColor, ColorSampler titleBackgro
       return this.keyTextColor;
    }
 
-   public BlockUpdate(ColorSampler titleTextColor, ColorSampler titleBackgroundColor, ColorSampler keyTextColor, ColorSampler keyBackgroundColor) {
-      this.titleBackgroundColor = titleTextColor;
-      this.keyBackgroundColor = titleBackgroundColor;
-      this.titleTextColor = keyTextColor;
-      this.keyTextColor = keyBackgroundColor;
-   }
+   
 
    public ColorSampler titleBackgroundColor() {
       return this.titleBackgroundColor;

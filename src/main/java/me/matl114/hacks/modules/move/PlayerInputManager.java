@@ -17,6 +17,11 @@ public class PlayerInputManager extends BaseModule implements HackUtilHelperJ {
    public static PlayerInputManager INSTANCE;
    private final List<MoveSubHelperAg> priorityQueue = new ArrayList<>(16);
 
+   @Override
+   public int priority() {
+      return Integer.MIN_VALUE + 1;
+   }
+
    public void applyPreTickModify(Event<LegalMovementManager> movementManagerEvent) {
       HackUtilHelperJ.super.bb(movementManagerEvent);
       if (!this.priorityQueue.isEmpty() && mc.player != null) {

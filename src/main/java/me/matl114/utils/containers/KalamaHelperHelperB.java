@@ -9,8 +9,8 @@ public class KalamaHelperHelperB {
    Map<Object, Map<String, Object>> a = new WeakHashMap<>();
 
    public <W, T> T c(W val, String key, Supplier<T> supplier) {
-      Map var4 = this.a.computeIfAbsent(val, s -> new ConcurrentHashMap<>());
-      return var4.computeIfAbsent(key, s -> (T)supplier.get());
+      Map<String, Object> var4 = this.a.computeIfAbsent(val, s -> new ConcurrentHashMap<>());
+      return (T)var4.computeIfAbsent(key, s -> supplier.get());
    }
 
    public <W> void a(W val, String key, Object value) {

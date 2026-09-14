@@ -12,7 +12,7 @@ import java.util.function.Function;
 import me.matl114.managers.input.MultiKeyBind;
 
 public class Refs {
-   private static final List<Refs.TypedReferenceBuilder<?>> referenceBuilders = ImmutableList.builder()
+   private static final List<Refs.TypedReferenceBuilder<?>> referenceBuilders = ImmutableList.<Refs.TypedReferenceBuilder<?>>builder()
       .add(new Refs.TypedReferenceBuilder<>(Boolean.class, List.of(FlagRef::new)))
       .add(new Refs.TypedReferenceBuilder<>(Integer.class, List.of(IntRef::new)))
       .add(new Refs.TypedReferenceBuilder<>(Long.class, List.of(LongRef::new)))
@@ -25,7 +25,7 @@ public class Refs {
       .add(
          new Refs.TypedReferenceBuilder<>(
             String.class,
-            ImmutableList.builder()
+            ImmutableList.<Function<String, Ref<?>>>builder()
                .add(EnumRef::fromString)
                .add(KeyBindRef::fromString)
                .add(NBTRef::fromString)

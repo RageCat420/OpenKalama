@@ -122,7 +122,7 @@ class CombatSubHelperZX implements HackUtilHelperJ {
                });
             } else if (this.yN != -1) {
                ACTasks.c(ch -> {
-                  elytraExtra.afN(elytraSlot);
+                  elytraExtra.afN(this.yN);
                   if (!MinecraftClient.getInstance().player.isFallFlying()) {
                      ch.sendPacket(new ClientCommandC2SPacket(MinecraftClient.getInstance().player, Mode.START_FALL_FLYING));
                   }

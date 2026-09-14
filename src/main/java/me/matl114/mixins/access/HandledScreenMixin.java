@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin({HandledScreen.class})
-public class HandledScreenMixin extends Screen implements HandledScreenAccess {
+public abstract class HandledScreenMixin extends Screen implements HandledScreenAccess {
    @Shadow
    protected int field_2776;
    @Shadow
@@ -32,17 +32,17 @@ public class HandledScreenMixin extends Screen implements HandledScreenAccess {
 
    @Accessor("x")
    @Override
-   public int getScreenX() { }
+   public abstract int getScreenX();
 
    @Accessor("y")
    @Override
-   public int getScreenY() { }
+   public abstract int getScreenY();
 
    @Accessor("backgroundWidth")
    @Override
-   public int getScreenBackgroundX() { }
+   public abstract int getScreenBackgroundX();
 
    @Accessor("backgroundHeight")
    @Override
-   public int getScreenBackgroundY() { }
+   public abstract int getScreenBackgroundY();
 }

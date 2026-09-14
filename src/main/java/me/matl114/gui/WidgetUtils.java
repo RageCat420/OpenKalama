@@ -53,7 +53,7 @@ public class WidgetUtils {
       int var6 = layout.Nj();
       DynamicListWidget var7 = new DynamicListWidget(0, 0, var6);
       var7.ga(
-         ExecutableWidget.instance(0, 0, var6, layout.indexWidth())
+          ExecutableWidget.instance(0, 0, var6, layout.buttonHeight())
             .eV(
                new ColorLabelTextElement(TextProvider.c(title), () -> palette.titleBackgroundColor().getColorInt(), () -> palette.titleTextColor().getColorInt())
                   .aO(TooltipHandler.ar(titleTooltips))
@@ -77,7 +77,7 @@ public class WidgetUtils {
                   ((MutableBoolean)var3.getSecond()).setValue(true);
                }
             }
-         }, 0, layout.blankWidth(), var6, layout.indexWidth());
+         }, 0, layout.buttonBlank(), var6, layout.buttonHeight());
          var7.ga(var10);
       }
 
@@ -86,8 +86,8 @@ public class WidgetUtils {
          Object var12 = var11.getValue();
          Ref var13 = Refs.wrapInstance(var12);
          String var14 = (String)var20.getFirst();
-         KalamaHelperHelperCX var15 = new KalamaHelperHelperCX(0, 0, var6, layout.indexWidth() + layout.blankWidth());
-         var15.Q(DisplayWidget.instance(0, 0, var6, layout.blankWidth() + layout.indexWidth()));
+         KalamaHelperHelperCX var15 = new KalamaHelperHelperCX(0, 0, var6, layout.buttonHeight() + layout.buttonBlank());
+         var15.Q(DisplayWidget.instance(0, 0, var6, layout.buttonBlank() + layout.buttonHeight()));
          BaseAttrKeyValue var16 = var13.createKeyValue(var14);
          var16.setUpdater(var11::getValue);
          var16.addListener(var11::setValue);
@@ -130,7 +130,7 @@ public class WidgetUtils {
             IconElement.cm(
                   KalamaHelperHelperB.f,
                   ButtonAction.a(
-                     () -> ScreenAccess.of(new StringListModifyScreen(s, listAttrKeyValue -> s.setOriginValue(listAttrKeyValue.getOriginValue())))
+                     () -> ScreenAccess.of(new StringListModifyScreen<T>(s, listAttrKeyValue -> s.setOriginValue(listAttrKeyValue.getOriginValue())))
                         .openFromCurrent()
                   )
                )
@@ -217,7 +217,20 @@ public class WidgetUtils {
    public static <T> me.matl114.gui.complex.config.KalamaHelperHelperE<T> e(
       Optional<T> ref, AttrKeyValue<T> attrKeyValue, KalamaHelperHelperQ layout, BlockUpdate palette
    ) {
-      return new KalamaHelperHelperC(0, layout.blankWidth(), layout.Nj(), layout.indexWidth(), layout.blankWidth(), layout.indexWidth(), layout.buttonHeight(), ref, attrKeyValue, layout, palette);
+       return new me.matl114.gui.complex.config.KalamaHelperHelperA<T>(
+            0, layout.buttonBlank(), layout.Nj(), layout.buttonHeight(), layout.indexWidth(), layout.blankWidth(), layout.buttonWidth(), ref, attrKeyValue
+         ) {
+            @Override
+            public DrawableWidget ab() {
+               return ExecutableWidget.instance(0, layout.buttonBlank(), layout.indexWidth(), layout.buttonHeight())
+                  .eV(
+                     new ColorLabelTextElement(
+                           TextProvider.c(this.eK()), () -> palette.keyTextColor().getColorInt(), () -> palette.keyBackgroundColor().getColorInt()
+                        )
+                        .aO(TooltipHandler.ar(this::eL))
+                  );
+            }
+         };
    }
 
    public static List<DrawableWidget> b(DrawableWidget drawable) {
@@ -256,8 +269,8 @@ public class WidgetUtils {
                   KalamaHelperHelperB.f,
                   ButtonAction.a(
                      () -> {
-                        ListAttrKeyValue var2 = (ListAttrKeyValue)attrCreator.get();
-                        ScreenAccess.of(new StringListModifyScreen(var2, listAttrKeyValue -> listConsumer.accept((T)((List)listAttrKeyValue.getOriginValue()))))
+                        ListAttrKeyValue<T> var2 = attrCreator.get();
+                        ScreenAccess.of(new StringListModifyScreen<T>(var2, listAttrKeyValue -> listConsumer.accept(listAttrKeyValue.getOriginValue())))
                            .openFromCurrent();
                      }
                   )

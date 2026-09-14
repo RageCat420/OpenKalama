@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin({MinecraftClient.class})
 @Environment(EnvType.CLIENT)
-public class MinecraftClientEvents {
+public abstract class MinecraftClientEvents {
    @Shadow
    @Nullable
    public Screen field_1755;
@@ -56,7 +56,7 @@ public class MinecraftClientEvents {
    private HitResult cacheHitResult = null;
 
    @Shadow
-   public Window method_22683() { }
+public abstract Window method_22683() ;
 
    @Shadow
    protected abstract void method_1590(boolean var1);
@@ -457,3 +457,4 @@ public class MinecraftClientEvents {
          );
    }
 }
+

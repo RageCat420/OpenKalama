@@ -54,7 +54,7 @@ public class ListRegistryMultiSelectWidget<T> extends KalamaHelperHelperI<Triple
          (Set<Triplet<Text, Identifier, T>>)pairData.getSecond(),
          renderFactory,
          filterInput,
-         (KalamaHelperHelperK<Triplet<Text, Identifier, T>>)filter,
+         (KalamaHelperHelperK<Triplet<Text, Identifier, T>>)(KalamaHelperHelperK)filter,
          x,
          y,
          dx,

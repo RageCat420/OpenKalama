@@ -139,13 +139,13 @@ public class PrimitiveMap<T, W> implements NBTParsable<PrimitiveMap<T, W>> {
 
          return w.cachedEntryType;
       };
-      return new NBTType<>(
+      return new NBTType<PrimitiveMap<T, W>>(
          "primitivemap",
-         RecordCodecBuilder.create(
+         RecordCodecBuilder.<PrimitiveMap<T, W>>create(
             instance -> instance.group(
                   CodecUtils.arrayMapCodec(keyCodec, valueCodec).fieldOf("data").forGetter(PrimitiveMap::toPrimitiveMap),
-                  NBTTypes.codec().fieldOf("key_type").forGetter(PrimitiveMap::keyType),
-                  NBTTypes.codec().fieldOf("value_type").forGetter(PrimitiveMap::valueType),
+                  NBTTypes.<T>codec().fieldOf("key_type").forGetter(PrimitiveMap::keyType),
+                  NBTTypes.<W>codec().fieldOf("value_type").forGetter(PrimitiveMap::valueType),
                   keyCodec.optionalFieldOf("default_key_primitive").forGetter(PrimitiveMap::defaultKeyPrimitive),
                   valueCodec.optionalFieldOf("default_value_primitive").forGetter(PrimitiveMap::defaultValuePrimitive)
                )
@@ -158,7 +158,7 @@ public class PrimitiveMap<T, W> implements NBTParsable<PrimitiveMap<T, W>> {
             );
             return new TypeConvertAttrKeyValue<>(attr, wrapperFactory, typeGenerator.apply(map)).generateValueWidget(x, y, dx, dy);
          },
-         new PrimitiveMap<>((NBTType<T>)NBTTypes.g, (NBTType<W>)NBTTypes.g, Map.of())
+         (PrimitiveMap<T, W>)new PrimitiveMap<>((NBTType<T>)NBTTypes.g, (NBTType<W>)NBTTypes.g, Map.of())
       );
    }
 
@@ -167,7 +167,8 @@ public class PrimitiveMap<T, W> implements NBTParsable<PrimitiveMap<T, W>> {
    }
 
    public static <T, W, R extends PrimitiveMap<T, W>> Codec<R> inheritedCodec(Function<PrimitiveMap<T, W>, R> wrapper) {
-      return TYPE.cast().typeCodec().xmap(wrapper, map -> map);
+      NBTType<PrimitiveMap<T, W>> var0 = TYPE.cast();
+      return var0.typeCodec().xmap(wrapper, map -> map);
    }
 
    public static <T, W, R extends PrimitiveMap<T, W>> Codec<R> inheritedAlternativeCodec(Function<PrimitiveMap<T, W>, R> wrapper, Codec<R> legacyCodec) {

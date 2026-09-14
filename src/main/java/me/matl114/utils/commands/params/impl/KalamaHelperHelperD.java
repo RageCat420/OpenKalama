@@ -12,8 +12,6 @@ enum KalamaHelperHelperD {
    me,
    mc,
    md;
-   // $VF: synthetic field
-   private static final KalamaHelperHelperD[] mf = tQ();
 
    @Nullable
    public static KalamaHelperHelperD tM(String raw) {

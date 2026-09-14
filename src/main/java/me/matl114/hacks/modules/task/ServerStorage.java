@@ -350,7 +350,7 @@ public class ServerStorage extends BaseModule {
       FileManager.getInstance().b(folder);
 
       while (iterator.hasNext()) {
-         IStorage var5 = (IStorage)((Entry)iterator.next()).getValue();
+         T var5 = iterator.next().getValue();
          this.JH(folder, var5, fileNameGetter, codec);
          if (var5.j()) {
             iterator.remove();
@@ -372,7 +372,7 @@ public class ServerStorage extends BaseModule {
          Iterator var6 = var5.entrySet().iterator();
 
          while (var6.hasNext()) {
-            IStorage var7 = (IStorage)((Entry)var6.next()).getValue();
+            T var7 = (T)((Entry)var6.next()).getValue();
             this.JH(folder, var7, fileNameGetter, codec);
             if (var7.j()) {
                var6.remove();
@@ -450,15 +450,15 @@ public class ServerStorage extends BaseModule {
    }
 
    private static <W, T> T Jh(W key, Function<W, T> supplier, Map<W, T> mmm) {
-      Object var3 = mmm.get(key);
+      T var3 = mmm.get(key);
       if (var3 != null) {
-         return (T)var3;
+         return var3;
       } else if (supplier == null) {
          return null;
       } else {
          var3 = supplier.apply(key);
          mmm.put(key, var3);
-         return (T)var3;
+         return var3;
       }
    }
 

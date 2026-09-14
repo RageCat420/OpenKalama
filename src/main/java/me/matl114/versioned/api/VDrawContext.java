@@ -29,7 +29,7 @@ public interface VDrawContext {
 
    void x(Identifier var1, int var2, int var3, int var4, int var5, int var6, float var7, float var8, float var9, float var10);
 
-   public default MatrixStack f() { }
+   public MatrixStack f();
 
    void drawGuiTexture(Identifier var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10);
 
@@ -65,9 +65,9 @@ public interface VDrawContext {
       this.S(texture, x, y, width, height, u, v, width, height, textureWidth, textureHeight);
    }
 
-   public default void C() { }
+   public void C();
 
-   public default void D() { }
+   public void D();
 
    Sprite y(Identifier var1);
 
@@ -109,13 +109,13 @@ public interface VDrawContext {
       );
    }
 
-   public default DrawContext c() { }
+   public DrawContext c();
 
    void A(TextRenderer var1, @Nullable String var2, int var3, int var4, int var5, boolean var6);
 
-   public default DrawContext b() { }
+   public DrawContext b();
 
-   public default void e() { }
+   public void e();
 
    void r(int var1);
 
@@ -130,7 +130,5 @@ public interface VDrawContext {
    default void Q(Identifier texture, int x, int y, int u, int v, int width, int height) {
       this.drawTexture(texture, x, y, 0, u, v, width, height, 256, 256);
    }
-
-   default void e() {  }
 
 }

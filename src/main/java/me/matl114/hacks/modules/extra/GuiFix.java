@@ -87,7 +87,7 @@ public class GuiFix extends BaseModule {
    public void onGameMenuScreenRelocateWurstButton(Event<GameMenuScreen> screenEvent) {
       if (this.zo.get()) {
          GameMenuScreen var2 = (GameMenuScreen)screenEvent.b;
-         List<Element> var3 = var2.children();
+         List<? extends Element> var3 = var2.children();
          int var4 = 0;
          int var5 = 0;
          ArrayList<ButtonWidget> var6 = new ArrayList();

@@ -104,7 +104,7 @@ public class InvHud extends BaseModule {
          .build();
       this.showItems = this.builder(this.Cn.add("show-items"), NBTType.parameter(RegistryRegex.class))
          .defaultValue(new RegistryRegex(new Regex("^(.*)$"), Registries.ITEM))
-         .build();
+         .<NBTRef>build();
       this.countPerLine = this.intBuilder(this.Cn.add("count-per-line")).defaultValue(9).build();
       this.showShulkerItems = this.builder(this.Cn.add("show-shulker-items"), Boolean.class).defaultValue(true).build();
       this.bindFlag(this.ae);

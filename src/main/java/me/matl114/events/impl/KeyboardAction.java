@@ -11,13 +11,7 @@ public record KeyboardAction(Keyboard keyboard, int keyCode, int scannCode, int 
       return this.keyCode;
    }
 
-   public KeyboardAction(Keyboard keyboard, int keyCode, int scannCode, int action, int modifier) {
-      this.keyboard = keyboard;
-      this.action = keyCode;
-      this.modifier = scannCode;
-      this.scannCode = action;
-      this.keyCode = modifier;
-   }
+   
 
    public Keyboard keyboard() {
       return this.keyboard;

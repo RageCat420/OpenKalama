@@ -11,20 +11,20 @@ class KalamaHelperHelperA implements ElementHandler {
    private final IconElement d;
    private final Predicate c;
 
-   public boolean onScroll(ExecutableWidget widget, double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+   public boolean c(ExecutableWidget widget, double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
       if (this.c.test(this.d)) {
          this.d.setActive(true);
-         return this.d.onScroll(widget, mouseX, mouseY, horizontalAmount, verticalAmount);
+         return this.d.c(widget, mouseX, mouseY, horizontalAmount, verticalAmount);
       } else {
          this.d.setActive(false);
          return false;
       }
    }
 
-   public boolean onTyped(ExecutableWidget widget, char chr, int modifiers) {
+   public boolean e(ExecutableWidget widget, char chr, int modifiers) {
       if (this.c.test(this.d)) {
          this.d.setActive(true);
-         return this.d.onTyped(widget, chr, modifiers);
+         return this.d.e(widget, chr, modifiers);
       } else {
          this.d.setActive(false);
          return false;
@@ -47,10 +47,10 @@ class KalamaHelperHelperA implements ElementHandler {
       this.d = nullx;
    }
 
-   public boolean onKey(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
+   public boolean d(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
       if (this.c.test(this.d)) {
          this.d.setActive(true);
-         return this.d.onKey(widget, keyCode, scanCode, modifiers, isPress);
+         return this.d.d(widget, keyCode, scanCode, modifiers, isPress);
       } else {
          this.d.setActive(false);
          return false;
@@ -72,10 +72,10 @@ class KalamaHelperHelperA implements ElementHandler {
       throw new UnsupportedOperationException();
    }
 
-   public boolean onAction(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
+   public boolean b(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
       if (this.c.test(this.d)) {
          this.d.setActive(true);
-         return this.d.onAction(element, mouseX, mouseY, button, type);
+         return this.d.b(element, mouseX, mouseY, button, type);
       } else {
          this.d.setActive(false);
          return false;

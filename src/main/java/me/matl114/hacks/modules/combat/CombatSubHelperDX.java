@@ -38,12 +38,12 @@ public class CombatSubHelperDX extends CombatSubHelperOX implements CombatSubHel
 
          if (this.t.uS) {
             if (var3) {
-               this.setTargetToPlayer(this.t.uI.getPos());
+               this.e(this.t.uI.getPos());
                this.M();
                machine.e();
                return 3;
             } else {
-               this.setTargetToPlayer(this.t.uI.getPos());
+               this.e(this.t.uI.getPos());
                Vec3d var8 = this.u.normalize().multiply(0.1);
                Vec3d var9 = MovTasks.simulateMovement(MinecraftClient.getInstance().player, MinecraftClient.getInstance().player.getPos(), var8, true);
                boolean var10 = var9.squaredDistanceTo(var8) > 1.0E-4;
@@ -73,12 +73,12 @@ public class CombatSubHelperDX extends CombatSubHelperOX implements CombatSubHel
                   return 2;
                }
             } else if (var3) {
-               this.setTargetToPlayer(this.t.uI.getPos());
+               this.e(this.t.uI.getPos());
                this.M();
                machine.e();
                return 2;
             } else {
-               this.setTargetToPlayer(var2);
+               this.e(var2);
                if (this.u.y > 0.0) {
                   this.u = Vec3d.ZERO;
                   return 1;
@@ -91,7 +91,8 @@ public class CombatSubHelperDX extends CombatSubHelperOX implements CombatSubHel
       }
    }
 
-   protected void setTargetToPlayer(Vec3d targetPos) {
+   @Override
+   protected void e(Vec3d targetPos) {
       Vec3d var2 = MinecraftClient.getInstance().player.getPos();
       Vec3d var3;
       if (this.t.uS) {
@@ -148,7 +149,7 @@ public class CombatSubHelperDX extends CombatSubHelperOX implements CombatSubHel
       }
    }
 
-   protected void setTargetToPlayerUpper(Vec3d predictor) {
+   protected void d(Vec3d predictor) {
       if (this.t.uS) {
          if (predictor.y > MinecraftClient.getInstance().player.getY()) {
             this.u = predictor.withAxis(Axis.Y, predictor.getY() + this.t.maceHeightGround.get()).subtract(MinecraftClient.getInstance().player.getPos());
@@ -228,12 +229,12 @@ public class CombatSubHelperDX extends CombatSubHelperOX implements CombatSubHel
       if (headSimulation) {
          Vec3d var3 = this.t.uI.getPos().subtract(MinecraftClient.getInstance().player.getPos());
          if (var3.horizontalLength() > this.t.DE()) {
-            this.setTargetToPlayerUpper(predictor);
+            this.d(predictor);
          } else {
             this.u = new Vec3d(-var3.x, 0.0, -var3.z).normalize().multiply(10.0);
          }
       } else {
-         this.setTargetToPlayerUpper(predictor);
+         this.d(predictor);
       }
    }
 
@@ -258,15 +259,10 @@ public class CombatSubHelperDX extends CombatSubHelperOX implements CombatSubHel
          }
       } else {
          Vec3d var10 = this.t.macePullUpUsePredictor.get() ? PositionPredict.INSTANCE.attackPredictArgument.get().predict(this.t.uI) : this.t.uI.getPos();
-         this.setTargetToPlayerUpper(var10);
+         this.d(var10);
          machine.e();
          return 1;
       }
    }
-
-
-
-   @Override
-   public void d(Object arg0) { }
 
 }

@@ -408,14 +408,15 @@ public class Travel extends BaseModule implements HackUtilHelperJ {
    }
 
    private MoveSubHelperAh QH(TravellingControl$Type type) {
-      return (MoveSubHelperAh)(switch (type) {
+      MoveSubHelperAh var2 = switch (type) {
          case ELYTRASKY -> new MoveSubHelperX(this);
          case ELYTRA_PITCH40 -> new MoveSubHelperKX(this);
          case ELYTRA_GRIM_FLY40 -> new MoveSubHelperUX(this);
          case MOV_VOID -> new MoveSubHelperAk(this);
          case MOV_VOID_2 -> new MoveSubHelperP(this);
          default -> eve -> true;
-      });
+      };
+      return var2;
    }
 
    @Override

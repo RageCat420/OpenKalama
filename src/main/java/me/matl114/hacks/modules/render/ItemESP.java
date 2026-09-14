@@ -123,7 +123,7 @@ public class ItemESP extends BaseModule {
                         }
 
                         if (this.nameDisplaySpecial.get()) {
-                           this.gP.submit(new HackUtilHelperB(var19, var11.getBoundingBox().getCenter(), (float)(Object)this.nameScale.get()), var7);
+                           this.gP.submit(new HackUtilHelperB(var19, var11.getBoundingBox().getCenter(), (float)this.nameScale.get()), var7);
                         }
                      } else if (var3) {
                         if (var8.box()) {
@@ -146,7 +146,7 @@ public class ItemESP extends BaseModule {
                            }
 
                            if (var17 != null) {
-                              this.gP.submit(new HackUtilHelperB(var17, var11.getBoundingBox().getCenter(), (float)(Object)this.nameScale.get()), var6);
+                              this.gP.submit(new HackUtilHelperB(var17, var11.getBoundingBox().getCenter(), (float)this.nameScale.get()), var6);
                            }
                         }
                      }
@@ -262,19 +262,20 @@ public class ItemESP extends BaseModule {
       this.drawName = this.flagBuilder(this.gx.add("draw-name")).build();
       this.options = this.builder(this.gx.add("options"), TracingOption.class).defaultValue(new TracingOption(true, false)).build();
       this.nameDisplay = this.flagBuilder(this.gx.add("name-display")).build();
-      this.nbtPredicate = this.builder(this.gx.add("nbt-predicate"), PrimitiveList.uA())
-         .defaultValue(new PrimitiveList<>(NBTTypes.n, List.of()))
+      this.nbtPredicate = this.builder(this.gx.add("nbt-predicate"), PrimitiveList.<NbtCompound>uA())
+         .defaultValue(new PrimitiveList<NbtCompound>(NBTTypes.n, List.of()))
          .updateListener(s -> this.hG(s.list()))
-         .build();
-      this.dx = this.builder(this.gx.add("item-type"), EntrySet.parameter())
-         .defaultValue(
-            new EntrySet(
-               new Regex("^(.*ton_skull|netherite.*|.*_star|.*_apple|.*potion|tot.*|end_c.*l|obsi.*|.*anchor|expe.*|mace|ely.*|.*shulker.*|trident)$"),
-               Registries.ITEM
-            )
+         .<NBTRef>build();
+      Class<EntrySet<Item>> varT = EntrySet.parameter();
+      me.matl114.hacks.api.WrapperSettingBuilder varB = this.builder(this.gx.add("item-type"), varT);
+      varB.defaultValue(
+         new EntrySet(
+            new Regex("^(.*ton_skull|netherite.*|.*_star|.*_apple|.*potion|tot.*|end_c.*l|obsi.*|.*anchor|expe.*|mace|ely.*|.*shulker.*|trident)$"),
+            Registries.ITEM
          )
-         .updateListener(this::kj)
-         .build();
+      );
+      varB.updateListener((Object r) -> this.kj((EntrySet<Item>)r));
+      this.dx = (NBTRef<EntrySet<Item>>)(Object)varB.build();
       this.specialOptions = this.builder(this.gx.add("special-options"), TracingOption.class).defaultValue(new TracingOption(true, true)).build();
       this.nameDisplaySpecial = this.builder(this.gx.add("name-display-special"), Boolean.class).defaultValue(true).build();
       this.color = this.builder(this.gx.add("color"), WrapColor.class).defaultValue(new WrapColor(Formatting.YELLOW)).build();

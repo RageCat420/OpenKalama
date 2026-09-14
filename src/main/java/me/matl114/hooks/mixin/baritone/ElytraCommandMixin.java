@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Pseudo
 @Environment(EnvType.CLIENT)
 @Mixin({ElytraCommand.class})
-public class ElytraCommandMixin extends Command {
+public abstract class ElytraCommandMixin extends Command {
    public ElytraCommandMixin(IBaritone iBaritone, String... strings) {
       super(iBaritone, strings);
    }
@@ -67,7 +67,5 @@ public class ElytraCommandMixin extends Command {
          Debug.chat("[BaritoneFix] Using seed", BaritoneAPI.getSettings().elytraNetherSeed.value);
       }
    }
-
-   public void getLongDesc() { }
 
 }

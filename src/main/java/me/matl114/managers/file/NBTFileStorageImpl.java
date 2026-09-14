@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import me.matl114.utils.FileUtils;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtOps;
 
@@ -47,13 +48,14 @@ public class NBTFileStorageImpl extends FileStorageImpl {
       this.h();
    }
 
-   public <W> DataResult<W> read(Codec<W> codec) {
+   @Override
+   public <W> DataResult<W> e(Codec<W> codec) {
       return codec.parse(NbtOps.INSTANCE, this.nbtCompound);
    }
 
    @Override
    public <W> DataResult<?> f(Codec<W> codec, W value) {
-      DataResult var3 = codec.encodeStart(NbtOps.INSTANCE, value);
+      DataResult<NbtElement> var3 = codec.encodeStart(NbtOps.INSTANCE, value);
       var3.result().ifPresent(result -> this.write(result, NbtOps.INSTANCE));
       return var3;
    }
@@ -64,7 +66,8 @@ public class NBTFileStorageImpl extends FileStorageImpl {
       this.g = true;
    }
 
-   public <T, W extends T> W asReadOnly(DynamicOps<T> ops) {
+   @Override
+   public <T, W extends T> W b(DynamicOps<T> ops) {
       return (W)(ops == NbtOps.INSTANCE ? this.nbtCompound : NbtOps.INSTANCE.convertTo(ops, this.nbtCompound));
    }
 
@@ -84,7 +87,8 @@ public class NBTFileStorageImpl extends FileStorageImpl {
       }
    }
 
-   public <T, W extends T> W as(DynamicOps<T> ops) {
+   @Override
+   public <T, W extends T> W c(DynamicOps<T> ops) {
       return (W)NbtOps.INSTANCE.convertTo(ops, this.nbtCompound);
    }
 

@@ -2,7 +2,7 @@ package me.matl114.hooks;
 
 import meteordevelopment.meteorclient.MeteorClient;
 
-public class MeteorHooks implements IHooks {
+public abstract class MeteorHooks implements IHooks {
    private static MeteorHooks INSTANCE;
 
    public static MeteorHooks getInstance() {

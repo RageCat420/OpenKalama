@@ -139,9 +139,9 @@ public class EntityESP extends BaseModule {
          .path(this.HD.add("whitelist").toPath())
          .defaultValue(new EntrySet<EntityType<?>>(new Regex("player,wither"), Registries.ENTITY_TYPE))
          .build();
-      this.color = this.builder(this.HD.add("color"), NBTType.<EntryPrimitiveMap<EntityType<?>, Boolean>>parameter(EntryPrimitiveMap.class))
+      this.color = this.builder(this.HD.add("color"), NBTType.<EntryPrimitiveMap<EntityType<?>, TextColor>>parameter(EntryPrimitiveMap.class))
          .defaultValue(
-            new EntryPrimitiveMap<>(
+            new EntryPrimitiveMap<EntityType<?>, TextColor>(
                Registries.ENTITY_TYPE,
                NBTTypes.h,
                Map.of(

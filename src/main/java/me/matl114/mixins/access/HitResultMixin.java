@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Environment(EnvType.CLIENT)
 @Mixin({HitResult.class})
-public class HitResultMixin implements HitResultAccess {
+public abstract class HitResultMixin implements HitResultAccess {
    @Mutable
    @Accessor("pos")
    @Override
-   public void setPos(Vec3d var1) { }
+public abstract void setPos(Vec3d var1) ;
 }

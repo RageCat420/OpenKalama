@@ -21,9 +21,5 @@ public class BukkitOfflineplayer implements Dispatch {
       offline.QD = (String)args.get("uuid");
       return offline;
    }
-   @Override
-   public Map by() {
-      return this.serialize();
-   }
 
 }

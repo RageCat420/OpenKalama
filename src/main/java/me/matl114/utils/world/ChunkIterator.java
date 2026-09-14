@@ -74,6 +74,8 @@ public class ChunkIterator implements Iterator<Chunk> {
 
 
    @Override
-   public void next() { }
+   public Chunk next() {
+      return this.e();
+   }
 
 }

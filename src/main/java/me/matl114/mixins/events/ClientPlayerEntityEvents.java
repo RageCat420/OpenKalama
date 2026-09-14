@@ -44,7 +44,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin({ClientPlayerEntity.class})
-public class ClientPlayerEntityEvents extends AbstractClientPlayerEntity implements ClientPlayerEntityAccess {
+public abstract class ClientPlayerEntityEvents extends AbstractClientPlayerEntity implements ClientPlayerEntityAccess {
    @Shadow
    private double field_3926;
    @Shadow
@@ -74,7 +74,7 @@ public class ClientPlayerEntityEvents extends AbstractClientPlayerEntity impleme
    int lastCancelTick = 0;
 
    @Shadow
-   public boolean method_20303() { }
+public abstract boolean method_20303() ;
 
    @Shadow
    public void method_33689() { }
@@ -373,15 +373,11 @@ public class ClientPlayerEntityEvents extends AbstractClientPlayerEntity impleme
       at = {@At("HEAD")},
       cancellable = true
    )
-   private void onCloseHandledScreen(CallbackInfo ci) {
-      if (this.checkClientPlayer() && !Listener.bg().fireEvent(null)) {
-         ci.cancel();
-      }
-   }
-
-   public void updateEquipmentAttributeChange() { }
-
-
-   public void tickEquipment() { }
+    private void onCloseHandledScreen(CallbackInfo ci) {
+       if (this.checkClientPlayer() && !Listener.bg().fireEvent(null)) {
+          ci.cancel();
+       }
+    }
 
 }
+

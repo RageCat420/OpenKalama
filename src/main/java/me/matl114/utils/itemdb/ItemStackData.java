@@ -31,7 +31,15 @@ public interface ItemStackData {
    });
    ItemStack Iy = CustomItemStackBuilder.a().type(Items.STRUCTURE_VOID).amount(1).e("&c物品索引缺失").g().i("").i("&7请修复item-database.json").endLore().build();
 
-   public default JsonElement gb() { }
+   JsonElement gb();
+
+   ItemStack gf();
+
+   ItemStack ge();
+
+   void resolveItemStack();
+
+   boolean isValid();
 
    public static ItemStackData wrapCopy(ItemStack stack) {
       if (stack.isEmpty()) {
@@ -42,12 +50,6 @@ public interface ItemStackData {
          return new KalamaHelperHelperD(var1, stack);
       }
    }
-
-   public default ItemStack gf() { }
-
-   public default ItemStack ge() { }
-
-   public default void resolveItemStack() { }
 
    public static ItemStackData Xa(ItemStack stack) {
       return (ItemStackData)(stack.isEmpty() ? Iz : new KalamaHelperHelperC(stack.copyWithCount(1)));
@@ -88,12 +90,5 @@ public interface ItemStackData {
    public static ItemStackData wrapRaw(ItemStack stack) {
       return (ItemStackData)(stack.isEmpty() ? Iz : new KalamaHelperHelperC(stack));
    }
-
-   public default boolean isValid() { }
-
-   default JsonElement gb() { return null; }
-
-
-   default ItemStack gf() { return null; }
 
 }

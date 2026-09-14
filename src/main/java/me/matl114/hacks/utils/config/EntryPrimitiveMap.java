@@ -111,10 +111,12 @@ public class EntryPrimitiveMap<T, W> extends PrimitiveMap<Holder<T>, W> {
    private static <T, W> Codec<EntryPrimitiveMap<T, W>> legacyCodec() {
       return RecordCodecBuilder.create(
          instance -> instance.group(
-               CodecUtils.arrayMapCodec(Holder.TYPE.<T>cast().typeCodec(), Primitive.TYPE.cast().typeCodec()).fieldOf("data").forGetter(EntryPrimitiveMap::uG),
-               Registries.REGISTRIES.getCodec().fieldOf("key_type").forGetter(EntryPrimitiveMap::registry),
-               NBTTypes.codec().fieldOf("value_type").forGetter(PrimitiveMap::valueType),
-               Primitive.TYPE.cast().typeCodec().optionalFieldOf("default_primitive").forGetter(PrimitiveMap::defaultValuePrimitive)
+               CodecUtils.arrayMapCodec(Holder.TYPE.<Holder<T>>cast().typeCodec(), Primitive.TYPE.<Primitive<W>>cast().typeCodec())
+                  .fieldOf("data")
+                  .forGetter(EntryPrimitiveMap::uG),
+               ((Codec<Registry<T>>)Registries.REGISTRIES.getCodec()).fieldOf("key_type").forGetter(EntryPrimitiveMap::registry),
+               NBTTypes.<W>codec().fieldOf("value_type").forGetter(PrimitiveMap::valueType),
+               Primitive.TYPE.<Primitive<W>>cast().typeCodec().optionalFieldOf("default_primitive").forGetter(PrimitiveMap::defaultValuePrimitive)
             )
             .apply(instance, EntryPrimitiveMap::new)
       );
@@ -152,7 +154,7 @@ public class EntryPrimitiveMap<T, W> extends PrimitiveMap<Holder<T>, W> {
 
    @Nullable
    public W uJ(T value) {
-      Map<T, W> var2 = this.map();
+      Map<Holder<T>, W> var2 = this.map();
       W var3 = var2.get(Holder.of(this.registry(), value));
       return var3 != null ? var3 : var2.get(Holder.of(this.registry(), null));
    }
@@ -168,15 +170,15 @@ public class EntryPrimitiveMap<T, W> extends PrimitiveMap<Holder<T>, W> {
    }
 
    public static <T, W> NBTType<EntryPrimitiveMap<T, W>> createEntry() {
-      WrapperFactory var0 = uI();
-      NBTType var1 = PrimitiveMap.TYPE.cast();
-      AttrKeyValue.CustomWidgetFactory var2 = (attr, x, y, dx, dy) -> var1.customWidgetFactory()
+      WrapperFactory<PrimitiveMap<Holder<T>, W>, EntryPrimitiveMap<T, W>> var0 = uI();
+      NBTType<PrimitiveMap<Holder<T>, W>> var1 = PrimitiveMap.TYPE.cast();
+      AttrKeyValue.CustomWidgetFactory<EntryPrimitiveMap<T, W>> var2 = (attr, x, y, dx, dy) -> var1.customWidgetFactory()
          .generateWidget(new TypeConvertAttrKeyValue<>(attr, var0, var1), x, y, dx, dy);
       return new NBTType<>(
          "entryprimitivemap",
          Codec.withAlternative(var0.wrapCodecXmap(var1.typeCodec()), legacyCodec()),
          var2,
-         new EntryPrimitiveMap<>(Registries.BLOCK, (NBTType<W>)NBTTypes.g, Map.of())
+         (EntryPrimitiveMap<T, W>)new EntryPrimitiveMap<>(Registries.BLOCK, NBTTypes.g, Map.of())
       );
    }
 }

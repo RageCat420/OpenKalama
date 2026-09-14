@@ -13,7 +13,7 @@ record KalamaHelperHelperP(boolean inverted, String value) {
       return raw.startsWith("!") ? new KalamaHelperHelperP(true, raw.substring(1)) : new KalamaHelperHelperP(false, raw);
    }
 
-   private KalamaHelperHelperP(boolean inverted, String value) {
+   KalamaHelperHelperP(boolean inverted, String value) {
       this.inverted = inverted;
       this.value = value;
    }

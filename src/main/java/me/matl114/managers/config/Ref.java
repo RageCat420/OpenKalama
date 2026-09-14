@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import me.matl114.utils.config.BaseAttrKeyValue;
 
-public class Ref<T> {
+public abstract class Ref<T> {
    protected Config configReference;
    @Nonnull
    Optional<T> defaultValue = Optional.empty();
@@ -45,9 +45,9 @@ public class Ref<T> {
       }
    }
 
-   public T getValue() { }
+   public abstract T getValue();
 
-   public void setValue(T var1) { }
+   public abstract void setValue(T var1);
 
    public void addUpdateListener(Consumer<T> updateListener) {
       if (updateListener != null) {
@@ -105,11 +105,11 @@ public class Ref<T> {
       }
    }
 
-   public Object getAsPrimitive() { }
+   public abstract Object getAsPrimitive();
 
-   public <W> boolean isSameTypeWith(Ref<W> var1) { }
+   public abstract <W> boolean isSameTypeWith(Ref<W> var1);
 
-   public <W> boolean copyValueFrom(Ref<W> var1) { }
+   public abstract <W> boolean copyValueFrom(Ref<W> var1);
 
    public final BaseAttrKeyValue<T> createKeyValue(String key) {
       BaseAttrKeyValue<T> keyValue = this._createKeyValue0(key);

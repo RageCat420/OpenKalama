@@ -229,7 +229,7 @@ public class EncryptChat extends BaseModule {
       ConfirmingWidgetScreen var6 = new ConfirmingWidgetScreen(
          Text.translatable("widget.encrypt-chat.key-list-editor.title"),
          var5,
-         EncryptChat::shouldEncryptSendMessage,
+         this::shouldEncryptSendMessage,
          () -> this.qI(new ChatSubHelperK(var3.getValue() == null ? -1 : var1.indexOf(var3.getValue()), List.copyOf(var1)))
       );
       var6.access().openFromCurrent();

@@ -131,12 +131,12 @@ public class ElytraFlight extends BaseModule implements HackUtilHelperJ {
                      if (var23.y > 0.0) {
                         if (this.overridePullupAngle.get().isPresent()) {
                            double var12 = this.overridePullupAngle.get().getValue();
-                           double var14 = Math.tan(Math.abs(var12)) * var26.horizontalLength();
+                            double var14 = Math.tan(Math.abs(Math.toRadians(var12))) * var26.horizontalLength();
                            var26 = var26.withAxis(Axis.Y, var14);
                         }
                      } else if (var23.y < 0.0 && this.overrideDownwardAngle.get().isPresent()) {
                         double var27 = this.overrideDownwardAngle.get().getValue();
-                        double var28 = Math.tan(Math.abs(var27)) * var26.horizontalLength();
+                         double var28 = Math.tan(Math.abs(Math.toRadians(var27))) * var26.horizontalLength();
                         var26 = var26.withAxis(Axis.Y, -var28);
                      }
                   }
@@ -291,13 +291,13 @@ public class ElytraFlight extends BaseModule implements HackUtilHelperJ {
       this.Tj = this.JY.add("simple-flight-control");
       this.Tk = this.JY.add("custom-fireworks");
       this.enableControl = this.flagBuilder(this.Tj.add("enable-control")).build();
+      this.flightMode = this.builder(this.Tj.add("flight-mode"), ElytraFlight$Mode.class).defaultValue(ElytraFlight$Mode.CONTROL).build();
       this.enableControlHotkey = this.moduleEntry(
             this.Tj.add("enable-control-hotkey"), new MultiKeyBind(), this.Tj.add("enable-control"), moduleMeta(() -> this.flightMode)
          )
          .build();
       this.motionAmount = this.builder(this.Tk.add("motion-amount"), DoubleRef.TYPE).defaultValue(0.05).validator(Configs.doubleRange(0.0, 10000.0)).build();
       this.motionMode = this.builder(this.Tj.add("motion-mode"), ElytraExtra$MotionMode.class).defaultValue(ElytraExtra$MotionMode.VOID).build();
-      this.flightMode = this.builder(this.Tj.add("flight-mode"), ElytraFlight$Mode.class).defaultValue(ElytraFlight$Mode.CONTROL).build();
       this.flightToggle = this.hotkey(this.Tj.add("flight-toggle")).defaultValue(new MultiKeyBind()).registerHotkey(HotKeyUtils.c(this::alu)).build();
       this.useFloatingUtils = this.flagBuilder(this.Tj.add("use-floating-utils")).build();
       this.horizontalNoGravity = this.builder(this.Tj.add("horizontal-no-gravity"), Boolean.class).defaultValue(true).build();

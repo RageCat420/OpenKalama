@@ -52,6 +52,4 @@ public interface VPacket {
       return getInstance().b(x, y, z, isOnGround, collision);
    }
 
-   default VehicleMoveC2SPacket e(Entity var1) { return null; }
-
 }

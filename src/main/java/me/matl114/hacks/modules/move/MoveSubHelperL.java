@@ -36,7 +36,7 @@ public class MoveSubHelperL {
    public boolean h;
 
    public void tickUpdate(PlayerEntity player) {
-      AttributeContainer var2 = new AttributeContainer(DefaultAttributeRegistry.get(player.getType()));
+      AttributeContainer var2 = new AttributeContainer(DefaultAttributeRegistry.get((net.minecraft.entity.EntityType<? extends net.minecraft.entity.LivingEntity>)player.getType()));
       var2.setFrom(player.getAttributes());
       this.b = var2;
       int var3 = 0;

@@ -89,6 +89,13 @@ public class ChatSubHelperQ implements EncryptChat$Encryptor {
 
 
    @Override
-   public void a(Object arg0) { }
+   public String b(String message) {
+      return this.encrypt(message);
+   }
+
+   @Override
+   public String a(String message) {
+      return this.decrypt(message);
+   }
 
 }

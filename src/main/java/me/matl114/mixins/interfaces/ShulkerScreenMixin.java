@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({ShulkerBoxScreen.class})
-public class ShulkerScreenMixin extends HandledScreen<ShulkerBoxScreenHandler> implements TileInventory {
+public abstract class ShulkerScreenMixin extends HandledScreen<ShulkerBoxScreenHandler> implements TileInventory {
    @Unique
    private BlockPos pos;
    @Unique

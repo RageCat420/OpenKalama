@@ -7,7 +7,8 @@ import net.minecraft.network.packet.Packet;
 public class PacketCatcherImpl<T extends Packet<?>> extends AbstractTypedPacketCatcher<T> {
    Predicate<Event<T>> predicate;
 
-   public boolean onEvent(Event<T> packet) {
+   @Override
+   public boolean a(Event<T> packet) {
       return this.predicate.test(packet);
    }
 
@@ -15,10 +16,5 @@ public class PacketCatcherImpl<T extends Packet<?>> extends AbstractTypedPacketC
       super(packetClass);
       this.predicate = predicate;
    }
-
-
-
-   @Override
-   public boolean a(Object arg0) { return null; }
 
 }

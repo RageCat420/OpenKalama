@@ -8,7 +8,8 @@ import me.matl114.utils.commands.params.types.ExecuteRotation;
 public class KalamaHelperHelperG extends AbstractArgumentResult<ExecuteRotation> {
    String blockEntities;
 
-   public String k() {
+   @Override
+   public String a() {
       return this.blockEntities;
    }
 
@@ -23,8 +24,5 @@ public class KalamaHelperHelperG extends AbstractArgumentResult<ExecuteRotation>
          this.blockEntities = String.join(" ", this.c.getArgsInRange(startIndex, this.e));
       }
    }
-
-   @Override
-   public boolean k() { return false; }
 
 }

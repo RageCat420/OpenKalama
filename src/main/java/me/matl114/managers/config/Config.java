@@ -221,9 +221,9 @@ public class Config implements RefMap {
       return this.get(path) instanceof KeyBindRef ref ? ref : null;
    }
 
-   public boolean setValue(Ref<?> value, String... path) {
-      return this.ref.setValue(value, path);
-   }
+    private boolean setValue(Ref<?> value, String... path) {
+       return this.ref.setValue(value, path);
+    }
 
    @Override
    public ListRef getList(String... path) {
@@ -429,14 +429,14 @@ public class Config implements RefMap {
             String pathHotkey = String.join(".", this.path);
             if (SimpleInputManager.h().getHotkey(pathHotkey) instanceof SimpleHotKey simple) {
                simple.abS(handler);
-               this.updateListener(simple::abL);
+               ((Config.SettingBuilder<MultiKeyBind>)this).updateListener(simple::abL);
                return this;
             } else {
                MultiKeyBind defaultKeyBind = this.defaultValue == null ? new MultiKeyBind("") : (MultiKeyBind)(Object)this.defaultValue.orElse(null);
                SimpleHotKey hotKey1 = new SimpleHotKey(this.path, defaultKeyBind);
                hotKey1.abS(handler);
                SimpleInputManager.h().registerHotKeys(hotKey1);
-               this.updateListener(hotKey1::abL);
+               ((Config.SettingBuilder<MultiKeyBind>)this).updateListener(hotKey1::abL);
                return this;
             }
          } else {
@@ -445,7 +445,7 @@ public class Config implements RefMap {
       }
 
       public <W extends Ref<T>> Config.SettingBuilder<T> apply(Consumer<W> va) {
-         this.addPost(() -> va.accept((T)((Ref)Objects.requireNonNull((T)(Object)this.getRef()))));
+         this.addPost(() -> va.accept((W)Objects.requireNonNull(this.getRef())));
          return this;
       }
 

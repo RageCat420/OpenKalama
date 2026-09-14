@@ -184,7 +184,7 @@ jar {
 
 }
 tasks.named("runClient", JavaExec) {
-	jvmArgs("-XX:+AllowEnhancedClassRedefinition", "-XX:-OmitStackTraceInFastThrow"
+	jvmArgs("-XX:-OmitStackTraceInFastThrow"
 			, "-Dmixin.debug.export=true"
 			, "-Xmx6G", "-Xms3G"
 	)

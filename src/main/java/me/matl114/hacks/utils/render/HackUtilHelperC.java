@@ -14,7 +14,8 @@ import org.joml.Matrix4f;
 import org.joml.Vector2d;
 
 class HackUtilHelperC extends KalamaHelperHelperG<Box> {
-   public void render3D(MatrixStack matrices) {
+   @Override
+   public void a(MatrixStack matrices) {
       if (!this.entries.isEmpty()) {
          Vec3d var2 = RenderUtils.getCameraPos().negate();
          if (this.a) {
@@ -30,14 +31,14 @@ class HackUtilHelperC extends KalamaHelperHelperG<Box> {
 
          if (this.b || this.c) {
             VRender.getInstance().h((op, vtx) -> {
-               if (drawOutline) {
+               if (this.b) {
                   for (KalamaHelperHelperK var8 : this.entries) {
                      Box var9 = ((Box)var8.val()).offset(var2);
                      op.a(matrices, vtx, var9.getMinPos(), var9.getMaxPos(), var8.index());
                   }
                }
 
-               if (drawTraceLine) {
+               if (this.c) {
                   Vec3d var11 = RenderUtils.getTracerOrigin(0.0F);
 
                   for (KalamaHelperHelperK var13 : this.entries) {
@@ -56,7 +57,8 @@ class HackUtilHelperC extends KalamaHelperHelperG<Box> {
       this.c = var3;
    }
 
-   public void render2D(VDrawContext vdraw) {
+   @Override
+   public void b(VDrawContext vdraw) {
       if (!this.entries.isEmpty()) {
          Matrix4f var2 = RenderListener.B();
          Matrix4f var3 = RenderListener.D();
@@ -152,7 +154,4 @@ class HackUtilHelperC extends KalamaHelperHelperG<Box> {
    boolean b;
    boolean c;
 
-   @Override
-   public void a(Object arg0) { }
-
-}
+   }

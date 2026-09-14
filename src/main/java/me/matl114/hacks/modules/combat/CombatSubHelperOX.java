@@ -15,7 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Direction.Axis;
 
-public class CombatSubHelperOX extends CombatSubHelperSX implements CombatSubHelperG {
+public abstract class CombatSubHelperOX extends CombatSubHelperSX implements CombatSubHelperG {
    static final int j = 1;
    boolean attackFlag;
    public StateMachine stateMachine;
@@ -49,7 +49,7 @@ public class CombatSubHelperOX extends CombatSubHelperSX implements CombatSubHel
       this.stateMachine.c(0);
    }
 
-   public int b(StateMachine var1) { }
+   public abstract int onStatePullUp(StateMachine var1);
 
    public boolean J() {
       boolean var1 = this.r < Tasks.b() || Attack.INSTANCE.willUseMaceAttack(false);
@@ -88,7 +88,7 @@ public class CombatSubHelperOX extends CombatSubHelperSX implements CombatSubHel
       }
    }
 
-   public int c(StateMachine var1) { }
+   public abstract int onStateFollow(StateMachine var1);
 
    public int onCondition(StateMachine machine, int state) {
       if (this.t.uI == null) {
@@ -161,7 +161,7 @@ public class CombatSubHelperOX extends CombatSubHelperSX implements CombatSubHel
    public CombatSubHelperOX() {
       this.o = 0;
       this.attackFlag = false;
-      this.stateMachine = new StateMachine(0, this::onCondition, this::onStateNone, this::b, this::c, this::onStateWaitAttack);
+      this.stateMachine = new StateMachine(0, this::onCondition, this::onStateNone, this::onStatePullUp, this::onStateFollow, this::onStateWaitAttack);
       this.stateMachine.registerListener(3, this::D);
       this.stateMachine.registerListener(1, this::onStartPullUp);
    }

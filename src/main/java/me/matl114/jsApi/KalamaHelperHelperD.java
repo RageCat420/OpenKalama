@@ -46,7 +46,8 @@ public class KalamaHelperHelperD implements JsMacrosBridge {
       }
    }
 
-   public Object createInventory() {
+   @Override
+   public Object d() {
       return Inventory.create();
    }
 
@@ -55,7 +56,8 @@ public class KalamaHelperHelperD implements JsMacrosBridge {
       return new xyz.wagyourtail.jsmacros.client.api.helper.inventory.ItemStackHelper(what);
    }
 
-   public Object wrap(Object object) {
+   @Override
+   public Object b(Object object) {
       FJavaUtils var2 = this.b;
       if (object instanceof Vec3d var6) {
          return new Pos3D(var6);
@@ -73,7 +75,8 @@ public class KalamaHelperHelperD implements JsMacrosBridge {
       }
    }
 
-   public <T> T forceUnwrap(Object what, Class<T> type) {
+   @Override
+   public <T> T a(Object what, Class<T> type) {
       if (what instanceof BaseHelper var8) {
          Object var4 = var8.getRaw();
          return (T)type.cast(var4);

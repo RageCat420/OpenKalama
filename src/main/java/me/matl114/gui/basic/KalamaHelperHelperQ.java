@@ -2,7 +2,7 @@ package me.matl114.gui.basic;
 
 public interface KalamaHelperHelperQ extends KalamaHelperHelperK {
    @Override
-   default boolean onKey(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
+   default boolean d(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
       return isPress && this.onPress(widget, keyCode);
    }
 

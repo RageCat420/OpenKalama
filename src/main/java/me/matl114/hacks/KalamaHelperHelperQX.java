@@ -16,7 +16,8 @@ class KalamaHelperHelperQX implements KalamaHelperHelperH {
       this.this$0 = this$0;
    }
 
-   public boolean execute(CommandExecution var1, ArgumentInputStream streamArgs, ArgumentReader argsReader) {
+   @Override
+   public boolean a(CommandExecution var1, ArgumentInputStream streamArgs, ArgumentReader argsReader) {
       int var4 = streamArgs.nextInt();
       int var5 = streamArgs.nextInt();
       String[] var6 = argsReader.k();
@@ -32,15 +33,11 @@ class KalamaHelperHelperQX implements KalamaHelperHelperH {
       return true;
    }
 
-   public List<String> supplyTab(CommandExecution var1, ArgumentInputStream streamArgs, ArgumentReader argsReader) {
+   @Override
+   public List<String> b(CommandExecution var1, ArgumentInputStream streamArgs, ArgumentReader argsReader) {
       ArgumentReader var4 = new ArgumentReader(argsReader.k());
       var4.d();
       return this.this$0.e(var1, argsReader);
    }
-
-
-
-   @Override
-   public boolean a(Object arg0, Object arg1, Object arg2) { return null; }
 
 }

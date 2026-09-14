@@ -11,6 +11,7 @@ import me.matl114.managers.config.ConfigEnum;
 import me.matl114.managers.config.EnumRef;
 import me.matl114.managers.config.NBTParsable;
 import me.matl114.managers.config.NBTType;
+import me.matl114.utils.config.AttrKeyValue;
 import me.matl114.utils.config.WrapperFactory;
 import me.matl114.utils.config.kv.EnumAttrKeyValue;
 import me.matl114.utils.config.kv.TypeConvertAttrKeyValue;
@@ -91,21 +92,29 @@ public class WrapEnum<T extends ConfigEnum> implements NBTParsable<WrapEnum<T>> 
    }
 
    private static <T extends ConfigEnum> NBTType<WrapEnum<T>> create() {
-      return new NBTType<>(
+      return new NBTType<WrapEnum<T>>(
          "wrapenum",
-         Codec.STRING.comapFlatMap(WrapEnum::fromString, WrapEnum::aog),
+         (Codec)Codec.STRING.comapFlatMap(WrapEnum::fromString, WrapEnum::aog),
          (s, x, y, dx, dy) -> {
-            WrapEnum<T> wrapEnum = (WrapEnum<T>)s.getOriginValue();
+            WrapEnum<T> wrapEnum = s.getOriginValue();
             if (!wrapEnum.resolved) {
                wrapEnum.tryResolve();
             }
 
             if (wrapEnum.resolved) {
-               Map<String, T> configEnumType = (Map<String, T>)wrapEnum.value.getMap();
+               Map<String, T> configEnumType = (Map)wrapEnum.value.getMap();
                Map<T, String> inversedMap = configEnumType.entrySet().stream().collect(Collectors.toMap(Entry::getValue, Entry::getKey));
                WrapperFactory<String, T> factory = WrapperFactory.of(configEnumType::get, inversedMap::get);
                return EnumAttrKeyValue.createFiniteLookupWidgetFactory(configEnumType)
-                  .generateWidget(new TypeConvertAttrKeyValue<>(s, WrapperFactory.of(WrapEnum::new, WrapEnum::get), null, factory), x, y, dx, dy);
+                  .generateWidget(
+                     new TypeConvertAttrKeyValue<WrapEnum<T>, T>(
+                        (AttrKeyValue)s, WrapperFactory.of(WrapEnum::new, WrapEnum::get), null, factory
+                     ),
+                     x,
+                     y,
+                     dx,
+                     dy
+                  );
             } else {
                throw new IllegalStateException("Access to a config enum instance before it is registered");
             }

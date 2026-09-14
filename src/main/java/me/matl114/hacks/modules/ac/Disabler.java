@@ -101,8 +101,8 @@ public class Disabler extends BaseModule {
 
    public Disabler() {
       super("Disabler");
-      this.J = this.moduleEntry(this.RC.addHotkey(), new MultiKeyBind(), this.RC.addEnable(), moduleMeta(() -> this.currentAc)).build();
       this.currentAc = this.builder(this.RC.add("current-ac"), DisablerManager$SupportAC.class).defaultValue(DisablerManager$SupportAC.NONE).build();
+      this.J = this.moduleEntry(this.RC.addHotkey(), new MultiKeyBind(), this.RC.addEnable(), moduleMeta(() -> this.currentAc)).build();
       this.grimSelfCheck = this.builder(this.RC.add("grim-self-check"), Boolean.class).defaultValue(false).build();
       this.grimMultiPlace = this.builder(this.RC.add("grim-multi-place"), Boolean.class).defaultValue(true).build();
       this.autoFlushMultiPlaceQueue = this.builder(this.RC.add("auto-flush-multi-place-queue"), Boolean.class).defaultValue(true).build();

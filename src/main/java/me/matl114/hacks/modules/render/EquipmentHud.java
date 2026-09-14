@@ -114,9 +114,4 @@ public class EquipmentHud extends IRender2DModule {
       this.map.put(EquipmentSlot.FEET, this.feetPos);
    }
 
-
-
-   @Override
-   public void hK(Object arg0) { }
-
 }

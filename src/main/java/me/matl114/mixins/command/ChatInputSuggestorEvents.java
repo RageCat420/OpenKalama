@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({ChatInputSuggestor.class})
-public class ChatInputSuggestorEvents {
+public abstract class ChatInputSuggestorEvents {
    @Shadow
    @Final
    TextFieldWidget field_21599;

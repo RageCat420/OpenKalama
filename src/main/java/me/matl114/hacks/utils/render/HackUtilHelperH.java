@@ -18,7 +18,8 @@ import org.joml.Matrix4f;
 import org.joml.Vector2d;
 
 class HackUtilHelperH extends KalamaHelperHelperG<HackUtilHelperB> {
-   public void render2D(VDrawContext vdraw) {
+   @Override
+   public void b(VDrawContext vdraw) {
       if (!this.entries.isEmpty()) {
          Matrix4f var2 = RenderListener.B();
          Matrix4f var3 = RenderListener.D();
@@ -51,7 +52,8 @@ class HackUtilHelperH extends KalamaHelperHelperG<HackUtilHelperB> {
       }
    }
 
-   public void render3D(MatrixStack stack) {
+   @Override
+   public void a(MatrixStack stack) {
       if (!this.entries.isEmpty()) {
          Vec3d var2 = RenderUtils.getCameraPos().negate();
 
@@ -83,7 +85,4 @@ class HackUtilHelperH extends KalamaHelperHelperG<HackUtilHelperB> {
 
 
 
-   @Override
-   public void a(Object arg0) { }
-
-}
+   }

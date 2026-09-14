@@ -6,7 +6,7 @@ import me.matl114.gui.basic.KalamaHelperHelperM;
 import me.matl114.gui.basic.KalamaHelperHelperP;
 
 class KalamaHelperHelperF implements KalamaHelperHelperP {
-   public boolean onAction(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
+   public boolean b(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
       if (type == KalamaHelperHelperM.nR) {
          return element.isMouseOver(mouseX, mouseY);
       } else {

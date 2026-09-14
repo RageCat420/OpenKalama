@@ -56,7 +56,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 
-public class BaritoneHooks implements IHooks {
+public abstract class BaritoneHooks implements IHooks {
    private static BaritoneHooks instance;
    public static List<BlockPos> currentNetherElytraPath = List.of();
    private static final MinecraftClient mc = MinecraftClient.getInstance();
@@ -80,41 +80,41 @@ public class BaritoneHooks implements IHooks {
       return instance;
    }
 
-   public boolean handleCommand(String var1) { }
+   public abstract boolean handleCommand(String var1);
 
-   public Map<String, ValueAccessor<?>> getAllSettings() { }
+   public abstract Map<String, ValueAccessor<?>> getAllSettings();
 
-   public <T> ValueAccessor<T> getSetting(String var1) { }
+   public abstract <T> ValueAccessor<T> getSetting(String var1);
 
-   public boolean isBaritoneElytraProcessing() { }
+   public abstract boolean isBaritoneElytraProcessing();
 
-   public boolean isBaritonePathing() { }
+   public abstract boolean isBaritonePathing();
 
-   public void setBaritoneNetherPathSupplier(Supplier<List<BlockPos>> var1) { }
+   public abstract void setBaritoneNetherPathSupplier(Supplier<List<BlockPos>> var1);
 
-   public void updateBaritoneNetherPath() { }
+   public abstract void updateBaritoneNetherPath();
 
    public final List<BlockPos> getCurrentNetherPath() {
       return currentNetherElytraPath;
    }
 
-   public void setBaritoneCurrentElytraDestination(@Nullable BlockPos var1) { }
+   public abstract void setBaritoneCurrentElytraDestination(@Nullable BlockPos var1);
 
-   public void setBaritoneCurrentPathingDestination(@Nullable BlockPos var1) { }
+   public abstract void setBaritoneCurrentPathingDestination(@Nullable BlockPos var1);
 
-   public Vec2f getBaritoneCurrentMoveRot(ClientPlayerEntity var1) { }
+   public abstract Vec2f getBaritoneCurrentMoveRot(ClientPlayerEntity var1);
 
-   public void setBaritoneCurrentGoal(IPathGoal var1) { }
+   public abstract void setBaritoneCurrentGoal(IPathGoal var1);
 
-   public boolean isBaritoneGoalPathingActive() { }
+   public abstract boolean isBaritoneGoalPathingActive();
 
-   public void cancelBaritone() { }
+   public abstract void cancelBaritone();
 
-   public String getCommandPrefix() { }
+   public abstract String getCommandPrefix();
 
-   public boolean isBaritoneAPISupported() { }
+   public abstract boolean isBaritoneAPISupported();
 
-   public boolean isBaritoneVersionSupported() { }
+   public abstract boolean isBaritoneVersionSupported();
 
    public static EventChannel<BaritoneFuture> getLandingEvent() {
       return landingEvent;
@@ -128,7 +128,7 @@ public class BaritoneHooks implements IHooks {
       return moveRotEvent;
    }
 
-   public static class AbstractBaritoneVersion extends BaritoneHooks {
+   public abstract static class AbstractBaritoneVersion extends BaritoneHooks {
       final Settings settings;
       final Map<String, ValueAccessor<?>> settingsMap = new LinkedHashMap<>();
       final ValueAccessor<String> prefix;
@@ -176,19 +176,22 @@ public class BaritoneHooks implements IHooks {
                         this.settingsMap.remove(string);
                      } else if (!(re instanceof Boolean) && !(re instanceof Number) && !(re instanceof String)) {
                         if (re instanceof Color) {
-                           ValueAccessor<?> accessor = ValueAccessor.of(() -> new WrapColor((Color)setting.value), v -> setting.value = new Color(v.asRGB()));
+                           Setting<Color> colorValue = (Setting<Color>)setting;
+                           ValueAccessor<?> accessor = ValueAccessor.of(() -> new WrapColor(colorValue.value), v -> colorValue.value = new Color(v.asRGB()));
                            this.settingsMap.put(string, accessor);
                         } else if (setting.value instanceof List) {
                            java.lang.reflect.Type listType = ((ParameterizedType)field.getGenericType()).getActualTypeArguments()[0];
                            java.lang.reflect.Type type = ((ParameterizedType)listType).getActualTypeArguments()[0];
                            if (type == Block.class) {
+                              Setting<List<Block>> blockValue = (Setting<List<Block>>)setting;
                               ValueAccessor<EntrySet<Block>> accessor = ValueAccessor.of(
-                                 () -> new EntrySet<>(Registries.BLOCK, (Collection<Block>)setting.value), lst -> setting.value = lst.list()
+                                 () -> new EntrySet<>(Registries.BLOCK, blockValue.value), lst -> blockValue.value = lst.list()
                               );
                               this.settingsMap.put(string, accessor);
                            } else if (type == Item.class) {
+                              Setting<List<Item>> itemValue = (Setting<List<Item>>)setting;
                               ValueAccessor<EntrySet<Item>> accessor = ValueAccessor.of(
-                                 () -> new EntrySet<>(Registries.ITEM, (Collection<Item>)setting.value), lst -> setting.value = lst.list()
+                                 () -> new EntrySet<>(Registries.ITEM, itemValue.value), lst -> itemValue.value = lst.list()
                               );
                               this.settingsMap.put(string, accessor);
                            } else {
@@ -198,9 +201,10 @@ public class BaritoneHooks implements IHooks {
                            if (setting != this.settings.buildValidSubstitutes && setting != this.settings.buildSubstitutes) {
                               this.settingsMap.remove(string);
                            } else {
+                              Setting<Map<Block, List<Block>>> settingMapList = (Setting<Map<Block, List<Block>>>)setting;
                               ValueAccessor<PrimitiveMap<Holder<Block>, PrimitiveList<Holder<Block>>>> wtf = ValueAccessor.of(
                                  () -> {
-                                    Map<Block, List<Block>> map = (Map<Block, List<Block>>)setting.value;
+                                    Map<Block, List<Block>> map = settingMapList.value;
                                     Map<Holder<Block>, PrimitiveList<Holder<Block>>> map2 = map.entrySet()
                                        .stream()
                                        .collect(
@@ -224,7 +228,7 @@ public class BaritoneHooks implements IHooks {
                                  },
                                  v -> {
                                     Map<Holder<Block>, PrimitiveList<Holder<Block>>> map3 = v.map();
-                                    setting.value = map3.entrySet()
+                                    settingMapList.value = map3.entrySet()
                                        .stream()
                                        .filter(s -> s.getKey().entry() != null)
                                        .collect(

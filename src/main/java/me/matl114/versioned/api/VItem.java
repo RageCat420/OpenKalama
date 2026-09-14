@@ -23,19 +23,6 @@ import net.minecraft.text.MutableText;
 import net.minecraft.util.Unit;
 
 public interface VItem {
-   Codec<ItemStack> e = Codec.lazyInitialized(VItem.d::codec);
-   VItem INSTANCE = new ItemUtils_v1_21_1();
-   MapCodec<ItemStack> d = MapCodec.recursive(
-      "ItemStack",
-      codec -> RecordCodecBuilder.mapCodec(
-         instance -> instance.group(
-               VItem.c.fieldOf("id").forGetter(ItemStack::getRegistryEntry),
-               Codec.INT.fieldOf("count").orElse(1).forGetter(ItemStack::getCount),
-               VItem.b.optionalFieldOf("components", ComponentChanges.EMPTY).forGetter(stack -> stack.components.getChanges())
-            )
-            .apply(instance, ItemStack::new)
-      )
-   );
    Codec<ComponentChanges> b = Codec.dispatchedMap(KalamaHelperHelperH.CODEC, KalamaHelperHelperH::getValueCodec).xmap(changes -> {
       if (changes.isEmpty()) {
          return ComponentChanges.EMPTY;
@@ -75,6 +62,19 @@ public interface VItem {
    Codec<RegistryEntry<Item>> c = Registries.ITEM
       .getEntryCodec()
       .validate(entry -> entry.matches(Items.AIR.getRegistryEntry()) ? DataResult.error(() -> "Item must not be minecraft:air") : DataResult.success(entry));
+   MapCodec<ItemStack> d = MapCodec.recursive(
+      "ItemStack",
+      codec -> RecordCodecBuilder.mapCodec(
+         instance -> instance.group(
+               VItem.c.fieldOf("id").forGetter(ItemStack::getRegistryEntry),
+               Codec.INT.fieldOf("count").orElse(1).forGetter(ItemStack::getCount),
+               VItem.b.optionalFieldOf("components", ComponentChanges.EMPTY).forGetter(stack -> stack.components.getChanges())
+            )
+            .apply(instance, ItemStack::new)
+      )
+   );
+   Codec<ItemStack> e = Codec.lazyInitialized(VItem.d::codec);
+   VItem INSTANCE = new ItemUtils_v1_21_1();
 
    boolean g(ItemStack var1);
 
@@ -111,7 +111,5 @@ public interface VItem {
    boolean f(ItemStack var1);
 
    boolean e(ItemStack var1);
-
-   default boolean h(ItemStack var1) { return null; }
 
 }

@@ -11,12 +11,7 @@ public record SlotClickAction(SlotActionType actionType, int syncId, int slotId,
       return this.slotId;
    }
 
-   public SlotClickAction(SlotActionType actionType, int syncId, int slotId, int button) {
-      this.actionType = actionType;
-      this.button = syncId;
-      this.syncId = slotId;
-      this.slotId = button;
-   }
+   
 
    public SlotActionType actionType() {
       return this.actionType;

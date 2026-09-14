@@ -244,7 +244,7 @@ public class MainTasks {
          }
       }
 
-      for (Map var17 : ConfigEnum.registeredConfigs.values()) {
+      for (Map<String, ConfigEnum> var17 : ConfigEnum.registeredConfigs.values()) {
          for (ConfigEnum var22 : var17.values()) {
             var5++;
             checkTranslationText(var22.resultAsString(), var1, var2);

@@ -26,7 +26,7 @@ public record Vec2(double x, double y) implements NBTParsable<Vec2> {
    );
 
    public Vec2f toVec2f() {
-      return new Vec2f((float)(Object)this.x, (float)(Object)this.y);
+      return new Vec2f((float)this.x, (float)this.y);
    }
 
    @Override

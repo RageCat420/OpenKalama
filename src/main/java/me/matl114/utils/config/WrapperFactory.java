@@ -25,7 +25,7 @@ public interface WrapperFactory<T, W> {
    }, map -> map.entrySet().stream().map(s -> Pair.of(s.getKey(), s.getValue())).collect(Collectors.toCollection(ArrayList::new)));
 
    static <T> WrapperFactory<T, T> identity() {
-      return identity();
+      return (WrapperFactory<T, T>)IDENTITY;
    }
 
    W create(T var1);

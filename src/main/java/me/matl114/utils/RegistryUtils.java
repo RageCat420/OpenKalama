@@ -132,7 +132,7 @@ public class RegistryUtils {
    }
 
    public static <T> Class<T> getRegistryType(Registry<T> registry) {
-      return f(registry.getKey());
+      return f((RegistryKey)registry.getKey());
    }
 
    public static <T> Set<T> parseWhiteList(Registry<T> registry, Pattern regex) {

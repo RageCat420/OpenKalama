@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Environment(EnvType.CLIENT)
 @Mixin({ChatScreen.class})
-public class ChatScreenMixin extends Screen implements CustomFocusBehaviourScreenAccess, ChatScreenAccess {
+public abstract class ChatScreenMixin extends Screen implements CustomFocusBehaviourScreenAccess, ChatScreenAccess {
    @Shadow
    protected TextFieldWidget field_2382;
    @Shadow
@@ -44,7 +44,7 @@ public class ChatScreenMixin extends Screen implements CustomFocusBehaviourScree
 
    @Accessor("chatInputSuggestor")
    @Override
-   public ChatInputSuggestor getSuggestor() { }
+public abstract ChatInputSuggestor getSuggestor() ;
 
    @Override
    public TextFieldWidget getInputWidget() {
@@ -125,9 +125,7 @@ public class ChatScreenMixin extends Screen implements CustomFocusBehaviourScree
       )}
    )
    private void modifyTextFieldWidget(ChatScreen instance, TextFieldWidget value, Operation<Void> original) {
-      original.call(new Object[]{instance, new ChatScreenTextFieldWidget((ChatScreen)(Object)this)});
-   }
-
-   public void addCloseFuture(Object arg0) { }
-
+       original.call(new Object[]{instance, new ChatScreenTextFieldWidget((ChatScreen)(Object)this)});
+    }
 }
+

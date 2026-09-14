@@ -11,12 +11,7 @@ public record MouseClickAction(Mouse mouse, int eventButton, int action, int mod
       return this.action;
    }
 
-   public MouseClickAction(Mouse mouse, int eventButton, int action, int mode) {
-      this.mouse = mouse;
-      this.mode = eventButton;
-      this.eventButton = action;
-      this.action = mode;
-   }
+   
 
    public Mouse mouse() {
       return this.mouse;

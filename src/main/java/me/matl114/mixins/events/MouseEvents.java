@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
    value = {Mouse.class},
    priority = 1
 )
-public class MouseEvents {
+public abstract class MouseEvents {
    @Shadow
    @Final
    private MinecraftClient field_1779;
@@ -43,10 +43,10 @@ public class MouseEvents {
    private int field_1780;
 
    @Shadow
-   public double method_1603() { }
+public abstract double method_1603() ;
 
    @Shadow
-   public double method_1604() { }
+public abstract double method_1604() ;
 
    @Inject(
       method = {"onMouseScroll"},
@@ -157,3 +157,4 @@ public class MouseEvents {
       }
    }
 }
+

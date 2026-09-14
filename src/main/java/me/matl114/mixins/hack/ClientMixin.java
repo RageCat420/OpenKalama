@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin({MinecraftClient.class})
-public class ClientMixin implements Cloneable, ClientAccess {
+public abstract class ClientMixin implements Cloneable, ClientAccess {
    @Shadow
    @Nullable
    public ClientPlayerEntity field_1724;
@@ -204,7 +204,7 @@ public class ClientMixin implements Cloneable, ClientAccess {
    }
 
    @Shadow
-   public Window method_22683() { }
+public abstract Window method_22683() ;
 
    @Shadow
    protected abstract void method_1583();
@@ -258,3 +258,4 @@ public class ClientMixin implements Cloneable, ClientAccess {
       }
    }
 }
+

@@ -9,8 +9,5 @@ record KalamaHelperHelperT(String key, String value) {
       return this.key;
    }
 
-   public KalamaHelperHelperT(String key, String value) {
-      this.value = key;
-      this.key = value;
-   }
+   
 }

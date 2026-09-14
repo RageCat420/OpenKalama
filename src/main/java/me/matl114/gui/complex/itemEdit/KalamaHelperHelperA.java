@@ -86,9 +86,9 @@ public class KalamaHelperHelperA {
    }
 
    protected void openThisEditScreen() {
-      ComponentType var1 = this.a.getOriginValue();
+      ComponentType<?> var1 = this.a.getOriginValue();
       if (var1 != null) {
-         ScreenAccess.of(new KalamaHelperHelperN(var1, this.b, nbt -> this.b = nbt == null ? null : nbt.copy())).openFromCurrent();
+         ScreenAccess.of(new KalamaHelperHelperN<>(var1, this.b, nbt -> this.b = nbt == null ? null : nbt.copy())).openFromCurrent();
       }
    }
 }

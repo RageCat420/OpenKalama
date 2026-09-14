@@ -28,7 +28,8 @@ public class MoveSubHelperC implements CommandExecution {
    }
 
    @NotNull
-   public World getExecuteWorld() {
+   @Override
+   public World sr() {
       return MinecraftClient.getInstance().world;
    }
 
@@ -61,6 +62,7 @@ public class MoveSubHelperC implements CommandExecution {
    public PlayerEntity si() { return null; }
 
 
-   public void sm(Object arg0) { }
+   @Override
+   public void sm(String arg0) { }
 
 }

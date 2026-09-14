@@ -21,7 +21,7 @@ import net.minecraft.client.gui.widget.Widget;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
-public class DrawableWidget implements Element, Drawable, Widget, Selectable, Draggable {
+public abstract class DrawableWidget implements Element, Drawable, Widget, Selectable, Draggable {
    private int x;
    private boolean subWidget;
    private int textureWidth;
@@ -178,13 +178,13 @@ public class DrawableWidget implements Element, Drawable, Widget, Selectable, Dr
       return this.priority;
    }
 
-   public boolean mouseReleased(double mouseX, double mouseY, int button) { }
+   public abstract boolean mouseReleased(double mouseX, double mouseY, int button);
 
    public void setWidth(int width) {
       this.dx = width;
    }
 
-   public boolean mouseClicked(double mouseX, double mouseY, int button) { }
+   public abstract boolean mouseClicked(double mouseX, double mouseY, int button);
 
    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
       return false;

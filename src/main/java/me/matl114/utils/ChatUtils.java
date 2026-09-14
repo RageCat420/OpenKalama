@@ -207,7 +207,7 @@ public class ChatUtils {
          MutableFloat var3 = new MutableFloat(0.0);
          ChatUtils$TextBuilder var4 = new ChatUtils$TextBuilder();
          Matcher var5 = b.matcher(value);
-         Object var6 = null;
+         String var6 = null;
          StringBuilder var7 = null;
          int var8 = 0;
          boolean var9 = false;

@@ -40,7 +40,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({ClientConnection.class})
-public class ClientConnectionEvents extends SimpleChannelInboundHandler<Packet<?>> implements ClientConnectionAccess {
+public abstract class ClientConnectionEvents extends SimpleChannelInboundHandler<Packet<?>> implements ClientConnectionAccess {
    @Shadow
    public Channel field_11651;
    @Shadow
@@ -242,7 +242,7 @@ public class ClientConnectionEvents extends SimpleChannelInboundHandler<Packet<?
       at = {@At("HEAD")}
    )
    private static void proxyChannelIp(ChannelPipeline pipeline, NetworkSide side, boolean local, PacketSizeLogger packetSizeLogger, CallbackInfo ci) {
-      Listener.serialize().h(pipeline, side, local);
+      Listener.by().h(pipeline, side, local);
    }
 
    @Override

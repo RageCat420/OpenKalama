@@ -35,23 +35,7 @@ public record KalamaHelperHelperH(
       return this.contactCooldownTicks;
    }
 
-   public KalamaHelperHelperH(
-      int contactCooldownTicks,
-      int delayTicks,
-      float forwardMovement,
-      float damageMultiplier,
-      Optional<KalamaHelperHelperF> dismountConditions,
-      Optional<KalamaHelperHelperF> knockbackConditions,
-      Optional<KalamaHelperHelperF> damageConditions
-   ) {
-      this.contactCooldownTicks = contactCooldownTicks;
-      this.delayTicks = delayTicks;
-      this.damageMultiplier = forwardMovement;
-      this.forwardMovement = damageMultiplier;
-      this.dismountConditions = dismountConditions;
-      this.knockbackConditions = knockbackConditions;
-      this.damageConditions = damageConditions;
-   }
+   
 
    public int delayTicks() {
       return this.delayTicks;

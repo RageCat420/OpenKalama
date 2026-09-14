@@ -81,7 +81,7 @@ public class BukkitMetaItem implements Cloneable, Dispatch {
    }
 
    @Override
-   public Map<String, Object> by() {
+   public Map<String, Object> serialize() {
       throw new AssertionError();
    }
 
@@ -125,10 +125,4 @@ public class BukkitMetaItem implements Cloneable, Dispatch {
       var1.yE = (HashMap<String, Object>)this.yE.clone();
       return var1;
    }
-
-
-
-   @Override
-   public Map<String, Object> serialize() { return null; }
-
 }

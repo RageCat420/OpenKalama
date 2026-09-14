@@ -49,11 +49,11 @@ public class OptionalPrimitive<T> implements NBTParsable<OptionalPrimitive<T>> {
 
    public static <T extends ConfigEnum> Class<OptionalPrimitive<WrapEnum<T>>> configEnum(Class<T> clazz) {
       ConfigEnum.ensureRegistered(clazz);
-      return OptionalPrimitive.class;
+      return (Class)OptionalPrimitive.class;
    }
 
    public static <T> Class<OptionalPrimitive<T>> type(Class<T> clazz) {
-      return OptionalPrimitive.class;
+      return (Class)OptionalPrimitive.class;
    }
 
    public OptionalPrimitive(boolean present, NBTType<T> primitive, T value) {

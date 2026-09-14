@@ -56,7 +56,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Environment(EnvType.CLIENT)
 @Mixin({ClientPlayerInteractionManager.class})
-public class PlayerInteractionMixin implements PlayerInteractionAccess {
+public abstract class PlayerInteractionMixin implements PlayerInteractionAccess {
    @Shadow
    private float field_3715;
    @Shadow
@@ -89,7 +89,7 @@ public class PlayerInteractionMixin implements PlayerInteractionAccess {
    protected abstract void method_41931(ClientWorld var1, SequencedPacketCreator var2);
 
    @Shadow
-   public boolean method_2899(BlockPos var1) { }
+public abstract boolean method_2899(BlockPos var1) ;
 
    @Override
    public BlockPos getCurrentMiningPos() {
@@ -453,7 +453,7 @@ public class PlayerInteractionMixin implements PlayerInteractionAccess {
    protected abstract int method_51888();
 
    @Shadow
-   public boolean method_2902(BlockPos var1, Direction var2) { }
+public abstract boolean method_2902(BlockPos var1, Direction var2) ;
 
    @Shadow
    protected abstract boolean method_2922(BlockPos var1);
@@ -673,3 +673,4 @@ public class PlayerInteractionMixin implements PlayerInteractionAccess {
       }
    }
 }
+

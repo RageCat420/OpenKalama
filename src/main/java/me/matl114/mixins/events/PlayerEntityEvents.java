@@ -24,7 +24,7 @@ public class PlayerEntityEvents {
       cancellable = true
    )
    private void onPlayerTravel(Vec3d movementInput, CallbackInfo ci, @Local(argsOnly = true) LocalRef<Vec3d> move) {
-      if (this instanceof ClientPlayerEntity clientPlayerEntity) {
+      if ((Object)this instanceof ClientPlayerEntity clientPlayerEntity) {
          Event<Vec3d> event = new Event<>(movementInput, true, true, clientPlayerEntity);
          Listener.aH().catchEvent(event);
          if (event.d()) {
@@ -43,7 +43,7 @@ public class PlayerEntityEvents {
       at = {@At("RETURN")}
    )
    private void onPlayerTravelReturn(Vec3d movementInput, CallbackInfo ci) {
-      if (this instanceof ClientPlayerEntity clientPlayerEntity) {
+      if ((Object)this instanceof ClientPlayerEntity clientPlayerEntity) {
          ClientPlayerAccess.of(clientPlayerEntity)
             .getLegalMovementManager()
             .postTravelTick(clientPlayerEntity, new Event<>(movementInput, false, false, clientPlayerEntity));

@@ -7,7 +7,7 @@ public class AbstractManager<T> {
    public List<T> registered = new ArrayList<>();
 
    public void unloadModules() {
-      ArrayList var1 = new ArrayList<>(this.registered);
+      ArrayList<T> var1 = new ArrayList<>(this.registered);
       this.registered.clear();
       var1.forEach(this::unregisterModule);
    }

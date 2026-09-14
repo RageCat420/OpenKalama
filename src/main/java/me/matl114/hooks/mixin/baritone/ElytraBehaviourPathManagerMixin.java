@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Pseudo
 @Environment(EnvType.CLIENT)
 @Mixin({PathManager.class})
-public class ElytraBehaviourPathManagerMixin {
+public abstract class ElytraBehaviourPathManagerMixin {
    @Shadow(
       aliases = {"a", "setPath"},
       remap = false
@@ -103,7 +103,7 @@ public class ElytraBehaviourPathManagerMixin {
       remap = false
    )
    private List<BetterBlockPos> captureNetherPathArgumentUpdate(List<BetterBlockPos> list) {
-      BaritoneHooks.currentNetherElytraPath = list;
+      BaritoneHooks.currentNetherElytraPath = (List<BlockPos>)(List)list;
       return list;
    }
 

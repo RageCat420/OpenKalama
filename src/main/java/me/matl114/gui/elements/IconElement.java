@@ -13,7 +13,7 @@ import me.matl114.versioned.api.VDrawContext;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-public class IconElement extends BoxElement {
+public abstract class IconElement extends BoxElement {
    protected Color bj = Color.WHITE;
    private KalamaHelperHelperIX bi;
 
@@ -22,7 +22,7 @@ public class IconElement extends BoxElement {
       return new KalamaHelperHelperA(this, handlerPredicate, this);
    }
 
-   public IconElement setActive(boolean var1) { }
+   public abstract IconElement setActive(boolean var1);
 
    public void renderTexture(VDrawContext context, DrawableWidget element, boolean highlight) {
       Identifier var4 = this.getTextureId(context, element, highlight);
@@ -44,7 +44,7 @@ public class IconElement extends BoxElement {
       return new IconElement$SimpleIconElement(inactiveState, activeState, false, action);
    }
 
-   public boolean bD() { }
+   public abstract boolean bD();
 
    public void renderCentered0(DrawableWidget element, VDrawContext context, int mouseX, int mouseY, float delta, float alpha, boolean shouldHighlight) {
       context.setShaderColor(this.bj.getRed() / 255.0F, this.bj.getGreen() / 255.0F, this.bj.getBlue() / 255.0F, alpha);
@@ -63,7 +63,7 @@ public class IconElement extends BoxElement {
       return this;
    }
 
-   public boolean cq() { }
+   public abstract boolean cq();
 
    public static IconElement$SimpleIconElement cn(Identifier active, Identifier inactive, ButtonAction action) {
       return new IconElement$SimpleIconElement(inactive, active, true, action);
@@ -99,5 +99,5 @@ public class IconElement extends BoxElement {
    }
 
    @Nullable
-   public Identifier getTextureId(VDrawContext var1, DrawableWidget var2, boolean var3) { }
+   public abstract Identifier getTextureId(VDrawContext var1, DrawableWidget var2, boolean var3);
 }

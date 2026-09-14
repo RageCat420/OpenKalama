@@ -8,7 +8,7 @@ import me.matl114.utils.commands.params.api.ArgumentType;
 import me.matl114.utils.commands.params.api.CommandExecution;
 import me.matl114.utils.commands.params.api.InputArgument;
 
-public class AbstractArgumentType<T> implements ArgumentType<T> {
+public abstract class AbstractArgumentType<T> implements ArgumentType<T> {
    public me.matl114.utils.commands.params.api.KalamaHelperHelperF l = me.matl114.utils.commands.params.api.KalamaHelperHelperF.a;
    private final String k;
    protected T m = (T)null;

@@ -11,13 +11,7 @@ public record MouseDragAction(Mouse mouse, double mouseX, double mouseY, double 
       return this.mouseX;
    }
 
-   public MouseDragAction(Mouse mouse, double mouseX, double mouseY, double deltaX, double deltaY) {
-      this.mouse = mouse;
-      this.deltaX = mouseX;
-      this.deltaY = mouseY;
-      this.mouseY = deltaX;
-      this.mouseX = deltaY;
-   }
+   
 
    public Mouse mouse() {
       return this.mouse;

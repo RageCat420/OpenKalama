@@ -36,7 +36,7 @@ public class SlimefunSubHelperN {
    }
 
    private void generatePredicate(Vec3i axis) {
-      ArrayList<BiPredicate> var2 = new ArrayList();
+      ArrayList<BiPredicate<World, BlockPos>> var2 = new ArrayList<>();
 
       for (int var3 = 0; var3 < 9; var3++) {
          BlockMatcher var4 = this.blockTypes[var3];
@@ -49,7 +49,7 @@ public class SlimefunSubHelperN {
       }
 
       this.d.put((clientWorld, blockPos) -> {
-         for (BiPredicate var4x : var2) {
+         for (BiPredicate<World, BlockPos> var4x : var2) {
             if (!var4x.test(clientWorld, blockPos)) {
                return false;
             }

@@ -22,7 +22,7 @@ public class AdvancedScrollElement extends AbstractElement {
    }
 
    @Override
-   public boolean onAction(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
+   public boolean b(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
       if (this.shouldActive()) {
          if (type == KalamaHelperHelperM.nP && element.isMouseOver(mouseX, mouseY) && !this.isMouseOverBar(element, mouseY)) {
          }
@@ -72,7 +72,7 @@ public class AdvancedScrollElement extends AbstractElement {
       if (this.backGround || this.shouldActive()) {
          int var12;
          int var13;
-         if ((double)(Object)this.bA.getValue().intValue() / this.bB.getValue().intValue() < 0.05) {
+         if ((double)this.bA.getValue().intValue() / this.bB.getValue().intValue() < 0.05) {
             double var8 = this.cS(element.getTextureHeight());
             double var10 = this.bA.getValue().intValue() * 0.05;
             if (var8 + var10 < this.bA.getValue().intValue()) {
@@ -104,7 +104,7 @@ public class AdvancedScrollElement extends AbstractElement {
    }
 
    @Override
-   public boolean onScroll(ExecutableWidget widget, double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+   public boolean c(ExecutableWidget widget, double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
       if (this.shouldActive()) {
          double var10 = this.cS(widget.getHeight());
          this.locateBarAt(var10 - verticalAmount * 5.0, widget.getHeight());
@@ -124,7 +124,7 @@ public class AdvancedScrollElement extends AbstractElement {
    }
 
    public double cP() {
-      return Math.min(1.0, (double)(Object)this.bA.getValue().intValue() / this.bB.getValue().intValue());
+      return Math.min(1.0, (double)this.bA.getValue().intValue() / this.bB.getValue().intValue());
    }
 
    public double cM() {

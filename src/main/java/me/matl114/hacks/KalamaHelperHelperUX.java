@@ -21,7 +21,7 @@ public class KalamaHelperHelperUX extends me.matl114.utils.commands.params.impl.
    public InputArgument<ExecutePos> consume(CommandExecution execution, List<InputArgument<?>> args, ArgumentReader reader) {
       if (reader.hasNext()) {
          int var4 = reader.b();
-         Optional var5 = MovTasks.ab(execution, args, reader, Consumers.nop());
+         Optional<net.minecraft.util.math.Vec3d> var5 = MovTasks.ab(execution, args, reader, Consumers.nop());
          if (var5 != null) {
             return new PosArgumentResult(var5.map(ExecutePos::of), this, reader, var4);
          } else {

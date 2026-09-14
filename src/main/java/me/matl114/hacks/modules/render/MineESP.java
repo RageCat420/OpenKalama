@@ -175,14 +175,14 @@ public class MineESP extends BaseModule {
                int var16 = this.GG(var14);
                if (var16 > var9) {
                   var9 = var16;
-                  var8 = RenderSubHelperQX.mV;
+                  var8 = RenderSubHelperQX.mX;
                   var7 = var14;
                }
             }
          }
       }
 
-      return var8 != null ? new RenderSubHelperJ(var8, var7, var9) : new RenderSubHelperJ(var6 ? RenderSubHelperQX.mW : RenderSubHelperQX.mX, null, -1);
+      return var8 != null ? new RenderSubHelperJ(var8, var7, var9) : new RenderSubHelperJ(var6 ? RenderSubHelperQX.mV : RenderSubHelperQX.mW, null, -1);
    }
 
    private float getPlayerCellOffsetX(ClientPlayerEntity player) {

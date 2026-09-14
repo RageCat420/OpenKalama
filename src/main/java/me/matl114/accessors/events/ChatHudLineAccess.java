@@ -9,10 +9,10 @@ public interface ChatHudLineAccess {
    String getUniqueMessageId();
 
    static ChatHudLineAccess of(ChatHudLine chatHudLine) {
-      return (ChatHudLineAccess)chatHudLine;
+      return (ChatHudLineAccess)(Object)chatHudLine;
    }
 
    static ChatHudLineAccess of(Visible uniqueMessageId) {
-      return (ChatHudLineAccess)uniqueMessageId;
+      return (ChatHudLineAccess)(Object)uniqueMessageId;
    }
 }

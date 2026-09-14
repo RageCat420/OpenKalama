@@ -40,7 +40,7 @@ public record WeakHolder<T>(Identifier registry, Identifier location) implements
          );
          if (optionalLookup.isPresent()) {
             Registry<Object> lookupValue = optionalLookup.get();
-            return RegistryAttrKeyValue.generateTextInputWithRegistrySearch((Registry<T>)lookupValue, wrapper, x, y, dx, dy);
+            return RegistryAttrKeyValue.generateTextInputWithRegistrySearch((Registry)lookupValue, wrapper, x, y, dx, dy);
          } else {
             return wrapper.generateValueWidget(x, y, dx, dy);
          }

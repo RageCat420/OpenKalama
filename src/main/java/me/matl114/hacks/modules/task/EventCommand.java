@@ -41,8 +41,8 @@ public class EventCommand extends BaseModule {
       super("EventCommand");
       this.J = this.moduleEntry(this.ze.addHotkey(), new MultiKeyBind(), this.ze.addEnable()).build();
       this.eventMap = this.builder(this.ze.add("event-map"), NBTType.parameter(EnumPrimitiveList.class))
-         .defaultValue(new EnumPrimitiveList<>(EventCommand$EventType.class, NBTTypes.g, List.of()))
-         .build();
+         .defaultValue(new EnumPrimitiveList<EventCommand$EventType, String>(EventCommand$EventType.class, NBTTypes.g, List.of()))
+         .<NBTRef>build();
       this.bindFlag(this.ae);
       INSTANCE = this;
    }

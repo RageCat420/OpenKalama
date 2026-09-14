@@ -13,14 +13,7 @@ public record ChatSubHelperD(int start, int end, String prefix, String cipher, S
       return this.decrypted;
    }
 
-   public ChatSubHelperD(int start, int end, String prefix, String cipher, String suffix, String decrypted) {
-      this.end = start;
-      this.start = end;
-      this.suffix = prefix;
-      this.prefix = cipher;
-      this.cipher = suffix;
-      this.decrypted = decrypted;
-   }
+   
 
    public int end() {
       return this.end;

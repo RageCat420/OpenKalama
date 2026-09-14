@@ -151,7 +151,7 @@ public class WorldUtils {
    public static float getPlayerBlockBreakingSpeedWithCanMineMultiply(PlayerEntity player, BlockState state, ItemStack stack) {
       float var3 = stack.getMiningSpeedMultiplier(state);
       if (var3 > 1.0F) {
-         AttributeContainer var4 = new AttributeContainer(DefaultAttributeRegistry.get(player.getType()));
+         AttributeContainer var4 = new AttributeContainer(DefaultAttributeRegistry.get((net.minecraft.entity.EntityType<? extends net.minecraft.entity.LivingEntity>)player.getType()));
          var4.setFrom(player.getAttributes());
          stack.applyAttributeModifiers(EquipmentSlot.MAINHAND, (holder, attr) -> {
             EntityAttributeInstance var3x = var4.getCustomInstance(holder);

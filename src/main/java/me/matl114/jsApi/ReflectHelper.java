@@ -251,11 +251,11 @@ public class ReflectHelper {
    }
 
    public static <T extends Enum<T>> T e(Class<?> clazz, int pos, String value) {
-      return Arrays.stream(clazz.getConstructors())
+      java.lang.reflect.Constructor<?> var2 = Arrays.stream(clazz.getConstructors())
          .filter(con -> con.getParameterCount() > pos && Enum.class.isAssignableFrom(con.getParameterTypes()[pos]))
          .findAny()
-         .map(cls -> Enum.valueOf((Class<? extends T>)cls.getParameterTypes()[pos], value))
-         .get();
+         .orElseThrow();
+      return Enum.valueOf((Class<T>)var2.getParameterTypes()[pos], value);
    }
 
    public static List<Method> y(Object a, String name, Object... b) {

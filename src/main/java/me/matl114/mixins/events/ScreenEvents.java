@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Environment(EnvType.CLIENT)
 @Mixin({Screen.class})
-public class ScreenEvents extends AbstractParentElement implements MetadataHolder, ScreenAccess {
+public abstract class ScreenEvents extends AbstractParentElement implements MetadataHolder, ScreenAccess {
    @Unique
    List<Consumer<Screen>> initializeTasks;
    @Unique
@@ -179,8 +179,8 @@ public class ScreenEvents extends AbstractParentElement implements MetadataHolde
       if (current == null) {
          this.parent = null;
       } else {
-         this.parent = ((ScreenEvents)current).parent;
-         ((ScreenEvents)current).parent = null;
+         this.parent = ((ScreenEvents)(Object)current).parent;
+         ((ScreenEvents)(Object)current).parent = null;
       }
 
       MinecraftClient.getInstance().setScreen((Screen)(Object)this);

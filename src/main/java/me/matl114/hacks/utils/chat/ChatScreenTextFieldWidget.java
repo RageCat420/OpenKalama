@@ -13,8 +13,7 @@ public class ChatScreenTextFieldWidget extends TextFieldWidget {
    ChatScreen chatScreen;
 
    public ChatScreenTextFieldWidget(ChatScreen chatScreen) {
-      int var10003 = chatScreen.height - 12;
-      super(MinecraftClient.getInstance().advanceValidatingTextRenderer, 4, var10003, chatScreen.width - 4, 12, Text.translatable("chat.editBox"));
+      super(MinecraftClient.getInstance().advanceValidatingTextRenderer, 4, chatScreen.height - 12, chatScreen.width - 4, 12, Text.translatable("chat.editBox"));
       this.chatScreen = chatScreen;
    }
 

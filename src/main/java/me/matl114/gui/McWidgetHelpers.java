@@ -79,7 +79,7 @@ public class McWidgetHelpers {
       TextFieldWidget var7 = new TextFieldWidget(a.textRenderer, 0, 0, dx, dy, Text.empty());
       var7.setMaxLength(32768);
       var7.setText(origin);
-      var7.setChangedListener(str -> valueTracker.valueChange(var7, str));
+      var7.setChangedListener(str -> valueTracker.valueChange((T)var7, str));
       if (boxColorProvider != null) {
          TextFieldAccess.of(var7).setBorderColorProvider(boxColorProvider);
       }

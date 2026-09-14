@@ -57,8 +57,8 @@ class MoveSubHelperUX extends MoveSubHelperAj {
                      if (!this.rm) {
                         AtomicInteger var12 = new AtomicInteger(20);
                         AtomicDouble var13 = new AtomicDouble(-999.0);
-                        Listener.C(new TimedPacketCatcherImpl(EntityVelocityUpdateS2CPacket.class, 200, event -> {
-                           Vec3d var4x = VPacket.getVelocity((EntityVelocityUpdateS2CPacket)event.b);
+                        Listener.C(new TimedPacketCatcherImpl<EntityVelocityUpdateS2CPacket>(EntityVelocityUpdateS2CPacket.class, 200, event -> {
+                           Vec3d var4x = VPacket.getVelocity(event.b);
                            if (!(var4x.y <= var13.get()) && !(var4x.y > 3.0) && var12.getAndDecrement() >= 0) {
                               var13.set(var4x.y);
                               return false;
@@ -74,7 +74,7 @@ class MoveSubHelperUX extends MoveSubHelperAj {
                      EntityUtils.setEntityPitchSafe(
                         var2,
                         Math.min(
-                           -this.QL.pitch40PitchNegative.get() + this.QO * (float)(Object)this.QL.pitch40NegativeDelta.get(), (float)(Object)this.QL.pitch40PitchPositive.get()
+                           -this.QL.pitch40PitchNegative.get() + this.QO * (float)this.QL.pitch40NegativeDelta.get(), (float)this.QL.pitch40PitchPositive.get()
                         )
                      );
                      break;
@@ -101,8 +101,8 @@ class MoveSubHelperUX extends MoveSubHelperAj {
                         EntityUtils.setEntityPitchSafe(
                            var2,
                            Math.min(
-                              -this.QL.pitch40PitchNegative.get() + this.QO * (float)(Object)this.QL.pitch40NegativeDelta.get(),
-                              (float)(Object)this.QL.pitch40PitchPositive.get()
+                              -this.QL.pitch40PitchNegative.get() + this.QO * (float)this.QL.pitch40NegativeDelta.get(),
+                              (float)this.QL.pitch40PitchPositive.get()
                            )
                         );
                      }

@@ -191,6 +191,8 @@ public class NameList extends INameTag {
 
 
    @Override
-   public void gl() { }
+   public void gl() {
+      this.initializeModuleSettings();
+   }
 
 }

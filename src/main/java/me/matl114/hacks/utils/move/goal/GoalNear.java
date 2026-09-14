@@ -25,7 +25,7 @@ public record GoalNear(Vec3d center, double radius) implements IPathGoal {
 
 
 
-   @Override
-   public Vec3d sample() { return null; }
+    @Override
+    public Vec3d sample() { return center; }
 
 }

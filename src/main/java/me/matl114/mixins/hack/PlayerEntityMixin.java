@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin({PlayerEntity.class})
-public class PlayerEntityMixin
+public abstract class PlayerEntityMixin
    extends LivingEntity
    implements LivingEntityAccess<PlayerEntity>,
    EntityInternalAccess<PlayerEntity>,
@@ -114,7 +114,5 @@ public class PlayerEntityMixin
          cir.setReturnValue(CombatExtra.INSTANCE.getAttackRange());
       }
    }
-
-   public void getMainArm() { }
 
 }

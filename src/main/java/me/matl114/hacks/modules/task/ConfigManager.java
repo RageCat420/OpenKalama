@@ -498,13 +498,13 @@ public class ConfigManager extends BaseModule {
    }
 
    public void LC(String fileName, TaskSubHelperA snapshot) {
-      DataResult<String> var3 = TaskSubHelperA.CODEC.encodeStart(ConfigOp.INSTANCE, snapshot);
+      DataResult<Ref<?>> var3 = TaskSubHelperA.CODEC.encodeStart(ConfigOp.INSTANCE, snapshot);
       if (var3.isError()) {
          String var9 = var3.error().<String>map(err -> err.message()).orElse("未知编码错误");
          Debug.b(Text.literal("保存配置快照失败: " + var9).formatted(Formatting.RED));
       } else {
          try (FileStorage var4 = FileManager.getInstance().t(fileName).t()) {
-            var4.write((Ref)var3.result().get(), ConfigOp.INSTANCE);
+            var4.write(var3.result().get(), ConfigOp.INSTANCE);
             Debug.b(
                Text.literal("成功保存配置快照: " + fileName + " ,点击本文本打开文件夹")
                   .formatted(Formatting.GREEN)
@@ -546,25 +546,25 @@ public class ConfigManager extends BaseModule {
       if (PORT_CONFIG_MAPS.isEmpty()) {
          return snapshot;
       } else {
-         LinkedHashMap var1 = new LinkedHashMap<>(snapshot.jr());
-         boolean var2 = false;
+      Map<Identifier, MapRef> var1 = new LinkedHashMap<>(snapshot.jr());
+      boolean var2 = false;
 
-         for (Entry var4 : PORT_CONFIG_MAPS.entrySet()) {
-            ModulePath var5 = (ModulePath)var4.getKey();
-            ModulePath var6 = (ModulePath)var4.getValue();
-            Identifier var7 = var5.getConfig().getRegistryKey().getValue();
-            Identifier var8 = var6.getConfig().getRegistryKey().getValue();
-            if (var1.containsKey(var7)) {
-               MapRef var9 = (MapRef)var1.get(var7);
-               Ref var10 = var9.get(var5.toPath());
-               if (var10 != null) {
-                  var2 = true;
-                  MapRef var11 = var1.computeIfAbsent(var8, vvv -> new MapRef());
-                  var9.setValue(null, var5.toPath());
-                  var11.setValue(var10, var6.toPath());
-               }
+      for (Entry<ModulePath, ModulePath> var4 : PORT_CONFIG_MAPS.entrySet()) {
+         ModulePath var5 = var4.getKey();
+         ModulePath var6 = var4.getValue();
+         Identifier var7 = var5.getConfig().getRegistryKey().getValue();
+         Identifier var8 = var6.getConfig().getRegistryKey().getValue();
+         if (var1.containsKey(var7)) {
+            MapRef var9 = var1.get(var7);
+            Ref<?> var10 = var9.get(var5.toPath());
+            if (var10 != null) {
+               var2 = true;
+               MapRef var11 = var1.computeIfAbsent(var8, vvv -> new MapRef());
+               var9.setValue(null, var5.toPath());
+               var11.setValue(var10, var6.toPath());
             }
          }
+      }
 
          return var2 ? new TaskSubHelperA(var1) : snapshot;
       }

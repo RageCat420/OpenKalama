@@ -246,8 +246,8 @@ public class Criticals extends BaseModule implements HackUtilHelperJ {
    public Criticals() {
       super("Criticals");
       this.enable = this.flagBuilder(this.Sg.add("enable")).build();
-      this.hotkey = this.moduleEntry(this.Sg.add("hotkey"), new MultiKeyBind(), this.Sg.add("enable"), moduleMeta(() -> this.mode)).build();
       this.mode = this.builder(this.Sg.add("mode"), Criticals$Mode.class).defaultValue(Criticals$Mode.PACKET).build();
+      this.hotkey = this.moduleEntry(this.Sg.add("hotkey"), new MultiKeyBind(), this.Sg.add("enable"), moduleMeta(() -> this.mode)).build();
       this.groundOnly = this.flagBuilder(this.Sg.add("ground-only"))
          .show(() -> this.mode.get().isIn(new ConfigEnum[]{Criticals$Mode.FREEZE, Criticals$Mode.GRIM_GROUND_SIMULATION}))
          .build();

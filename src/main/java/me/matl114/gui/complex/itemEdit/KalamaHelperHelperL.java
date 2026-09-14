@@ -108,6 +108,10 @@ public class KalamaHelperHelperL extends KalamaHelperHelperJ {
    }
 
    @Override
+   protected void ah() {
+   }
+
+   @Override
    public void ag() { }
 
 }

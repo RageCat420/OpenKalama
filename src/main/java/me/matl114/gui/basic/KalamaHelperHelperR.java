@@ -13,7 +13,7 @@ public class KalamaHelperHelperR implements KalamaHelperHelperP {
       throw new IllegalStateException();
    }
 
-   public boolean onAction(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
+   public boolean b(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
       return type == this.Z ? this.Y.a(element, mouseX, mouseY, button) : false;
    }
 }

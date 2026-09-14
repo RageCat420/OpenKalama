@@ -73,6 +73,4 @@ public interface KalamaHelperHelperH {
       };
    }
 
-   default boolean a(CommandExecution var1, ArgumentInputStream var2, ArgumentReader var3) { return null; }
-
 }

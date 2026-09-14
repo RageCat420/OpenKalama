@@ -24,6 +24,4 @@ public interface VNbt {
 
    String b(NbtElement var1);
 
-   default String b(NbtElement var1) { return null; }
-
 }

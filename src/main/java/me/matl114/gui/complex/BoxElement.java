@@ -9,10 +9,10 @@ public class BoxElement extends AbstractElement {
    private final ButtonAction action;
 
    @Override
-   public boolean onKey(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
+   public boolean d(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
       return this.action != null && widget.isSelected() && ScreenUtils.l(keyCode)
          ? this.action.d(this, widget, 0)
-         : super.onKey(widget, keyCode, scanCode, modifiers, isPress);
+         : super.d(widget, keyCode, scanCode, modifiers, isPress);
    }
 
    public BoxElement(ButtonAction action) {
@@ -20,7 +20,7 @@ public class BoxElement extends AbstractElement {
    }
 
    @Override
-   public boolean onClick(ExecutableWidget element, double mouseX, double mouseY, int button) {
+   public boolean a(ExecutableWidget element, double mouseX, double mouseY, int button) {
       return this.action != null && this.action.d(this, element, button);
    }
 }

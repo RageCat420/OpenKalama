@@ -95,7 +95,7 @@ public class WorldHelper {
    }
 
    public static List<Entity> v(double distance) throws ExecutionException, InterruptedException {
-      List var2 = getEntities();
+      List<Entity> var2 = getEntities();
       double var3 = distance * distance;
       return var2.stream().filter(s -> s.squaredDistanceTo(mc.player) <= var3).collect(Collectors.toCollection(ArrayList::new));
    }

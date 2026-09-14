@@ -117,7 +117,7 @@ public class TpaCommand extends BaseModule {
          .x("message.command.tpa.mark.help")
          .A(KalamaHelperHelperA.a().B("type").m(List.of("player", "camera", "this", "pos", "target", "cross", "clear"), "camera").v())
          .A(
-            new DispatchArgumentType<ExecutePos>("extra")
+            new DispatchArgumentType<Object>("extra")
                .registerArgumentDispatcher(
                   0,
                   "pos",

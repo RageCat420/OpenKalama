@@ -201,11 +201,11 @@ public class Velocity extends BaseModule implements HackUtilHelperJ {
 
    public Velocity() {
       super("Velocity");
+      this.mode = this.builder(this.fv.add("mode"), Velocity$Mode.class).defaultValue(Velocity$Mode.NONE).build();
       this.ae = this.flagBuilder(this.fv.addEnable()).build();
       this.J = this.moduleEntry(this.fv.addHotkey(), new MultiKeyBind(), this.fv.addEnable(), moduleMeta(() -> this.mode)).build();
       this.horizontalThreshold = this.builder(this.fv.add("horizontal-threshold"), DoubleRef.TYPE).defaultValue(0.0).build();
       this.verticalThreshold = this.builder(this.fv.add("vertical-threshold"), DoubleRef.TYPE).defaultValue(0.0).build();
-      this.mode = this.builder(this.fv.add("mode"), Velocity$Mode.class).defaultValue(Velocity$Mode.NONE).build();
       this.bypassExplosions = this.flagBuilder(this.fv.add("bypass-explosions")).build();
       this.grimFreezeIfWalk = this.flagBuilder(this.fv.add("grim-freeze-if-walk"))
          .show(() -> this.mode.get().isIn(new ConfigEnum[]{Velocity$Mode.GRIM_LEGACY_GROUND}))

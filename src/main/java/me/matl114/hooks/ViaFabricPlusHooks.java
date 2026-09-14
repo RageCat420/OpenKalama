@@ -17,7 +17,7 @@ import java.util.Objects;
 import me.matl114.versioned.SupportVersion;
 import net.minecraft.network.packet.PacketType;
 
-public class ViaFabricPlusHooks implements IHooks {
+public abstract class ViaFabricPlusHooks implements IHooks {
    public static ViaFabricPlusHooks instance;
 
    public static ViaFabricPlusHooks getInstance() {
@@ -58,7 +58,7 @@ public class ViaFabricPlusHooks implements IHooks {
       return getInstance().getCurrentVersion().b(21, 6);
    }
 
-   public static class AbstractViaFabricImpl extends ViaFabricPlusHooks {
+   public abstract static class AbstractViaFabricImpl extends ViaFabricPlusHooks {
       ProtocolVersion lastProtocol = null;
       SupportVersion lastVersion = null;
 

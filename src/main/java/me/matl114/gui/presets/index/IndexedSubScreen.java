@@ -12,7 +12,7 @@ import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 
-public class IndexedSubScreen<T, W extends Element & Drawable & Selectable> extends KalamaHelperHelperCX {
+public abstract class IndexedSubScreen<T, W extends Element & Drawable & Selectable> extends KalamaHelperHelperCX {
    protected int eT;
    protected int eU;
    protected ListUnmodifiableWidget eR;
@@ -41,7 +41,7 @@ public class IndexedSubScreen<T, W extends Element & Drawable & Selectable> exte
       this.af();
    }
 
-   public T bf() { }
+   public abstract T bf();
 
    protected void af() {
       ListEntryWidgetController var1 = ListEntryWidgetController.immutable(

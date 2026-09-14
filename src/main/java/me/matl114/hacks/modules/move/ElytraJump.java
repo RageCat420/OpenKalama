@@ -62,7 +62,7 @@ public class ElytraJump extends BaseModule implements HackUtilHelperJ {
       }
 
       if (this.zv && (mc.player.isFallFlying() || this.zx)) {
-         mc.player.setPitch((float)(Object)this.pitch.get());
+         mc.player.setPitch((float)this.pitch.get());
          ((LegalMovementManager)movementManagerEvent.b).c();
       }
    }

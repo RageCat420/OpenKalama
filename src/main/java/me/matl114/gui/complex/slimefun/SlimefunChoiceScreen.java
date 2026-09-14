@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList.Builder;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -37,17 +38,18 @@ public class SlimefunChoiceScreen<T> extends SlimefunScreen {
    List<Text> n;
    public static String o = "";
    Function<T, ItemStack> m;
-   private static final EnumAttrKeyValue<KalamaHelperHelperI> p = AttrKeyValue.enumMap(
+   private static final EnumAttrKeyValue<KalamaHelperHelperI> p = AttrKeyValue.<KalamaHelperHelperI>enumMap(
       "NBT过滤规则",
       KalamaHelperHelperI.BQ,
-      Arrays.stream(KalamaHelperHelperI.values())
+      (Map<String, KalamaHelperHelperI>)Arrays.stream(KalamaHelperHelperI.values())
          .collect(Collectors.toMap(i -> i.BX, Function.identity(), (existing, replacement) -> existing, LinkedHashMap::new))
    );
    final KalamaHelperHelperA<T> k;
    private static final KalamaHelperHelperG q = new KalamaHelperHelperG();
    ContentDelegateWidget<KalamaHelperHelperA<T>> l;
 
-   protected void initBackground() {
+   @Override
+   protected void l() {
       DisplayWidget.instance(this.x + this.backgroundWidth - 3, this.y + 64, 26, 26).<DrawableWidget>setRenderHandler(PlateElement.cg()).addTo(this);
       p.generateSwitchingButton(this.x + this.backgroundWidth + 1, this.y + 68, 18, 18, attr -> {
          if (ScreenUtils.hasShiftDown() && p.getOriginValue() != KalamaHelperHelperI.BQ) {

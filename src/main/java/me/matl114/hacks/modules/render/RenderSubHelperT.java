@@ -34,7 +34,7 @@ class RenderSubHelperT extends ChatScreen implements RenderSubHelperZX {
 
    public RenderSubHelperT(final SleepMode param1, String originalChatText, Text displayMessage) {
       super(originalChatText);
-      this.j = var1;
+      this.j = param1;
       this.i = displayMessage;
    }
 

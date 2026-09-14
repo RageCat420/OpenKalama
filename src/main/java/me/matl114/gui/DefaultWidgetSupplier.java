@@ -94,7 +94,8 @@ public final class DefaultWidgetSupplier implements WidgetSupplier {
       return provider == null ? TextProvider.c(Text.empty()) : provider;
    }
 
-   public ElementHandler create(KalamaHelperHelperZ builder) {
+   @Override
+   public ElementHandler h(KalamaHelperHelperZ builder) {
       TextFieldWidget var10000;
       if (builder.t != null) {
          var10000 = builder.t;
@@ -209,10 +210,4 @@ public final class DefaultWidgetSupplier implements WidgetSupplier {
 
       return this.applyCommon(var2, builder);
    }
-
-
-
-   @Override
-   public ElementHandler h(Object arg0) { return null; }
-
 }

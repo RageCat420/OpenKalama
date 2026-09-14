@@ -27,7 +27,7 @@ class SlimefunSubHelperI implements HackUtilHelperJ {
          for (int var3 = 0; var3 < this.val$clickRate; var3++) {
             MinecraftClient.getInstance()
                .interactionManager
-               .sendSequencedPacket(MinecraftClient.getInstance().world, sequence -> new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, result, sequence));
+               .sendSequencedPacket(MinecraftClient.getInstance().world, sequence -> new PlayerInteractBlockC2SPacket(Hand.MAIN_HAND, this.JO, sequence));
          }
 
          ClientAccess.of(MinecraftClient.getInstance()).setItemUseCooldown(0);

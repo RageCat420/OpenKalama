@@ -54,7 +54,7 @@ public class BlockFarm extends BaseModule {
    public final FlagRef whiteListEnable;
 
    public KalamaHelperHelperK<ItemStack> supplyItems(BlockItem blockItem) {
-      return InventoryUtils.v(s -> s.getItem() == blockItem ? -s.getCount() : null, true, false);
+      return InventoryUtils.v(s -> s.getItem() == blockItem ? (double)(-s.getCount()) : null, true, false);
    }
 
    public void onPlayerMineAttackBlock(Event<HitResult> hitResultEvent) {

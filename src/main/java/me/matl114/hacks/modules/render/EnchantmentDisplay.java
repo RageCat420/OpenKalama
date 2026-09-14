@@ -84,10 +84,10 @@ public class EnchantmentDisplay extends BaseModule {
                return;
             }
 
-            List<RegistryKey> var4 = this.Cj.get(var2.getItem());
+            List<RegistryKey<Enchantment>> var4 = this.Cj.get(var2.getItem());
             ItemEnchantmentsComponent var5 = (ItemEnchantmentsComponent)var2.get(DataComponentTypes.ENCHANTMENTS);
             if (var5 != null && !var5.isEmpty()) {
-               for (RegistryKey var7 : var4) {
+               for (RegistryKey<Enchantment> var7 : var4) {
                   if (ItemStackUtils.getEnchantmentLevel(var5, var7) > 0) {
                      ((List)event.e()).add(GuiModel.of(Cd.get(var7)));
                      return;

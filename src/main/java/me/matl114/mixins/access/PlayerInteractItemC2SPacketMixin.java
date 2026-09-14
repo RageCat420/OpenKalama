@@ -17,24 +17,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({PlayerInteractItemC2SPacket.class})
-public class PlayerInteractItemC2SPacketMixin implements PlayerInteractItemC2SPacketAccess {
+public abstract class PlayerInteractItemC2SPacketMixin implements PlayerInteractItemC2SPacketAccess {
    @Unique
    ItemStack useContext;
 
    @Mutable
    @Accessor("hand")
    @Override
-   public void setHand(Hand var1) { }
+public abstract void setHand(Hand var1) ;
 
    @Mutable
    @Accessor("yaw")
    @Override
-   public void setYaw(float var1) { }
+public abstract void setYaw(float var1) ;
 
    @Mutable
    @Accessor("pitch")
    @Override
-   public void setPitch(float var1) { }
+public abstract void setPitch(float var1) ;
 
    @Inject(
       method = {"<init>(Lnet/minecraft/util/Hand;IFF)V"},

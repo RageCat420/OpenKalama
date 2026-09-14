@@ -84,8 +84,8 @@ public class RecipeTasks {
          c = Objects.requireNonNull(a.world).getRegistryManager();
          b = new LinkedHashMap<>();
 
-         for (RecipeType var1 : Registries.RECIPE_TYPE) {
-            for (RecipeEntry var4 : INSTANCE.listAllOfType(var1)) {
+         for (RecipeType<?> var1 : Registries.RECIPE_TYPE) {
+            for (RecipeEntry var4 : (List<RecipeEntry>)(Object)INSTANCE.listAllOfType((RecipeType)var1)) {
                b.put(var4.id(), KalamaHelperHelperC.of(var4, var1));
             }
          }
@@ -132,6 +132,6 @@ public class RecipeTasks {
    }
 
    public static RecipeIngredient[] f(KalamaHelperHelperC recipeRecord) {
-      return recipeRecord.Cu();
+      return recipeRecord.ingredients();
    }
 }

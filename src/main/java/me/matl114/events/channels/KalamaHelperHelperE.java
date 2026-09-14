@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class KalamaHelperHelperE<W> {
+public abstract class KalamaHelperHelperE<W> {
    protected List<KalamaHelperHelperA<W>> d = new ArrayList<>();
 
    public void p(Predicate<Consumer<W>> p) {
@@ -16,7 +16,7 @@ public class KalamaHelperHelperE<W> {
       return this.d.isEmpty();
    }
 
-   public boolean a(W var1) { }
+   public abstract boolean a(W var1);
 
    public void o(Predicate<Predicate<W>> p) {
       this.d.removeIf(h -> h.value instanceof Predicate var3 && p.test(var3));

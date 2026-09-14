@@ -288,12 +288,12 @@ public class StorageDisplay extends BaseModule {
                   if (var2x == null) {
                      return null;
                   } else {
-                     LinkedHashMap var3x = new LinkedHashMap();
+                           LinkedHashMap<ItemStackSample, Integer> var3x = new LinkedHashMap<>();
 
                      label33:
                      for (ItemStack var5x : var2x.iterateNonEmpty()) {
                         if (!var5x.isEmpty()) {
-                           for (Entry var7 : ((java.util.Set<Entry>)(var3x).entrySet())) {
+                           for (Entry<ItemStackSample, Integer> var7 : var3x.entrySet()) {
                               if (ItemStackUtils.matchItemWithout(var5x, ((ItemStackSample)var7.getKey()).fS(), false, false, false)) {
                                  var7.setValue((Integer)var7.getValue() + var5x.getCount());
                                  continue label33;

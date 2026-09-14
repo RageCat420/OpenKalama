@@ -194,7 +194,7 @@ public class FarmingUtils {
    }
 
    @KalamaHelperHelperA
-   private static boolean isPitcherHarvestable(World world, BlockPos pos) {
+   static boolean isPitcherHarvestable(World world, BlockPos pos) {
       BlockState var2 = world.getBlockState(pos);
       if (!var2.isOf(Blocks.PITCHER_CROP)) {
          return false;
@@ -229,7 +229,7 @@ public class FarmingUtils {
    }
 
    @KalamaHelperHelperA
-   private static boolean isBambooHarvestable(World world, BlockPos pos) {
+   static boolean isBambooHarvestable(World world, BlockPos pos) {
       BlockState var2 = world.getBlockState(pos);
       if (!var2.isOf(Blocks.BAMBOO)) {
          return false;

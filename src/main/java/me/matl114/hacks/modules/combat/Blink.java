@@ -120,7 +120,7 @@ public class Blink extends BaseModule {
 
          if (this.onEnermyNear.get() != Blink$Action.NONE && this.wa != null) {
             boolean var2 = false;
-            ImmutableList var3 = ImmutableList.copyOf(mc.world.getEntities());
+            ImmutableList<Entity> var3 = ImmutableList.copyOf(mc.world.getEntities());
             Vec3d var4 = this.wa.g;
             Vec3d var5 = var4.add(0.0, mc.player.getEyeHeight(mc.player.getPose()), 0.0);
 

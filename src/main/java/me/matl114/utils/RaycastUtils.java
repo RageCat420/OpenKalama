@@ -62,7 +62,7 @@ public class RaycastUtils {
    }
 
    private static Vec3d findTargetPointOnFace(BlockState currState, BlockPos currPos, Direction direction) {
-      List var3 = currState.getOutlineShape(a.world, currPos, ShapeContext.of(a.player)).getBoundingBoxes();
+      List<Box> var3 = currState.getOutlineShape(a.world, currPos, ShapeContext.of(a.player)).getBoundingBoxes();
       return var3.stream()
          .map(it -> {
             AlignedFace var2 = getBoxFace(it, direction);
@@ -75,17 +75,16 @@ public class RaycastUtils {
             }
 
             Vec3d var5 = var3x.getCenter();
-            return var5 == null ? (Pair)null : new Pair(var3x, var5);
+            return var5 == null ? null : new Pair<>(var3x, var5);
          })
          .filter(Objects::nonNull)
          .max(
-            Comparator.<Pair>comparingDouble(
-                  it -> ((Vec3d)it.getSecond()).subtract(new Vec3d(0.5, 0.5, 0.5)).multiply(Vec3d.of(direction.getVector())).lengthSquared()
+            Comparator.<Pair<AlignedFace, Vec3d>>comparingDouble(
+                  it -> it.getSecond().subtract(new Vec3d(0.5, 0.5, 0.5)).multiply(Vec3d.of(direction.getVector())).lengthSquared()
                )
-               .thenComparingDouble(it -> ((Vec3d)it.getSecond()).y)
+               .thenComparingDouble(it -> it.getSecond().y)
          )
-         .<Object>map(Pair::getSecond)
-         .map(Vec3d.class::cast)
+         .map(Pair::getSecond)
          .orElse(null);
    }
 

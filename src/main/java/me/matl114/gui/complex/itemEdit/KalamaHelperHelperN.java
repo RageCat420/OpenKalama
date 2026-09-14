@@ -40,7 +40,7 @@ public class KalamaHelperHelperN<T> extends ConfirmingBigScreen {
       super(Text.empty());
       this.ea = type;
       this.removal = currentValue == null;
-      this.dY = new NbtAttrKeyValue<>(
+      this.dY = new NbtAttrKeyValue<Optional<T>>(
             "",
             currentValue,
             nbt -> nbt == null

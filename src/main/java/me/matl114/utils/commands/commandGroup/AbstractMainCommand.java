@@ -207,7 +207,7 @@ public class AbstractMainCommand implements SubCommand, InterruptionHandler {
       }
    }
 
-   protected void bM(CommandExecution sender, ArgumentReader command) {
+   public void bM(CommandExecution sender, ArgumentReader command) {
       command.d();
       String var3 = command.l();
       sender.sm("/%s 全部指令".formatted(var3));

@@ -10,7 +10,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 
-public class IRender2DColoredModule extends IRender2DModule {
+public abstract class IRender2DColoredModule extends IRender2DModule {
    public FlagRef bold2;
    public NBTRef<WrapColor> ct = this.builder(this.he.add("color"), WrapColor.class)
       .defaultValue(new WrapColor((TextColor)TextColor.parse("#F05BDA").getOrThrow()))

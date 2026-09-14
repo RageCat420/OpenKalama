@@ -16,7 +16,7 @@ public interface ConfigEnum extends StringIdentifiable, StringArgumentResult, Au
       if (registeredEnumsClasses.containsKey(type)) {
          throw new IllegalArgumentException("Duplicate config enum name: " + type);
       } else {
-         registeredEnumsClasses.put(type, configEnum);
+         registeredEnumsClasses.put(type, (Class)configEnum);
          Map<String, ConfigEnum> maps = new LinkedHashMap<>();
 
          for (Enum e : configEnum.getEnumConstants()) {
@@ -65,7 +65,7 @@ public interface ConfigEnum extends StringIdentifiable, StringArgumentResult, Au
 
    static <T extends Enum<T>> Map<String, T> getMap(Class<T> configEnum) {
       ConfigEnum enumValue = (ConfigEnum)((Enum[])configEnum.getEnumConstants())[0];
-      return (Map<String, T>)enumValue.getMap();
+      return (Map)enumValue.getMap();
    }
 
    static void onLoad(Class<?> clazz) {

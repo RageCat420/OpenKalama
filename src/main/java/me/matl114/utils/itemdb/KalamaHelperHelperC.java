@@ -48,7 +48,8 @@ public final class KalamaHelperHelperC implements ItemStackData {
       return this.rs;
    }
 
-   public JsonElement getAsJson() {
+   @Override
+   public JsonElement gb() {
       if (this.rt == null) {
          try {
             this.rt = ItemStackData.serialize(this.rr);
@@ -63,10 +64,5 @@ public final class KalamaHelperHelperC implements ItemStackData {
    @Override
    public void resolveItemStack() {
    }
-
-
-
-   @Override
-   public JsonElement gb() { return null; }
 
 }

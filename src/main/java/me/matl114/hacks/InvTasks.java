@@ -327,7 +327,6 @@ public class InvTasks {
       B = new ItemCache("sfhelper-configs/recipes/item-database.json");
       C = B.createStackDataCodec();
       D = ItemStackDataWithAmount.createCodecOf(C);
-      Tasks.e(r -> E.reset());
       Listener.n(PlayerInteractBlockC2SPacket.class, InvTasks::listenInteractBlockPacket);
       Listener.ap().getChannel(OpenScreenS2CPacket.class).k(InvTasks::onOpenScreen);
       Listener.M().k(InvTasks::W);
@@ -337,8 +336,9 @@ public class InvTasks {
       Listener.ap().getChannel(ScreenHandlerSlotUpdateS2CPacket.class).k(InvTasks::fastAsyncUpdateRevision);
       Listener.ap().getChannel(InventoryS2CPacket.class).k(InvTasks::fastAsyncUpdateRevision2);
       m.registerFactories(InvTasks::ac);
-      HackModules.registerModuleGroup(m);
       E = new LimitedSpeedExecutor(n.mI);
+      Tasks.e(r -> E.reset());
+      HackModules.registerModuleGroup(m);
    }
 
    public static boolean quickDropSlotItem(HandledScreen handled, Slot slot) {
@@ -1123,7 +1123,7 @@ public class InvTasks {
    ) {
       int var6 = ingredients.length;
       Preconditions.checkArgument(slot.length == var6);
-      HashMap var7 = new HashMap();
+      HashMap<ItemStackSample, IntList> var7 = new HashMap<>();
       IntArrayList var8 = new IntArrayList();
 
       for (int var9 = 0; var9 < var6; var9++) {
@@ -1137,14 +1137,14 @@ public class InvTasks {
                }
 
                list.add(var12);
-               return (IntList)list;
+               return list;
             });
          } else {
             var8.add(var9);
          }
       }
 
-      for (Entry var23 : ((java.util.Set<Entry>)(var7).entrySet())) {
+         for (Entry<ItemStackSample, IntList> var23 : var7.entrySet()) {
          ItemStackSample var25 = (ItemStackSample)var23.getKey();
          KalamaHelperHelperB var26 = (KalamaHelperHelperB)slotMatchProvider.apply(screen, var25.fS());
          int var13 = var26.count;

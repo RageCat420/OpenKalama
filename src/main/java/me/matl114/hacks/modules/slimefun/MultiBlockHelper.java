@@ -79,9 +79,9 @@ public class MultiBlockHelper extends BaseModule {
    private int clickCooldown;
 
    public static List<BlockPos> getPositionByDirection(SlimefunSubHelperO entry, BlockPos blockPos, CombatPlayer direcion) {
-      blockPos.add(0, -direcion.popCnt, 0);
-      int var3 = direcion.popCnt;
-      Direction var4 = direcion.player;
+      blockPos.add(0, -direcion.dy(), 0);
+      int var3 = direcion.dy();
+      Direction var4 = direcion.direction();
       BlockMatcher[] var5 = entry.blockTypes();
       ArrayList var6 = new ArrayList(9);
       BlockMatcher[] var7 = entry.blockTypes();
@@ -197,12 +197,12 @@ public class MultiBlockHelper extends BaseModule {
          BlockPos var4 = result.getBlockPos();
          Block var5 = mc.world.getBlockState(var4).getBlock();
          if (var5 != Blocks.DISPENSER && var5 != Blocks.DROPPER) {
-            Set var6 = SlimefunTasks.u().WM(var5);
+            Set<SlimefunSubHelperO> var6 = SlimefunTasks.u().WM(var5);
             if (var6 != null && !var6.isEmpty()) {
-               Optional var7 = var6.stream().filter(m -> anyMatchMiddle(m, mc.world, var4)).findFirst();
+               Optional<SlimefunSubHelperO> var7 = var6.stream().filter(m -> anyMatchMiddle(m, mc.world, var4)).findFirst();
                if (!var7.isEmpty()) {
                   if (this.ie + 100 < Tasks.b()) {
-                     Debug.chat(Text.literal("[MBHelper] Interacting with multiblock: ").formatted(Formatting.RED), ((SlimefunSubHelperO)var7.get()).id());
+                     Debug.chat(Text.literal("[MBHelper] Interacting with multiblock: ").formatted(Formatting.RED), var7.get().id());
                      this.ie = Tasks.b();
                   }
 

@@ -6,19 +6,19 @@ class KalamaHelperHelperAX implements KalamaHelperHelperP {
    private final KalamaHelperHelperP b;
    private final Predicate a;
 
-   public boolean onScroll(ExecutableWidget widget, double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+   public boolean c(ExecutableWidget widget, double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
       return this.a.test(this.b) && this.b.c(widget, mouseX, mouseY, horizontalAmount, verticalAmount);
    }
 
-   public boolean onKey(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
+   public boolean d(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
       return this.a.test(this.b) && this.b.d(widget, keyCode, scanCode, modifiers, isPress);
    }
 
-   public boolean onAction(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
+   public boolean b(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
       return this.a.test(this.b) && this.b.b(element, mouseX, mouseY, button, type);
    }
 
-   public boolean onTyped(ExecutableWidget widget, char chr, int modifiers) {
+   public boolean e(ExecutableWidget widget, char chr, int modifiers) {
       return this.a.test(this.b) && this.b.e(widget, chr, modifiers);
    }
 

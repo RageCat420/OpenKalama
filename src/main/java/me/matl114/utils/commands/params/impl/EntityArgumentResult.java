@@ -6,7 +6,8 @@ import me.matl114.utils.commands.params.api.ArgumentType;
 public class EntityArgumentResult<T> extends AbstractArgumentResult<T> {
    private final String rawString;
 
-   public String resultAsString() {
+   @Override
+   public String a() {
       return this.rawString;
    }
 
@@ -15,15 +16,10 @@ public class EntityArgumentResult<T> extends AbstractArgumentResult<T> {
       this.rawString = rawString;
       this.h = parseSuccess;
    }
+
    @Override
    public boolean k() {
-      return this.resultAsString();
+      return this.h;
    }
-
-
-
-
-   @Override
-   public String a() { return null; }
 
 }

@@ -29,7 +29,7 @@ public record ItemStackDataWithAmount(ItemStackData stackReference, int count) {
    }
 
    public static Codec<ItemStackDataWithAmount> createCodecOf(Codec<ItemStackData> itemStackData) {
-      Codec var1 = RecordCodecBuilder.create(
+      Codec<ItemStackDataWithAmount> var1 = RecordCodecBuilder.create(
          instance -> instance.group(
                itemStackData.fieldOf("typeid").forGetter(ItemStackDataWithAmount::yP), Codec.INT.fieldOf("amount").forGetter(ItemStackDataWithAmount::yQ)
             )

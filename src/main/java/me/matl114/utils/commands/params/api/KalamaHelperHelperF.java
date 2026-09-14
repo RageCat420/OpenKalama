@@ -46,7 +46,7 @@ public interface KalamaHelperHelperF {
 
    static KalamaHelperHelperF l(List<KalamaHelperHelperF> tabSupplier) {
       return (s, arg) -> {
-         ArrayList var3 = new ArrayList(tabSupplier.size());
+         ArrayList<Stream<String>> var3 = new ArrayList<>(tabSupplier.size());
 
          for (KalamaHelperHelperF var5 : tabSupplier) {
             var3.add(var5.b(s, arg));

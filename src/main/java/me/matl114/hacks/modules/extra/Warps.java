@@ -161,7 +161,7 @@ public class Warps extends BaseModule {
       KalamaHelperHelperZX var2 = (KalamaHelperHelperZX)((KalamaHelperHelperI)tpaRequest.b).b();
       switch (var2.d) {
          case UK:
-            Stream var8 = this.sB.getTab(var2.e, var2.f);
+            Stream<String> var8 = this.sB.getTab(var2.e, var2.f);
             if (var8 != null) {
                var8.forEach(((KalamaHelperHelperE)var2).tab::add);
             }
@@ -309,7 +309,7 @@ public class Warps extends BaseModule {
       this.sz = new LinkedHashMap<>();
       this.sy.clear();
       this.sz.clear();
-      Map var1 = this.sx.b(JavaOps.INSTANCE);
+      Map<String, List<String>> var1 = (Map<String, List<String>>)(Map)this.sx.b(JavaOps.INSTANCE);
 
       for (String var3 : List.copyOf(var1.getOrDefault("warp-entries", List.of()))) {
          String[] var4 = var3.split("\\|");

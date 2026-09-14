@@ -67,7 +67,8 @@ public class DrawContext_v1_21_1 implements VDrawContext {
       return cachedShaderColor[1] / 255.0F;
    }
 
-   public void drawGuiTexture(Identifier texture, int x, int y, int z, int width, int height) {
+   @Override
+   public void u(Identifier texture, int x, int y, int z, int width, int height) {
       colorOverride.set(true);
 
       try {
@@ -89,11 +90,13 @@ public class DrawContext_v1_21_1 implements VDrawContext {
       }
    }
 
-   public void popLayer() {
+   @Override
+   public void e() {
       this.a.getMatrices().pop();
    }
 
-   public void pushLayer(int depth) {
+   @Override
+   public void d(int depth) {
       this.a.getMatrices().push();
       this.a.getMatrices().translate(0.0F, 0.0F, depth);
    }
@@ -106,8 +109,9 @@ public class DrawContext_v1_21_1 implements VDrawContext {
       cachedShaderColor[3] = ColorHelper.channelFromFloat(alpha);
    }
 
-   public DrawContext popMatrix() {
-      this.a.getMatrices().pop();
+   @Override
+   public DrawContext b() {
+      this.a.getMatrices().push();
       return this.a;
    }
 
@@ -125,7 +129,8 @@ public class DrawContext_v1_21_1 implements VDrawContext {
       var10.vertex(var11, x2, y1, depth).color(color4);
    }
 
-   public void drawTexturedQuad(Identifier texture, int x1, int x2, int y1, int y2, int z, float u1, float u2, float v1, float v2) {
+   @Override
+   public void w(Identifier texture, int x1, int x2, int y1, int y2, int z, float u1, float u2, float v1, float v2) {
       this.a.drawTexturedQuad(texture, x1, x2, y1, y2, z, u1, u2, v1, v2, n(), o(), p(), q());
    }
 
@@ -133,7 +138,8 @@ public class DrawContext_v1_21_1 implements VDrawContext {
       return argb >>> 24;
    }
 
-   public void drawItem(ItemStack stack, int x, int y, int seed, int z) {
+   @Override
+   public void K(ItemStack stack, int x, int y, int seed, int z) {
       this.a.drawItem(stack, x, y, seed);
    }
 
@@ -141,8 +147,9 @@ public class DrawContext_v1_21_1 implements VDrawContext {
       return argb >> 16 & 0xFF;
    }
 
-   public void drawGuiTextureQuad(Identifier texture, int x1, int x2, int y1, int y2, int z, float u1, float u2, float v1, float v2) {
-      Sprite var11 = this.getGuiSprite(texture);
+   @Override
+   public void x(Identifier texture, int x1, int x2, int y1, int y2, int z, float u1, float u2, float v1, float v2) {
+      Sprite var11 = this.y(texture);
       float var12 = var11.getMinU();
       float var13 = var11.getMaxU();
       float var14 = var11.getMinV();
@@ -151,20 +158,17 @@ public class DrawContext_v1_21_1 implements VDrawContext {
       float var17 = var12 + u2 * (var13 - var12);
       float var18 = var14 + v1 * (var15 - var14);
       float var19 = var14 + v2 * (var15 - var14);
-      this.drawTexturedQuad(var11.getAtlasId(), x1, x2, y1, y2, z, var16, var17, var18, var19);
+      this.w(var11.getAtlasId(), x1, x2, y1, y2, z, var16, var17, var18, var19);
    }
 
-   public void drawText(TextRenderer textRenderer, @Nullable String text, int x, int y, int color, boolean shadow) {
+   @Override
+   public void A(TextRenderer textRenderer, @Nullable String text, int x, int y, int color, boolean shadow) {
       this.a.drawText(textRenderer, text, x, y, m(color), shadow);
    }
 
-   public void tryDraw() {
-      if (this.c != null) {
-         this.c.run();
-         this.c = null;
-      }
-
-      this.a.tryDraw();
+   @Override
+   public void C() {
+      this.a.disableScissor();
    }
 
    @Override
@@ -179,7 +183,8 @@ public class DrawContext_v1_21_1 implements VDrawContext {
       this.a.drawText(textRenderer, text, x, y, m(color), shadow);
    }
 
-   public void lineGuiGradient(int x1, int y1, int x2, int y2, int color1, int color2, int depth) {
+   @Override
+   public void H(int x1, int y1, int x2, int y2, int color1, int color2, int depth) {
       VertexConsumer var8 = this.a.getVertexConsumers().getBuffer(RenderLayer.LINES);
       Entry var9 = this.a.getMatrices().peek();
       Vector3f var10 = new Vector3f(x2 - x1, y2 - y1, 0.0F).normalize();
@@ -204,12 +209,19 @@ public class DrawContext_v1_21_1 implements VDrawContext {
       this.a.enableScissor((int)var6.x, (int)var6.y, (int)var7.x, (int)var7.y);
    }
 
-   public void disableScissor() {
-      this.a.disableScissor();
+   @Override
+   public void D() {
+      if (this.c != null) {
+         this.c.run();
+         this.c = null;
+      }
+
+      this.a.tryDraw();
    }
 
-   public DrawContext pushMatrix() {
-      this.a.getMatrices().push();
+   @Override
+   public DrawContext c() {
+      this.a.getMatrices().pop();
       return this.a;
    }
 
@@ -229,7 +241,8 @@ public class DrawContext_v1_21_1 implements VDrawContext {
       }
    }
 
-   public void fill(int x1, int y1, int x2, int y2, int z, int color) {
+   @Override
+   public void G(int x1, int y1, int x2, int y2, int z, int color) {
       this.a.fill(x1, y1, x2, y2, z, color);
    }
 
@@ -246,7 +259,8 @@ public class DrawContext_v1_21_1 implements VDrawContext {
       Arrays.fill(cachedShaderColor, 255);
    }
 
-   public Sprite getGuiSprite(Identifier i) {
+   @Override
+   public Sprite y(Identifier i) {
       return this.a.guiAtlasManager.getSprite(i);
    }
 
@@ -263,13 +277,5 @@ public class DrawContext_v1_21_1 implements VDrawContext {
       this.a = context;
       this.b = MatrixStack.of(context.getMatrices());
    }
-
-
-
-   @Override
-   public void e() { }
-
-
-   public void A(Object arg0, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5) { }
 
 }

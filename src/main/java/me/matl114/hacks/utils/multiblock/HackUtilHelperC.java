@@ -15,10 +15,8 @@ public record HackUtilHelperC(TagKey<Block> blockTagKey) implements BlockMatcher
 
    @Override
    public Set<Block> getPotentials() {
-      return ((Named)Registries.BLOCK.getEntryList(this.blockTagKey).orElseThrow())
-         .stream()
-         .<Block>map(RegistryEntry::value)
-         .collect(Collectors.toUnmodifiableSet());
+      Named<Block> var1 = (Named<Block>)Registries.BLOCK.getEntryList(this.blockTagKey).orElseThrow();
+      return var1.stream().map(RegistryEntry::value).collect(Collectors.toUnmodifiableSet());
    }
 
    @Override

@@ -99,7 +99,7 @@ public class WrapperAttrKeyValue<W, T> implements AttrKeyValue<T>, Cloneable {
 
    @Override
    public AttrKeyValue.CustomWidgetFactory<T> getCustomWidgetFactory() {
-      return this.factoryOverride != null ? this.factoryOverride : this.delegate.getCustomWidgetFactory();
+      return this.factoryOverride != null ? this.factoryOverride : (AttrKeyValue.CustomWidgetFactory<T>)(Object)this.delegate.getCustomWidgetFactory();
    }
 
    @Override

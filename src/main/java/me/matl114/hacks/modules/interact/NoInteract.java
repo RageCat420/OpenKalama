@@ -59,7 +59,7 @@ public class NoInteract extends BaseModule {
    public final NBTRef<EntrySet<Item>> pW;
    public final FlagRef swingHand;
    public final FlagRef autoCorrectAirPlace;
-   public final NBTRef<EntrySet<Block>> pV = this.builder(this.pU.add("no-interact-block"), EntrySet.parameter())
+   public final NBTRef<EntrySet<Block>> pV = this.builder(this.pU.add("no-interact-block"), EntrySet.<Block>parameter())
       .defaultValue(new EntrySet<Block>(new Regex("^(.*chest|.*pot)$"), Registries.BLOCK))
       .build();
    public final EnumRef<Configs$LegalInteractMode> autoCorrectMode;

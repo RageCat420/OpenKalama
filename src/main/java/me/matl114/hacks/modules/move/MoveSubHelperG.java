@@ -101,7 +101,8 @@ public class MoveSubHelperG extends MoveSubHelperY {
       }
    }
 
-   public void onSetback(Event<MovTasks$MovInfo> setBack) {
+   @Override
+   public void ji(Event<MovTasks$MovInfo> setBack) {
       this.vq = true;
       this.vo = Tasks.b();
       Vec3d var2 = ((MovTasks$MovInfo)setBack.b).vec3d();

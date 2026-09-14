@@ -25,7 +25,7 @@ class HackUtilHelperF<T> extends RegistryChooseScreen<T> {
       this.co = var4;
       this.cp = var5;
       this.ar.ch(false);
-      this.ar.bP(v -> originalCopy.isValidate() && ((WeakRegistryRegex)originalCopy.getOriginValue()).test(v.getC()));
+      this.ar.bP(v -> this.cp.isValidate() && ((WeakRegistryRegex)this.cp.getOriginValue()).test(v.getC()));
       this.cn.addListener(s -> this.ar.bT());
       KalamaHelperHelperCX var6 = this.ar.aV();
       var6.L();

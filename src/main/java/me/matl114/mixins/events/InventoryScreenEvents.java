@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Environment(EnvType.CLIENT)
 @Mixin({InventoryScreen.class})
-public class InventoryScreenEvents extends AbstractInventoryScreen<PlayerScreenHandler> implements RecipeBookProvider {
+public abstract class InventoryScreenEvents extends AbstractInventoryScreen<PlayerScreenHandler> implements RecipeBookProvider {
    @Shadow
    @Final
    private RecipeBookWidget field_2929;

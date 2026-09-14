@@ -30,15 +30,7 @@ public record InteractSubHelperJX(Mutable startPos, BlockPos targetPos, int item
       return this.startPos;
    }
 
-   public InteractSubHelperJX(Mutable startPos, BlockPos targetPos, int itemCount, ItemStack item, int selectedSlot, Hand hand, int way) {
-      this.startPos = startPos;
-      this.targetPos = targetPos;
-      this.selectedSlot = itemCount;
-      this.item = item;
-      this.itemCount = selectedSlot;
-      this.hand = hand;
-      this.way = way;
-   }
+   
 
    public BlockPos targetPos() {
       return this.targetPos;

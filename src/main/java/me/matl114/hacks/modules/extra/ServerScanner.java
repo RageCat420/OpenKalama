@@ -472,7 +472,7 @@ public class ServerScanner extends BaseModule {
                MultiplayerServerListPinger var9x = new MultiplayerServerListPinger();
 
                try (ThreadPoolExecutor var10 = (ThreadPoolExecutor)Executors.newFixedThreadPool(16)) {
-                  ArrayList var11 = new ArrayList(var4);
+                  ArrayList<CompletableFuture<?>> var11 = new ArrayList<>(var4);
                   int var12 = var1;
                   KeySetView var13 = ConcurrentHashMap.newKeySet();
 
@@ -494,10 +494,11 @@ public class ServerScanner extends BaseModule {
                      } while (var8.contains(var15) || var13.contains(var15));
 
                      var13.add(var15);
+                     String var17 = var15;
                      var11.add(CompletableFuture.runAsync(() -> {
                         if (this.wr.get()) {
-                           this.logInfo("扫描" + var15);
-                           this.pingServer(var9x, var15, var6);
+                           this.logInfo("扫描" + var17);
+                           this.pingServer(var9x, var17, var6);
                         }
                      }, var10));
                   }

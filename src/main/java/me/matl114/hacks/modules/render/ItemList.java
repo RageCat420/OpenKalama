@@ -39,22 +39,24 @@ public class ItemList extends IRender2DColoredModule {
    List<Text> dA = new ArrayList<>();
    FlagRef renderImportant;
 
-   protected void initializeSettings() {
+   @Override
+   protected void hJ() {
       super.hJ();
       this.renderSimple = this.flagBuilder(this.he.add("render-simple")).build();
       this.renderImportant = this.flagBuilder(this.he.add("render-important")).build();
-      this.nbtPredicate = this.builder(this.he.add("nbt-predicate"), PrimitiveList.uA())
-         .defaultValue(new PrimitiveList<>(NBTTypes.n, List.of()))
+      this.nbtPredicate = this.builder(this.he.add("nbt-predicate"), PrimitiveList.<NbtCompound>uA())
+         .defaultValue(new PrimitiveList<NbtCompound>(NBTTypes.n, List.of()))
          .updateListener(s -> this.hG(s.list()))
-         .build();
-      this.dx = this.builder(this.he.add("item-type"), EntrySet.<Item>parameter())
-         .defaultValue(
-            new EntrySet(
-               new Regex("^(.*ton_skull|netherite.*|.*_star|.*_apple|.*potion|tot.*|end_c.*l|obsi.*|.*anchor|expe.*|mace|ely.*|.*shulker.*|trident)$"),
-               Registries.ITEM
-            )
+         .<NBTRef<PrimitiveList<NbtCompound>>>build();
+      Class<EntrySet<Item>> varT = EntrySet.parameter();
+      me.matl114.hacks.api.WrapperSettingBuilder varB = this.builder(this.he.add("item-type"), varT);
+      varB.defaultValue(
+         new EntrySet(
+            new Regex("^(.*ton_skull|netherite.*|.*_star|.*_apple|.*potion|tot.*|end_c.*l|obsi.*|.*anchor|expe.*|mace|ely.*|.*shulker.*|trident)$"),
+            Registries.ITEM
          )
-         .build();
+      );
+      this.dx = (NBTRef<EntrySet<Item>>)(Object)varB.build();
    }
 
    public boolean testItem(ItemStack stack) {
@@ -91,7 +93,7 @@ public class ItemList extends IRender2DColoredModule {
       this.dA.clear();
       if (!checkNull()) {
          if (this.enable2.get()) {
-            HashMap var2 = new HashMap();
+            HashMap<ItemStackSample, Integer> var2 = new HashMap<>();
 
             for (Entity var4 : mc.world.getEntities()) {
                if (var4 instanceof ItemEntity var5) {
@@ -100,7 +102,7 @@ public class ItemList extends IRender2DColoredModule {
                }
             }
 
-            for (Entry var8 : ((java.util.Set<Entry>)(var2).entrySet())) {
+            for (Entry<ItemStackSample, Integer> var8 : var2.entrySet()) {
                MutableText var9 = ChatUtils.builder()
                   .withColorString("&f")
                   .appendText(VItem.w().l(((ItemStackSample)var8.getKey()).fS()))

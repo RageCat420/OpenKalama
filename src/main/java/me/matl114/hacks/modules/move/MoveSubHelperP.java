@@ -83,7 +83,7 @@ class MoveSubHelperP implements MoveSubHelperAh {
    }
 
    public MoveSubHelperP(final Travel param1) {
-      this.HP = var1;
+      this.HP = param1;
       this.catchResyncPackets = false;
       this.HN = 0;
       this.HO = 0;

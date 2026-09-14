@@ -22,7 +22,7 @@ class CombatSubHelperAX implements HackUtilHelperJ {
 
    @Override
    public boolean postModify(Event<LegalMovementManager> movementManagerEvent, boolean enabledThisTick) {
-      ACTasks.c(handler -> Listener.G(handler.getConnection(), delayedPacket));
+      ACTasks.c(handler -> Listener.G(handler.getConnection(), this.ac));
       return false;
    }
 

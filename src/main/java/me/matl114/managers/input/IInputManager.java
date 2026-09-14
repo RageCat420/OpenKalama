@@ -18,6 +18,4 @@ public interface IInputManager {
 
    InputState d(int var1);
 
-   default void a(IHotKey var1) {  }
-
 }

@@ -31,15 +31,15 @@ public class KalamaHelperHelperA {
    }
 
    public ArgumentInputStream c(CommandExecution execution, ArgumentReader reader) {
-      ArrayList var3 = new ArrayList();
-      List<ArgumentType> var4 = Arrays.stream(this.a).collect(Collectors.toCollection(ArrayList::new));
+      ArrayList<InputArgument<?>> var3 = new ArrayList<>();
+      List<ArgumentType<?>> var4 = Arrays.stream(this.a).collect(Collectors.toCollection(ArrayList::new));
 
-      for (ArgumentType var6 : var4) {
+      for (ArgumentType<?> var6 : var4) {
          if (!reader.hasNext()) {
             break;
          }
 
-         InputArgument var7 = var6.consume(execution, var3, reader);
+         InputArgument<?> var7 = var6.consume(execution, var3, reader);
          if (var7 == null) {
             throw new ValueAbsentError(var6.getArgsName(), new ArgumentReader(reader));
          }

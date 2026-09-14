@@ -13,7 +13,7 @@ import me.matl114.utils.commands.interruption.ValueParseError;
 import me.matl114.utils.commands.params.ArgumentReader;
 
 public interface InputArgument<W> {
-   public default int c() { }
+   public int c();
 
    default <T extends Enum<T>> boolean D(Class<T> type) throws ArgumentException {
       try {
@@ -45,7 +45,7 @@ public interface InputArgument<W> {
       }
    }
 
-   public default int b() { }
+   public int b();
 
    default ArgumentReader f() {
       return new ArgumentReader(this.d()).c(this.b());
@@ -136,7 +136,7 @@ public interface InputArgument<W> {
       }
    }
 
-   public default String a() { }
+   public String a();
 
    default void l() throws ArgumentException {
       if (!this.k()) {
@@ -158,7 +158,7 @@ public interface InputArgument<W> {
       }
    }
 
-   public default ArgumentType<W> i() { }
+   public ArgumentType<W> i();
 
    default float clampFloat(float low, float highEx) throws ArgumentException {
       float var3 = this.getFloat();
@@ -178,7 +178,7 @@ public interface InputArgument<W> {
       }
    }
 
-   public default String h() { }
+   public String h();
 
    default <T extends Enum<T>> T A(Class<T> type) throws ArgumentException {
       String var2 = this.z();
@@ -234,13 +234,8 @@ public interface InputArgument<W> {
       }
    }
 
-   public default boolean k() { }
+   public boolean k();
 
-   public default ArgumentReader d() { }
-
-   default String a() { return null; }
-
-
-   default boolean k() { return null; }
+   public ArgumentReader d();
 
 }

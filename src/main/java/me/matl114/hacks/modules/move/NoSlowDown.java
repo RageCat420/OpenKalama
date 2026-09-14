@@ -431,7 +431,7 @@ public class NoSlowDown extends BaseModule implements HackUtilHelperJ {
                      var10 = var4.getEntity();
                      var5 = true;
                   } else {
-                     ArrayList var12 = new ArrayList();
+                     ArrayList<Entity> var12 = new ArrayList<>();
 
                      for (Entity var7 : mc.world.getEntities()) {
                         if (var7 != mc.player) {

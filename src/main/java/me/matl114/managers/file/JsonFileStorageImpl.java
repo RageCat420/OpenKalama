@@ -54,13 +54,14 @@ public class JsonFileStorageImpl extends FileStorageImpl {
       this.h();
    }
 
-   public <W> DataResult<W> read(Codec<W> codec) {
+   @Override
+   public <W> DataResult<W> e(Codec<W> codec) {
       return codec.parse(JsonOps.INSTANCE, this.data);
    }
 
    @Override
    public <W> DataResult<?> f(Codec<W> codec, W value) {
-      DataResult var3 = codec.encodeStart(JsonOps.INSTANCE, value);
+      DataResult<JsonElement> var3 = codec.encodeStart(JsonOps.INSTANCE, value);
       var3.result().ifPresent(result -> this.write(result, JsonOps.INSTANCE));
       return var3;
    }
@@ -71,7 +72,8 @@ public class JsonFileStorageImpl extends FileStorageImpl {
       this.g = true;
    }
 
-   public <T, W extends T> W as(DynamicOps<T> ops) {
+   @Override
+   public <T, W extends T> W c(DynamicOps<T> ops) {
       return (W)JsonOps.INSTANCE.convertTo(ops, this.data);
    }
 
@@ -92,7 +94,8 @@ public class JsonFileStorageImpl extends FileStorageImpl {
       }
    }
 
-   public <T, W extends T> W asReadOnly(DynamicOps<T> ops) {
+   @Override
+   public <T, W extends T> W b(DynamicOps<T> ops) {
       return (W)(ops == JsonOps.INSTANCE ? this.data : JsonOps.INSTANCE.convertTo(ops, this.data));
    }
 

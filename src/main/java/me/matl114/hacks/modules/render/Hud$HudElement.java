@@ -14,8 +14,6 @@ public enum Hud$HudElement implements StringArgumentResult {
    UQ,
    UW,
    UR;
-   // $VF: synthetic field
-   private static final Hud$HudElement[] $VALUES = amm();
 
    @Override
    public Text resultAsString() {

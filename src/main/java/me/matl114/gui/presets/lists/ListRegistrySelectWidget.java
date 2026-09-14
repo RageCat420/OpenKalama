@@ -69,7 +69,7 @@ public class ListRegistrySelectWidget<T> extends KalamaHelperHelperD<Triplet<Tex
       int dy,
       int height
    ) {
-      super(list, renderFactory, filterInput, (BiPredicate<Triplet<Text, Identifier, T>, String>)filter, x, y, dx, dy, height);
+      super(list, renderFactory, filterInput, (BiPredicate<Triplet<Text, Identifier, T>, String>)(BiPredicate)filter, x, y, dx, dy, height);
    }
 
    public static <T> List<T> listRegistry(Registry<T> registry) {

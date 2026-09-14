@@ -3,7 +3,7 @@ package me.matl114.utils.collections;
 import java.util.Collection;
 
 class KalamaHelperHelperD<W extends Collection<R>, R> extends DirtyCollectionImpl<W, R> {
-   private final W this$0;
+   private final DirtyMap this$0;
 
    @Override
    public void setDirty(boolean dirty) {
@@ -12,8 +12,8 @@ class KalamaHelperHelperD<W extends Collection<R>, R> extends DirtyCollectionImp
       }
    }
 
-   public KalamaHelperHelperD(final W param1, Collection value) {
-      super((W)value);
+   public KalamaHelperHelperD(final DirtyMap param1, W value) {
+      super(value);
       this.this$0 = param1;
    }
 }

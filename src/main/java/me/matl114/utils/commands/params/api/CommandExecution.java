@@ -51,9 +51,4 @@ public interface CommandExecution {
 
    void sn(Text var1);
 
-   default PlayerEntity si() { return null; }
-
-
-   default World sr() { return null; }
-
 }

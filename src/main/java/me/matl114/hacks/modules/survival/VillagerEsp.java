@@ -50,7 +50,7 @@ public class VillagerEsp extends BaseModule {
       this.gP.clear();
       if (!checkNull() && this.ae.get() && WorldManager.INSTANCE != null) {
          int var2 = this.color.get().withAlpha(255);
-         float var3 = (float)(Object)this.textScale.get();
+         float var3 = (float)this.textScale.get();
 
          for (Entity var5 : mc.world.getEntities()) {
             if (var5 instanceof VillagerEntity var6 && this.isTrackedLibrarian(var6)) {

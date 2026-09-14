@@ -26,34 +26,6 @@ public record CachedShapeData(
       return this.minFullX;
    }
 
-   public CachedShapeData(
-      int sizeX,
-      int sizeY,
-      int sizeZ,
-      long[] voxelSet,
-      int minFullX,
-      int minFullY,
-      int minFullZ,
-      int maxFullX,
-      int maxFullY,
-      int maxFullZ,
-      boolean isEmpty,
-      boolean hasSingleAABB
-   ) {
-      this.maxFullX = sizeX;
-      this.maxFullY = sizeY;
-      this.minFullX = sizeZ;
-      this.voxelSet = voxelSet;
-      this.minFullZ = minFullX;
-      this.maxFullZ = minFullY;
-      this.sizeX = minFullZ;
-      this.sizeY = maxFullX;
-      this.minFullY = maxFullY;
-      this.sizeZ = maxFullZ;
-      this.isEmpty = isEmpty;
-      this.hasSingleAABB = hasSingleAABB;
-   }
-
    public int minFullY() {
       return this.minFullY;
    }

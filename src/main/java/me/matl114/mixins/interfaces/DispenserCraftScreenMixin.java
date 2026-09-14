@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({Generic3x3ContainerScreen.class})
-public class DispenserCraftScreenMixin extends HandledScreen<Generic3x3ContainerScreenHandler> implements TileInventory {
+public abstract class DispenserCraftScreenMixin extends HandledScreen<Generic3x3ContainerScreenHandler> implements TileInventory {
    @Unique
    private BlockPos pos;
    @Unique

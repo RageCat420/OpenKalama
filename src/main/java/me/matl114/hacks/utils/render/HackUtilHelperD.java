@@ -38,11 +38,11 @@ public record HackUtilHelperD(double x0, double y0, double z0, double x1, double
          z1 = var17;
       }
 
-      this.x1 = x0;
-      this.z0 = y0;
-      this.y1 = z0;
-      this.x0 = x1;
-      this.y0 = y1;
+      this.x0 = x0;
+      this.y0 = y0;
+      this.z0 = z0;
+      this.x1 = x1;
+      this.y1 = y1;
       this.z1 = z1;
    }
 
@@ -59,6 +59,6 @@ public record HackUtilHelperD(double x0, double y0, double z0, double x1, double
    }
 
    public HackUtilHelperD offset(Vec3d delta) {
-      return new HackUtilHelperD(this.x1 + delta.x, this.z0 + delta.y, this.y1 + delta.z, this.x0 + delta.x, this.y0 + delta.y, this.z1 + delta.z);
+      return new HackUtilHelperD(this.x0 + delta.x, this.y0 + delta.y, this.z0 + delta.z, this.x1 + delta.x, this.y1 + delta.y, this.z1 + delta.z);
    }
 }

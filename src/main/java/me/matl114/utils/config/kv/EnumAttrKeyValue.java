@@ -86,7 +86,10 @@ public class EnumAttrKeyValue<T> extends BaseAttrKeyValue<T> {
       Class<?> enumClass = map.values().iterator().next().getClass();
       List<Pair<String, Supplier<Text>>> flattenMap;
       if (StringArgumentResult.class.isAssignableFrom(enumClass)) {
-         flattenMap = map.entrySet().stream().map(entry -> new Pair<>(entry.getKey(), ((StringArgumentResult)entry.getValue())::resultAsString)).toList();
+         flattenMap = map.entrySet()
+            .stream()
+            .map(entry -> new Pair<>(entry.getKey(), (Supplier<Text>)((StringArgumentResult)entry.getValue())::resultAsString))
+            .toList();
       } else {
          flattenMap = map.keySet().stream().map(v -> new Pair<>(v, (Supplier<Text>)() -> Text.translatableWithFallback(v, v))).toList();
       }
@@ -97,8 +100,11 @@ public class EnumAttrKeyValue<T> extends BaseAttrKeyValue<T> {
    public DrawableWidget generateSwitchingButton(int x, int y, int dx, int dy, Consumer<EnumAttrKeyValue<T>> callback) {
       List<Pair<String, Supplier<Text>>> flattenMap;
       if (StringArgumentResult.class.isAssignableFrom(this.identifier)) {
-         Map<String, StringArgumentResult> valueMap = this.getValueMap();
-         flattenMap = valueMap.entrySet().stream().map(entry -> new Pair<>(entry.getKey(), entry.getValue()::resultAsString)).toList();
+         Map<String, StringArgumentResult> valueMap = (Map)this.getValueMap();
+         flattenMap = valueMap.entrySet()
+            .stream()
+            .map(entry -> new Pair<>(entry.getKey(), (Supplier<Text>)entry.getValue()::resultAsString))
+            .toList();
       } else {
          flattenMap = this.getValueMap().keySet().stream().map(v -> new Pair<>(v, (Supplier<Text>)() -> Text.translatableWithFallback(v, v))).toList();
       }

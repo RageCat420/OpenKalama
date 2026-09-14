@@ -9,8 +9,8 @@ public record SurvivalSubHelperS(ItemStack result, ItemStack buy1, ItemStack buy
    public static final Codec<SurvivalSubHelperS> CODEC = RecordCodecBuilder.create(
       instance -> instance.group(
             VItem.e.fieldOf("result").forGetter(SurvivalSubHelperS::result),
-            VItem.e.optionalFieldOf("buy1", ItemStack.EMPTY).forGetter(SurvivalSubHelperS::result),
-            VItem.e.optionalFieldOf("buy2", ItemStack.EMPTY).forGetter(SurvivalSubHelperS::buy1),
+             VItem.e.optionalFieldOf("buy1", ItemStack.EMPTY).forGetter(SurvivalSubHelperS::buy1),
+            VItem.e.optionalFieldOf("buy2", ItemStack.EMPTY).forGetter(SurvivalSubHelperS::buy2),
             Codec.INT.fieldOf("buy-limit").forGetter(SurvivalSubHelperS::buyLimit)
          )
          .apply(instance, SurvivalSubHelperS::new)

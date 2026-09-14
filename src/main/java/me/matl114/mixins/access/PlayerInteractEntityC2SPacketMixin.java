@@ -13,36 +13,37 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Environment(EnvType.CLIENT)
 @Mixin({PlayerInteractEntityC2SPacket.class})
-public class PlayerInteractEntityC2SPacketMixin implements PlayerInteractEntityC2SPacketAccess {
+public abstract class PlayerInteractEntityC2SPacketMixin implements PlayerInteractEntityC2SPacketAccess {
    @Shadow
    @Final
    public InteractTypeHandler type;
    @Shadow
    @Final
-   public static InteractTypeHandler TYPE;
+   public static InteractTypeHandler ATTACK;
 
    @Mutable
    @Accessor("entityId")
    @Override
-   public void setEntityId(int var1) { }
+public abstract void setEntityId(int var1) ;
 
    @Mutable
    @Accessor("entityId")
    @Override
-   public int getEntityId() { }
+public abstract int getEntityId() ;
 
    @Mutable
    @Accessor("type")
    @Override
-   public void setType(InteractTypeHandler var1) { }
+public abstract void setType(InteractTypeHandler var1) ;
 
    @Mutable
    @Accessor("playerSneaking")
    @Override
-   public void setPlayerSneaking(boolean var1) { }
+public abstract void setPlayerSneaking(boolean var1) ;
 
    @Override
    public boolean isAttack() {
-      return this.type.getType() == TYPE.getType();
+      return this.type.getType() == ATTACK.getType();
    }
 }
+

@@ -57,7 +57,7 @@ public class XaeroHelper extends BaseModule {
    private static final List<String> Ak = List.of("world", "world_path", "pos", "pos_str", "pos_x", "pos_y", "pos_z");
    public final NBTRef<PrimitiveList<StringFormat>> xaeroRightClickSuggestList;
    IXWaypoint Au;
-   private static final Map<String, Object> As = ImmutableMap.builder()
+   private static final Map<String, Object> As = ImmutableMap.<String, Object>builder()
       .put("pos", Text.translatable("message.module.xaero-helper.right-click-command.pos"))
       .put("pos_str", Text.translatable("message.module.xaero-helper.right-click-command.pos_str"))
       .put("pos_x", Text.translatable("message.module.xaero-helper.right-click-command.pos_x"))

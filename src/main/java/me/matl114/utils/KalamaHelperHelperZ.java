@@ -19,7 +19,8 @@ class KalamaHelperHelperZ implements KalamaHelperHelperHX {
    }
 
    @KalamaHelperHelperA
-   public BlockState getBlockState(BlockPos pos) {
+   @Override
+   public BlockState a(BlockPos pos) {
       return this.val$world.getBlockState(pos);
    }
 
@@ -28,10 +29,5 @@ class KalamaHelperHelperZ implements KalamaHelperHelperHX {
    public VoxelShape getCollisionShape(BlockPos pos) {
       return this.val$world.getBlockState(pos).getCollisionShape(this.val$world, pos);
    }
-
-
-
-   @Override
-   public BlockState a(Object arg0) { return null; }
 
 }

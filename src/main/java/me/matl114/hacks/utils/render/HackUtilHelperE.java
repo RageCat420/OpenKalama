@@ -25,7 +25,8 @@ class HackUtilHelperE implements RenderCollector<Box> {
    public void b(VDrawContext vDrawContext) {
    }
 
-   public void render3D(MatrixStack matrices) {
+   @Override
+   public void a(MatrixStack matrices) {
       if (!this.lines.isEmpty()) {
          Vec3d var2 = RenderUtils.getCameraPos().negate();
          VRender.getInstance().j((op, vtx) -> {
@@ -45,15 +46,19 @@ class HackUtilHelperE implements RenderCollector<Box> {
       }
    }
 
-   public void h(Box val, int color) {
+   @Override
+   public void submit(Box val, int color) {
       for (HackUtilHelperL var4 : RenderElements.boxFaces(val)) {
          this.g(var4, color);
       }
    }
 
+   public void h(Box val, int color) {
+      this.submit(val, color);
+   }
 
 
-   @Override
-   public void a(Object arg0) { }
+
+   
 
 }

@@ -17,6 +17,7 @@ import me.matl114.managers.config.ListRef;
 import me.matl114.utils.Debug;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourcePack;
+import java.util.function.Predicate;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 
@@ -32,7 +33,7 @@ public class CustomTextures extends BaseModule {
    public Collection<Identifier> loadOurselvesCustomModelTexture(ResourceManager manager) {
       ArrayList<Identifier> var2 = new ArrayList<>();
       HashSet<String> var3 = new HashSet<>(this.LH.get());
-      List<Predicate<String>> var4 = var3.stream().map(s -> {
+      List<Predicate<String>> var4 = var3.stream().<Predicate<String>>map(s -> {
          if (s.contains(":")) {
             try {
                return Pattern.compile(s).asMatchPredicate();

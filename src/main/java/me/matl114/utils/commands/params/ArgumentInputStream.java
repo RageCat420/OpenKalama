@@ -39,7 +39,7 @@ public class ArgumentInputStream {
          if (var6 != var2) {
             return Stream.empty();
          } else {
-            ArrayList var7 = new ArrayList();
+            ArrayList<Stream<String>> var7 = new ArrayList<>();
 
             for (int var8 = var4; var8 >= 0; var8--) {
                InputArgument var9 = this.d.get(var8);
@@ -47,7 +47,7 @@ public class ArgumentInputStream {
                   break;
                }
 
-               Stream var10 = this.c.get(var8).getTab(sender, var8 == var4 ? this.d : this.d.subList(0, var8 + 1));
+               Stream<String> var10 = this.c.get(var8).getTab(sender, var8 == var4 ? this.d : this.d.subList(0, var8 + 1));
                if (var10 != null) {
                   var7.add(var10);
                }

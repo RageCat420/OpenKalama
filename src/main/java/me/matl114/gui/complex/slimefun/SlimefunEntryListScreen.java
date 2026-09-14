@@ -9,7 +9,7 @@ import me.matl114.hacks.modules.slimefun.SlimefunGuide;
 import me.matl114.hacks.utils.recipes.IRecipeEntry;
 import net.minecraft.text.Text;
 
-public class SlimefunEntryListScreen<T> extends SlimefunPageScreen {
+public abstract class SlimefunEntryListScreen<T> extends SlimefunPageScreen {
    private static final int dn = 64;
    private static final int ENTRY_WIDTH = 144;
    List<T> recipeEntries;
@@ -88,5 +88,5 @@ public class SlimefunEntryListScreen<T> extends SlimefunPageScreen {
       return new KalamaHelperHelperE(list, factory);
    }
 
-   public DrawableWidget cz(T var1) { }
+   public abstract DrawableWidget cz(T var1);
 }

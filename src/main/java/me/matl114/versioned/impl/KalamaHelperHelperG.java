@@ -29,30 +29,7 @@ record KalamaHelperHelperG(
    public float raiseProgressMiddle() {
       return this.raiseProgressMiddle;
    }
-public 
-   KalamaHelperHelperG(
-      float raiseProgress,
-      float raiseProgressStart,
-      float raiseProgressMiddle,
-      float raiseProgressEnd,
-      float swayProgress,
-      float lowerProgress,
-      float raiseBackProgress,
-      float swayIntensity,
-      float swayScaleSlow,
-      float swayScaleFast
-   ) {
-      this.raiseProgressEnd = raiseProgress;
-      this.swayIntensity = raiseProgressStart;
-      this.raiseBackProgress = raiseProgressMiddle;
-      this.raiseProgressMiddle = raiseProgressEnd;
-      this.swayProgress = swayProgress;
-      this.raiseProgress = lowerProgress;
-      this.lowerProgress = raiseBackProgress;
-      this.swayScaleFast = swayIntensity;
-      this.raiseProgressStart = swayScaleSlow;
-      this.swayScaleSlow = swayScaleFast;
-   }
+
 
    public static KalamaHelperHelperG IE(Item kinetic, float f) {
       KalamaHelperHelperH var2 = LancingUtils.SWORD_KINETIC_MAP.get(kinetic);

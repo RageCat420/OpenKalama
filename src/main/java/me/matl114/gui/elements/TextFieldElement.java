@@ -136,12 +136,12 @@ public class TextFieldElement extends AbstractElement {
    }
 
    protected int bB(DrawableWidget element, int mouseY) {
-      return (int)(Object)this.bz(element, mouseY);
+      return (int)this.bz(element, mouseY);
    }
 
    @Override
-   public boolean onAction(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
-      if (super.onAction(element, mouseX, mouseY, button, type)) {
+   public boolean b(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
+      if (super.b(element, mouseX, mouseY, button, type)) {
          return true;
       } else {
          this.syncWidgetState(element);
@@ -200,11 +200,11 @@ public class TextFieldElement extends AbstractElement {
    }
 
    protected int bA(DrawableWidget element, int mouseX) {
-      return (int)(Object)this.by(element, mouseX);
+      return (int)this.by(element, mouseX);
    }
 
    @Override
-   public boolean onClick(ExecutableWidget element, double mouseX, double mouseY, int button) {
+   public boolean a(ExecutableWidget element, double mouseX, double mouseY, int button) {
       throw new UnsupportedOperationException("Use onAction(Type.MOUSE_CLICK) instead");
    }
 
@@ -678,9 +678,9 @@ public class TextFieldElement extends AbstractElement {
    }
 
    @Override
-   public boolean onKey(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
+   public boolean d(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
       this.syncWidgetState(widget);
-      return isPress && this.handleKeyPressed(keyCode, scanCode, modifiers) ? true : super.onKey(widget, keyCode, scanCode, modifiers, isPress);
+      return isPress && this.handleKeyPressed(keyCode, scanCode, modifiers) ? true : super.d(widget, keyCode, scanCode, modifiers, isPress);
    }
 
    public static TextFieldElement aV() {
@@ -760,9 +760,9 @@ public class TextFieldElement extends AbstractElement {
    }
 
    @Override
-   public boolean onTyped(ExecutableWidget widget, char chr, int modifiers) {
+   public boolean e(ExecutableWidget widget, char chr, int modifiers) {
       this.syncWidgetState(widget);
-      return this.handleCharTyped(chr) ? true : super.onTyped(widget, chr, modifiers);
+      return this.handleCharTyped(chr) ? true : super.e(widget, chr, modifiers);
    }
 
    protected void bT(String newText) {

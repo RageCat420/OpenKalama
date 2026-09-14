@@ -187,9 +187,9 @@ public class WorldScanner extends BaseModule {
          .defaultValue(new EntrySet<Block>(new Regex("^(.*_portal|end_gateway|end_portal_frame)$"), Registries.BLOCK))
          .updateListener(this::UM)
          .build();
-      this.searchColor = this.builder(this.Fw.add("search-color"), EntryPrimitiveMap.uA())
+      this.searchColor = this.builder(this.Fw.add("search-color"), EntryPrimitiveMap.<Block, TextColor>uA())
          .defaultValue(
-            new EntryPrimitiveMap<>(
+            new EntryPrimitiveMap<Block, TextColor>(
                Registries.BLOCK,
                NBTTypes.h,
                Map.of(

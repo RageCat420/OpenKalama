@@ -9,7 +9,7 @@ import me.matl114.gui.elements.ButtonElement;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-public class ConfirmingBigScreen extends GenericBackGroundScreen {
+public abstract class ConfirmingBigScreen extends GenericBackGroundScreen {
    protected int content_end_y;
    private static final Text cX = Text.translatable("widget.gui.confirming-big-screen.cancel").formatted(Formatting.RED);
    protected ExecutableWidget cU;

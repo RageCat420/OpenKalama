@@ -222,14 +222,14 @@ public class ProjectileESP extends BaseModule {
    public void onVelocityArrow(Event<Vec3d> arrowEvent) {
       if (this.ae.get() && this.calProjectile.get()) {
          Entity var2 = arrowEvent.getArgs(0);
-         if (!(var2 instanceof TridentEntity var3) && var2 instanceof ExplosiveProjectileEntity var4) {
+         if (!(var2 instanceof TridentEntity var3) && var2 instanceof PersistentProjectileEntity var4) {
             Vec3d var5 = (Vec3d)arrowEvent.e();
             if (var5.lengthSquared() > 1.0E-10) {
                EntityAccess var6 = EntityAccess.of(var4);
                KalamaHelperHelperB var7 = var6.getMetadata();
                Integer var8 = var7.b(this, "kalama:calculate_projectile");
                if (var8 != null) {
-                  if (var8 >= 3) {
+                   if (var8 >= 3) {
                      var4.setVelocity(var5);
                      calArrowTrace(var4);
                   }

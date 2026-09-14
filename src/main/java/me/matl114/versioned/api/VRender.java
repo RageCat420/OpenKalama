@@ -128,6 +128,4 @@ public interface VRender {
       this.w(var7, stack, quad, uv, color);
    }
 
-   default void o(KalamaHelperHelperJ var1) {  }
-
 }

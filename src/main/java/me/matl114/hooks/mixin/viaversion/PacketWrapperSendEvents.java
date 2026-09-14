@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Pseudo;
 @Environment(EnvType.CLIENT)
 @Pseudo
 @Mixin({PacketWrapperImpl.class})
-public class PacketWrapperSendEvents implements PacketWrapper {
+public abstract class PacketWrapperSendEvents implements PacketWrapper {
    @WrapMethod(
       method = {"Lcom/viaversion/viaversion/protocol/packet/PacketWrapperImpl;sendToServer0(Ljava/lang/Class;ZZ)V"},
       remap = false,

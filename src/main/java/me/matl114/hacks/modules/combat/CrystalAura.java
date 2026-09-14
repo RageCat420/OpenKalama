@@ -477,11 +477,11 @@ public class CrystalAura extends BaseModule {
       if (this.zS.isEmpty()) {
          return false;
       } else {
-         ArrayList<Entry> var1 = new ArrayList();
+         ArrayList<Entry<EndCrystalEntity, Map<PlayerEntity, Double>>> var1 = new ArrayList<>();
 
          for (EndCrystalEntity var3 : this.Nz()) {
             if (!this.zU.containsKey(var3) && EntityUtils.isEntityValid(var3)) {
-               Map var4 = this.NE(var3.getPos());
+               Map<PlayerEntity, Double> var4 = this.NE(var3.getPos());
                if (this.NI(var4)) {
                   var1.add(Map.entry(var3, var4));
                }
@@ -543,7 +543,7 @@ public class CrystalAura extends BaseModule {
                   var13 = new CombatSubHelperZ(var11, (BlockHitResult)var14.val());
                }
 
-               Map var21 = var12 ? this.NE(this.NG(var11)) : this.NF(this.NG(var11), Map.of(var11, Blocks.OBSIDIAN.getDefaultState()));
+               Map<PlayerEntity, Double> var21 = var12 ? this.NE(this.NG(var11)) : this.NF(this.NG(var11), Map.of(var11, Blocks.OBSIDIAN.getDefaultState()));
                if (this.NI(var21)) {
                   double var15 = this.NJ(var21);
                   double var17 = var21.getOrDefault(mc.player, Double.POSITIVE_INFINITY);

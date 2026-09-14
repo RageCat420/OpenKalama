@@ -9,12 +9,7 @@ public record MoveSubHelperV(boolean forward, boolean backward, boolean left, bo
       return this.left;
    }
 
-   public MoveSubHelperV(boolean forward, boolean backward, boolean left, boolean right) {
-      this.backward = forward;
-      this.right = backward;
-      this.forward = left;
-      this.left = right;
-   }
+   
 
    public boolean right() {
       return this.right;

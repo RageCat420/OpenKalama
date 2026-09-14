@@ -28,15 +28,15 @@ public record CombatSubHelperM(List<String> friends, Map<String, String> alias) 
       if (this.contains(friendName, alias)) {
          return this;
       } else {
-         ArrayList var3 = new ArrayList<>(this.friends);
+         ArrayList<String> var3 = new ArrayList<>(this.friends);
          var3.add(friendName);
-         Object var4 = this.alias;
+         Map<String, String> var4 = this.alias;
          if (alias != null && !alias.trim().isEmpty()) {
-            var4 = new LinkedHashMap((Map)var4);
+            var4 = new LinkedHashMap<>(var4);
             var4.put(friendName, alias);
          }
 
-         return new CombatSubHelperM(var3, (Map<String, String>)var4);
+         return new CombatSubHelperM(var3, var4);
       }
    }
 
@@ -84,15 +84,15 @@ public record CombatSubHelperM(List<String> friends, Map<String, String> alias) 
 
    public CombatSubHelperM aai(String friendName) {
       if (this.aaf(friendName)) {
-         ArrayList var2 = new ArrayList<>(this.friends);
+         ArrayList<String> var2 = new ArrayList<>(this.friends);
          var2.remove(friendName);
-         Object var3 = this.alias;
+         Map<String, String> var3 = this.alias;
          if (this.alias.containsKey(friendName)) {
-            var3 = new LinkedHashMap((Map)var3);
+            var3 = new LinkedHashMap<>(var3);
             var3.remove(friendName);
          }
 
-         return new CombatSubHelperM(var2, (Map<String, String>)var3);
+         return new CombatSubHelperM(var2, var3);
       } else {
          return this;
       }

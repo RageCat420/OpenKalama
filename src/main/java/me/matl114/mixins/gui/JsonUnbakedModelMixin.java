@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
    value = {JsonUnbakedModel.class},
    priority = 990
 )
-public class JsonUnbakedModelMixin implements UnbakedModel {
+public abstract class JsonUnbakedModelMixin implements UnbakedModel {
    @Inject(
       method = {"bake(Lnet/minecraft/client/render/model/Baker;Lnet/minecraft/client/render/model/json/JsonUnbakedModel;Ljava/util/function/Function;Lnet/minecraft/client/render/model/ModelBakeSettings;Z)Lnet/minecraft/client/render/model/BakedModel;"},
       at = {@At("HEAD")},
@@ -87,20 +87,21 @@ public class JsonUnbakedModelMixin implements UnbakedModel {
    }
 
    @Shadow
-   public List<ModelElement> method_3433() { }
+public abstract List<ModelElement> method_3433() ;
 
    @Shadow
-   public GuiLight method_24298() { }
+public abstract GuiLight method_24298() ;
 
    @Shadow
-   public ModelOverrideList method_3440(Baker var1, JsonUnbakedModel var2) { }
+public abstract ModelOverrideList method_3440(Baker var1, JsonUnbakedModel var2) ;
 
    @Shadow
-   public ModelTransformation method_3443() { }
+public abstract ModelTransformation method_3443() ;
 
    @Shadow
-   public JsonUnbakedModel method_3431() { }
+public abstract JsonUnbakedModel method_3431() ;
 
    @Shadow
-   public SpriteIdentifier method_24077(String var1) { }
+public abstract SpriteIdentifier method_24077(String var1) ;
 }
+

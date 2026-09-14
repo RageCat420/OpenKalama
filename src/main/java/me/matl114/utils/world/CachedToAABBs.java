@@ -25,9 +25,9 @@ public record CachedToAABBs(List<Box> aabbs, boolean isOffset, double offX, doub
       if (offX == 0.0 && offY == 0.0 && offZ == 0.0) {
          return cache;
       } else {
-         double var7 = cache.offZ + offX;
+         double var7 = cache.offX + offX;
          double var9 = cache.offY + offY;
-         double var11 = cache.offX + offZ;
+         double var11 = cache.offZ + offZ;
          return new CachedToAABBs(cache.aabbs, true, var7, var9, var11);
       }
    }
@@ -39,16 +39,16 @@ public record CachedToAABBs(List<Box> aabbs, boolean isOffset, double offX, doub
    public CachedToAABBs(List<Box> aabbs, boolean isOffset, double offX, double offY, double offZ) {
       this.aabbs = aabbs;
       this.isOffset = isOffset;
-      this.offZ = offX;
+      this.offX = offX;
       this.offY = offY;
-      this.offX = offZ;
+      this.offZ = offZ;
    }
 
    public CachedToAABBs removeOffset() {
       List var1 = this.aabbs;
-      double var2 = this.offZ;
+      double var2 = this.offX;
       double var4 = this.offY;
-      double var6 = this.offX;
+      double var6 = this.offZ;
       ArrayList var8 = new ArrayList(var1.size());
       int var9 = 0;
 

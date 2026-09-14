@@ -17,7 +17,7 @@ public record KalamaHelperHelperD(ClientWorld world, BlockPos pos, BlockState ol
       this.world = world;
       this.pos = pos;
       this.oldState = oldState;
-      this.oldState = newState;
+      this.newState = newState;
    }
 
    public ClientWorld world() {

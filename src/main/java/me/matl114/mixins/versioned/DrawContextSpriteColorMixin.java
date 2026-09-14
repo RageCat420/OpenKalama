@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({DrawContext.class})
-public class DrawContextSpriteColorMixin {
+public abstract class DrawContextSpriteColorMixin {
    @Shadow
-   public void method_48466(
+   public abstract void method_48466(
       Identifier var1,
       int var2,
       int var3,

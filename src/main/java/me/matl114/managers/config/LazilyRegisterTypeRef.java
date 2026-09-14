@@ -2,7 +2,7 @@ package me.matl114.managers.config;
 
 import java.util.Objects;
 
-public class LazilyRegisterTypeRef<T, W> extends ObjectRef<T> {
+public abstract class LazilyRegisterTypeRef<T, W> extends ObjectRef<T> {
    public final String enumType;
    public W enumValue;
    public boolean resolved;
@@ -99,7 +99,7 @@ public class LazilyRegisterTypeRef<T, W> extends ObjectRef<T> {
             if (this.resolved) {
                this.set((T)what.get());
             } else {
-               this.enumValue = what.enumValue;
+               this.enumValue = (W)what.enumValue;
             }
 
             return true;

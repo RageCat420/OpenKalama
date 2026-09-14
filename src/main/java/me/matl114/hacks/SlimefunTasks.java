@@ -261,7 +261,7 @@ public class SlimefunTasks {
       }
    }
 
-   public static Map<String, IRecipeEntry> n() {
+   public static Map<String, SlimefunSubHelperJ> n() {
       return u().WK();
    }
 

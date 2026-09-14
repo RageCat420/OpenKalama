@@ -47,7 +47,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Environment(EnvType.CLIENT)
 @Mixin({ClientPlayNetworkHandler.class})
-public class ClientPlayNetworkHandlerEvents {
+public abstract class ClientPlayNetworkHandlerEvents {
    @Unique
    boolean escapeSendEvent = false;
    @Shadow
@@ -181,7 +181,7 @@ public class ClientPlayNetworkHandlerEvents {
    }
 
    @Shadow
-   public ClientConnection method_48296() { }
+public abstract ClientConnection method_48296() ;
 
    @Shadow
    public void method_45729(String var1) { }
@@ -346,3 +346,4 @@ public class ClientPlayNetworkHandlerEvents {
       Listener.aX().broadcast(pos);
    }
 }
+

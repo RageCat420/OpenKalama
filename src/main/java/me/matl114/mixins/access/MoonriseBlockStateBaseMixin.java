@@ -17,12 +17,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({AbstractBlockState.class})
-public class MoonriseBlockStateBaseMixin implements MoonriseBlockStateBaseAccess {
+public abstract class MoonriseBlockStateBaseMixin implements MoonriseBlockStateBaseAccess {
    @Unique
    private VoxelShape constantCollisionShape;
 
    @Shadow
-   public VoxelShape method_26194(BlockView var1, BlockPos var2, ShapeContext var3) { }
+   public abstract VoxelShape method_26194(BlockView var1, BlockPos var2, ShapeContext var3);
 
    @Unique
    private void initCache0() {

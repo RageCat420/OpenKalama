@@ -285,7 +285,4 @@ public class CombatSubHelperFX extends CombatSubHelperOX implements CombatSubHel
       }
    }
 
-   @Override
-   public int c(Object arg0) { return null; }
-
 }

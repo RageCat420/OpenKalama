@@ -7,9 +7,4 @@ public sealed interface CombatSubHelperR permits CombatSubHelperZ, CombatSubHelp
 
    BlockPos getMetadata();
 
-   default BlockPos getMetadata() { return null; }
-
-
-   default boolean isMetaEmpty() { return null; }
-
 }

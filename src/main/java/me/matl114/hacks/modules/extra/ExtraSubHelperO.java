@@ -8,6 +8,7 @@ import net.minecraft.text.Text;
 class ExtraSubHelperO extends GenericScreen {
    private final ServerScanner dV;
    private final DrawableWidget dU;
+   private final DrawableWidget dW;
    private final Text dT;
 
    public void close() {
@@ -22,6 +23,7 @@ class ExtraSubHelperO extends GenericScreen {
       super(title, backgroundWidth, backgroundDefaultHeight);
       this.dV = this$0;
       this.dT = title;
+      this.dW = param5;
       this.dU = nullx;
    }
 
@@ -29,7 +31,8 @@ class ExtraSubHelperO extends GenericScreen {
    protected void init() {
       super.init();
       KalamaHelperHelperCX var1 = new KalamaHelperHelperCX(this.x, this.y, 400, 360);
-      var1.Q(this.dT);
+      var1.Q(me.matl114.gui.basic.DisplayWidget.instance(0, 0, 400, 20).setRenderHandler(me.matl114.gui.elements.LabelElement.instance(this.dT)));
+      var1.Q(this.dW);
       var1.Q(this.dV.wv);
       var1.Q(this.dU);
       this.addDrawableChild(var1);

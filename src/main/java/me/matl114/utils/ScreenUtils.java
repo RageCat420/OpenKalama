@@ -69,14 +69,14 @@ public class ScreenUtils {
 
    public static CompletableFuture<HandledScreen<?>> getOpenScreenFuture() {
       int var0 = a.player.currentScreenHandler.syncId;
-      CompletableFuture var1 = new CompletableFuture();
-      Listener.C(new PacketCatcherImpl(OpenScreenS2CPacket.class, packetEvent -> {
-         OpenScreenS2CPacket var3 = (OpenScreenS2CPacket)packetEvent.e();
+      CompletableFuture<HandledScreen<?>> var1 = new CompletableFuture<>();
+      Listener.C(new PacketCatcherImpl<OpenScreenS2CPacket>(OpenScreenS2CPacket.class, packetEvent -> {
+         OpenScreenS2CPacket var3 = packetEvent.e();
          int var4 = var3.getSyncId();
          if (var0 != var4 && var4 != 0) {
             if (a.currentScreen instanceof HandledScreen var6) {
-               Listener.C(new PacketCatcherImpl(InventoryS2CPacket.class, packet2Event -> {
-                  InventoryS2CPacket var4x = (InventoryS2CPacket)packet2Event.e();
+               Listener.C(new PacketCatcherImpl<InventoryS2CPacket>(InventoryS2CPacket.class, packet2Event -> {
+                  InventoryS2CPacket var4x = packet2Event.e();
                   if (var4x.getSyncId() == var4) {
                      var1.complete(var6);
                      return true;

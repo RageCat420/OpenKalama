@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
    value = {SlicedVoxelShape.class},
    priority = 2000
 )
-public class MoonriseSliceShapeMixin extends VoxelShape {
+public abstract class MoonriseSliceShapeMixin extends VoxelShape {
    protected MoonriseSliceShapeMixin(VoxelSet voxels) {
       super(voxels);
    }

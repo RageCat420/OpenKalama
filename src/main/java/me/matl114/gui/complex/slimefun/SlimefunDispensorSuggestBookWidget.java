@@ -101,9 +101,9 @@ public class SlimefunDispensorSuggestBookWidget extends KalamaHelperHelperCX {
    }
 
    public synchronized boolean refreshFilter() {
-      List var1 = this.fA;
+      List<IRecipeEntry> var1 = this.fA;
       if (fK != null && !fK.isEmpty()) {
-         this.fB = Streams.concat(new Stream[]{Stream.of(IRecipeEntry.EMPTY), var1.stream().filter(t -> FilterService.a.test(fK, t))}).toList();
+         this.fB = Streams.concat(Stream.of(IRecipeEntry.EMPTY), var1.stream().filter(t -> FilterService.a.test(fK, t))).toList();
          return true;
       } else if (this.fB != var1) {
          this.fB = var1;
@@ -177,7 +177,7 @@ public class SlimefunDispensorSuggestBookWidget extends KalamaHelperHelperCX {
    }
 
    public void resetPage() {
-      List var1 = this.fB;
+      List<IRecipeEntry> var1 = this.fB;
       if (var1 != null && !var1.isEmpty()) {
          int var5 = var1.size();
          this.aW = (var5 - 1) / 40 + 1;
@@ -332,8 +332,8 @@ public class SlimefunDispensorSuggestBookWidget extends KalamaHelperHelperCX {
    }
 
    public synchronized void calculateMatchingRecipes() {
-      ArrayList var1 = new ArrayList();
-      List var2;
+      ArrayList<IRecipeEntry> var1 = new ArrayList<>();
+      List<IRecipeEntry> var2;
       if (this.onlyShowRelated) {
          var2 = MinecraftClient.getInstance().player != null
             ? SlimefunTasks.getInventoryRelativeRecipes(MinecraftClient.getInstance().currentScreen, fJ)

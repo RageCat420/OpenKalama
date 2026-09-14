@@ -27,7 +27,7 @@ public class KalamaHelperHelperF implements GuiModel {
       int light,
       int overlay
    ) {
-      List var8 = this.g(itemRenderer);
+      List<KalamaHelperHelperE> var8 = this.g(itemRenderer);
       if (var8 != null && !var8.isEmpty()) {
          for (KalamaHelperHelperE var11 : this.h(var8)) {
             if (var11.stackTransformer() != null) {
@@ -59,11 +59,11 @@ public class KalamaHelperHelperF implements GuiModel {
          KalamaHelperHelperE var6 = (KalamaHelperHelperE)originalEntries.get(var5);
          float var7 = var4[var5][0];
          float var8 = -var4[var5][1];
-         UnaryOperator var9 = matrices -> {
+         UnaryOperator<MatrixStack> var9 = matrices -> {
             matrices.translate(var7, var8, 0.0F);
             return matrices;
          };
-         UnaryOperator var10 = var6.stackTransformer() != null ? matrices -> var6.stackTransformer().apply(var9.apply(matrices)) : var9;
+         UnaryOperator<MatrixStack> var10 = var6.stackTransformer() != null ? matrices -> var6.stackTransformer().apply(var9.apply(matrices)) : var9;
          var2.add(var6.Uz(var10));
       }
 

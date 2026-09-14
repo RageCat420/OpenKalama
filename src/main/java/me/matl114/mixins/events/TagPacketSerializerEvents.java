@@ -29,7 +29,7 @@ public class TagPacketSerializerEvents {
       Map<TagKey<T>, List<RegistryEntry<T>>> tagEntries, @Local(argsOnly = true) Registry<T> registry
    ) {
       Event<Map<TagKey<T>, List<RegistryEntry<T>>>> event = new Event<>(tagEntries, false, true, registry.getKey());
-      Listener.R().b(event);
+      Listener.R().b((Event)event);
       return event.b != tagEntries ? event.b : tagEntries;
    }
 }

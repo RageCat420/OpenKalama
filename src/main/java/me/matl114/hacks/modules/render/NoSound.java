@@ -83,8 +83,8 @@ public class NoSound extends BaseModule {
             )
          )
          .build();
-      this.IY = this.<EntryPrimitiveMap>builder(this.aD.add("volume-override"), EntryPrimitiveMap.uA())
-         .defaultValue(new EntryPrimitiveMap<>(Registries.SOUND_EVENT, NBTTypes.e, Map.of()))
+      this.IY = this.builder(this.aD.add("volume-override"), EntryPrimitiveMap.<SoundEvent, Double>uA())
+         .defaultValue(new EntryPrimitiveMap<SoundEvent, Double>(Registries.SOUND_EVENT, NBTTypes.e, Map.of()))
          .build();
       this.bindFlag(this.ae);
    }

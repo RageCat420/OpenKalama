@@ -107,7 +107,7 @@ public class SpearEnhance extends BaseModule {
          } else {
             PlayerActionC2SPacket var12 = new PlayerActionC2SPacket(Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, Direction.DOWN);
             ByteBuf var3 = NetworkUtils.createBytebuf();
-            Listener.q().getOutboundState().codec().encode(var3, var12);
+            Listener.q().getOutboundState().codec().encode(var3, (net.minecraft.network.packet.Packet)var12);
             int var4 = VarInts.read(var3);
             VarInts.read(var3);
             long var5 = var3.readLong();

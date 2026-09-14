@@ -17,7 +17,7 @@ public interface KalamaHelperHelperB {
    Identifier j = new Identifier("kalama", "gui/triangle");
    int c = -2130706433;
    Text i = Text.translatable("widget.gui.constants.open-list-edit");
-   Map<EquipmentSlot, Identifier> l = ImmutableMap.builder()
+   Map<EquipmentSlot, Identifier> l = ImmutableMap.<EquipmentSlot, Identifier>builder()
       .put(EquipmentSlot.MAINHAND, new Identifier("kalama", "gui/empty_main_hand_slot"))
       .put(EquipmentSlot.OFFHAND, new Identifier("kalama", "gui/empty_armor_slot_shield"))
       .put(EquipmentSlot.FEET, new Identifier("kalama", "gui/empty_armor_slot_boots"))

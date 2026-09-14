@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class ModuleManager extends AbstractManager<BaseModule> {
+public abstract class ModuleManager extends AbstractManager<BaseModule> {
    public List<Consumer<ModuleManager>> registeringFunctions = new ArrayList<>();
 
    public void unregisterFactories(Predicate<Consumer<ModuleManager>> function) {
@@ -41,5 +41,5 @@ public class ModuleManager extends AbstractManager<BaseModule> {
       module.onRemove();
    }
 
-   public String getName() { }
+   public abstract String getName();
 }

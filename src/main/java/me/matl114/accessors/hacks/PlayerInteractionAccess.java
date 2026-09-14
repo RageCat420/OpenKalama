@@ -29,21 +29,21 @@ public interface PlayerInteractionAccess {
 
    void sendBreakPacket(BlockPos var1, Direction var2);
 
-   public default boolean breakIfComplete() { }
+   public boolean breakIfComplete();
 
    void abortBreak(Direction var1);
 
    void syncSelectedHotbar(int var1);
 
-   public default BlockPos getCurrentMiningPos() { }
+   public BlockPos getCurrentMiningPos();
 
-   public default void resetCurrentMiningPos() { }
+   public void resetCurrentMiningPos();
 
-   public default BlockPos getCurrentFailBreakPos() { }
+   public BlockPos getCurrentFailBreakPos();
 
-   public default boolean isFailBreakEmpty() { }
+   public boolean isFailBreakEmpty();
 
-   public default int getCurrentMiningTicks() { }
+   public int getCurrentMiningTicks();
 
    default float predictCurrentMiningProgressWithTool(ItemStack tool) {
       BlockPos currentBreakingPos = this.getCurrentMiningPos();
@@ -58,7 +58,7 @@ public interface PlayerInteractionAccess {
       }
    }
 
-   public default int getFailBreakMiningTicks() { }
+   public int getFailBreakMiningTicks();
 
    default float getFailBreakMiningProgress() {
       BlockPos currentFailBreakPos = this.getCurrentFailBreakPos();
@@ -96,7 +96,7 @@ public interface PlayerInteractionAccess {
 
    boolean sendFailBreakCurrentPos(@Nullable Direction var1);
 
-   public default int getMiningCooldown() { }
+   public int getMiningCooldown();
 
    void setMiningCooldown(int var1);
 

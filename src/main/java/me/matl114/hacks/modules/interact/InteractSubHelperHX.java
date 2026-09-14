@@ -1,6 +1,6 @@
 package me.matl114.hacks.modules.interact;
 
-public class InteractSubHelperHX implements InteractSubHelperX {
+public abstract class InteractSubHelperHX implements InteractSubHelperX {
    int b;
    final int a;
 

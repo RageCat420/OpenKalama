@@ -13,12 +13,13 @@ public class Nbt_v1_21_1 implements VNbt {
       return this.readNbt(element);
    }
 
-   public String writeNbt(NbtElement element) {
+   @Override
+   public String b(NbtElement element) {
       StringNbtWriter var2 = new StringNbtWriter();
       return var2.apply(element);
    }
 
-   public NbtElement readNbt(String element) {
+   private NbtElement readNbt(String element) {
       try {
          return new StringNbtReader(new StringReader(element.replace("\\n", "\n"))).parseElement();
       } catch (CommandSyntaxException var3) {
@@ -26,9 +27,9 @@ public class Nbt_v1_21_1 implements VNbt {
       }
    }
 
-
-
    @Override
-   public String b(Object arg0) { return null; }
+   public NbtElement c(String element) {
+      return this.d(element);
+   }
 
 }

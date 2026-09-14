@@ -226,12 +226,12 @@ public class MineBot extends BaseModule {
    public MineBot() {
       super("MineBot");
       this.NI = makePath(Configs.g, "mine-bot");
+      this.mineMode = this.builder(this.NI.add("mine-mode"), MineBot$MineBotMode.class).defaultValue(MineBot$MineBotMode.SPHERICAL).build();
       this.ae = this.flagBuilder(this.NI.addEnable()).build();
       this.el = this.moduleEntry(this.NI.addHotkey(), new MultiKeyBind(), this.NI.addEnable(), moduleMeta(() -> this.mineMode)).build();
       this.NJ = this.builder(this.NI.add("whitelist"), EntrySet.<Block>parameter())
          .defaultValue(new EntrySet<Block>(new Regex("^(cobblestone|stone|.*ore)$"), Registries.BLOCK))
          .build();
-      this.mineMode = this.builder(this.NI.add("mine-mode"), MineBot$MineBotMode.class).defaultValue(MineBot$MineBotMode.SPHERICAL).build();
       this.legalMode = this.builder(this.NI.add("legal-mode"), Configs$MineTargetingMode.class)
          .defaultValue(Configs$MineTargetingMode.NO_BYPASS)
          .show(() -> this.mineMode.get().isNotIn(new ConfigEnum[]{MineBot$MineBotMode.AUTO_TOOL}))

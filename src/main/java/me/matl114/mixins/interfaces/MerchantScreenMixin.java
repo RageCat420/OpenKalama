@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({MerchantScreen.class})
-public class MerchantScreenMixin extends HandledScreen<MerchantScreenHandler> implements EntityInventory<VillagerEntity> {
+public abstract class MerchantScreenMixin extends HandledScreen<MerchantScreenHandler> implements EntityInventory<VillagerEntity> {
    @Unique
    VillagerEntity owner;
 

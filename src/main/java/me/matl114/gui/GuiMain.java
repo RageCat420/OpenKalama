@@ -23,11 +23,11 @@ public class GuiMain {
 
    public static void onAtlasLoadGuiElements(Event<Set<Identifier>> loadEvent) {
       if (new Identifier("minecraft", "gui").equals(loadEvent.getArgs(1))) {
-         Set var1 = ResourceUtils.c(loadEvent.getArgs(0), "gui");
+         Set<Identifier> var1 = ResourceUtils.c(loadEvent.getArgs(0), "gui");
          ((Set)loadEvent.e()).addAll(var1);
          a.clear();
          a.addAll(var1);
-         Set var2 = ResourceUtils.c(loadEvent.getArgs(0), "custom");
+         Set<Identifier> var2 = ResourceUtils.c(loadEvent.getArgs(0), "custom");
          b.clear();
          var2.stream().map(s -> new Identifier(s.getNamespace(), "textures/" + s.getPath() + ".png")).forEach(b::add);
       }

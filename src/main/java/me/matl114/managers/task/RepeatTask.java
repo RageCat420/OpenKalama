@@ -2,12 +2,12 @@ package me.matl114.managers.task;
 
 import me.matl114.events.annotations.Cancelable;
 
-public class RepeatTask implements Cancelable {
+public abstract class RepeatTask implements Cancelable {
    int d;
    int c;
    boolean isCancelled;
 
-   public boolean b() { }
+   public abstract boolean b();
 
    public void cancel() {
       this.isCancelled = true;

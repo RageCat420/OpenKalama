@@ -50,7 +50,7 @@ public class TaskSubHelperJ {
    public static final int b = 1;
 
    public boolean isDirty() {
-      return Streams.concat(new Stream[]{this.j().stream(), this.k().stream(), this.l().stream(), this.m().stream()}).anyMatch(IStorage::m);
+      return Streams.concat(this.j().stream(), this.k().stream(), this.l().stream(), this.m().stream()).anyMatch(IStorage::m);
    }
 
    public Collection<WorldStorage> l() {

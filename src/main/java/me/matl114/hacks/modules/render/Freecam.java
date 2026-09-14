@@ -47,7 +47,7 @@ public class Freecam extends BaseModule implements HackUtilHelperJ {
          PlayerInputUtils$Input var3 = PlayerInputUtils.of(mc.options);
          this.ep = var3;
          Vec3d var4 = new Vec3d(var3.rp(), var3.rq(), var3.ro());
-         Vec3d var5 = EntityUtils.movementInputToVelocity(var4, (float)(Object)this.speed.get(), this.en.getYaw());
+         Vec3d var5 = EntityUtils.movementInputToVelocity(var4, (float)this.speed.get(), this.en.getYaw());
          this.en.setVelocity(var5);
          PlayerInputUtils.a.rs(mc.options);
          var2.setSneaking(var3.rJ());

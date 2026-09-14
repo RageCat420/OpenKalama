@@ -13,7 +13,8 @@ import org.joml.Matrix4f;
 import org.joml.Vector2d;
 
 class HackUtilHelperG extends KalamaHelperHelperG<Vec3d> {
-   public void render3D(MatrixStack matrices) {
+   @Override
+   public void a(MatrixStack matrices) {
       if (!this.entries.isEmpty()) {
          Vec3d var2 = RenderUtils.getCameraPos().negate();
          Vec3d var3 = RenderUtils.getTracerOrigin(0.0F);
@@ -54,7 +55,4 @@ class HackUtilHelperG extends KalamaHelperHelperG<Vec3d> {
 
 
 
-   @Override
-   public void a(Object arg0) { }
-
-}
+   }

@@ -281,7 +281,7 @@ public class PathManager extends BaseModule {
    }
 
    private void writePath(FileStorage storage, SurvivalSubHelperV path) {
-      DataResult var3 = storage.f(SurvivalSubHelperV.b, path);
+      DataResult<?> var3 = storage.f(SurvivalSubHelperV.b, path);
       if (var3.isError()) {
          throw new IllegalArgumentException(var3.error().map(error -> error.message()).orElse("未知编码错误"));
       }
@@ -595,7 +595,7 @@ public class PathManager extends BaseModule {
    }
 
    private SurvivalSubHelperV readPath(FileStorage storage) {
-      DataResult var2 = storage.e(SurvivalSubHelperV.b);
+      DataResult<?> var2 = storage.e(SurvivalSubHelperV.b);
       if (var2.isError()) {
          Debug.a("PathManager failed to decode path: " + var2.error().map(error -> error.message()).orElse("未知解码错误"));
          return null;

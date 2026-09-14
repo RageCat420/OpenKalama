@@ -7,7 +7,7 @@ class KalamaHelperHelperC implements ElementHandler {
    private final ElementHandler am;
    private final Predicate c;
 
-   public boolean onTyped(ExecutableWidget widget, char chr, int modifiers) {
+   public boolean e(ExecutableWidget widget, char chr, int modifiers) {
       return this.c.test(this.am) && this.am.e(widget, chr, modifiers);
    }
 
@@ -16,7 +16,7 @@ class KalamaHelperHelperC implements ElementHandler {
       return this.c.test(this.am) && this.am.canBeSelected(element);
    }
 
-   public boolean onScroll(ExecutableWidget widget, double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+   public boolean c(ExecutableWidget widget, double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
       return this.c.test(this.am) && this.am.c(widget, mouseX, mouseY, horizontalAmount, verticalAmount);
    }
 
@@ -25,7 +25,7 @@ class KalamaHelperHelperC implements ElementHandler {
       this.am = nullx;
    }
 
-   public boolean onKey(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
+   public boolean d(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
       return this.c.test(this.am) && this.am.d(widget, keyCode, scanCode, modifiers, isPress);
    }
 
@@ -36,7 +36,7 @@ class KalamaHelperHelperC implements ElementHandler {
       }
    }
 
-   public boolean onAction(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
+   public boolean b(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
       return this.c.test(this.am) && this.am.b(element, mouseX, mouseY, button, type);
    }
 

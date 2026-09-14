@@ -225,7 +225,7 @@ public class EntityArgumentType extends AbstractArgumentType<EntitySelector> imp
       return -1;
    }
 
-   private static boolean isPlayer(Entity entity) {
+   static boolean isPlayer(Entity entity) {
       return entity instanceof PlayerEntity;
    }
 
@@ -264,7 +264,7 @@ public class EntityArgumentType extends AbstractArgumentType<EntitySelector> imp
       }
    }
 
-   private static List<Entity> selfEntity(CommandExecution execution) {
+   static List<Entity> selfEntity(CommandExecution execution) {
       PlayerEntity var1 = execution.si();
       return var1 != null && !var1.isRemoved() ? List.of(var1) : List.of();
    }
@@ -501,7 +501,7 @@ public class EntityArgumentType extends AbstractArgumentType<EntitySelector> imp
       Stream<String> var2 = e.crosshairTarget != null && e.crosshairTarget.getType() == Type.ENTITY
          ? Stream.of("@" + ((EntityHitResult)e.crosshairTarget).getEntity().getUuidAsString())
          : Stream.empty();
-      return Stream.of(f.stream(), var1, var2).flatMap(stream -> (Stream<? extends String>)stream).distinct();
+      return Stream.concat(Stream.concat(f.stream(), var1), var2).distinct();
    }
 
    public static boolean rotationMatches(KalamaHelperHelperC range, float value) {

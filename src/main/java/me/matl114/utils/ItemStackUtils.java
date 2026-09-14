@@ -75,7 +75,7 @@ public class ItemStackUtils {
 
    public static <T> Predicate<ItemStack> componentPredicate(ComponentType<T> type, Predicate<T> test, boolean nullDefault) {
       return stack -> {
-         Object var4 = stack.get(type);
+         T var4 = stack.get(type);
          return var4 != null ? test.test(var4) : nullDefault;
       };
    }

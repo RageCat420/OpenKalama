@@ -240,10 +240,10 @@ public class ChestHistory extends BaseModule {
          this.Qa(ContainerPosition.ofPosition(containerPosition.vP()));
       }
 
-      MutableEntry var4 = this.BC.get(containerPosition);
+      MutableEntry<Block, InvSubHelperV> var4 = this.BC.get(containerPosition);
       if (var4 != null) {
-         var4.a = (K)state.getBlock();
-         var4.b = (V)newEntry;
+         var4.a = state.getBlock();
+         var4.b = newEntry;
       } else {
          this.BC.put(containerPosition, new MutableEntry<>(state.getBlock(), newEntry));
       }

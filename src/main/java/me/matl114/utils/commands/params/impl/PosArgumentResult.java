@@ -8,7 +8,8 @@ import me.matl114.utils.commands.params.types.ExecutePos;
 public class PosArgumentResult extends AbstractArgumentResult<ExecutePos> {
    String rawString;
 
-   public String k() {
+   @Override
+   public String a() {
       return this.rawString;
    }
 
@@ -23,8 +24,5 @@ public class PosArgumentResult extends AbstractArgumentResult<ExecutePos> {
          this.rawString = String.join(" ", this.c.getArgsInRange(startIndex, this.e));
       }
    }
-
-   @Override
-   public boolean k() { return false; }
 
 }

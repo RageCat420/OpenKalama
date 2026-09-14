@@ -34,7 +34,8 @@ public class ConfigurateNewStyleScreen extends IndexedScreen<Config, ConfigureLi
       }
    }
 
-   protected ConfigureListWidget ba(Config val) {
+   @Override
+   protected ConfigureListWidget bd(Config val) {
       if (this.filterWidget == null) {
          this.filterWidget = new StringRef("");
       }
@@ -63,7 +64,8 @@ public class ConfigurateNewStyleScreen extends IndexedScreen<Config, ConfigureLi
       this.filterWidget = new StringRef("");
    }
 
-   protected ElementHandler createIndexHandler(Config val) {
+   @Override
+   protected ElementHandler be(Config val) {
       return new ButtonElement(TextProvider.c(Text.literal(val.getConfigName())), ButtonAction.a(() -> this.setGlobal(val)))
          .cA(ButtonElement.bH)
          .cC(ButtonElement.bI)
@@ -76,7 +78,4 @@ public class ConfigurateNewStyleScreen extends IndexedScreen<Config, ConfigureLi
 
 
 
-   @Override
-   public ElementHandler be(Object arg0) { return null; }
-
-}
+   }

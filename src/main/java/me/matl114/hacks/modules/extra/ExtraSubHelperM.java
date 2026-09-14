@@ -42,7 +42,7 @@ class ExtraSubHelperM extends IconElement$SimpleIconElement {
       super(inactiveId, activeId, gui, action);
       this.bx = this$0;
       this.bw = inactiveId;
-      this.bt = this.bw;
+      this.bt = param6;
       this.bu = this.getWorldIcon();
    }
 

@@ -127,7 +127,7 @@ public class NewStyleModel extends BaseModule {
                                     : new Identifier(cl, "enchanted_book/" + var8.getPath() + "_" + var10)
                               )
                         );
-                     Optional var12 = this.cp.computeIfAbsent(var11, RenderListener::c);
+                     Optional<BakedModel> var12 = this.cp.computeIfAbsent(var11, RenderListener::c);
                      var12.ifPresent(event::context);
                   }
                }
@@ -135,7 +135,7 @@ public class NewStyleModel extends BaseModule {
          }
 
          if (this.shouldEnableNewStyle(var2)) {
-            Optional var13 = this.cq.get(var2.getItem());
+            Optional<BakedModel> var13 = this.cq.get(var2.getItem());
             if (var13 != null && var13.isPresent()) {
                event.context((BakedModel)var13.get());
             }

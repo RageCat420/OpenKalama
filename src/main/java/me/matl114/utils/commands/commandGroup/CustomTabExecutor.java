@@ -64,6 +64,4 @@ public interface CustomTabExecutor {
       return KalamaHelperHelperA.l(val, (String)null);
    }
 
-   default ArgumentInputStream b(CommandExecution var1, ArgumentReader var2) { return null; }
-
 }

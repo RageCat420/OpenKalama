@@ -46,7 +46,7 @@ public class ChatCombine extends BaseModule {
          if (var5 != null) {
             ArrayList var7 = ChatHudAccess.of(var5).getVisibleLines();
             ListIterator var8 = var7.listIterator();
-            ArrayList var9 = new ArrayList();
+            ArrayList<OrderedText> var9 = new ArrayList<>();
 
             while (var8.hasNext()) {
                Visible var10 = (Visible)var8.next();

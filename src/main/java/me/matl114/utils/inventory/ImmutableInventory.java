@@ -4,7 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 
-public class ImmutableInventory implements Inventory {
+public abstract class ImmutableInventory implements Inventory {
    public void setStack(int slot, ItemStack stack) {
    }
 

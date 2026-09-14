@@ -48,8 +48,8 @@ public class InvSubHelperG {
    }
 
    private void createSummary() {
-      int var1 = Math.clamp((long)Math.clamp((long)(Object)this.k.Is(), 0, this.l.size()), 0, InventoryUtils.E());
-      int var2 = Math.clamp((long)Math.clamp((long)(Object)this.k.It(), 0, this.l.size()), 0, InventoryUtils.E());
+      int var1 = Math.clamp((long)Math.clamp((long)this.k.Is(), 0, this.l.size()), 0, InventoryUtils.E());
+      int var2 = Math.clamp((long)Math.clamp((long)this.k.It(), 0, this.l.size()), 0, InventoryUtils.E());
       this.k = this.k.Io(var1).Ip(var2);
       this.m = InventoryUtils.createSubInventoryView(this.l, var1, var2);
       this.r = new LinkedHashMap<>();

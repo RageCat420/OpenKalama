@@ -20,9 +20,9 @@ public record ContainerPosition(RegistryKey<World> world, int doubleX, int y, in
    public static final Codec<ContainerPosition> CODEC = RecordCodecBuilder.create(
       obj -> obj.group(
             RegistryKey.createCodec(RegistryKeys.WORLD).fieldOf("world").forGetter(ContainerPosition::world),
-            Codec.INT.fieldOf("double-x").forGetter(ContainerPosition::y),
+            Codec.INT.fieldOf("double-x").forGetter(ContainerPosition::doubleX),
             Codec.INT.fieldOf("y").forGetter(ContainerPosition::y),
-            Codec.INT.fieldOf("double-z").forGetter(ContainerPosition::y)
+            Codec.INT.fieldOf("double-z").forGetter(ContainerPosition::doubleZ)
          )
          .apply(obj, ContainerPosition::new)
    );
@@ -46,9 +46,9 @@ public record ContainerPosition(RegistryKey<World> world, int doubleX, int y, in
 
    public ContainerPosition(RegistryKey<World> world, int doubleX, int y, int doubleZ) {
       this.world = world;
-      this.y = doubleX;
+      this.doubleX = doubleX;
       this.y = y;
-      this.doubleX = doubleZ;
+      this.doubleZ = doubleZ;
    }
 
    public static ContainerPosition resolveDoubleChest(World world, BlockPos pos, BlockState state) {

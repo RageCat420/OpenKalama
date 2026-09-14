@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin({MatrixStack.class})
-public class MatrixStackMixin implements me.matl114.versioned.api.MatrixStack {
+public abstract class MatrixStackMixin implements me.matl114.versioned.api.MatrixStack {
    @Shadow
    public void method_22903() { }
 
@@ -17,7 +17,7 @@ public class MatrixStackMixin implements me.matl114.versioned.api.MatrixStack {
    public void method_22909() { }
 
    @Shadow
-   public Entry method_23760() { }
+public abstract Entry method_23760() ;
 
    @Shadow
    public void method_46416(float var1, float var2, float var3) { }
@@ -67,3 +67,4 @@ public class MatrixStackMixin implements me.matl114.versioned.api.MatrixStack {
       this.method_22907(quaternion);
    }
 }
+

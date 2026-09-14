@@ -248,11 +248,11 @@ public class Flight extends BaseModule implements HackUtilHelperJ {
       super("Flight");
       this.hm = makePath(Configs.m, "move-speed");
       this.flightEnable = this.flagBuilder(this.hl.add("flight-enable")).defaultValue(false).build();
+      this.flightMode = this.builder(this.hl.add("flight-mode"), Flight$Mode.class).defaultValue(Flight$Mode.CREATIVE).build();
       this.flightEnableHotkey = this.moduleEntry(
             this.hl.add("flight-enable-hotkey"), new MultiKeyBind(), this.hl.add("flight-enable"), moduleMeta(() -> this.flightMode)
          )
          .build();
-      this.flightMode = this.builder(this.hl.add("flight-mode"), Flight$Mode.class).defaultValue(Flight$Mode.CREATIVE).build();
       this.flightModeSwitchHotkey = this.hotkey(this.hl.add("flight-mode-switch-hotkey"), new MultiKeyBind()).registerHotkey(HotKeyUtils.b(this::kT)).build();
       this.antikick = this.builder(this.hl.add("antikick"), Boolean.class).defaultValue(true).build();
       this.antikickPeriod = this.intBuilder(this.hl.add("antikick-period")).defaultValue(60).build();

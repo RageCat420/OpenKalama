@@ -718,7 +718,8 @@ public class MovTasks {
                context.currentTokenInTick().incrementAndGet();
                if (var48.oGroundOverride() != null) {
                   var16 = var48.oGroundOverride();
-                  ((KalamaHelperHelperV)var4.get(var47 + var5)).c(() -> a.player.setOnGround(var16));
+                  boolean var16f = var16;
+                  ((KalamaHelperHelperV)var4.get(var47 + var5)).c(() -> a.player.setOnGround(var16f));
                }
 
                boolean var54 = var48.rotationOverride() != null && !Objects.equals(var48.rotationOverride(), var17);
@@ -758,7 +759,8 @@ public class MovTasks {
                context.currentTokenInTick().incrementAndGet();
                if (var48.oGroundOverride() != null) {
                   var16 = var48.oGroundOverride();
-                  ((KalamaHelperHelperV)var4.get(var47 + var5)).c(() -> a.player.setOnGround(var16));
+                  boolean var16f = var16;
+                  ((KalamaHelperHelperV)var4.get(var47 + var5)).c(() -> a.player.setOnGround(var16f));
                }
 
                boolean var40 = var48.rotationOverride() != null && !Objects.equals(var48.rotationOverride(), var17);
@@ -895,8 +897,8 @@ public class MovTasks {
          return null;
       });
       Q.put("camera", (re, var1, errMsg) -> RenderUtils.getCameraEntityPos());
-      Listener.bx().c(KalamaHelperHelperZX.class).l(MovTasks::resolveSpecialType, 0);
-      Listener.bx().c(KalamaHelperHelperZX.class).l(MovTasks::resolveEntityTarget, 2147483646);
+      Listener.bx().<me.matl114.events.impl.KalamaHelperHelperI<KalamaHelperHelperZX>>c(KalamaHelperHelperZX.class).l(MovTasks::resolveSpecialType, 0);
+      Listener.bx().<me.matl114.events.impl.KalamaHelperHelperI<KalamaHelperHelperZX>>c(KalamaHelperHelperZX.class).l(MovTasks::resolveEntityTarget, 2147483646);
    }
 
    public static TpaCommand aG() {
@@ -980,7 +982,7 @@ public class MovTasks {
             }
             break;
          case UK:
-            Stream var2 = M.getTab(var1.e, var1.f);
+            Stream<String> var2 = M.getTab(var1.e, var1.f);
             if (var2 != null) {
                var2.forEach(((KalamaHelperHelperE)var1).tab::add);
             }
@@ -1554,7 +1556,7 @@ public class MovTasks {
             }
             break;
          case UK:
-            Stream var2 = P.getTab(var1.e, var1.f);
+            Stream<String> var2 = P.getTab(var1.e, var1.f);
             if (var2 != null) {
                var2.forEach(((KalamaHelperHelperE)var1).tab::add);
             }

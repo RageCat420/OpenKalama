@@ -24,12 +24,12 @@ public class ModuleMain extends AbstractManager<ModuleGroup> {
 
    public void o(ModuleGroup module) {
       super.registerModule(module);
-      this.moduleGroups.put(module.getMetaData(), module);
+      this.moduleGroups.put(module.getName(), module);
    }
 
    public void p(ModuleGroup module) {
-      Debug.a("Unexpected unregister in a moduleGroup! " + module.getMetaData());
+      Debug.a("Unexpected unregister in a moduleGroup! " + module.getName());
       super.unregisterModule(module);
-      this.moduleGroups.remove(module.getMetaData());
+      this.moduleGroups.remove(module.getName());
    }
 }

@@ -48,7 +48,7 @@ public class PlateElement extends AbstractElement {
    }
 
    @Override
-   public boolean onClick(ExecutableWidget element, double mouseX, double mouseY, int button) {
+   public boolean a(ExecutableWidget element, double mouseX, double mouseY, int button) {
       return this.catchInteract;
    }
 

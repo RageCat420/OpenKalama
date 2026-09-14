@@ -92,7 +92,7 @@ public class ColorSelectIcon extends BoxElement {
    }
 
    static {
-      ArrayList var0 = new ArrayList();
+      ArrayList<TextColor> var0 = new ArrayList();
 
       for (Formatting var4 : Formatting.values()) {
          if (var4.isColor()) {

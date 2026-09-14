@@ -112,8 +112,8 @@ public class NameTag extends INameTag {
    }
 
    public void Xs(VDrawContext vdraw) {
-      vdraw.f().translate(0.0F, -((float)(Object)this.playerExtraHeight.get()));
-      vdraw.f().scale((float)(Object)this.playerSize.get(), (float)(Object)this.playerSize.get());
+      vdraw.f().translate(0.0F, -((float)this.playerExtraHeight.get()));
+      vdraw.f().scale((float)this.playerSize.get(), (float)this.playerSize.get());
    }
 
    public void onRender(Event<VDrawContext> event) {
@@ -136,6 +136,11 @@ public class NameTag extends INameTag {
    @Override
    protected ModulePath createRoot() {
       return makePath(Configs.i, "player-info.name-tag");
+   }
+
+   @Override
+   protected void gl() {
+      this.initializeModuleSettings();
    }
 
    public void handleEquipmentPlayer(VDrawContext vdraw, RenderSubHelperIX player) {
@@ -176,8 +181,5 @@ public class NameTag extends INameTag {
       this.playerSize = this.doubleBuilder(this.GE.add("player-size")).defaultValue(1.0).build();
       this.hideVanilla = this.flagBuilder(this.GE.add("hide-vanilla")).build();
    }
-
-   @Override
-   public void B(Object arg0) { }
 
 }

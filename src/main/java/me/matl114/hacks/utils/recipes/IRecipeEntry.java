@@ -13,9 +13,4 @@ public interface IRecipeEntry {
 
    RecipeIngredient[] ingredient();
 
-   default ItemStack Ct() { return null; }
-
-
-   default RecipeIngredient[] ingredient() { return null; }
-
 }

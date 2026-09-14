@@ -61,7 +61,7 @@ public class SleepMode extends BaseModule {
       if (this.aim()) {
          event.cancel();
          if (this.Ri != null) {
-            ScreenUtils.simulateMouseScroll(this.Ri, ((MouseScrollAction)event.b).horizontal(), ((MouseScrollAction)event.b).horizontal());
+             ScreenUtils.simulateMouseScroll(this.Ri, ((MouseScrollAction)event.b).horizontal(), ((MouseScrollAction)event.b).vertical());
          }
       }
    }
@@ -201,7 +201,7 @@ public class SleepMode extends BaseModule {
       if (this.aim()) {
          event.cancel();
          if (this.Ri != null) {
-            ScreenUtils.simulateMouseButton(this.Ri, ((MouseClickAction)event.b).eventButton(), ((MouseClickAction)event.b).action(), ((MouseClickAction)event.b).eventButton());
+             ScreenUtils.simulateMouseButton(this.Ri, ((MouseClickAction)event.b).eventButton(), ((MouseClickAction)event.b).action(), ((MouseClickAction)event.b).mode());
          }
       }
    }
@@ -218,9 +218,9 @@ public class SleepMode extends BaseModule {
                .mouseDragged(
                   ((MouseDragAction)event.b).mouseX(),
                   ((MouseDragAction)event.b).mouseY(),
-                  ((MouseDragAction)event.b).mouse().activeButton,
-                  ((MouseDragAction)event.b).mouseY(),
-                  ((MouseDragAction)event.b).mouseX()
+                   ((MouseDragAction)event.b).mouse().activeButton,
+                   ((MouseDragAction)event.b).deltaX(),
+                   ((MouseDragAction)event.b).deltaY()
                );
          }
       }
@@ -297,7 +297,7 @@ public class SleepMode extends BaseModule {
       if (this.aim()) {
          event.cancel();
          if (this.Ri != null) {
-            this.Ri.mouseMoved(((MouseMoveAction)event.b).mouseX(), ((MouseMoveAction)event.b).mouseX());
+             this.Ri.mouseMoved(((MouseMoveAction)event.b).mouseX(), ((MouseMoveAction)event.b).mouseY());
          }
       }
    }

@@ -29,6 +29,7 @@ import me.matl114.utils.ScreenUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 
 public class SlimefunGuide extends BaseModule {
    private static final Text NF = Text.literal("全部保存物品");
@@ -191,9 +192,9 @@ public class SlimefunGuide extends BaseModule {
                         return false;
                      }
                   })),
-                  KalamaHelperHelperC::Ct
+                   KalamaHelperHelperC::Ct
                )
-               .h(FilterService.a)
+               .h((java.util.function.BiPredicate<String, KalamaHelperHelperC>)(java.util.function.BiPredicate)FilterService.a)
          );
       }
    }
@@ -225,7 +226,7 @@ public class SlimefunGuide extends BaseModule {
       if (!this.handleNotEnable()) {
          List var4;
          if (RecipeTasks.isVanillaRecipeType(type)) {
-            Map var3 = RecipeTasks.getAllRecipe();
+            Map<Identifier, KalamaHelperHelperC> var3 = RecipeTasks.getAllRecipe();
             var4 = var3.values().stream().filter(i -> Objects.equals(i.rid(), type)).map(IRecipeEntry.class::cast).toList();
          } else {
             var4 = SlimefunTasks.n().values().stream().filter(i -> i.Co().equals(type)).toList();
@@ -288,9 +289,9 @@ public class SlimefunGuide extends BaseModule {
                         return false;
                      }
                   })),
-                  SlimefunSubHelperJ::Ct
+                   SlimefunSubHelperJ::Ct
                )
-               .h(FilterService.a)
+               .h((java.util.function.BiPredicate<String, SlimefunSubHelperJ>)(java.util.function.BiPredicate)FilterService.a)
          );
       }
    }

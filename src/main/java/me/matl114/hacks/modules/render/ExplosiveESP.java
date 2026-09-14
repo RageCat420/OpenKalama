@@ -75,7 +75,7 @@ public class ExplosiveESP extends BaseModule {
       this.gP.clear();
       this.hS.clear();
       if (!checkNull() && this.ae.get()) {
-         Map var2 = CombatManager.INSTANCE.Kt;
+         Map<BlockPos, ?> var2 = CombatManager.INSTANCE.Kt;
          Set<EndCrystalEntity> var3 = CombatManager.INSTANCE.Kx;
          double var4 = MathUtils.b(this.distance.get());
          TracingOption var6 = this.options.get();

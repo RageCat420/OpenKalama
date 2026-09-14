@@ -7,7 +7,7 @@ import me.matl114.gui.basic.KalamaHelperHelperIX;
 import me.matl114.gui.elements.IconElement;
 import net.minecraft.util.Identifier;
 
-public class KalamaHelperHelperD<B extends KalamaHelperHelperD<B>> extends KalamaHelperHelperAX<B> {
+public abstract class KalamaHelperHelperD<B extends KalamaHelperHelperD<B>> extends KalamaHelperHelperAX<B> {
    public KalamaHelperHelperIX o;
    public Predicate<IconElement> n;
    public Identifier j;

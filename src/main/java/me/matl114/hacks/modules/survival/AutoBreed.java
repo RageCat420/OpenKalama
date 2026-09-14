@@ -134,7 +134,7 @@ public class AutoBreed extends BaseModule {
    }
 
    private Predicate<ItemStack> ahT(AnimalEntity animal) {
-      Set<Item> var2 = FarmingUtils.getBreedItems(animal);
+      Set<ItemStack> var2 = FarmingUtils.getBreedItems(animal);
       return stack -> !stack.isEmpty() && var2.stream().anyMatch(item -> stack.isOf(item.getItem()));
    }
 

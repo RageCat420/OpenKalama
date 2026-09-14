@@ -32,16 +32,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({LivingEntity.class})
-public class LivingEntityMixin extends Entity implements LivingEntityAccess {
+public abstract class LivingEntityMixin extends Entity implements LivingEntityAccess {
    @Shadow
    protected int field_6239;
 
    @Accessor("jumpingCooldown")
    @Override
-   public void setJumpingCooldown(int var1) { }
+public abstract void setJumpingCooldown(int var1) ;
 
    @Shadow
-   public float getYaw(float tickDelta) { }
+public abstract float getYaw(float tickDelta) ;
 
    public LivingEntityMixin(EntityType<?> type, World world) {
       super(type, world);
@@ -51,7 +51,7 @@ public class LivingEntityMixin extends Entity implements LivingEntityAccess {
    protected abstract float method_56994(float var1);
 
    @Shadow
-   public boolean method_6128() { }
+public abstract boolean method_6128() ;
 
    @Shadow
    public void remove(RemovalReason reason) { }
@@ -142,3 +142,4 @@ public class LivingEntityMixin extends Entity implements LivingEntityAccess {
       original.call(new Object[]{instance, oldVelocity});
    }
 }
+

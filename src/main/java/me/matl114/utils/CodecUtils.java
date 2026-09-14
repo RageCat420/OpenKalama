@@ -26,9 +26,9 @@ public class CodecUtils {
    }
 
    public static <T extends Enum<T>> Codec<T> enumCodec(Class<T> clazz) {
-      HashMap var1 = new HashMap();
+      HashMap<String, T> var1 = new HashMap<>();
 
-      for (Enum var5 : (Enum[])clazz.getEnumConstants()) {
+      for (T var5 : clazz.getEnumConstants()) {
          var1.put(var5.name().toLowerCase(Locale.ROOT), var5);
       }
 
@@ -36,15 +36,15 @@ public class CodecUtils {
    }
 
    public static <T> Codec<T> finiteMapCodec(Map<String, T> map, Function<T, String> stringFunction) {
-      LinkedHashMap var2 = new LinkedHashMap(map.size());
+      LinkedHashMap<String, T> var2 = new LinkedHashMap<>(map.size());
       Object var3 = null;
 
-      for (Entry var5 : map.entrySet()) {
+      for (Entry<String, T> var5 : map.entrySet()) {
          if (var3 == null) {
             var3 = var5.getValue();
          }
 
-         var2.put(((String)var5.getKey()).toLowerCase(Locale.ROOT), var5.getValue());
+         var2.put(var5.getKey().toLowerCase(Locale.ROOT), var5.getValue());
       }
 
       return Codec.STRING.comapFlatMap(str -> {

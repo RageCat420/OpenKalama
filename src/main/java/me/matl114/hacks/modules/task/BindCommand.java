@@ -112,9 +112,9 @@ public class BindCommand extends BaseModule implements IHotKey {
       super("BindCommand");
       this.ae = this.builder(this.aD.addEnable(), Boolean.class).defaultValue(true).build();
       this.J = this.moduleEntry(this.aD.addHotkey(), new MultiKeyBind(), this.aD.addEnable()).build();
-      this.commands = this.builder(this.aD.add("commands"), PrimitivePairList.uA())
+      this.commands = this.builder(this.aD.add("commands"), PrimitivePairList.<MultiKeyBind, String>uA())
          .defaultValue(
-            new PrimitivePairList<>(
+            new PrimitivePairList<MultiKeyBind, String>(
                "widget.bind-command.hotkey", "widget.bind-command.command", NBTTypes.i, NBTTypes.g, List.of(Pair.of(new MultiKeyBind(), "/!!help"))
             )
          )

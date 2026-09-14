@@ -284,7 +284,7 @@ public class KalamaHelperHelperNX extends AbstractMainCommand {
             break;
          case "ender":
             if (var4 != null) {
-               Object var15 = var4 == ChatTasks.j.player ? ChestHistory.INSTANCE.PY() : var4.getEnderChestInventory();
+               net.minecraft.inventory.Inventory var15 = var4 == ChatTasks.j.player ? ChestHistory.INSTANCE.PY() : var4.getEnderChestInventory();
                Tasks.l(
                   () -> ScreenAccess.of(
                         new InventoryViewScreen(var15, Text.literal("末影箱预览 - " + var4.getNameForScoreboard()), new ItemStack(Items.ENDER_CHEST))
@@ -388,12 +388,10 @@ public class KalamaHelperHelperNX extends AbstractMainCommand {
                .forEach(
                   s -> {
                      Debug.chat("Information about waypoint:", s.b().map(UUID::toString, Function.identity()));
-                     Optional var1 = (Optional)s.b()
-                        .map(
-                           t -> Optional.ofNullable(ChatTasks.j.getNetworkHandler().getPlayerListEntry(t)),
-                           t -> Optional.ofNullable(ChatTasks.j.getNetworkHandler().getPlayerListEntry(t))
-                        );
-                     var1.ifPresent(playerListEntry -> Debug.b("Potential Owner: " + VRecord.getName(playerListEntry.getProfile())));
+                      Optional<PlayerListEntry> var1 = s.b().left().isPresent()
+                         ? Optional.ofNullable(ChatTasks.j.getNetworkHandler().getPlayerListEntry(s.b().left().get()))
+                         : Optional.ofNullable(ChatTasks.j.getNetworkHandler().getPlayerListEntry(s.b().right().get()));
+                      var1.ifPresent(playerListEntry -> Debug.b("Potential Owner: " + VRecord.getName(playerListEntry.getProfile())));
                      Debug.b("config: ");
                      Debug.b(new NbtTextFormatter("").apply(s.c()));
                      Debug.b("type: " + s.d().type());

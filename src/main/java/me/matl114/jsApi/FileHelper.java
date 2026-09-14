@@ -396,7 +396,7 @@ public class FileHelper {
          URL var5 = clazz.getProtectionDomain().getCodeSource().getLocation();
          Path var6 = Paths.get(URLDecoder.decode(var5.toString(), StandardCharsets.UTF_8).substring("file:".length()));
          FileSystem var7 = FileSystems.newFileSystem(var6, Map.of());
-         DirectoryStream var8 = Files.newDirectoryStream(var7.getPath(from));
+         DirectoryStream<Path> var8 = Files.newDirectoryStream(var7.getPath(from));
          Path var9 = new File(toPath).toPath();
 
          for (Path var11 : var8) {

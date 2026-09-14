@@ -97,23 +97,23 @@ public class WeakEntryPrimitiveMap<T, W> extends PrimitiveMap<WeakHolder<T>, W> 
    }
 
    public static <T, W> NBTType<WeakEntryPrimitiveMap<T, W>> createEntry() {
-      WrapperFactory var0 = uI();
-      NBTType var1 = PrimitiveMap.TYPE.cast();
-      AttrKeyValue.CustomWidgetFactory var2 = (attr, x, y, dx, dy) -> var1.customWidgetFactory()
+      WrapperFactory<PrimitiveMap<WeakHolder<T>, W>, WeakEntryPrimitiveMap<T, W>> var0 = uI();
+      NBTType<PrimitiveMap<WeakHolder<T>, W>> var1 = PrimitiveMap.TYPE.cast();
+      AttrKeyValue.CustomWidgetFactory<WeakEntryPrimitiveMap<T, W>> var2 = (attr, x, y, dx, dy) -> var1.customWidgetFactory()
          .generateWidget(new TypeConvertAttrKeyValue<>(attr, var0, var1), x, y, dx, dy);
       return new NBTType<>(
          "weakentryprimitivemap",
          var0.wrapCodecXmap(var1.typeCodec()),
          var2,
-         new WeakEntryPrimitiveMap<>(Map.of(), RegistryKeys.BLOCK.getValue(), (NBTType<W>)NBTTypes.g)
+         (WeakEntryPrimitiveMap<T, W>)new WeakEntryPrimitiveMap<>(Map.of(), RegistryKeys.BLOCK.getValue(), NBTTypes.g)
       );
    }
 
    private static <T, W> Map<WeakHolder<T>, Primitive<W>> uG(PrimitiveMap<WeakHolder<T>, W> map) {
-      LinkedHashMap var1 = new LinkedHashMap();
+      LinkedHashMap<WeakHolder<T>, Primitive<W>> var1 = new LinkedHashMap<>();
 
-      for (Entry var3 : map.map().entrySet()) {
-         var1.put((WeakHolder)var3.getKey(), Primitive.of(map.valueType(), var3.getValue()));
+      for (Entry<WeakHolder<T>, W> var3 : map.map().entrySet()) {
+         var1.put(var3.getKey(), Primitive.of(map.valueType(), var3.getValue()));
       }
 
       return var1;

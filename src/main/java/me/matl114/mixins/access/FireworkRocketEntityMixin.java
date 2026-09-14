@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Environment(EnvType.CLIENT)
 @Mixin({FireworkRocketEntity.class})
-public class FireworkRocketEntityMixin extends Entity implements FireworkRocketEntityAccess {
+public abstract class FireworkRocketEntityMixin extends Entity implements FireworkRocketEntityAccess {
    @Shadow
    @Final
    private static TrackedData<OptionalInt> field_7611;

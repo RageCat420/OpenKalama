@@ -22,7 +22,7 @@ public record LabelPrimitive<T>(String label, Primitive<T> primitive) implements
       "label",
       Primitive.TYPE.cast(),
       "data",
-      PairLikeFactory.of(LabelPrimitive::new, LabelPrimitive::label, LabelPrimitive::primitive),
+      PairLikeFactory.<String, Primitive<?>, LabelPrimitive<?>>of(LabelPrimitive::new, LabelPrimitive::label, LabelPrimitive::primitive),
       (string, x, y, dx, dy) -> DisplayWidget.instance(0, 0, 2 * dy, dy)
          .setRenderHandler(
             new RawTextElement(Text.translatableWithFallback(string, string), -1).aO(TooltipHandler.ap(ChatUtils.parseTranslation(string + ".tooltips", "")))

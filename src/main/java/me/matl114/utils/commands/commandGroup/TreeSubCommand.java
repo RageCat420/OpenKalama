@@ -84,7 +84,4 @@ public class TreeSubCommand extends SubCommandImpl implements KalamaHelperHelper
       return Stream.concat(Stream.of(this.help).map(s -> prefix + Language.getInstance().get(s, s)), KalamaHelperHelperC.super.getHelp(prefix));
    }
 
-   @Override
-   public ArgumentInputStream b(Object arg0, Object arg1) { return null; }
-
 }

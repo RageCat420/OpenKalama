@@ -22,18 +22,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({ClientPlayerEntity.class})
-public class BaritoneClientPlayerEntityRotFixMixin extends AbstractClientPlayerEntity implements ClientPlayerEntityAccess {
+public abstract class BaritoneClientPlayerEntityRotFixMixin extends AbstractClientPlayerEntity implements ClientPlayerEntityAccess {
    @Unique
    Vec2f storedPreBaritonePitchYaw;
 
    @Shadow
-   public float getPitch(float tickDelta) { }
+   public abstract float getPitch(float tickDelta);
 
    @Shadow
-   public float getYaw(float tickDelta) { }
+   public abstract float getYaw(float tickDelta);
 
    public BaritoneClientPlayerEntityRotFixMixin(ClientWorld world, GameProfile profile) {
-      setLastRot(world, profile);
+      super(world, profile);
    }
 
    @Inject(

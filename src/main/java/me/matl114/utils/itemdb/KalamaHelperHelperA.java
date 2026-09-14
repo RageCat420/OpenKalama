@@ -35,17 +35,13 @@ public record KalamaHelperHelperA(String customId) implements ItemStackData {
       return false;
    }
 
-   public JsonElement getAsJson() {
+   @Override
+   public JsonElement gb() {
       return JsonNull.INSTANCE;
    }
 
    @Override
    public void resolveItemStack() {
    }
-
-
-
-   @Override
-   public JsonElement gb() { return null; }
 
 }

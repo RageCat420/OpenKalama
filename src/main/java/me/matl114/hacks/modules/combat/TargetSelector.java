@@ -3,6 +3,7 @@ package me.matl114.hacks.modules.combat;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Arrays;
+import com.mojang.datafixers.util.Pair;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -215,9 +216,9 @@ public class TargetSelector extends BaseModule {
    }
 
    public void akt() {
-      List var1 = this.SZ.toPairList();
-      NBTRef var2 = new NBTRef<>(new PrimitivePairList<>("widget.friend-list.friend-name", "widget.friend-list.friend-alias", NBTTypes.g, NBTTypes.g, var1));
-      BaseAttrKeyValue var3 = var2.createKeyValue("");
+      List<Pair<String, String>> var1 = this.SZ.toPairList();
+      NBTRef<PrimitivePairList<String, String>> var2 = new NBTRef<>(new PrimitivePairList<String, String>("widget.friend-list.friend-name", "widget.friend-list.friend-alias", NBTTypes.g, NBTTypes.g, var1));
+      BaseAttrKeyValue<PrimitivePairList<String, String>> var3 = var2.createKeyValue("");
       DrawableWidget var4 = var3.generateValueWidget(0, 0, 300, 20);
       var3.addListener(pairList -> this.akk(CombatSubHelperM.create(pairList.list())));
       var4.mouseClicked(150.0, 10.0, 0);
@@ -357,7 +358,7 @@ public class TargetSelector extends BaseModule {
          } else if (!autoSelect && mc.crosshairTarget.getType() == Type.BLOCK && CombatTasks.notSuitableForAttack(mc.player.getMainHandStack())) {
             return null;
          } else {
-            List var7 = this.getAttackableEntities(nearby, tickPredict, combinedPredicate);
+            List<Entity> var7 = this.getAttackableEntities(nearby, tickPredict, combinedPredicate);
             var7.sort(Comparator.comparingDouble(e -> this.getEntityWeight(e, mc.player)));
             return !var7.isEmpty() ? (Entity)var7.get(0) : null;
          }
@@ -477,7 +478,7 @@ public class TargetSelector extends BaseModule {
          if (var6 != null && var6.getType() == Type.ENTITY) {
             return ((EntityHitResult)var6).getEntity();
          } else {
-            List var3 = this.getAimableEntities(combinedPredicate);
+            List<Entity> var3 = this.getAimableEntities(combinedPredicate);
             Vec3d var4 = mc.player.getEyePos();
             Vec3d var5 = mc.player.getRotationVector().normalize();
             if (var3.isEmpty()) {

@@ -23,7 +23,7 @@ public class TaskSubCommand extends SubCommandImpl {
 
    @Override
    public boolean onCustomCommand(CommandExecution sender, ArgumentReader arguments) {
-      return this.u != null && this.u.a(sender, this.parseInput(sender, arguments), arguments);
+      return this.u != null && this.u.a(sender, this.b(sender, arguments), arguments);
    }
 
    public KalamaHelperHelperH cj() {
@@ -38,7 +38,7 @@ public class TaskSubCommand extends SubCommandImpl {
    public List<String> e(CommandExecution sender, ArgumentReader arguments) {
       ArrayList var3 = new ArrayList();
       if (this.be(sender)) {
-         ArgumentInputStream var4 = this.parseInput(sender, arguments);
+         ArgumentInputStream var4 = this.b(sender, arguments);
          var4.getTabComplete(sender).forEach(var3::add);
          if (arguments.hasNext() && this.u != null) {
             var3.addAll(this.u.b(sender, var4, arguments));
@@ -47,8 +47,5 @@ public class TaskSubCommand extends SubCommandImpl {
 
       return var3;
    }
-
-   @Override
-   public ArgumentInputStream b(Object arg0, Object arg1) { return null; }
 
 }

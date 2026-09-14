@@ -11,7 +11,7 @@ import me.matl114.utils.commands.params.api.CommandExecution;
 import net.minecraft.util.Language;
 import org.jetbrains.annotations.NotNull;
 
-public class SubCommandImpl implements SubCommand {
+public abstract class SubCommandImpl implements SubCommand {
    String b;
    String[] help;
    String f;
@@ -23,7 +23,8 @@ public class SubCommandImpl implements SubCommand {
    }
 
    @NotNull
-   public ArgumentInputStream parseInput(CommandExecution execution, ArgumentReader args) {
+   @Override
+   public ArgumentInputStream b(CommandExecution execution, ArgumentReader args) {
       return this.e.c(execution, args);
    }
 
@@ -51,7 +52,5 @@ public class SubCommandImpl implements SubCommand {
       this.e = argsTemplate;
       this.help = help;
    }
-
-   public List<String> e(Object arg0, Object arg1) { return null; }
 
 }

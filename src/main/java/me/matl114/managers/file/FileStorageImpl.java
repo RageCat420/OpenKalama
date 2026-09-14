@@ -2,12 +2,17 @@ package me.matl114.managers.file;
 
 import java.io.File;
 
-public class FileStorageImpl implements FileStorage {
+public abstract class FileStorageImpl implements FileStorage {
    protected boolean f;
    protected final File file;
    protected boolean g;
 
    public File getFile() {
+      return this.file;
+   }
+
+   @Override
+   public File q() {
       return this.file;
    }
 

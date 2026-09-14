@@ -12,6 +12,4 @@ public interface RenderCollector<B> {
 
    void a(MatrixStack var1);
 
-   default void a(MatrixStack var1) {  }
-
 }

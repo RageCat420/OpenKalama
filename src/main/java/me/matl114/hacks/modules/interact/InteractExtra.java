@@ -67,7 +67,7 @@ public class InteractExtra extends BaseModule {
       if (mc.player != null && this.lastRange != val) {
          this.lastRange = val;
          ArrayList var3 = new ArrayList();
-         int var4 = (int)(Object)this.lastRange;
+         int var4 = (int)this.lastRange;
 
          for (int var5 = -var4; var5 <= var4; var5++) {
             for (int var6 = -var4; var6 <= var4; var6++) {

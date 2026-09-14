@@ -27,7 +27,7 @@ class KalamaHelperHelperF implements KalamaHelperHelperP {
          if (ScreenUtils.hasShiftDown()) {
             int var8 = button == 0 ? 64 : 0;
             this.ab.openInputIntScreen(var8, i -> {
-               this.ab.fC.accept(i, recipeEntry);
+               this.ab.fC.accept(i, this.aa);
                Tasks.l(this.ab::gH, 5);
             });
          } else {

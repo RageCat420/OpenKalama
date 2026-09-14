@@ -222,8 +222,8 @@ public class ItemCache {
    }
 
    public Codec<ItemStack> createStackCodec() {
-      Codec var1 = this.v();
-      Codec var2 = RecordCodecBuilder.create(
+      Codec<ItemStack> var1 = this.v();
+      Codec<ItemStack> var2 = RecordCodecBuilder.create(
          instance -> instance.group(var1.fieldOf("typeid").forGetter(Function.identity()), Codec.INT.fieldOf("amount").forGetter(ItemStack::getCount))
             .apply(instance, ItemStack::copyWithCount)
       );

@@ -93,15 +93,15 @@ public class EntrySet<T> implements NBTParsable<EntrySet<T>>, Predicate<T> {
    public static <T> NBTType<EntrySet<T>> create() {
       return new NBTType<>(
          "entryset",
-         RecordCodecBuilder.create(
-            instance -> instance.group(
-                  Codec.list(Identifier.CODEC).fieldOf("data").forGetter(EntrySet::idList),
-                  Registries.REGISTRIES.getCodec().fieldOf("key_type").forGetter(EntrySet::registry)
-               )
-               .apply(instance, EntrySet::new)
-         ),
+         RecordCodecBuilder.<EntrySet<T>>create(
+               instance -> instance.group(
+                     Codec.list(Identifier.CODEC).fieldOf("data").forGetter(EntrySet::idList),
+                     ((Codec<Registry<T>>)Registries.REGISTRIES.getCodec()).fieldOf("key_type").forGetter(EntrySet::registry)
+                  )
+                  .apply(instance, EntrySet::new)
+            ),
          EntrySet::generateValueWidget,
-         new EntrySet<>(Registries.BLOCK, Set.of())
+         (EntrySet<T>)new EntrySet<>(Registries.BLOCK, Set.of())
       );
    }
 

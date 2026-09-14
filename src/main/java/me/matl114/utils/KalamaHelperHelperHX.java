@@ -38,6 +38,4 @@ public interface KalamaHelperHelperHX {
       return var2 == null ? VoxelShapes.empty() : var2.getCollisionShape(EmptyBlockView.INSTANCE, pos);
    }
 
-   default BlockState a(BlockPos var1) { return null; }
-
 }

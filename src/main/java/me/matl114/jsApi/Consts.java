@@ -138,7 +138,7 @@ public interface Consts {
    Class<?> LongStream = LongStream.class;
    Class<?> LinkedList = LinkedList.class;
    Supplier<Map<String, String>> AliasMap = Suppliers.memoize(
-      () -> ImmutableMap.builder().put("NBT", "NbtElement").put("NBTMap", "NbtCompound").put("NBTList", "NbtList").build()
+      () -> ImmutableMap.<String, String>builder().put("NBT", "NbtElement").put("NBTMap", "NbtCompound").put("NBTList", "NbtList").build()
    );
    Class<?> AnimalEntity = AnimalEntity.class;
    Class<?> AtomicInteger = AtomicInteger.class;

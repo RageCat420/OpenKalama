@@ -89,7 +89,7 @@ public final class KalamaHelperHelperD implements ItemStackData {
       return this.rT;
    }
 
-   private KalamaHelperHelperD(@Nonnull JsonElement jsonRaw, ItemStack itemStack) {
+   KalamaHelperHelperD(@Nonnull JsonElement jsonRaw, ItemStack itemStack) {
       this.rU = false;
       this.rT = jsonRaw;
       this.stack = itemStack;

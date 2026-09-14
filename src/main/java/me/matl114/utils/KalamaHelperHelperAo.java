@@ -20,7 +20,7 @@ public interface KalamaHelperHelperAo {
 
    static <T> KalamaHelperHelperAo onComponent(ComponentType<T> type, ColorProvider<T> toggle) {
       return (stack, showInTooltips) -> {
-         Object var4 = stack.get(type);
+         T var4 = stack.get(type);
          if (var4 != null) {
             stack.set(type, toggle.provideTextColor(var4, showInTooltips));
          }

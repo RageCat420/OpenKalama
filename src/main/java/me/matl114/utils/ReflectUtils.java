@@ -156,7 +156,7 @@ public class ReflectUtils {
       if (clazz == null) {
          return new Field[0];
       } else {
-         ArrayList var2 = new ArrayList();
+         ArrayList<Field> var2 = new ArrayList<>();
 
          for (Field var6 : clazz.getDeclaredFields()) {
             if (fieldType.isAssignableFrom(var6.getType())) {

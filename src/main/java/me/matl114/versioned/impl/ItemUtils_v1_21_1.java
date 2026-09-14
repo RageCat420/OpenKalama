@@ -39,17 +39,20 @@ import net.minecraft.util.Unit;
 public class ItemUtils_v1_21_1 implements VItem {
    private static final Map<ComponentType<?>, Codec<?>> VERSIONED;
 
-   public boolean canGlide(ItemStack stack) {
+   @Override
+   public boolean g(ItemStack stack) {
       return stack.getItem() instanceof AxeItem;
    }
 
-   public NbtCompound toNbt(ItemStack tag, WrapperLookup lookup) {
+   @Override
+   public NbtCompound k(ItemStack tag, WrapperLookup lookup) {
       NbtCompound var3 = this.n(tag, lookup);
       var3.putInt("DataVersion", DataVersion.getDataVersion());
       return var3;
    }
 
-   public MutableText getFormattedName(ItemStack stack) {
+   @Override
+   public MutableText l(ItemStack stack) {
       MutableText var2 = Text.empty().append(stack.getName()).formatted(stack.getRarity().getFormatting());
       if (stack.contains(DataComponentTypes.CUSTOM_NAME)) {
          var2.formatted(Formatting.ITALIC);
@@ -58,11 +61,13 @@ public class ItemUtils_v1_21_1 implements VItem {
       return var2;
    }
 
+   @Override
    public Map<ComponentType<?>, Codec<?>> q() {
       return VERSIONED;
    }
 
-   public boolean isWeapon(ItemStack stack) {
+   @Override
+   public boolean c(ItemStack stack) {
       if (stack.getItem() instanceof MaceItem) {
          return true;
       } else if (stack.getItem() instanceof ToolItem var3) {
@@ -77,7 +82,8 @@ public class ItemUtils_v1_21_1 implements VItem {
       return new CustomModelDataComponent(cmd);
    }
 
-   public boolean isSpear(ItemStack stack) {
+   @Override
+   public boolean b(ItemStack stack) {
       Item var2 = stack.getItem();
       if (var2.getRegistryEntry().isIn(ItemTags.SWORDS)) {
          Integer var3 = this.getOptionalViaItemId(stack);
@@ -118,7 +124,8 @@ public class ItemUtils_v1_21_1 implements VItem {
       VERSIONED = var0.build();
    }
 
-   public Integer getAttackDurabilityCost(ItemStack stack) {
+   @Override
+   public Integer i(ItemStack stack) {
       Item var2 = stack.getItem();
       if (var2 instanceof MiningToolItem) {
          return 2;
@@ -127,7 +134,8 @@ public class ItemUtils_v1_21_1 implements VItem {
       }
    }
 
-   public ItemStack fromNbt(NbtCompound tag, WrapperLookup lookup) {
+   @Override
+   public ItemStack j(NbtCompound tag, WrapperLookup lookup) {
       return tag.isEmpty() ? ItemStack.EMPTY : (ItemStack)((Pair)ItemStack.CODEC.decode(lookup.getOps(NbtOps.INSTANCE), tag).getOrThrow()).getFirst();
    }
 
@@ -145,7 +153,8 @@ public class ItemUtils_v1_21_1 implements VItem {
       return tag.isEmpty() ? new NbtCompound() : (NbtCompound)ItemStack.CODEC.encodeStart(ItemStackUtils.registry().getOps(NbtOps.INSTANCE), tag).getOrThrow();
    }
 
-   public boolean isEatable(ItemStack stack) {
+   @Override
+   public boolean h(ItemStack stack) {
       return stack.contains(DataComponentTypes.FOOD) || stack.getItem() instanceof PotionItem;
    }
 
@@ -176,12 +185,7 @@ public class ItemUtils_v1_21_1 implements VItem {
 
    @Override
    public boolean e(ItemStack stack) {
-      return !this.isWeapon(stack);
+      return !this.c(stack);
    }
-
-
-
-   @Override
-   public boolean h(Object arg0) { return false; }
 
 }

@@ -7,6 +7,4 @@ public interface Dispatch {
    @NotNull
    Map<String, Object> serialize();
 
-   default Map<String, Object> serialize() { return null; }
-
 }

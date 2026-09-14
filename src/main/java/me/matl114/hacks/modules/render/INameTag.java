@@ -39,7 +39,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.StringHelper;
 import net.minecraft.util.math.MathHelper;
 
-public class INameTag extends BaseModule {
+public abstract class INameTag extends BaseModule {
    protected static final EquipmentSlot[] SLOTS = new EquipmentSlot[]{
       EquipmentSlot.MAINHAND, EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET, EquipmentSlot.OFFHAND
    };

@@ -43,7 +43,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin({ClientPlayerEntity.class})
-public class ClientPlayerMixin extends AbstractClientPlayerEntity implements ClientPlayerAccess {
+public abstract class ClientPlayerMixin extends AbstractClientPlayerEntity implements ClientPlayerAccess {
    @Shadow
    private double field_3926;
    @Shadow
@@ -71,22 +71,22 @@ public class ClientPlayerMixin extends AbstractClientPlayerEntity implements Cli
    boolean forceCloseInv = false;
 
    @Accessor("lastX")
-   public double getLastX() { }
+public abstract double getLastX() ;
 
    @Accessor("lastBaseY")
-   public double getLastBaseY() { }
+public abstract double getLastBaseY() ;
 
    @Accessor("lastZ")
-   public double getLastZ() { }
+public abstract double getLastZ() ;
 
    @Accessor("lastOnGround")
-   public boolean getLastOnGround() { }
+public abstract boolean getLastOnGround() ;
 
    @Accessor("lastPitch")
-   public float getLastPitch() { }
+public abstract float getLastPitch() ;
 
    @Accessor("lastYaw")
-   public float getLastYaw() { }
+public abstract float getLastYaw() ;
 
    @Override
    public boolean isForceNoFall() {
@@ -115,13 +115,13 @@ public class ClientPlayerMixin extends AbstractClientPlayerEntity implements Cli
    protected abstract void method_3136();
 
    @Shadow
-   public boolean isSneaking() { }
+public abstract boolean isSneaking() ;
 
    @Shadow
    public void swingHand(Hand hand) { }
 
    @Shadow
-   public boolean isUsingItem() { }
+public abstract boolean isUsingItem() ;
 
    @Unique
    @Override
@@ -344,3 +344,4 @@ public class ClientPlayerMixin extends AbstractClientPlayerEntity implements Cli
       return this.keepedInvHandler;
    }
 }
+

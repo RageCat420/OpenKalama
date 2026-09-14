@@ -9,7 +9,7 @@ import net.minecraft.text.Text;
 public class EventContainer implements Supplier<Text> {
    String a;
 
-   EventContainer(Supplier var1) {
+   public EventContainer(Supplier var1) {
       this.b = var1;
    }
 

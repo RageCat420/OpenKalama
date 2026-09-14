@@ -7,7 +7,8 @@ import me.matl114.utils.commands.params.types.EntitySelector;
 public class OptionalArgumentResult extends AbstractArgumentResult<EntitySelector> {
    private final String rawString;
 
-   public String k() {
+   @Override
+   public String a() {
       return this.rawString;
    }
 
@@ -16,8 +17,5 @@ public class OptionalArgumentResult extends AbstractArgumentResult<EntitySelecto
       this.h = parseSuccess;
       this.rawString = selector == null ? null : String.join(" ", reader.getArgsInRange(startIndex, this.e));
    }
-
-   @Override
-   public boolean k() { return false; }
 
 }

@@ -129,7 +129,7 @@ public class PrimitivePairList<T, W> implements NBTParsable<PrimitivePairList<T,
    }
 
    public static final <T, W> NBTType<PrimitivePairList<T, W>> create() {
-      NBTType<Pair<Primitive<T>, Primitive<W>>> pairCodecType = NBTTypes.createPairLike(
+      NBTType<Pair<Primitive<T>, Primitive<W>>> pairCodecType = NBTTypes.<Pair<Primitive<T>, Primitive<W>>, Primitive<T>, Primitive<W>>createPairLike(
          "pair",
          Primitive.TYPE.cast(),
          "first",
@@ -142,15 +142,15 @@ public class PrimitivePairList<T, W> implements NBTParsable<PrimitivePairList<T,
       Codec<Pair<Primitive<T>, Primitive<W>>> pairCodec = pairCodecType.typeCodec();
       Codec<Primitive<T>> firstPrimitiveCodec = Primitive.TYPE.<Primitive<T>>cast().typeCodec();
       Codec<Primitive<W>> secondPrimitiveCodec = Primitive.TYPE.<Primitive<W>>cast().typeCodec();
-      return new NBTType<>(
+      return new NBTType<PrimitivePairList<T, W>>(
          "primitivepairlist",
-         RecordCodecBuilder.create(
+         RecordCodecBuilder.<PrimitivePairList<T, W>>create(
             instance -> instance.group(
                   Codec.STRING.optionalFieldOf("first_name", "").forGetter(PrimitivePairList::firstName),
                   Codec.STRING.optionalFieldOf("second_name", "").forGetter(PrimitivePairList::secondName),
                   Codec.list(pairCodec).fieldOf("data").forGetter(PrimitivePairList::toPrimitivePairList),
-                  NBTTypes.codec().fieldOf("first_type").forGetter(PrimitivePairList::firstType),
-                  NBTTypes.codec().fieldOf("second_type").forGetter(PrimitivePairList::secondType),
+                  NBTTypes.<T>codec().fieldOf("first_type").forGetter(PrimitivePairList::firstType),
+                  NBTTypes.<W>codec().fieldOf("second_type").forGetter(PrimitivePairList::secondType),
                   firstPrimitiveCodec.optionalFieldOf("default_first_primitive").forGetter(PrimitivePairList::defaultFirstPrimitive),
                   secondPrimitiveCodec.optionalFieldOf("default_second_primitive").forGetter(PrimitivePairList::defaultSecondPrimitive)
                )
@@ -160,7 +160,7 @@ public class PrimitivePairList<T, W> implements NBTParsable<PrimitivePairList<T,
             PrimitivePairList<T, W> pairList = (PrimitivePairList<T, W>)attr.getOriginValue();
             String firstName = pairList.firstName();
             String secondName = pairList.secondName();
-            NBTType<Pair<Primitive<T>, Primitive<W>>> pairType = NBTTypes.createPairLike(
+            NBTType<Pair<Primitive<T>, Primitive<W>>> pairType = NBTTypes.<Pair<Primitive<T>, Primitive<W>>, Primitive<T>, Primitive<W>>createPairLike(
                "pair",
                Primitive.TYPE.cast(),
                "first",
@@ -168,9 +168,9 @@ public class PrimitivePairList<T, W> implements NBTParsable<PrimitivePairList<T,
                "second",
                PairLikeFactory.of(Pair::of, Pair::getFirst, Pair::getSecond),
                w -> AttrKeyValue.CustomWidgetFactory.cutSizeXLeft(0.5)
-                  .apply(AttrKeyValue.CustomWidgetFactory.withLabel(Text.translatableWithFallback(firstName, firstName)).apply(w)),
+                  .apply(AttrKeyValue.CustomWidgetFactory.withLabel(Text.translatableWithFallback(firstName, firstName)).apply((AttrKeyValue.CustomWidgetFactory)w)),
                w -> AttrKeyValue.CustomWidgetFactory.cutSizeXRight(0.5)
-                  .apply(AttrKeyValue.CustomWidgetFactory.withLabel(Text.translatableWithFallback(secondName, secondName)).apply(w))
+                  .apply(AttrKeyValue.CustomWidgetFactory.withLabel(Text.translatableWithFallback(secondName, secondName)).apply((AttrKeyValue.CustomWidgetFactory)w))
             );
             AttrKeyValue.CustomWidgetFactory<List<Pair<Primitive<T>, Primitive<W>>>> widgetFactory = (w1, x1, y1, dx1, dy1) -> NBTTypes.generateListModifyButton(
                w1, pairType, pairList::createNewPrimitivePair, x1, y1, dx1, dy1, 300, 20
@@ -185,7 +185,7 @@ public class PrimitivePairList<T, W> implements NBTParsable<PrimitivePairList<T,
             );
             return new TypeConvertAttrKeyValue<>(attr, wrapperFactory, widgetFactory, stringListWrapperFactory).generateValueWidget(x, y, dx, dy);
          },
-         new PrimitivePairList<>("", "", (NBTType<T>)NBTTypes.g, (NBTType<W>)NBTTypes.g, List.of())
+         (PrimitivePairList<T, W>)new PrimitivePairList<>("", "", NBTTypes.g, NBTTypes.g, List.of())
       );
    }
 
@@ -240,7 +240,7 @@ public class PrimitivePairList<T, W> implements NBTParsable<PrimitivePairList<T,
                this.secondName,
                this.firstType,
                this.secondType,
-               (List<Pair<T, W>>)pairList.list(),
+               (List)pairList.list(),
                this.defaultFirstPrimitive,
                this.defaultSecondPrimitive
             )

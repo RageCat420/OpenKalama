@@ -8,7 +8,8 @@ import net.minecraft.text.Text;
 public class KalamaHelperHelperI extends ModuleEntry {
    Supplier<Text> this$0;
 
-   public MutableText createKeyLabel() {
+   @Override
+   public MutableText getMetaData() {
       return (MutableText)(Object)this.this$0.get();
    }
 

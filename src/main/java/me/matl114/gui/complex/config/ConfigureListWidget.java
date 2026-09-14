@@ -23,6 +23,7 @@ import me.matl114.managers.config.StringRef;
 import me.matl114.utils.ChatUtils;
 import me.matl114.utils.CollectionUtils;
 import me.matl114.utils.Debug;
+import me.matl114.utils.config.AttrKeyValue;
 import me.matl114.utils.config.BaseAttrKeyValue;
 import me.matl114.utils.config.PropertyTracker;
 import me.matl114.utils.containers.ArgsMap;
@@ -42,7 +43,7 @@ public class ConfigureListWidget extends IndexedSubScreen<Pair<String, Map<Strin
    protected int fc;
 
    protected static List<Pair<String, Map<String, KalamaHelperHelperC<?>>>> gq(Config config) {
-      LinkedHashMap var1 = new LinkedHashMap();
+      Map<String, Map<String, KalamaHelperHelperC<?>>> var1 = new LinkedHashMap<>();
 
       for (String var3 : config.getVisiblePaths()) {
          if (!ChatUtils.hasTranslation(var3)) {
@@ -50,8 +51,8 @@ public class ConfigureListWidget extends IndexedSubScreen<Pair<String, Map<Strin
          }
 
          String[] var4 = Config.cutToPath(var3);
-         Ref var5 = config.get(var4);
-         BaseAttrKeyValue var6 = var5.createKeyValue(var3);
+         Ref<?> var5 = config.get(var4);
+         AttrKeyValue<?> var6 = var5.createKeyValue(var3);
          String var7 = var4[0];
          var1.computeIfAbsent(var7, k -> new LinkedHashMap<>()).put(var3, new KalamaHelperHelperC(var5, var6));
       }
@@ -110,43 +111,21 @@ public class ConfigureListWidget extends IndexedSubScreen<Pair<String, Map<Strin
    }
 
    protected Pair<String, Map<String, KalamaHelperHelperC<?>>> getFromKeyOr(String str, Map<String, KalamaHelperHelperC<?>> map) {
-      // $VF: Couldn't be decompiled
-      // Please report this to the Vineflower issue tracker, at https://github.com/Vineflower/vineflower/issues with a copy of the class file (if you have the rights to distribute it!)
-      // java.lang.IndexOutOfBoundsException: Index: 0
-      //   at java.base/java.util.Collections$EmptyList.get(Collections.java:4808)
-      //   at org.jetbrains.java.decompiler.modules.decompiler.exps.NewExprent.getInferredExprType(NewExprent.java:170)
-      //   at org.jetbrains.java.decompiler.modules.decompiler.exps.InvocationExprent.getInferredExprType(InvocationExprent.java:505)
-      //   at org.jetbrains.java.decompiler.modules.decompiler.exps.FunctionExprent.getInferredExprType(FunctionExprent.java:242)
-      //   at org.jetbrains.java.decompiler.modules.decompiler.ExprProcessor.getCastedExprent(ExprProcessor.java:962)
-      //   at org.jetbrains.java.decompiler.modules.decompiler.exps.ExitExprent.toJava(ExitExprent.java:86)
-      //   at org.jetbrains.java.decompiler.modules.decompiler.ExprProcessor.listToJava(ExprProcessor.java:891)
-      //   at org.jetbrains.java.decompiler.modules.decompiler.stats.BasicBlockStatement.toJava(BasicBlockStatement.java:91)
-      //   at org.jetbrains.java.decompiler.modules.decompiler.stats.RootStatement.toJava(RootStatement.java:36)
-      //   at org.jetbrains.java.decompiler.main.ClassWriter.writeMethod(ClassWriter.java:1306)
-      //
-      // Bytecode:
-      // 00: aload 0
-      // 01: getfield me/matl114/gui/complex/config/ConfigureListWidget.b Ljava/util/List;
-      // 04: invokeinterface java/util/List.stream ()Ljava/util/stream/Stream; 1
-      // 09: aload 1
-      // 0a: invokedynamic test (Ljava/lang/String;)Ljava/util/function/Predicate; bsm=java/lang/invoke/LambdaMetafactory.metafactory (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite; args=[ (Ljava/lang/Object;)Z, me/matl114/gui/complex/config/ConfigureListWidget.gw (Ljava/lang/String;Lcom/mojang/datafixers/util/Pair;)Z, (Lcom/mojang/datafixers/util/Pair;)Z ]
-      // 0f: invokeinterface java/util/stream/Stream.filter (Ljava/util/function/Predicate;)Ljava/util/stream/Stream; 2
-      // 14: invokeinterface java/util/stream/Stream.findFirst ()Ljava/util/Optional; 1
-      // 19: aload 1
-      // 1a: aload 2
-      // 1b: invokedynamic get (Ljava/lang/String;Ljava/util/Map;)Ljava/util/function/Supplier; bsm=java/lang/invoke/LambdaMetafactory.metafactory (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite; args=[ ()Ljava/lang/Object;, me/matl114/gui/complex/config/ConfigureListWidget.getFromKeyOr (Ljava/lang/String;Ljava/util/Map;)Lcom/mojang/datafixers/util/Pair;, ()Lcom/mojang/datafixers/util/Pair; ]
-      // 20: invokevirtual java/util/Optional.orElseGet (Ljava/util/function/Supplier;)Ljava/lang/Object;
-      // 23: checkcast com/mojang/datafixers/util/Pair
-      // 26: areturn
+      return this.b.stream().filter(s -> Objects.equals(str, s.getFirst())).findFirst().orElseGet(() -> new Pair<>(str, map));
    }
 
    public Pair<String, Map<String, KalamaHelperHelperC<?>>> getGlobal() {
       return this.go(eX.get(this.dx.getConfigName()));
    }
 
-   public void saveSelected() {
-      for (Pair var2 : this.b) {
-         for (KalamaHelperHelperC var4 : ((Map)var2.getSecond()).values()) {
+   @Override
+   public Pair<String, Map<String, KalamaHelperHelperC<?>>> bf() {
+      return this.getGlobal();
+   }
+
+    public void saveSelected() {
+      for (Pair<String, Map<String, KalamaHelperHelperC<?>>> var2 : this.b) {
+         for (KalamaHelperHelperC<?> var4 : var2.getSecond().values()) {
             var4.save();
          }
       }
@@ -155,7 +134,13 @@ public class ConfigureListWidget extends IndexedSubScreen<Pair<String, Map<Strin
       Config.launchSaveTasks();
    }
 
-   protected ElementHandler createIndexHandler(Pair<String, Map<String, KalamaHelperHelperC<?>>> str) {
+   @Override
+   public void bc() {
+      this.saveSelected();
+   }
+
+   @Override
+   protected ElementHandler be(Pair<String, Map<String, KalamaHelperHelperC<?>>> str) {
       return new ButtonElement(TextProvider.c(Text.translatable("config.index." + (String)str.getFirst())), ButtonAction.a(() -> this.setGlobal(str)))
          .cA(ButtonElement.bH)
          .cC(ButtonElement.bI)
@@ -163,12 +148,13 @@ public class ConfigureListWidget extends IndexedSubScreen<Pair<String, Map<Strin
          .aO(TooltipHandler.ap(ChatUtils.parseTranslation("config.index." + str + ".tooltips", "暂无介绍")));
    }
 
-   protected ListUnmodifiableWidget createSelectingDisplayWidget(Pair<String, Map<String, KalamaHelperHelperC<?>>> val) {
+   @Override
+   protected ListUnmodifiableWidget bd(Pair<String, Map<String, KalamaHelperHelperC<?>>> val) {
       String var2 = (String)val.getFirst();
       return new ListUnmodifiableWidget(
          ListEntryWidgetController.immutable(
-            ((Map)(Object)this.getFromKeyOr(var2, Map.of()).getSecond()).values().stream().filter(this::applyFilter).toList(),
-            b -> new KalamaHelperHelperA<>(this.fc, 0, this.fd + this.fc + this.aB, this.eU, this.fd, this.fc, this.aB, b.uW(), b.uX()),
+            this.getFromKeyOr(var2, Map.of()).getSecond().values().stream().filter(this::applyFilter).toList(),
+            b -> new KalamaHelperHelperA<>(this.fc, 0, this.fd + this.fc + this.aB, this.eU, this.fd, this.fc, this.aB, (Ref)b.ref(), (AttrKeyValue)b.keyValue()),
             this.eU,
             this.fd + this.fc + this.aB
          ),
@@ -188,10 +174,5 @@ public class ConfigureListWidget extends IndexedSubScreen<Pair<String, Map<Strin
          this.selectIndexToDisplay(this.go(var3), true);
       }
    }
-
-
-
-   @Override
-   public ElementHandler be(Object arg0, Object arg1, Object arg2) { return null; }
 
 }

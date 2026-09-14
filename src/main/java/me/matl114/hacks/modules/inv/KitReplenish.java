@@ -927,7 +927,7 @@ public class KitReplenish extends BaseModule {
                      el -> record.<InvSubHelperL>b(var9).dump()
                         ? Text.translatable("widget.kit-manager.open-kit-list.rule.dump.true")
                         : Text.translatable("widget.kit-manager.open-kit-list.rule.dump.false"),
-                     ButtonAction.a(() -> record.f(var9, s -> s.withDump(!s.dump())))
+                      ButtonAction.a(() -> record.<InvSubHelperL>f(var9, s -> s.withDump(!s.dump())))
                   )
                   .aO(
                      TooltipHandler.ar(
@@ -1081,7 +1081,7 @@ public class KitReplenish extends BaseModule {
 
             if (this.au.t == InvSubHelperG.d) {
                if (this.specificSlot.get().isPresent()) {
-                  int var11 = Math.clamp((long)(Object)this.specificSlot.get().getValue().intValue(), 0, 8);
+                  int var11 = Math.clamp((long)this.specificSlot.get().getValue().intValue(), 0, 8);
                   int var17 = this.au.n.index();
                   InvExtra.INSTANCE.swapInventoryIndexes(var17, var11);
                   this.au.q = var11;
@@ -1211,9 +1211,9 @@ public class KitReplenish extends BaseModule {
             }
 
             int var15 = -1;
-            Optional var20 = this.aw.placePos();
-            if (var20.isPresent()) {
-               Slot var23 = this.aw.placePos().get();
+            Optional<Pair<BlockPos, BlockHitResult>> var20 = this.aw.placePos();
+            if (var20.isPresent() && this.aw.playerScreenSlot().isPresent()) {
+               Slot var23 = this.aw.playerScreenSlot().get();
                OptionalInt var28 = mc.player.currentScreenHandler.getSlotIndex(var23.inventory, var23.getIndex());
                if (var28.isPresent()) {
                   var15 = var28.getAsInt();

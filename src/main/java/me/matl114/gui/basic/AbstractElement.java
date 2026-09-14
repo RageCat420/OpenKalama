@@ -31,7 +31,8 @@ public class AbstractElement implements ElementHandler {
       return this.cE(handler);
    }
 
-   public boolean onTyped(ExecutableWidget widget, char chr, int modifiers) {
+   @Override
+   public boolean e(ExecutableWidget widget, char chr, int modifiers) {
       if (this.br != null) {
          for (KalamaHelperHelperP var5 : this.br) {
             if (var5.e(widget, chr, modifiers)) {
@@ -43,7 +44,7 @@ public class AbstractElement implements ElementHandler {
       return false;
    }
 
-   public void i(DrawableWidget element, VDrawContext context, int mouseX, int mouseY, float delta, float alpha, boolean shouldHighlight) {
+   public void renderCentered0(DrawableWidget element, VDrawContext context, int mouseX, int mouseY, float delta, float alpha, boolean shouldHighlight) {
    }
 
    public AbstractElement cD(RenderHandler handler) {
@@ -55,7 +56,8 @@ public class AbstractElement implements ElementHandler {
       return this;
    }
 
-   public boolean onAction(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
+   @Override
+   public boolean b(ExecutableWidget element, double mouseX, double mouseY, int button, KalamaHelperHelperM type) {
       if (this.br != null) {
          for (KalamaHelperHelperP var9 : this.br) {
             if (var9.b(element, mouseX, mouseY, button, type)) {
@@ -67,7 +69,8 @@ public class AbstractElement implements ElementHandler {
       return type == KalamaHelperHelperM.nP && this.a(element, mouseX, mouseY, button);
    }
 
-   public boolean onScroll(ExecutableWidget widget, double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+   @Override
+   public boolean c(ExecutableWidget widget, double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
       if (this.br != null) {
          for (KalamaHelperHelperP var11 : this.br) {
             if (var11.c(widget, mouseX, mouseY, horizontalAmount, verticalAmount)) {
@@ -90,7 +93,7 @@ public class AbstractElement implements ElementHandler {
 
    @Override
    public final void renderAtCentered(DrawableWidget element, VDrawContext context, int mouseX, int mouseY, float delta, float alpha, boolean shouldHighlight) {
-      this.i(element, context, mouseX, mouseY, delta, alpha, shouldHighlight);
+      this.renderCentered0(element, context, mouseX, mouseY, delta, alpha, shouldHighlight);
       if (this.bp != null) {
          for (RenderHandler var9 : this.bp) {
             var9.renderAtCentered(element, context, mouseX, mouseY, delta, alpha, shouldHighlight);
@@ -114,7 +117,7 @@ public class AbstractElement implements ElementHandler {
 
    @Override
    public final void f(DrawableWidget element, VDrawContext context, int mouseX, int mouseY, float delta, float alpha, boolean shouldHighlight) {
-      this.aP(element, context, mouseX, mouseY, delta, alpha, shouldHighlight);
+      this.renderExtra0(element, context, mouseX, mouseY, delta, alpha, shouldHighlight);
       if (this.bq != null) {
          for (RenderHandler var9 : this.bq) {
             var9.f(element, context, mouseX, mouseY, delta, alpha, shouldHighlight);
@@ -122,7 +125,7 @@ public class AbstractElement implements ElementHandler {
       }
    }
 
-   public void aP(DrawableWidget element, VDrawContext context, int mouseX, int mouseY, float delta, float alpha, boolean shouldHighlight) {
+   public void renderExtra0(DrawableWidget element, VDrawContext context, int mouseX, int mouseY, float delta, float alpha, boolean shouldHighlight) {
    }
 
    public AbstractElement() {
@@ -130,11 +133,13 @@ public class AbstractElement implements ElementHandler {
       this.showTooltips = true;
    }
 
-   public boolean onClick(ExecutableWidget element, double mouseX, double mouseY, int button) {
+   @Override
+   public boolean a(ExecutableWidget element, double mouseX, double mouseY, int button) {
       return false;
    }
 
-   public boolean onKey(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
+   @Override
+   public boolean d(ExecutableWidget widget, int keyCode, int scanCode, int modifiers, boolean isPress) {
       if (this.br != null) {
          for (KalamaHelperHelperP var7 : this.br) {
             if (var7.d(widget, keyCode, scanCode, modifiers, isPress)) {
@@ -144,10 +149,6 @@ public class AbstractElement implements ElementHandler {
       }
 
       return false;
-   }
-   @Override
-   public boolean a(ExecutableWidget var1, double var2, double var3, int var4) {
-      return this.onClick(var1, var2, var3, var4);
    }
 
 }

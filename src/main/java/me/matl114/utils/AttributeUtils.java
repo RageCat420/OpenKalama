@@ -73,7 +73,7 @@ public class AttributeUtils {
          }
       }
 
-      AttributeContainer var9 = new AttributeContainer(DefaultAttributeRegistry.get(living.getType()));
+      AttributeContainer var9 = new AttributeContainer(DefaultAttributeRegistry.get((net.minecraft.entity.EntityType<? extends net.minecraft.entity.LivingEntity>)living.getType()));
       var9.setFrom(living.getAttributes());
 
       for (Entry var12 : ((java.util.Set<Entry>)(var2).entrySet())) {

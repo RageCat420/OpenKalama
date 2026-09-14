@@ -31,7 +31,7 @@ public record Holder<T>(Registry<T> registry, @Nullable T entry, String asString
    }
 
    public static <T> Holder<T> of(Registry<T> registry, T entry) {
-      Identifier string = Registries.REGISTRIES.getId(registry);
+      Identifier string = ((Registry<Registry>)(Registry)Registries.REGISTRIES).getId(registry);
       if (entry == null) {
          return new Holder<>(registry, null, string + "|" + DEFAULT_EMPTY_STRING);
       } else {
@@ -76,7 +76,7 @@ public record Holder<T>(Registry<T> registry, @Nullable T entry, String asString
    }
 
    private static <T> NBTType<Holder<T>> create() {
-      return new NBTType<>(
+      return new NBTType<Holder<T>>(
          "holder",
          Codec.STRING.comapFlatMap(Holder::parse, Holder::aog),
          (w, x, y, dx, dy) -> {
@@ -93,8 +93,8 @@ public record Holder<T>(Registry<T> registry, @Nullable T entry, String asString
             );
             return new TypeConvertAttrKeyValue<>(w, wrapperFactory, widgetFactory, stringifyFactoryWithDefault).generateValueWidget(x, y, dx, dy);
          },
-         WrapperFactory.of(s -> (Holder<T>)parse(s).getOrThrow(), Holder::aog),
-         of(Registries.ITEM, null)
+         WrapperFactory.<String, Holder<T>>of(s -> Holder.<T>parse(s).getOrThrow(), Holder::aog),
+         Holder.of((Registry<T>)Registries.ITEM, null)
       );
    }
 

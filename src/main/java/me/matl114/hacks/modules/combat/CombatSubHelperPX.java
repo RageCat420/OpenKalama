@@ -17,9 +17,9 @@ public record CombatSubHelperPX(
    }
 
    public CombatSubHelperPX yZ(boolean selectWeapon) {
-      return this.invSwap == selectWeapon
+      return this.selectWeapon == selectWeapon
          ? this
-         : new CombatSubHelperPX(this.selectWeapon, this.criticalSprint, this.elytraDelaySwitch, selectWeapon, this.antiShieldSwap, this.useTp, this.useAttack, this.swingHand, this.maceSwap, this.maceVClip);
+         : new CombatSubHelperPX(this.useTp, this.maceSwap, this.invSwap, selectWeapon, this.antiShieldSwap, this.useAttack, this.elytraDelaySwitch, this.criticalSprint, this.maceVClip, this.swingHand);
    }
 
    public boolean yV() {
@@ -33,7 +33,7 @@ public record CombatSubHelperPX(
    public CombatSubHelperPX za(boolean antiShieldSwap) {
       return this.antiShieldSwap == antiShieldSwap
          ? this
-         : new CombatSubHelperPX(this.selectWeapon, this.criticalSprint, this.elytraDelaySwitch, this.invSwap, antiShieldSwap, this.useTp, this.useAttack, this.swingHand, this.maceSwap, this.maceVClip);
+         : new CombatSubHelperPX(this.useTp, this.maceSwap, this.invSwap, this.selectWeapon, antiShieldSwap, this.useAttack, this.elytraDelaySwitch, this.criticalSprint, this.maceVClip, this.swingHand);
    }
 
    public boolean useTp() {
@@ -41,11 +41,15 @@ public record CombatSubHelperPX(
    }
 
    public CombatSubHelperPX zb(boolean useAttack) {
-      return this.useTp == useAttack ? this : new CombatSubHelperPX(this.selectWeapon, this.criticalSprint, this.elytraDelaySwitch, this.invSwap, this.antiShieldSwap, useAttack, this.useAttack, this.swingHand, this.maceSwap, this.maceVClip);
+      return this.useAttack == useAttack
+         ? this
+         : new CombatSubHelperPX(this.useTp, this.maceSwap, this.invSwap, this.selectWeapon, this.antiShieldSwap, useAttack, this.elytraDelaySwitch, this.criticalSprint, this.maceVClip, this.swingHand);
    }
 
    public CombatSubHelperPX zf(boolean swingHand) {
-      return this.maceVClip == swingHand ? this : new CombatSubHelperPX(this.selectWeapon, this.criticalSprint, this.elytraDelaySwitch, this.invSwap, this.antiShieldSwap, this.useTp, this.useAttack, this.swingHand, this.maceSwap, swingHand);
+      return this.swingHand == swingHand
+         ? this
+         : new CombatSubHelperPX(this.useTp, this.maceSwap, this.invSwap, this.selectWeapon, this.antiShieldSwap, this.useAttack, this.elytraDelaySwitch, this.criticalSprint, this.maceVClip, swingHand);
    }
 
    public boolean invSwap() {
@@ -53,9 +57,9 @@ public record CombatSubHelperPX(
    }
 
    public CombatSubHelperPX zc(boolean elytraDelaySwitch) {
-      return this.useAttack == elytraDelaySwitch
+      return this.elytraDelaySwitch == elytraDelaySwitch
          ? this
-         : new CombatSubHelperPX(this.selectWeapon, this.criticalSprint, this.elytraDelaySwitch, this.invSwap, this.antiShieldSwap, this.useTp, elytraDelaySwitch, this.swingHand, this.maceSwap, this.maceVClip);
+         : new CombatSubHelperPX(this.useTp, this.maceSwap, this.invSwap, this.selectWeapon, this.antiShieldSwap, this.useAttack, elytraDelaySwitch, this.criticalSprint, this.maceVClip, this.swingHand);
    }
 
    public boolean criticalSprint() {
@@ -63,39 +67,20 @@ public record CombatSubHelperPX(
    }
 
    public CombatSubHelperPX yW(boolean useTp) {
-      return this.selectWeapon == useTp ? this : new CombatSubHelperPX(useTp, this.criticalSprint, this.elytraDelaySwitch, this.invSwap, this.antiShieldSwap, this.useTp, this.useAttack, this.swingHand, this.maceSwap, this.maceVClip);
+      return this.useTp == useTp
+         ? this
+         : new CombatSubHelperPX(useTp, this.maceSwap, this.invSwap, this.selectWeapon, this.antiShieldSwap, this.useAttack, this.elytraDelaySwitch, this.criticalSprint, this.maceVClip, this.swingHand);
    }
 
    public boolean selectWeapon() {
       return this.selectWeapon;
    }
 
-   public CombatSubHelperPX(
-      boolean useTp,
-      boolean maceSwap,
-      boolean invSwap,
-      boolean selectWeapon,
-      boolean antiShieldSwap,
-      boolean useAttack,
-      boolean elytraDelaySwitch,
-      boolean criticalSprint,
-      boolean maceVClip,
-      boolean swingHand
-   ) {
-      this.selectWeapon = useTp;
-      this.criticalSprint = maceSwap;
-      this.elytraDelaySwitch = invSwap;
-      this.invSwap = selectWeapon;
-      this.antiShieldSwap = antiShieldSwap;
-      this.useTp = useAttack;
-      this.useAttack = elytraDelaySwitch;
-      this.swingHand = criticalSprint;
-      this.maceSwap = maceVClip;
-      this.maceVClip = swingHand;
-   }
 
    public CombatSubHelperPX ze(boolean maceVClip) {
-      return this.maceSwap == maceVClip ? this : new CombatSubHelperPX(this.selectWeapon, this.criticalSprint, this.elytraDelaySwitch, this.invSwap, this.antiShieldSwap, this.useTp, this.useAttack, this.swingHand, maceVClip, this.maceVClip);
+      return this.maceVClip == maceVClip
+         ? this
+         : new CombatSubHelperPX(this.useTp, this.maceSwap, this.invSwap, this.selectWeapon, this.antiShieldSwap, this.useAttack, this.elytraDelaySwitch, this.criticalSprint, maceVClip, this.swingHand);
    }
 
    public boolean useAttack() {
@@ -111,7 +96,9 @@ public record CombatSubHelperPX(
    }
 
    public CombatSubHelperPX yX(boolean maceSwap) {
-      return this.criticalSprint == maceSwap ? this : new CombatSubHelperPX(this.selectWeapon, maceSwap, this.elytraDelaySwitch, this.invSwap, this.antiShieldSwap, this.useTp, this.useAttack, this.swingHand, this.maceSwap, this.maceVClip);
+      return this.maceSwap == maceSwap
+         ? this
+         : new CombatSubHelperPX(this.useTp, maceSwap, this.invSwap, this.selectWeapon, this.antiShieldSwap, this.useAttack, this.elytraDelaySwitch, this.criticalSprint, this.maceVClip, this.swingHand);
    }
 
    public boolean maceSwap() {
@@ -123,12 +110,14 @@ public record CombatSubHelperPX(
    }
 
    public CombatSubHelperPX zd(boolean criticalSprint) {
-      return this.swingHand == criticalSprint
+      return this.criticalSprint == criticalSprint
          ? this
-         : new CombatSubHelperPX(this.selectWeapon, this.criticalSprint, this.elytraDelaySwitch, this.invSwap, this.antiShieldSwap, this.useTp, this.useAttack, criticalSprint, this.maceSwap, this.maceVClip);
+         : new CombatSubHelperPX(this.useTp, this.maceSwap, this.invSwap, this.selectWeapon, this.antiShieldSwap, this.useAttack, this.elytraDelaySwitch, criticalSprint, this.maceVClip, this.swingHand);
    }
 
    public CombatSubHelperPX yY(boolean invSwap) {
-      return this.elytraDelaySwitch == invSwap ? this : new CombatSubHelperPX(this.selectWeapon, this.criticalSprint, invSwap, this.invSwap, this.antiShieldSwap, this.useTp, this.useAttack, this.swingHand, this.maceSwap, this.maceVClip);
+      return this.invSwap == invSwap
+         ? this
+         : new CombatSubHelperPX(this.useTp, this.maceSwap, invSwap, this.selectWeapon, this.antiShieldSwap, this.useAttack, this.elytraDelaySwitch, this.criticalSprint, this.maceVClip, this.swingHand);
    }
 }

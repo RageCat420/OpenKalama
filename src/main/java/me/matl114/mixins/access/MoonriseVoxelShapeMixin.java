@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Environment(EnvType.CLIENT)
 @Mixin({VoxelShape.class})
-public class MoonriseVoxelShapeMixin implements MoonriseVoxelShapeAccess {
+public abstract class MoonriseVoxelShapeMixin implements MoonriseVoxelShapeAccess {
    @Final
    @Shadow
    protected VoxelSet field_1401;
@@ -138,7 +138,7 @@ public class MoonriseVoxelShapeMixin implements MoonriseVoxelShapeAccess {
    }
 
    @Shadow
-   public DoubleList method_1109(Axis var1) { }
+public abstract DoubleList method_1109(Axis var1) ;
 
    private static double[] extractRawArray(DoubleList list) {
       if (list == null) {
@@ -242,7 +242,7 @@ public class MoonriseVoxelShapeMixin implements MoonriseVoxelShapeAccess {
          this.rootCoordinatesZ = extractRawArray(zList);
       }
 
-      if (this.cachedShapeData.isEmpty()) {
+      if (this.cachedShapeData.hasSingleAABB()) {
          this.singleAABBRepresentation = new Box(
             this.rootCoordinatesX[0] + this.offsetX,
             this.rootCoordinatesY[0] + this.offsetY,
@@ -533,12 +533,12 @@ public class MoonriseVoxelShapeMixin implements MoonriseVoxelShapeAccess {
             double offY = this.offsetY;
             double offZ = this.offsetZ;
             cached = new Box(
-               coordsX[shapeData.sizeY()] + offX,
-               coordsY[shapeData.minFullX()] + offY,
-               coordsZ[shapeData.minFullY()] + offZ,
-               coordsX[shapeData.sizeZ()] + offX,
-               coordsY[shapeData.sizeY()] + offY,
-               coordsZ[shapeData.sizeX()] + offZ
+               coordsX[shapeData.minFullX()] + offX,
+               coordsY[shapeData.minFullY()] + offY,
+               coordsZ[shapeData.minFullZ()] + offZ,
+               coordsX[shapeData.maxFullX()] + offX,
+               coordsY[shapeData.maxFullY()] + offY,
+               coordsZ[shapeData.maxFullZ()] + offZ
             );
             this.cachedBounds = cached;
             return cached;
@@ -714,3 +714,4 @@ public class MoonriseVoxelShapeMixin implements MoonriseVoxelShapeAccess {
       }
    }
 }
+

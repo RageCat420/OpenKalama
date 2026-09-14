@@ -51,7 +51,7 @@ public class ItemStackHelper {
       if (var1.isEmpty()) {
          return null;
       } else {
-         List var2 = ItemStackUtils.getLore(var1);
+         List<net.minecraft.text.Text> var2 = ItemStackUtils.getLore(var1);
          return var2.isEmpty() ? null : var2.stream().map(ChatUtils::textToLegacyString).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
       }
    }
@@ -90,7 +90,7 @@ public class ItemStackHelper {
 
    public static Inventory createJSMappingInventory(List<?> list, int size) {
       if (list.size() < size) {
-         list.add(JsMacrosBridge.i().f(ItemStack.EMPTY));
+         ((List)list).add(JsMacrosBridge.i().f(ItemStack.EMPTY));
       }
 
       return new KalamaHelperHelperE(size, list);

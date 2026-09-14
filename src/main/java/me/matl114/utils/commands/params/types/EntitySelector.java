@@ -25,6 +25,4 @@ public interface EntitySelector {
       return this.wo(execution).stream().filter(entity -> entity != null && !entity.isRemoved()).findFirst().orElse(null);
    }
 
-   default String asString() { return null; }
-
 }

@@ -2,7 +2,7 @@ package me.matl114.managers.config;
 
 import me.matl114.utils.config.BaseAttrKeyValue;
 
-public class ObjectRef<T> extends Ref<T> {
+public abstract class ObjectRef<T> extends Ref<T> {
    private T object;
 
    @Override
@@ -20,7 +20,7 @@ public class ObjectRef<T> extends Ref<T> {
    }
 
    @Override
-   public Object getAsPrimitive() { }
+   public abstract Object getAsPrimitive();
 
    protected abstract T validateAndCast(Object var1);
 

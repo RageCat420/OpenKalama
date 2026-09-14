@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin({Screen.class})
-public class ScreenMixin extends AbstractParentElement {
-   public Element getFocused() {
+public abstract class ScreenMixin extends AbstractParentElement {
+   public Element method_25399() {
       Element focused = super.getFocused();
       if (focused == null
          && this instanceof CustomFocusBehaviourScreenAccess access
@@ -41,7 +41,5 @@ public class ScreenMixin extends AbstractParentElement {
          cir.setReturnValue(false);
       }
    }
-
-   public void children() { }
 
 }

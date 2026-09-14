@@ -330,7 +330,7 @@ public class InventoryUtils {
    }
 
    public static Map<ItemStackSample, IntList> collectItemIndexes(Iterable<ItemStack> stacks) {
-      LinkedHashMap var1 = new LinkedHashMap();
+      Map<ItemStackSample, IntList> var1 = new LinkedHashMap<>();
       int var2 = 0;
 
       for (ItemStack var4 : stacks) {
@@ -462,13 +462,13 @@ public class InventoryUtils {
       ItemStack var4 = c.player.getStackInHand(Hand.MAIN_HAND);
       int var5 = var3.selectedSlot;
       Double var6 = null;
-      KalamaHelperHelperK var7 = null;
-      Object var8 = null;
+      KalamaHelperHelperK<ItemStack> var7 = null;
+      KalamaHelperHelperK<ItemStack> var8 = null;
       if (acceptEmpty || !var4.isEmpty()) {
          var8 = new KalamaHelperHelperK<>(var5, var4);
-         var6 = (Double)maxFunction.apply(var8);
+         var6 = maxFunction.apply(var8);
          if (var6 != null) {
-            var7 = (KalamaHelperHelperK)var8;
+            var7 = var8;
          }
       }
 
@@ -479,9 +479,9 @@ public class InventoryUtils {
             ItemStack var10 = var3.getStack(var9);
             var8 = new KalamaHelperHelperK<>(var9, var10);
             Double var11;
-            if ((acceptEmpty || !var10.isEmpty()) && (var11 = (Double)maxFunction.apply(var8)) != null && (var6 == null || var11 > var6)) {
+            if ((acceptEmpty || !var10.isEmpty()) && (var11 = maxFunction.apply(var8)) != null && (var6 == null || var11 > var6)) {
                var6 = var11;
-               var7 = (KalamaHelperHelperK)var8;
+               var7 = var8;
             }
          }
 

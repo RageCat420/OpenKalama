@@ -24,7 +24,7 @@ public class BoundedPrimitiveFlagMap<E extends Enum<E>> extends BoundedPrimitive
    public static <S extends Enum<S>, T extends BoundedPrimitiveFlagMap<S>> NBTType<T> createEnumMap(
       String clazzT, Class<S> enumS, TriFunction<List<S>, Map<S, Boolean>, NBTType<Boolean>, T> creator
    ) {
-      return create(clazzT, creator, Arrays.asList((Enum[])enumS.getEnumConstants()), CodecUtils.enumCodec(enumS), (v, x, y, width, height) -> {
+      return BoundedPrimitiveMap.<S, Boolean, T>create(clazzT, creator, Arrays.asList((S[])enumS.getEnumConstants()), CodecUtils.enumCodec(enumS), (v, x, y, width, height) -> {
          short var5 = 180;
          int var6 = (width - var5) / 2;
          return ExecutableWidget.instance(x + var6, y, var5, height).eV(new ButtonElement(TextProvider.c(Text.literal(v.name())), ButtonAction.c()));

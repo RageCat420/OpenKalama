@@ -121,13 +121,13 @@ public class WorldTasks {
          if (b.world.getChunkManager().isChunkLoaded(chunkPos.x, chunkPos.z)) {
             WorldChunk var1 = b.world.getChunkManager().getWorldChunk(chunkPos.x, chunkPos.z);
             if (var1 != null) {
-               ArrayList var2 = new ArrayList();
+               ArrayList<BiPredicate<BlockPos, BlockState>> var2 = new ArrayList<>();
                Listener.ba().broadcast(var2);
                if (var2.isEmpty()) {
                   return;
                }
 
-               BiPredicate<Object, Object> var3 = (b, s) -> var2.stream().anyMatch(s1 -> s1.test(b, s));
+               BiPredicate<BlockPos, BlockState> var3 = (b, s) -> var2.stream().anyMatch(s1 -> s1.test(b, s));
                Map var4 = WorldUtils.scannChunk(var1, var3);
                d.execute(() -> {
                   Event var2x = new Event<>(var4, false, false, chunkPos);

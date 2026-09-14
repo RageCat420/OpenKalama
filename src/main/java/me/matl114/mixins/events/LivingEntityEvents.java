@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({LivingEntity.class})
-public class LivingEntityEvents extends Entity implements EntityAccess<LivingEntity>, LivingEntityAccess<LivingEntity> {
+public abstract class LivingEntityEvents extends Entity implements EntityAccess<LivingEntity>, LivingEntityAccess<LivingEntity> {
    @Unique
    private Map<EquipmentSlot, ItemStack> clientLastEquipmentSnapshot;
    @Unique
@@ -88,19 +88,19 @@ public class LivingEntityEvents extends Entity implements EntityAccess<LivingEnt
       )}
    )
    public void onTickEquipment(CallbackInfo ci) {
-      if (this instanceof PlayerEntity) {
+      if ((Object)this instanceof PlayerEntity) {
          this.tickEquipment();
       }
    }
 
    @Shadow
-   public ItemStack method_6118(EquipmentSlot var1) { }
+public abstract ItemStack method_6118(EquipmentSlot var1) ;
 
    @Shadow
-   public boolean method_45324(ItemStack var1, ItemStack var2) { }
+public abstract boolean method_45324(ItemStack var1, ItemStack var2) ;
 
    @Shadow
-   public AttributeContainer method_6127() { }
+public abstract AttributeContainer method_6127() ;
 
    @WrapOperation(
       method = {"tickMovement"},
@@ -110,7 +110,7 @@ public class LivingEntityEvents extends Entity implements EntityAccess<LivingEnt
       )}
    )
    private void onJump(LivingEntity instance, Operation<Void> original) {
-      if (this == MinecraftClient.getInstance().player) {
+      if ((Object)this == MinecraftClient.getInstance().player) {
          Event<Integer> jumpEvent = new Event<>(10, true, true);
          Listener.aw().catchEvent(jumpEvent);
          this.nextJumpCooldown = jumpEvent.e();
@@ -212,3 +212,4 @@ public class LivingEntityEvents extends Entity implements EntityAccess<LivingEnt
    public void writeCustomDataToNbt(Object arg0) { }
 
 }
+

@@ -142,7 +142,7 @@ public class AutoWeb extends BaseModule {
    }
 
    private List<BlockPos> agZ(PlayerEntity target) {
-      LinkedHashSet var2 = new LinkedHashSet();
+      LinkedHashSet<BlockPos> var2 = new LinkedHashSet<>();
       Box var3 = target.getBoundingBox();
       var2.addAll(MathUtils.getOccupiedBlockPositions(var3.withMaxY(var3.minY + 0.5)));
       if (this.ceiling.get() && !target.isOnGround()) {
@@ -150,7 +150,7 @@ public class AutoWeb extends BaseModule {
          MathUtils.getOccupiedBlockPositions(var3.stretch(0.0, 0.75, 0.0)).stream().filter(pos -> pos.getY() > var4).forEach(var2::add);
       }
 
-      ArrayList var5 = new ArrayList(var2.size());
+      ArrayList<BlockPos> var5 = new ArrayList<>(var2.size());
       var2.stream().<BlockPos>map(BlockPos::toImmutable).sorted(Comparator.comparingDouble(this::ahd)).forEach(var5::add);
       return var5;
    }

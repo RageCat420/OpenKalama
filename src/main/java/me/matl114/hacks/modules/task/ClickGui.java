@@ -15,6 +15,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import me.matl114.accessors.gui.ScreenAccess;
@@ -138,7 +139,7 @@ public class ClickGui extends BaseModule {
       List<WrapperConfigRef<?>> var5 = baseModule.getEditableConfig();
       Map<String, List<WrapperConfigRef<?>>> var6 = this.pd(var5);
       if (this.pe(var6)) {
-         for (Entry var8 : ((java.util.Set<Entry>)(var6).entrySet())) {
+         for (Entry<String, List<WrapperConfigRef<?>>> var8 : var6.entrySet()) {
             String var9 = (String)var8.getKey();
             if (this.pf(var9)) {
                var4.ga(this.pi(baseModule, var9, metaData));
@@ -197,9 +198,9 @@ public class ClickGui extends BaseModule {
    }
 
    private Map<String, List<WrapperConfigRef<?>>> pd(List<WrapperConfigRef<?>> editableConfigs) {
-      LinkedHashMap var2 = new LinkedHashMap();
+      Map<String, List<WrapperConfigRef<?>>> var2 = new LinkedHashMap<>();
 
-      for (WrapperConfigRef var4 : editableConfigs) {
+      for (WrapperConfigRef<?> var4 : editableConfigs) {
          String var5 = this.pg(var4);
          var2.computeIfAbsent(var5, ignored -> new ArrayList<>()).add(var4);
       }
@@ -209,7 +210,7 @@ public class ClickGui extends BaseModule {
 
    private DrawableWidget pi(BaseModule baseModule, String prefix, TaskSubHelperS metaData) {
       short var4 = 330;
-      int var5 = (int)(Object)this.widgetSize.get().y();
+      int var5 = (int)this.widgetSize.get().y();
       int var6 = var5 + 2;
       String var7 = this.pk(baseModule, prefix);
       metaData.b(var7);
@@ -284,7 +285,7 @@ public class ClickGui extends BaseModule {
    }
 
    private DrawableWidget createDragExpandableHead(String module, TaskSubHelperR slideMeta) {
-      return ExecutableWidget.instance(0, 0, (int)(Object)this.widgetSize.get().x(), (int)(Object)this.widgetSize.get().y())
+      return ExecutableWidget.instance(0, 0, (int)this.widgetSize.get().x(), (int)this.widgetSize.get().y())
          .eV(
             new AbstractElement()
                .cF(new TaskSubHelperI(this, slideMeta))
@@ -335,7 +336,7 @@ public class ClickGui extends BaseModule {
 
       List var4 = this.oO();
       var4.add("Search");
-      var3.checkDefault(var4, (int)(Object)this.widgetSize.get().x(), (int)(Object)this.widgetSize.get().y());
+      var3.checkDefault(var4, (int)this.widgetSize.get().x(), (int)this.widgetSize.get().y());
       this.setClickGuiMeta(var3);
       return var3;
    }
@@ -350,7 +351,7 @@ public class ClickGui extends BaseModule {
       int var5 = layout.Nj();
       DynamicListWidget var6 = new DynamicListWidget(0, 0, var5);
       var6.ga(
-         ExecutableWidget.instance(0, 0, var5, layout.indexWidth())
+         ExecutableWidget.instance(0, 0, var5, layout.buttonHeight())
             .eV(
                new ColorLabelTextElement(TextProvider.c(title), () -> palette.titleBackgroundColor().getColorInt(), () -> palette.titleTextColor().getColorInt())
                   .aO(TooltipHandler.ar(titleTooltips))
@@ -358,8 +359,8 @@ public class ClickGui extends BaseModule {
       );
 
       for (WrapperConfigRef var8 : configs) {
-         KalamaHelperHelperCX var9 = new KalamaHelperHelperCX(0, 0, var5, layout.indexWidth() + layout.blankWidth());
-         var9.Q(DisplayWidget.instance(0, 0, var5, layout.blankWidth() + layout.indexWidth()));
+         KalamaHelperHelperCX var9 = new KalamaHelperHelperCX(0, 0, var5, layout.buttonHeight() + layout.buttonBlank());
+         var9.Q(DisplayWidget.instance(0, 0, var5, layout.buttonBlank() + layout.buttonHeight()));
          var9.Q(pD(var8, layout, palette));
          KalamaHelperHelperJ var10 = new KalamaHelperHelperJ<>(() -> var8.showPredicate().getAsBoolean() ? var9 : null, 0, 0);
          var6.ga(var10);
@@ -436,8 +437,8 @@ public class ClickGui extends BaseModule {
 
    private DrawableWidget pr(TaskSubHelperS metaData) {
       KalamaHelperHelperCX var2 = new KalamaHelperHelperCX(0, 0, 0, 0);
-      int var3 = (int)(Object)this.widgetSize.get().x();
-      int var4 = (int)(Object)this.widgetSize.get().y();
+      int var3 = (int)this.widgetSize.get().x();
+      int var4 = (int)this.widgetSize.get().y();
       DynamicListWidget var5 = new DynamicListWidget(0, var4, var3);
       var2.Q(var5);
       Runnable var6 = () -> {
@@ -489,8 +490,8 @@ public class ClickGui extends BaseModule {
 
    private void createSearchResultGroupSubList(Consumer<DrawableWidget> childrenAdder, String group, List<BaseModule> list, TaskSubHelperS metaData) {
       MutableBoolean var5 = new MutableBoolean(true);
-      int var6 = (int)(Object)this.widgetSize.get().x();
-      int var7 = (int)(Object)this.widgetSize.get().y();
+      int var6 = (int)this.widgetSize.get().x();
+      int var7 = (int)this.widgetSize.get().y();
       KalamaHelperHelperCX var8 = new KalamaHelperHelperCX(0, 0, var6, var7);
       ExecutableWidget.instance(0, 0, var6, var7)
          .<ExecutableWidget>eV(new AbstractElement().cF(KalamaHelperHelperP.az(() -> var5.setValue(!var5.booleanValue()))))
@@ -531,7 +532,7 @@ public class ClickGui extends BaseModule {
 
    private DrawableWidget pb(BaseModule baseModule, TaskSubHelperS metaData) {
       FlagRef var3 = baseModule.getBindFlag();
-      return ExecutableWidget.instance(0, 0, (int)(Object)this.widgetSize.get().x(), (int)(Object)this.widgetSize.get().y())
+      return ExecutableWidget.instance(0, 0, (int)this.widgetSize.get().x(), (int)this.widgetSize.get().y())
          .eV(
             new ColorBoxElement(
                   var3 != null ? ButtonAction.b(bl -> {
@@ -642,7 +643,7 @@ public class ClickGui extends BaseModule {
    public void oR() {
       List var1 = this.oO();
       TaskSubHelperS var2 = this.getClickGuiMetadata();
-      LinkedHashMap<String, Function> var3 = new LinkedHashMap<>();
+      LinkedHashMap<String, Function<Screen, DrawableWidget>> var3 = new LinkedHashMap<>();
       var3.put("Module", s -> this.oT(var1, var2));
       var3.put("Friends", s -> this.pw(s, var2));
       var3.put("CmdMacros", s -> this.px(s, var2));

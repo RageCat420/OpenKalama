@@ -14,7 +14,7 @@ class MoveSubHelperX implements MoveSubHelperAh {
    private Vec3d LK;
 
    public MoveSubHelperX(final Travel param1) {
-      this.HP = var1;
+      this.HP = param1;
       this.LK = null;
       this.tickCNT = 0;
    }

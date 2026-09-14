@@ -42,9 +42,9 @@ import net.minecraft.util.math.random.Random;
 public class RegistryDisplays {
    private static final Random c = new LocalRandom(999L);
    public static final ItemStack a = new ItemStack(Items.ANVIL);
-   public static Map<Class<?>, RegistryDisplays$IIcon<?>> d = ImmutableMap.builder()
-      .<Item>put(Item.class, RegistryDisplays$IIcon.c(ItemStack::new))
-      .<Block>put(Block.class, RegistryDisplays$IIcon.c(ItemStack::new))
+   public static Map<Class<?>, RegistryDisplays$IIcon<?>> d = ImmutableMap.<Class<?>, RegistryDisplays$IIcon<?>>builder()
+      .put(Item.class, RegistryDisplays$IIcon.<ItemConvertible>c(ItemStack::new))
+      .put(Block.class, RegistryDisplays$IIcon.<ItemConvertible>c(ItemStack::new))
       .put(EntityAttribute.class, RegistryDisplays$IIcon.c(v -> a))
       .put(Enchantment.class, RegistryDisplays$IIcon.c(RegistryDisplays::createEnchantmentIcon))
       .<BlockEntityType>put(BlockEntityType.class, RegistryDisplays$IIcon.c(s -> {
@@ -60,11 +60,11 @@ public class RegistryDisplays {
          Item var1 = EntityUtils.c((EntityType<?>)v);
          return new ItemStack(var1 == null ? Items.PIG_SPAWN_EGG : var1);
       }))
-      .<StatusEffect>put(StatusEffect.class, RegistryDisplays$IIcon.d(effect -> {
+      .put(StatusEffect.class, RegistryDisplays$IIcon.<StatusEffect>d(effect -> {
          RegistryEntry<StatusEffect> var1 = Registries.STATUS_EFFECT.getEntry(effect);
          return getEffectTexture(var1);
       }))
-      .<Potion>put(Potion.class, RegistryDisplays$IIcon.c(v -> PotionContentsComponent.createStack(Items.POTION, Registries.POTION.getEntry(v))))
+      .put(Potion.class, RegistryDisplays$IIcon.<Potion>c(v -> PotionContentsComponent.createStack(Items.POTION, Registries.POTION.getEntry(v))))
       .<ParticleType<?>>put(ParticleType.class, RegistryDisplays$IIcon.d(v -> {
          Identifier var1 = Registries.PARTICLE_TYPE.getId((ParticleType<?>)v);
          ParticleManager var2 = MinecraftClient.getInstance().particleManager;

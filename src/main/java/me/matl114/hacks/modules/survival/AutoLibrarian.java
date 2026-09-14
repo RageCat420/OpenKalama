@@ -340,7 +340,7 @@ public class AutoLibrarian extends BaseModule {
       if (this.aU) {
          BlockPos var6 = this.aN.getBlockPos();
          Box var7 = new Box(var6).expand(0.0, 1.0, 0.0);
-         List var8 = mc.world
+         List<ItemEntity> var8 = mc.world
             .getEntitiesByType(
                EntityType.ITEM,
                mc.player.getBoundingBox().expand(6.0, 2.0, 6.0),

@@ -635,7 +635,7 @@ public class ElytraExtra extends BaseModule implements HackUtilHelperJ {
 
    public int afE() {
       if (ClientPlayerAccess.of(mc.player).getServerScreenHandler() == mc.player.playerScreenHandler) {
-         Predicate var1 = this::afD;
+         Predicate<ItemStack> var1 = this::afD;
          if (this.PK != -1
             && mc.player.playerScreenHandler.slots.size() > this.PK
             && var1.test(((Slot)mc.player.playerScreenHandler.slots.get(this.PK)).getStack())) {
@@ -1333,6 +1333,8 @@ public class ElytraExtra extends BaseModule implements HackUtilHelperJ {
       this.OE = this.JY.add("armor-fly");
       this.OF = this.JY.add("custom-fireworks");
       this.IA = MovTasks.aj().grimac1212InputFeatures;
+      this.enable2 = this.flagBuilder(this.OE.add("enable")).updateListener(this::afZ).build();
+      this.armorMode = this.builder(this.OE.add("armor-mode"), ElytraExtra$ArmorFlyMode.class).defaultValue(ElytraExtra$ArmorFlyMode.TICK).build();
       this.noKineticMode = this.builder(this.OC.add("no-kinetic-mode"), OptionalPrimitive.configEnum(Configs$BypassMode.class))
          .defaultValue(new OptionalPrimitive<>(false, NBTTypes.o.cast(), new WrapEnum<>(Configs$BypassMode.NO_BYPASS)))
          .show(() -> !this.enable2.get())
@@ -1358,9 +1360,7 @@ public class ElytraExtra extends BaseModule implements HackUtilHelperJ {
       this.OS = this.moduleEntry(this.OD.addHotkey(), new MultiKeyBind(), this.OD.addEnable()).build();
       this.period = this.intBuilder(this.OD.add("period")).defaultValue(16).validator(Configs.e).build();
       this.resetVanilla = this.flagBuilder(this.OD.add("reset-vanilla")).build();
-      this.enable2 = this.flagBuilder(this.OE.add("enable")).updateListener(this::afZ).build();
       this.enableHotkey = this.toggleHotkey(this.OE.add("enable-hotkey"), new MultiKeyBind(), this.OE.add("enable")).build();
-      this.armorMode = this.builder(this.OE.add("armor-mode"), ElytraExtra$ArmorFlyMode.class).defaultValue(ElytraExtra$ArmorFlyMode.TICK).build();
       this.forceNoElytra = this.flagBuilder(this.OE.add("force-no-elytra")).build();
       this.enableLiquidFly = this.flagBuilder(this.OE.add("enable-liquid-fly")).build();
       this.liquidFlyOnlyFireworks = this.flagBuilder(this.OE.add("liquid-fly-only-fireworks")).build();

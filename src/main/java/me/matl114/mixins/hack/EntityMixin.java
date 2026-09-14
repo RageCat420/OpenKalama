@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin({Entity.class})
-public class EntityMixin<T extends Entity> implements EntityAccess<T>, EntityInternalAccess<T> {
+public abstract class EntityMixin<T extends Entity> implements EntityAccess<T>, EntityInternalAccess<T> {
    @Unique
    byte renderTracked = 0;
    @Unique

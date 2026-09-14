@@ -114,9 +114,9 @@ public class ChestESP extends BaseModule {
          .defaultValue(new EntrySet<BlockEntityType<?>>(new Regex("^(.*chest|barrel|.*box)$"), Registries.BLOCK_ENTITY_TYPE))
          .build();
       this.espTraceOptions = this.builder(this.Mf.add("esp-trace-options"), TracingOption.class).defaultValue(new TracingOption(true, false)).build();
-      this.colorMap = this.builder(this.Mf.add("color-map"), EntryPrimitiveMap.uA())
+      this.colorMap = this.builder(this.Mf.add("color-map"), EntryPrimitiveMap.<BlockEntityType<?>, TextColor>uA())
          .defaultValue(
-            new EntryPrimitiveMap<>(
+            new EntryPrimitiveMap<BlockEntityType<?>, TextColor>(
                Registries.BLOCK_ENTITY_TYPE,
                NBTTypes.h,
                Map.of(

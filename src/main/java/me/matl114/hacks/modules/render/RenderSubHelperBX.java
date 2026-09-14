@@ -15,7 +15,7 @@ class RenderSubHelperBX extends Screen implements RenderSubHelperWX {
 
    protected RenderSubHelperBX(final SleepMode param1, Text title, Text displayMessage) {
       super(title);
-      this.j = var1;
+      this.j = param1;
       this.i = displayMessage;
    }
 

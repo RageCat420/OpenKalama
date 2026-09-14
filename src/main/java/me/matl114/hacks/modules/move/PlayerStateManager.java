@@ -431,11 +431,11 @@ public class PlayerStateManager extends BaseModule {
 
    public void onEntityTrackedDataUpdate(Event<SerializedEntry<?>> eventDataUpdate) {
       if (eventDataUpdate.getArgs(0) instanceof PlayerEntity var3) {
-         if (((SerializedEntry)eventDataUpdate.b).id() == 10 && ((SerializedEntry)eventDataUpdate.b).value() instanceof List var14) {
-            MoveSubHelperL var17 = this.nX(var3);
-            HashSet<RegistryEntry> var18 = new HashSet<>(var17.i.keySet());
+          if (((SerializedEntry)eventDataUpdate.b).id() == 10 && ((SerializedEntry)eventDataUpdate.b).value() instanceof List<?> var14) {
+             MoveSubHelperL var17 = this.nX(var3);
+             HashSet<RegistryEntry> var18 = new HashSet<>(var17.i.keySet());
 
-            for (ParticleEffect var21 : var14) {
+             for (Object var21 : var14) {
                if (var21 instanceof EntityEffectParticleEffect var9) {
                   int var10 = ColorUtils.j(var9.color, 0);
                   RegistryEntry var11 = (RegistryEntry)jW.get(var10);
@@ -734,17 +734,17 @@ public class PlayerStateManager extends BaseModule {
       this.jL = this.calculateVelocityAffectingPos();
       if (++this.jQ > 10 || this.jM == null || this.jN == null) {
          this.jQ = 0;
-         LinkedHashMap var2 = new LinkedHashMap();
-         mc.player.getInventory().main.stream().filter(v -> !v.isEmpty()).forEach(s -> var2.merge(ItemStackSample.of(s), s.getCount(), Integer::sum));
-         this.jM = var2;
-         LinkedHashMap var3 = new LinkedHashMap(var2.size());
+          LinkedHashMap<ItemStackSample, Integer> var2 = new LinkedHashMap<>();
+          mc.player.getInventory().main.stream().filter(v -> !v.isEmpty()).forEach(s -> var2.merge(ItemStackSample.of(s), s.getCount(), Integer::sum));
+          this.jM = var2;
+          LinkedHashMap<ItemStackSample, Integer> var3 = new LinkedHashMap<>(var2.size());
 
-         for (Entry var5 : ((java.util.Set<Entry>)(var2).entrySet())) {
-            int var6 = (Integer)var5.getValue();
-            this.streamItems(((ItemStackSample)var5.getKey()).fS())
-               .filter(v -> !v.isEmpty())
-               .forEach(s -> var3.merge(ItemStackSample.of(s), s.getCount() * var6, Integer::sum));
-         }
+          for (Entry<ItemStackSample, Integer> var5 : var2.entrySet()) {
+             int var6 = var5.getValue();
+             this.streamItems(var5.getKey().fS())
+                .filter(v -> !v.isEmpty())
+                .forEach(s -> var3.merge(ItemStackSample.of(s), s.getCount() * var6, Integer::sum));
+          }
 
          this.jN = var3;
       }

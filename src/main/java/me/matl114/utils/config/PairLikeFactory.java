@@ -39,13 +39,13 @@ public interface PairLikeFactory<A, B, P> {
    }
 
    static <A, B> PairLikeFactory<A, B, Pair<A, B>> pair() {
-      return (PairLikeFactory<A, B, Pair<A, B>>)PAIR_FACTORY;
+      return (PairLikeFactory)PAIR_FACTORY;
    }
 
    default <D> PairLikeFactory<A, B, D> concat(WrapperFactory<P, D> mapper) {
-      return (PairLikeFactory<A, B, D>)(new PairLikeFactory.BasePairLikeFactory<>(
-         (a, b) -> mapper.create(this.create(a, b)), s -> this.getFirst(mapper.get((D)s)), s -> this.getSecond(mapper.get((D)s))
-      ));
+      return new PairLikeFactory.BasePairLikeFactory<>(
+         (a, b) -> mapper.create(this.create(a, b)), s -> this.getFirst(mapper.get(s)), s -> this.getSecond(mapper.get(s))
+      );
    }
 
    public static class BasePairLikeFactory<A, B, P> implements PairLikeFactory<A, B, P> {

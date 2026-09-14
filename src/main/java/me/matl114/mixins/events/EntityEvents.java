@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({Entity.class})
-public class EntityEvents<T extends Entity> implements EntityAccess<T> {
+public abstract class EntityEvents<T extends Entity> implements EntityAccess<T> {
    @ModifyExpressionValue(
       method = {"updateVelocity"},
       at = {@At(
@@ -58,7 +58,7 @@ public class EntityEvents<T extends Entity> implements EntityAccess<T> {
    protected abstract void method_5623(double var1, boolean var3, BlockState var4, BlockPos var5);
 
    @Shadow
-   public ActionResult method_5688(PlayerEntity var1, Hand var2) { }
+public abstract ActionResult method_5688(PlayerEntity var1, Hand var2) ;
 
    @Unique
    @Override
@@ -116,3 +116,4 @@ public class EntityEvents<T extends Entity> implements EntityAccess<T> {
       }
    }
 }
+

@@ -18,17 +18,7 @@ record CombatSubHelperAa(
       return this.respawnAnchorPositions;
    }
 
-   public CombatSubHelperAa(
-      Set<BlockPos> mineableBlastResistantPositions,
-      Set<BlockPos> unbreakableBlastResistantPositions,
-      Set<BlockPos> respawnAnchorPositions,
-      Set<BlockPos> holesPositions
-   ) {
-      this.unbreakableBlastResistantPositions = mineableBlastResistantPositions;
-      this.holesPositions = unbreakableBlastResistantPositions;
-      this.mineableBlastResistantPositions = respawnAnchorPositions;
-      this.respawnAnchorPositions = holesPositions;
-   }
+   
 
    public Set<BlockPos> holesPositions() {
       return this.holesPositions;

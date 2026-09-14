@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
    value = {SimpleVoxelShape.class},
    priority = 2000
 )
-public class MoonriseCubeVoxelShapeMixin extends VoxelShape {
+public abstract class MoonriseCubeVoxelShapeMixin extends VoxelShape {
    protected MoonriseCubeVoxelShapeMixin(VoxelSet voxels) {
       super(voxels);
    }

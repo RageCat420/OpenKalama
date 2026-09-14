@@ -14,16 +14,16 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class LitematicaHooks implements IHooks {
+public abstract class LitematicaHooks implements IHooks {
    public static LitematicaHooks instance;
 
-   public BlockHitResult getEasyPlaceClickedPosition(BlockHitResult var1, BlockState var2, BlockState var3) { }
+   public abstract BlockHitResult getEasyPlaceClickedPosition(BlockHitResult var1, BlockState var2, BlockState var3);
 
-   public World getSchematicWorld() { }
+   public abstract World getSchematicWorld();
 
-   public boolean isEasyPlaceEnabled() { }
+   public abstract boolean isEasyPlaceEnabled();
 
-   public boolean isPositionWithinRange(BlockPos var1) { }
+   public abstract boolean isPositionWithinRange(BlockPos var1);
 
    public static LitematicaHooks getInstance() {
       if (instance == null) {

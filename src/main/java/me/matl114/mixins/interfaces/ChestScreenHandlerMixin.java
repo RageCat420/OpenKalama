@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Environment(EnvType.CLIENT)
 @Mixin({GenericContainerScreenHandler.class})
-public class ChestScreenHandlerMixin extends ScreenHandler implements TileInventory.Handler, EntityInventory.Handler<VehicleInventory> {
+public abstract class ChestScreenHandlerMixin extends ScreenHandler implements TileInventory.Handler, EntityInventory.Handler<VehicleInventory> {
    @Unique
    private BlockPos pos;
    @Unique

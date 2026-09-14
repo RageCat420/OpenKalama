@@ -346,7 +346,7 @@ public class InteractionTasks {
    }
 
    private static void y(PlayerInteractEntityC2SPacket packet) {
-      if (packet.type.getType().name().equals("INTERACT")) {
+      if (((Object)packet.type.getType()).toString().equals("INTERACT")) {
          b = a.world.getEntityById(packet.entityId);
          c = Tasks.b();
       }
@@ -764,6 +764,8 @@ public class InteractionTasks {
                         }
                      });
                   } else {
+                     Direction var45f = var45;
+                     ChestType var33f = var33;
                      var6.removeIf(side -> {
                         if (!side.getAxis().isHorizontal()) {
                            return true;
@@ -781,7 +783,7 @@ public class InteractionTasks {
                                  return true;
                               } else {
                                  ChestType var8x = var7x.rotateYCounterclockwise() == side.getOpposite() ? ChestType.RIGHT : ChestType.LEFT;
-                                 return var7x != var45 || var8x != var33;
+                                 return var7x != var45f || var8x != var33f;
                               }
                            }
                         }

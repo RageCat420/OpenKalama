@@ -12,11 +12,6 @@ record KalamaHelperHelperC(@Nullable Double min, @Nullable Double max) {
       return this.min == null ? fallback : this.min;
    }
 
-   public KalamaHelperHelperC(@Nullable Double min, @Nullable Double max) {
-      this.max = min;
-      this.min = max;
-   }
-
    public double tu(double fallback) {
       return this.max == null ? fallback : this.max;
    }

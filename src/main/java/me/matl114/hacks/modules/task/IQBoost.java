@@ -17,9 +17,9 @@ public class IQBoost extends BaseModule {
 
    public IQBoost() {
       super("IQBoost");
+      this.boostValue = this.builder(this.iE.add("boost-value"), IntRef.TYPE).defaultValue(114514).build();
       this.J = this.moduleEntry(this.iE.addHotkey(), new MultiKeyBind(), this.iE.addEnable(), () -> Text.literal(String.valueOf(this.boostValue.get())))
          .build();
-      this.boostValue = this.builder(this.iE.add("boost-value"), IntRef.TYPE).defaultValue(114514).build();
       this.bindFlag(this.ae);
    }
 

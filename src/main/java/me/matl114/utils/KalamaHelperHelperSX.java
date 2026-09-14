@@ -9,7 +9,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 
 class KalamaHelperHelperSX implements KalamaHelperHelperHX {
-   KalamaHelperHelperSX(Map var1, BlockView var2) {
+   KalamaHelperHelperSX(Map<BlockPos, BlockState> var1, BlockView var2) {
       this.a = var1;
       this.c = var2;
    }
@@ -18,7 +18,7 @@ class KalamaHelperHelperSX implements KalamaHelperHelperHX {
    @Override
    public double getFluidResistance(BlockPos pos) {
       if (this.a.containsKey(pos)) {
-         BlockState var2 = (BlockState)(Object)this.a.get(pos);
+         BlockState var2 = this.a.get(pos);
          return var2 == null ? 0.0 : var2.getFluidState().getBlastResistance();
       } else {
          return this.c.getFluidState(pos).getBlastResistance();
@@ -26,26 +26,22 @@ class KalamaHelperHelperSX implements KalamaHelperHelperHX {
    }
 
    @KalamaHelperHelperA
-   public BlockState getBlockState(BlockPos pos) {
-      return this.a.containsKey(pos) ? (BlockState)(Object)this.a.get(pos) : this.c.getBlockState(pos);
+   @Override
+   public BlockState a(BlockPos pos) {
+      return this.a.containsKey(pos) ? this.a.get(pos) : this.c.getBlockState(pos);
    }
 
    @KalamaHelperHelperA
    @Override
    public VoxelShape getCollisionShape(BlockPos pos) {
-      BlockState var2 = (BlockState)(Object)this.a.get(pos);
+      BlockState var2 = this.a.get(pos);
       if (var2 == null && !this.a.containsKey(pos)) {
          return this.c.getBlockState(pos).getCollisionShape(this.c, pos);
       } else {
          return var2 == null ? VoxelShapes.empty() : var2.getCollisionShape(this.c, pos);
       }
    }
-   Map a;
+
+   Map<BlockPos, BlockState> a;
    BlockView c;
-
-
-
-   @Override
-   public BlockState a(Object arg0) { return null; }
-
 }

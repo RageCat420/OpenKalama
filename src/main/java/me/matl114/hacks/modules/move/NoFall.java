@@ -234,9 +234,9 @@ public class NoFall extends BaseModule implements HackUtilHelperJ {
 
    public NoFall() {
       super("NoFall");
+      this.bypassMode = this.builder(this.Uq.add("bypass-mode"), NoFall$Mode.class).defaultValue(NoFall$Mode.LAZY_MODE).build();
       this.toggle = this.flagBuilder(this.Uq.add("toggle")).build();
       this.J = this.moduleEntry(this.Uq.addHotkey(), new MultiKeyBind(), this.Uq.add("toggle"), moduleMeta(() -> this.bypassMode)).build();
-      this.bypassMode = this.builder(this.Uq.add("bypass-mode"), NoFall$Mode.class).defaultValue(NoFall$Mode.LAZY_MODE).build();
       this.safeDistanceModify = this.intBuilder(this.Uq.add("safe-distance-modify")).defaultValue(0).build();
       this.equipmentIdBypassNofall = this.builder(this.Uq.add("equipment-id-bypass-nofall"), Regex.class).defaultValue(new Regex("^(SLIME.*_BOOTS)$")).build();
       this.disableWhenAllowFlying = this.builder(this.Uq.add("disable-when-allow-flying"), Boolean.class).defaultValue(true).build();

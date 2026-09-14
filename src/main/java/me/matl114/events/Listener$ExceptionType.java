@@ -8,6 +8,4 @@ public enum Listener$ExceptionType {
    rJ,
    rN,
    rM;
-   // $VF: synthetic field
-   private static final Listener$ExceptionType[] $VALUES = AY();
 }

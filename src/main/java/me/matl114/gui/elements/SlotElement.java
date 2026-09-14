@@ -81,12 +81,13 @@ public class SlotElement extends AbstractElement {
    }
 
    @Override
-   public boolean onClick(ExecutableWidget element, double mouseX, double mouseY, int button) {
+   public boolean a(ExecutableWidget element, double mouseX, double mouseY, int button) {
       return this.O.a(this.M.getStack(this.index), button);
    }
 
+   @Override
    public void renderExtra0(DrawableWidget element, VDrawContext context, int mouseX, int mouseY, float delta, float alpha, boolean shouldHighlight) {
-      super.aP(element, context, mouseX, mouseY, delta, alpha, shouldHighlight);
+      super.renderExtra0(element, context, mouseX, mouseY, delta, alpha, shouldHighlight);
       if (shouldHighlight && this.W != null && this.W.getAsBoolean()) {
          ItemStack var8 = this.M.getStack(this.index);
          if (!var8.isEmpty()) {
@@ -101,6 +102,7 @@ public class SlotElement extends AbstractElement {
       context.Q(SLOT_RESOURCE, 0, 0, 0, 222, 18, 18);
    }
 
+   @Override
    public void renderCentered0(DrawableWidget element, VDrawContext context, int mouseX, int mouseY, float delta, float alpha, boolean shouldHighlight) {
       context.setShaderAlpha(alpha);
       RenderSystem.enableBlend();

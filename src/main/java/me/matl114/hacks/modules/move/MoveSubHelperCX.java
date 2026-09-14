@@ -38,7 +38,7 @@ class MoveSubHelperCX implements HackUtilHelperJ {
                   .interactionManager
                   .sendSequencedPacket(
                      MinecraftClient.getInstance().world,
-                     seq -> new PlayerInteractEntityC2SPacket(target.getId(), true, new InteractAtHandler(Hand.MAIN_HAND, MinecraftClient.getInstance().player.getPos()))
+                     seq -> new PlayerInteractEntityC2SPacket(this.et.getId(), true, new InteractAtHandler(Hand.MAIN_HAND, MinecraftClient.getInstance().player.getPos()))
                   );
                MinecraftClient.getInstance().getNetworkHandler().sendPacket(new HandSwingC2SPacket(Hand.MAIN_HAND));
                Debug.b("[NoSlow] 成功伪造状态");

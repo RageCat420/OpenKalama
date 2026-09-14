@@ -240,17 +240,20 @@ public final class CollisionUtil {
    public static double calculateAxisMin(MoonriseVoxelShapeAccess access, Axis axis) {
       CachedShapeData var2 = access.moonrise$getCachedVoxelData();
       switch (axis) {
-         case X:
-            int var5 = var2.sizeZ();
-            return var5 <= 0 ? Double.NEGATIVE_INFINITY : access.moonrise$rootCoordinatesX()[var5] + access.moonrise$offsetX();
-         case Y:
-            int var4 = var2.sizeY();
-            return var4 <= 0 ? Double.NEGATIVE_INFINITY : access.moonrise$rootCoordinatesY()[var4] + access.moonrise$offsetY();
-         case Z:
-            int var3 = var2.sizeX();
-            return var3 <= 0 ? Double.NEGATIVE_INFINITY : access.moonrise$rootCoordinatesZ()[var3] + access.moonrise$offsetZ();
+         case X: {
+            int var5 = var2.minFullX();
+            return var5 >= var2.sizeX() ? Double.POSITIVE_INFINITY : access.moonrise$rootCoordinatesX()[var5] + access.moonrise$offsetX();
+         }
+         case Y: {
+            int var4 = var2.minFullY();
+            return var4 >= var2.sizeY() ? Double.POSITIVE_INFINITY : access.moonrise$rootCoordinatesY()[var4] + access.moonrise$offsetY();
+         }
+         case Z: {
+            int var3 = var2.minFullZ();
+            return var3 >= var2.sizeZ() ? Double.POSITIVE_INFINITY : access.moonrise$rootCoordinatesZ()[var3] + access.moonrise$offsetZ();
+         }
          default:
-            return Double.NEGATIVE_INFINITY;
+            return Double.POSITIVE_INFINITY;
       }
    }
 
@@ -698,17 +701,20 @@ public final class CollisionUtil {
    public static double aa(MoonriseVoxelShapeAccess access, Axis axis) {
       CachedShapeData var2 = access.moonrise$getCachedVoxelData();
       switch (axis) {
-         case X:
-            int var5 = var2.sizeY();
-            return var5 >= var2.minFullX() ? Double.POSITIVE_INFINITY : access.moonrise$rootCoordinatesX()[var5] + access.moonrise$offsetX();
-         case Y:
-            int var4 = var2.minFullX();
-            return var4 >= var2.minFullY() ? Double.POSITIVE_INFINITY : access.moonrise$rootCoordinatesY()[var4] + access.moonrise$offsetY();
-         case Z:
-            int var3 = var2.minFullY();
-            return var3 >= var2.sizeX() ? Double.POSITIVE_INFINITY : access.moonrise$rootCoordinatesZ()[var3] + access.moonrise$offsetZ();
+         case X: {
+            int var5 = var2.maxFullX();
+            return var5 <= 0 ? Double.NEGATIVE_INFINITY : access.moonrise$rootCoordinatesX()[var5] + access.moonrise$offsetX();
+         }
+         case Y: {
+            int var4 = var2.maxFullY();
+            return var4 <= 0 ? Double.NEGATIVE_INFINITY : access.moonrise$rootCoordinatesY()[var4] + access.moonrise$offsetY();
+         }
+         case Z: {
+            int var3 = var2.maxFullZ();
+            return var3 <= 0 ? Double.NEGATIVE_INFINITY : access.moonrise$rootCoordinatesZ()[var3] + access.moonrise$offsetZ();
+         }
          default:
-            return Double.POSITIVE_INFINITY;
+            return Double.NEGATIVE_INFINITY;
       }
    }
 

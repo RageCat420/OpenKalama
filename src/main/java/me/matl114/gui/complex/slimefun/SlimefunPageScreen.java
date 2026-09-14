@@ -4,7 +4,7 @@ import me.matl114.gui.PageSwitchSubScreen;
 import me.matl114.gui.basic.ContentDelegateWidget;
 import net.minecraft.text.Text;
 
-public class SlimefunPageScreen extends SlimefunScreen {
+public abstract class SlimefunPageScreen extends SlimefunScreen {
    protected ContentDelegateWidget<PageSwitchSubScreen> aO;
    protected final PageSwitchSubScreen aN = new PageSwitchSubScreen(0, 20, this.backgroundWidth, 12, this.getPageContentHeight(), i -> this.bC());
    protected static final int PAGE_LABEL_HEIGHT = 12;

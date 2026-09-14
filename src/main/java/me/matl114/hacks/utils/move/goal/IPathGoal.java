@@ -7,6 +7,4 @@ public sealed interface IPathGoal permits GoalBlockPos, GoalDirection, GoalDynam
 
    Vec3d sample();
 
-   default Vec3d sample() { return null; }
-
 }

@@ -80,7 +80,8 @@ public class NBTUtils {
       NbtCompound var3 = tag;
 
       for (int var4 = 0; var4 < var2.length; var4++) {
-         var3 = var3.entries.compute(var2[var4], (k, v) -> v instanceof NbtCompound var2x ? var2x : new NbtCompound());
+         NbtElement var5 = var3.entries.compute(var2[var4], (k, v) -> v instanceof NbtCompound var2x ? var2x : new NbtCompound());
+         var3 = (NbtCompound)var5;
       }
 
       return var3;

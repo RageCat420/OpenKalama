@@ -54,11 +54,16 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 public interface NBTTypes {
-   NBTType<Primitive<?>> s = Primitive.TYPE.cast();
+   Map<String, NBTType<?>> a = new LinkedHashMap<>();
+   Codec<NBTType<?>> b = Codec.STRING.flatXmap(s -> {
+      NBTType<?> var1 = primitiveTypes(s);
+      return var1 == null ? DataResult.<NBTType<?>>error(() -> "Not found") : DataResult.success(var1);
+   }, t -> a.containsKey(t.typeName()) ? DataResult.success(t.typeName()) : DataResult.error(() -> "Not a primitive type: " + t.typeName()));
    NBTType<String> g = new NBTType<>("string", Codec.STRING, BaseAttrKeyValue.getWidgetFactory(), AttrKeyValues.STRING_FACTORY, "");
    NBTType<Integer> c = new NBTType<>("int", Codec.INT, BaseAttrKeyValue.getWidgetFactory(), AttrKeyValues.INT_FACTORY, 0);
-   NBTType<Vec2> p = Vec2.TYPE;
-   NBTType<StringFormat> x = StringFormat.TYPE;
+   NBTType<Long> d = new NBTType<>("long", Codec.LONG, BaseAttrKeyValue.getWidgetFactory(), AttrKeyValues.LONG_FACTORY, 0L);
+   NBTType<Double> e = new NBTType<>("double", Codec.DOUBLE, BaseAttrKeyValue.getWidgetFactory(), AttrKeyValues.DOUBLE_FACTORY, 0.0);
+   NBTType<Boolean> f = new NBTType<>("boolean", Codec.BOOL, AttrKeyValues.BOOLEAN_WIDGET_FACTORY, AttrKeyValues.BOOL_FACTORY, false);
    NBTType<TextColor> h = new NBTType<>(
       "color",
       Codec.withAlternative(
@@ -73,7 +78,6 @@ public interface NBTTypes {
       AttrKeyValues.COLOR_FACTORY,
       TextColor.fromFormatting(Formatting.BLACK)
    );
-   NBTType<Label> v = Label.TYPE;
    NBTType<MultiKeyBind> i = new NBTType<>("keybind", Codec.STRING.comapFlatMap(str -> {
       try {
          return DataResult.success(new MultiKeyBind(str));
@@ -81,8 +85,6 @@ public interface NBTTypes {
          return DataResult.error(() -> "Invalid keybind: " + str);
       }
    }, MultiKeyBind::b), KeyBindRef.WIDGET_FACTORY, KeyBindRef.FACTORY, new MultiKeyBind());
-   NBTType<NbtElement> m = e("nbtelement", g, AttrKeyValues.NBT_FACTORY);
-   NBTType<Holder<?>> t = Holder.TYPE.cast();
    NBTType<Registry<?>> j = (NBTType<Registry<?>>) new NBTType(
       "registry",
       Registries.REGISTRIES.getCodec(),
@@ -92,26 +94,24 @@ public interface NBTTypes {
             (java.util.function.Function<Registry<?>, String>) v -> ((Registry)Registries.REGISTRIES).getId(v).toString()),
       Registries.BLOCK
    );
-   NBTType<Pos3> r = Pos3.TYPE;
-   NBTType<Long> d = new NBTType<>("long", Codec.LONG, BaseAttrKeyValue.getWidgetFactory(), AttrKeyValues.LONG_FACTORY, 0L);
-   NBTType<Vec3> q = Vec3.TYPE;
-   Map<String, NBTType<?>> a = new LinkedHashMap<>();
-   NBTType<WrapEnum<?>> o = WrapEnum.TYPE.cast();
+   NBTType<Pattern> k = e("pattern", g, WrapperFactory.of(Pattern::compile, Pattern::pattern));
    NBTType<Identifier> l = createComapFlatMap("identifier", g, WrapperFactory.of(Identifier::of, Identifier::toString), Identifier.ofVanilla(""));
-   NBTType<LabelPrimitive<?>> w = LabelPrimitive.TYPE.cast();
+   NBTType<NbtElement> m = e("nbtelement", g, AttrKeyValues.NBT_FACTORY);
    NBTType<NbtCompound> n = new NBTType<>(
       "nbtcompound", NbtCompound.CODEC, BaseAttrKeyValue.getWidgetFactory(), AttrKeyValues.NBT_COMPOUND_FACTORY, new NbtCompound()
    );
-   NBTType<PrimitiveList<?>> z = PrimitiveList.TYPE.cast();
+   NBTType<Vec2> p = Vec2.TYPE;
+   NBTType<Vec3> q = Vec3.TYPE;
+   NBTType<Pos3> r = Pos3.TYPE;
+   NBTType<StringFormat> x = StringFormat.TYPE;
+   NBTType<Label> v = Label.TYPE;
+   NBTType<WrapEnum<?>> o = WrapEnum.TYPE.cast();
+   NBTType<Primitive<?>> s = Primitive.TYPE.cast();
+   NBTType<LabelPrimitive<?>> w = LabelPrimitive.TYPE.cast();
+   NBTType<Holder<?>> t = Holder.TYPE.cast();
    NBTType<WeakHolder<?>> u = WeakHolder.TYPE.cast();
-   NBTType<Double> e = new NBTType<>("double", Codec.DOUBLE, BaseAttrKeyValue.getWidgetFactory(), AttrKeyValues.DOUBLE_FACTORY, 0.0);
+   NBTType<PrimitiveList<?>> z = PrimitiveList.TYPE.cast();
    NBTType<PrimitiveMap<?, ?>> y = PrimitiveMap.TYPE.cast();
-   Codec<NBTType<?>> b = Codec.STRING.flatXmap(s -> {
-      NBTType<?> var1 = primitiveTypes(s);
-      return var1 == null ? DataResult.<NBTType<?>>error(() -> "Not found") : DataResult.success(var1);
-   }, t -> a.containsKey(t.typeName()) ? DataResult.success(t.typeName()) : DataResult.error(() -> "Not a primitive type: " + t.typeName()));
-   NBTType<Pattern> k = e("pattern", g, WrapperFactory.of(Pattern::compile, Pattern::pattern));
-   NBTType<Boolean> f = new NBTType<>("boolean", Codec.BOOL, AttrKeyValues.BOOLEAN_WIDGET_FACTORY, AttrKeyValues.BOOL_FACTORY, false);
    InitializationTask A = InitializationTask.of(NBTTypes::init);
 
    static <T, K1, K2> NBTType<T> createPairWithKey(

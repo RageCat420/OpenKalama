@@ -38,7 +38,7 @@ class MoveSubHelperKX extends MoveSubHelperAj {
                      EntityUtils.setEntityPitchSafe(
                         var2,
                         Math.min(
-                           -this.QL.pitch40PitchNegative.get() + this.QO * (float)(Object)this.QL.pitch40NegativeDelta.get(), (float)(Object)this.QL.pitch40PitchPositive.get()
+                           -this.QL.pitch40PitchNegative.get() + this.QO * (float)this.QL.pitch40NegativeDelta.get(), (float)this.QL.pitch40PitchPositive.get()
                         )
                      );
                      break;
@@ -63,8 +63,8 @@ class MoveSubHelperKX extends MoveSubHelperAj {
                         EntityUtils.setEntityPitchSafe(
                            var2,
                            Math.min(
-                              -this.QL.pitch40PitchNegative.get() + this.QO * (float)(Object)this.QL.pitch40NegativeDelta.get(),
-                              (float)(Object)this.QL.pitch40PitchPositive.get()
+                              -this.QL.pitch40PitchNegative.get() + this.QO * (float)this.QL.pitch40NegativeDelta.get(),
+                              (float)this.QL.pitch40PitchPositive.get()
                            )
                         );
                      }

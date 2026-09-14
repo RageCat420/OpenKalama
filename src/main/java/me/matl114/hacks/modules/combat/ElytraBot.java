@@ -441,10 +441,10 @@ public class ElytraBot extends BaseModule {
 
    public ElytraBot() {
       super("ElytraBot");
+      this.mode = this.builder(this.tL.add("mode"), ElytraBot$Mode.class).defaultValue(ElytraBot$Mode.FOLLOW).build();
       this.enable = this.flagBuilder(this.tL.add("enable")).build();
       this.hotkey = this.moduleEntry(this.tL.add("hotkey"), new MultiKeyBind(), this.tL.add("enable"), moduleMeta(() -> this.mode)).build();
       this.range = this.intBuilder(this.tL.add("range")).defaultValue(80).validator(Configs.e).build();
-      this.mode = this.builder(this.tL.add("mode"), ElytraBot$Mode.class).defaultValue(ElytraBot$Mode.FOLLOW).build();
       this.playerOnly = this.builder(this.tL.add("player-only"), FlagRef.TYPE).defaultValue(true).build();
       this.autoControlElytra = this.flagBuilder(this.tL.add("auto-control-elytra")).build();
       this.dynamicTarget = this.flagBuilder(this.tL.add("dynamic-target")).build();

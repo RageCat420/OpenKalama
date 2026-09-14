@@ -31,7 +31,8 @@ public class ColorSelectScreen extends ConfirmingBigScreen {
       this.ct = var3.getBlue();
    }
 
-   protected void onConfirmButton() {
+   @Override
+   public void c() {
       int var1 = ColorUtils.c(this.cr, this.cs, this.ct);
 
       for (Formatting var5 : Formatting.values()) {
@@ -110,8 +111,5 @@ public class ColorSelectScreen extends ConfirmingBigScreen {
    protected boolean canConfirm(ElementHandler elementHandler) {
       return ColorUtils.getColorInt(this.cr, this.cs, this.ct, 0) != this.source.getValue().getRgb();
    }
-
-   @Override
-   public void c() { }
 
 }

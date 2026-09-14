@@ -190,13 +190,13 @@ public class SeedOre extends BaseModule {
             ConcurrentHashMap var5 = new ConcurrentHashMap();
             int var6 = mc.world.getBottomY();
 
-            for (Entry var8 : ores.entrySet()) {
-               SurvivalSubHelperC var9 = (SurvivalSubHelperC)var8.getKey();
+            for (Entry<SurvivalSubHelperC, Set<Vec3d>> var8 : ores.entrySet()) {
+               SurvivalSubHelperC var9 = var8.getKey();
                Block var10 = var9.o;
                Block var11 = var9.p;
 
                label71:
-               for (Vec3d var13 : (Set)var8.getValue()) {
+               for (Vec3d var13 : var8.getValue()) {
                   if (!(var13.y < var6 + 4)) {
                      Block var14 = var13.y > 0.0 ? var10 : var11;
                      BlockState var15 = var14.getDefaultState();
@@ -303,16 +303,16 @@ public class SeedOre extends BaseModule {
             ClientWorld var5 = mc.world;
             Map<SurvivalSubHelperC, Set<Vec3d>> var6;
             if (!this.Eo.containsKey(var3) && var5 != null && this.Ex != null) {
-               HashSet var7 = new HashSet();
+               HashSet<RegistryKey<Biome>> var7 = new HashSet<>();
                ChunkPos.stream(var2, 1).forEach(chunkPosx -> {
                   Chunk var3x = var5.getChunk(chunkPosx.x, chunkPosx.z, ChunkStatus.BIOMES, false);
                   if (var3x != null) {
                      for (ChunkSection var7x : var3x.getSectionArray()) {
-                        var7x.getBiomeContainer().forEachValue(entry -> var7.add((RegistryKey)entry.getKey().get()));
+                        var7x.getBiomeContainer().forEachValue(entry -> var7.add(entry.getKey().get()));
                      }
                   }
                });
-               Set<SurvivalSubHelperC> var8 = var7.stream().flatMap(b -> this.getDefaultOres((RegistryKey<Biome>)b).stream()).collect(Collectors.toSet());
+               Set<SurvivalSubHelperC> var8 = var7.stream().flatMap(b -> this.getDefaultOres(b).stream()).collect(Collectors.toSet());
                int var9 = var2.x << 4;
                int var10 = var2.z << 4;
                ChunkRandom var11 = new ChunkRandom(RandomProvider.XOROSHIRO.create(0L));

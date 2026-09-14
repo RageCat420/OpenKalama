@@ -20,13 +20,13 @@ import org.yaml.snakeyaml.Yaml;
 
 public class FileManager {
    public static final Map<File, FileStorage> g = new ConcurrentHashMap<>();
+   public static final File d = FabricLoader.getInstance().getGameDir().resolve("kalama").toFile();
    public static final File f = new File(FileManager.d, "config");
    public static final String b = "internal";
    public static final String c = "config";
    public static final String a = "kalama";
    public static final File e = new File(FileManager.d, "internal");
    protected static final FileManager INSTANCE = new FileManager();
-   public static final File d = FabricLoader.getInstance().getGameDir().resolve("kalama").toFile();
 
    private FileStorage x(File file) {
       String var2 = file.getName();

@@ -100,7 +100,7 @@ public class MainCommand extends AbstractMainCommand {
          String var3 = command.substring(0, cursorAt);
          int var4 = -1;
          int var5 = l.length() + (withPrefix ? 1 : 0);
-         ArrayList var6 = new ArrayList();
+         ArrayList<String> var6 = new ArrayList();
 
          while (true) {
             int var7 = var3.indexOf(" ", var4 + 1);

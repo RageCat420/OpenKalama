@@ -21,11 +21,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public interface AttrKeyValue<T> extends KeyValue<T>, PropertyTracker<Object, String> {
-   public default WrapperFactory<String, T> getStringifyFactory() { }
+   public WrapperFactory<String, T> getStringifyFactory();
 
-   public default String getValue() { }
+   public String getValue();
 
-   public default boolean validateAndUpdate() { }
+   public boolean validateAndUpdate();
 
    default String updateValue(T val) {
       return this.getStringifyFactory().get(val);
@@ -47,7 +47,7 @@ public interface AttrKeyValue<T> extends KeyValue<T>, PropertyTracker<Object, St
       return this.getCustomWidgetFactory().generateWidget(this, x, y, inputDx, dy);
    }
 
-   public default AttrKeyValue.CustomWidgetFactory<T> getCustomWidgetFactory() { }
+   public AttrKeyValue.CustomWidgetFactory<T> getCustomWidgetFactory();
 
    <W extends AttrKeyValue<T>> W copy();
 

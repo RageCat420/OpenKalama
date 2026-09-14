@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin({EditBoxWidget.class})
-public class EditBoxWidgetMixin extends ScrollableWidget implements TextFieldAccess {
+public abstract class EditBoxWidgetMixin extends ScrollableWidget implements TextFieldAccess {
    @Unique
    private static final KalamaHelperHelperIX ORIGIN_PROVIDER = McWidgetHelpers.getDefaultTextBoxColorProvider();
    @Shadow

@@ -29,6 +29,4 @@ public interface WidgetSupplier {
       return KalamaHelperHelperO.builder();
    }
 
-   default ElementHandler h(KalamaHelperHelperZ var1) { return null; }
-
 }

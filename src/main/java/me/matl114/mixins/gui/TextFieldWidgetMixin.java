@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({TextFieldWidget.class})
 @Environment(EnvType.CLIENT)
-public class TextFieldWidgetMixin extends ClickableWidget implements TextFieldAccess {
+public abstract class TextFieldWidgetMixin extends ClickableWidget implements TextFieldAccess {
    @Unique
    private static final KalamaHelperHelperIX ORIGIN_PROVIDER = McWidgetHelpers.getDefaultTextBoxColorProvider();
    @Final

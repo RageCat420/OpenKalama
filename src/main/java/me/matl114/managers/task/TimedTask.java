@@ -3,7 +3,7 @@ package me.matl114.managers.task;
 import me.matl114.events.annotations.Cancelable;
 import me.matl114.managers.Tasks;
 
-public class TimedTask implements Cancelable {
+public abstract class TimedTask implements Cancelable {
    int expireTicks;
 
    @Override

@@ -14,6 +14,7 @@ import me.matl114.managers.config.NBTParsable;
 import me.matl114.managers.config.NBTType;
 import me.matl114.managers.config.Ref;
 import me.matl114.managers.config.StringRef;
+import me.matl114.utils.config.AttrKeyValue;
 import me.matl114.utils.config.WrapperFactory;
 import me.matl114.utils.config.kv.TypeConvertAttrKeyValue;
 
@@ -48,11 +49,17 @@ public record Primitive<T>(NBTType<T> valueType, @Nonnull T value, String valueS
    }
 
    private static <T> NBTType<Primitive<T>> create() {
-      return new NBTType<>("primitive", Codec.STRING.comapFlatMap(Primitive::parse, Primitive::aog), (w, x, y, dx, dy) -> {
-         Primitive<T> primitive = (Primitive<T>)w.getOriginValue();
-         NBTType<T> typeT = primitive.valueType;
-         return new TypeConvertAttrKeyValue<>(w, WrapperFactory.of(s -> of(typeT, (T)s), Primitive::value), typeT).generateValueWidget(x, y, dx, dy);
-      }, WrapperFactory.of(s -> (Primitive<T>)parse(s).getOrThrow(), Primitive::aog), of((NBTType<T>)NBTTypes.g, (T)""));
+      return new NBTType<Primitive<T>>(
+         "primitive",
+         (Codec)Codec.STRING.comapFlatMap(Primitive::parse, Primitive::aog),
+         (AttrKeyValue.CustomWidgetFactory<Primitive<T>>)(w, x, y, dx, dy) -> {
+            Primitive<T> primitive = w.getOriginValue();
+            NBTType<T> typeT = primitive.valueType;
+            return new TypeConvertAttrKeyValue<>(w, WrapperFactory.of(s -> of(typeT, (T)s), Primitive::value), typeT).generateValueWidget(x, y, dx, dy);
+         },
+         WrapperFactory.of(s -> (Primitive<T>)Primitive.parse(s).getOrThrow(), Primitive::aog),
+         of((NBTType<T>)NBTTypes.g, (T)"")
+      );
    }
 
    @Override
@@ -67,7 +74,7 @@ public record Primitive<T>(NBTType<T> valueType, @Nonnull T value, String valueS
 
    @Override
    public <W> Optional<Primitive<T>> tryTypeConvert(Ref<W> ref) {
-      return (Optional<Primitive<T>>)convertPrimitives(ref);
+      return (Optional)convertPrimitives(ref);
    }
 
    public static Optional<Primitive<?>> convertPrimitives(Ref<?> ref) {

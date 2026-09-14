@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Environment(EnvType.CLIENT)
 @Mixin({ScrollableWidget.class})
-public class ScrollableWidgetMixin extends ClickableWidget implements Draggable {
+public abstract class ScrollableWidgetMixin extends ClickableWidget implements Draggable {
    @Shadow
    private boolean field_39498;
 

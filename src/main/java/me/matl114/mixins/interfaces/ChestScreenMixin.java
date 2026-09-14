@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin({GenericContainerScreen.class})
-public class ChestScreenMixin extends HandledScreen<GenericContainerScreenHandler> implements TileInventory, EntityInventory<VehicleInventory> {
+public abstract class ChestScreenMixin extends HandledScreen<GenericContainerScreenHandler> implements TileInventory, EntityInventory<VehicleInventory> {
    @Unique
    private BlockPos pos;
    @Unique

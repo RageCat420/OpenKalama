@@ -23,13 +23,13 @@ public class JsHelper {
 
    private static KalamaHelperHelperV c(String clazzName, String methodName) {
       try {
-         Class var2 = Class.forName(clazzName);
+         Class<?> var2 = Class.forName(clazzName);
          return Arrays.stream(var2.getMethods())
             .filter(m -> Modifier.isStatic(m.getModifiers()) && Modifier.isPublic(m.getModifiers()))
             .filter(m -> m.getParameterCount() == 1)
             .filter(m -> m.getName().equals(methodName))
             .findFirst()
-            .map(m -> s -> m.invoke(null, s))
+            .<KalamaHelperHelperV>map(m -> s -> m.invoke(null, s))
             .orElseGet(() -> m -> {
                throw new UnsupportedOperationException("Failed to find wrapper for :" + var2.getSimpleName() + ", use JavaUtils.getHelperFromRaw instead");
             });
@@ -59,13 +59,13 @@ public class JsHelper {
 
    private static KalamaHelperHelperV d(String clazzName, Class<?> clazz2) {
       try {
-         Class var2 = Class.forName(clazzName);
+         Class<?> var2 = Class.forName(clazzName);
          return Arrays.stream(var2.getConstructors())
             .filter(m -> Modifier.isPublic(m.getModifiers()))
             .filter(m -> m.getParameterCount() == 1)
             .filter(m -> clazz2.isAssignableFrom(m.getParameterTypes()[0]))
             .findFirst()
-            .map(m -> xva$0 -> m.newInstance(xva$0))
+            .<KalamaHelperHelperV>map(m -> xva$0 -> m.newInstance(xva$0))
             .orElseGet(() -> m -> {
                throw new UnsupportedOperationException("Failed to find wrapper for :" + var2.getSimpleName() + ", use JavaUtils.getHelperFromRaw instead");
             });

@@ -10,9 +10,9 @@ class ChatSubHelperJ implements EncryptChat$Encryptor {
       return message;
    }
 
-
-
    @Override
-   public void b(Object arg0) { }
+   public String b(String message) {
+      return message;
+   }
 
 }

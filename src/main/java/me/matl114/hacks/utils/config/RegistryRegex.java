@@ -111,7 +111,7 @@ public class RegistryRegex<T> implements NBTParsable<RegistryRegex<T>>, Predicat
 
    @Override
    public NBTType<RegistryRegex<T>> type() {
-      return TYPE;
+      return TYPE.cast();
    }
 
    @Override

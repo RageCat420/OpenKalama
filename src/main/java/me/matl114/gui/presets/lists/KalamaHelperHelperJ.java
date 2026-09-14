@@ -7,8 +7,23 @@ import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 
-class KalamaHelperHelperJ<T> implements ListEntryWidgetController {
-   final List<T> b;
+class KalamaHelperHelperJ<W, T extends Element & Drawable & Selectable> implements ListEntryWidgetController {
+   final List<W> origin;
+   final List<T> b = new ArrayList<>();
+   final Function<W, T> g;
+   int d;
+   int e;
+
+   KalamaHelperHelperJ(List<W> originData, Function<W, T> widgetFactory, int height, int width) {
+      this.origin = originData;
+      this.g = widgetFactory;
+      this.d = height;
+      this.e = width;
+
+      for (W var6 : originData) {
+         this.b.add(widgetFactory.apply(var6));
+      }
+   }
 
    @Override
    public boolean g(int index) {
@@ -20,21 +35,9 @@ class KalamaHelperHelperJ<T> implements ListEntryWidgetController {
       throw new UnsupportedOperationException();
    }
 
-   KalamaHelperHelperJ(List var1, Function var2, int var3, int var4) {
-      this.b = var1;
-      this.g = var2;
-      this.d = var3;
-      this.e = var4;
-      this.b = new ArrayList();
-
-      for (Object var6 : this.b) {
-         this.b.add((Element)(Object)this.g.apply(var6));
-      }
-   }
-
    @Override
-   public <T extends Element & Drawable & Selectable> T getEntryWidget(int index) {
-      return this.b.get(index);
+   public <X extends Element & Drawable & Selectable> X getEntryWidget(int index) {
+      return (X)(Object)this.b.get(index);
    }
 
    @Override
@@ -58,7 +61,7 @@ class KalamaHelperHelperJ<T> implements ListEntryWidgetController {
    @Override
    public boolean h(int index) {
       if (index >= 0 && index < this.a()) {
-         this.b.set(index, (Element)(Object)this.g.apply(this.b.get(index)));
+         this.b.set(index, this.g.apply(this.origin.get(index)));
          return true;
       } else {
          return false;
@@ -89,7 +92,4 @@ class KalamaHelperHelperJ<T> implements ListEntryWidgetController {
    public int b() {
       return this.d;
    }
-   Function g;
-   int d;
-   int e;
 }

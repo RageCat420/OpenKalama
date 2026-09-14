@@ -116,7 +116,7 @@ public class Proxy extends BaseModule {
    }
 
    public void openProxyListEditScreen() {
-      ArrayList var1 = new ArrayList<>(this.qC.Rk().stream().map(s -> MutableRecord.of(TaskSubHelperK.ds, s)).toList());
+      List<MutableRecord> var1 = new ArrayList<>(this.qC.Rk().stream().map(s -> MutableRecord.of(TaskSubHelperK.ds, s)).toList());
       int var2 = this.qC.Rj();
       MutableObject var3 = new MutableObject(var2 >= 0 && var2 < var1.size() ? (MutableRecord)var1.get(var2) : null);
       ListEntryWidgetController var4 = ListEntryWidgetController.mutable(
@@ -124,7 +124,7 @@ public class Proxy extends BaseModule {
       );
       KalamaHelperHelperD var5 = new KalamaHelperHelperD(var4, 0, 0, 320, 260);
       ConfirmingWidgetScreen var6 = new ConfirmingWidgetScreen(Text.translatable("widget.connection-proxy.proxy-list-editor.title"), var5, () -> true, () -> {
-         List var3x = var1.stream().map(s -> s.j(TaskSubHelperK.class)).toList();
+         List<TaskSubHelperK> var3x = var1.stream().map(s -> s.j(TaskSubHelperK.class)).toList();
          this.zs(new TaskSubHelperQ(var3.getValue() == null ? -1 : var1.indexOf(var3.getValue()), var3x));
       });
       var6.access().openFromCurrent();
@@ -170,6 +170,6 @@ public class Proxy extends BaseModule {
    @Override
    public void registerAll() {
       super.registerAll();
-      this.registerListener(Listener.serialize(), this::zv);
+      this.registerListener(Listener.by(), this::zv);
    }
 }

@@ -51,7 +51,7 @@ class RenderSubHelperW {
       if (this.c.lengthSquared() < 1.0E-5) {
          return Pair.of(List.of(), null);
       } else {
-         Object var7 = null;
+         HitResult var7 = null;
 
          for (int var8 = 0; var8 < ticks; var8++) {
             var6.add(var2);
@@ -132,7 +132,7 @@ class RenderSubHelperW {
 
    private static Vec3d getHandOffset(PlayerEntity player, Hand hand) {
       double var2 = Math.toRadians(player.getYaw());
-      Arm var4 = (Arm)ProjectileESP.access$000().options.getMainArm().getValue();
+      Arm var4 = (Arm)net.minecraft.client.MinecraftClient.getInstance().options.getMainArm().getValue();
       boolean var5 = var4 == Arm.RIGHT && hand == Hand.MAIN_HAND || var4 == Arm.LEFT && hand == Hand.OFF_HAND;
       double var6 = var5 ? -1.0 : 1.0;
       double var8 = Math.cos(var2) * 0.16 * var6;

@@ -357,7 +357,7 @@ public class InteractUtils {
    }
 
    public static Set<Pair<BlockState, Predicate<ItemStack>>> getNextInteractionStep(BlockState fromState, BlockState toState) {
-      HashSet var2 = new HashSet();
+      HashSet<Pair<BlockState, Predicate<ItemStack>>> var2 = new HashSet<>();
       if (fromState != null && toState != null) {
          Block var3 = fromState.getBlock();
          Block var4 = toState.getBlock();

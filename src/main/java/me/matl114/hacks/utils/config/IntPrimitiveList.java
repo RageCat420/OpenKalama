@@ -13,7 +13,6 @@ import me.matl114.utils.config.kv.IntListAttrKeyValue;
 import me.matl114.utils.config.kv.TypeConvertAttrKeyValue;
 
 public class IntPrimitiveList extends PrimitiveList<Integer> {
-   public static final WrapperFactory<String, IntPrimitiveList> JQ = IntPrimitiveList.JP.concat(WrapperFactory.of(IntPrimitiveList::new, PrimitiveList::list));
    public static final WrapperFactory<String, List<Integer>> JP = WrapperFactory.of(str -> {
       String[] var1 = str.split(",", -1);
       ArrayList var2 = new ArrayList();
@@ -24,6 +23,7 @@ public class IntPrimitiveList extends PrimitiveList<Integer> {
 
       return var2;
    }, arr -> arr.stream().map(String::valueOf).collect(Collectors.joining(",")));
+   public static final WrapperFactory<String, IntPrimitiveList> JQ = IntPrimitiveList.JP.concat(WrapperFactory.of(IntPrimitiveList::new, PrimitiveList::list));
    public static final NBTType<IntPrimitiveList> TYPE = new NBTType<>(
       "intprimitivelist",
       JQ.wrapCodecComapFlatMap(Codec.STRING),

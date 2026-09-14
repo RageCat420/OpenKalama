@@ -14,7 +14,7 @@ import xaero.map.gui.IRightClickableElement;
 @Pseudo
 @Environment(EnvType.CLIENT)
 @Mixin({GuiMap.class})
-public class XaeroGuiMapMixin implements IRightClickableElement, XaeroGuiMapAccess {
+public abstract class XaeroGuiMapMixin implements IRightClickableElement, XaeroGuiMapAccess {
    @Shadow
    private RegistryKey<World> rightClickDim;
    @Shadow(
@@ -49,7 +49,5 @@ public class XaeroGuiMapMixin implements IRightClickableElement, XaeroGuiMapAcce
    public int getRightClickZ() {
       return this.rightClickZ;
    }
-
-   public void getRightClickOptions() { }
 
 }

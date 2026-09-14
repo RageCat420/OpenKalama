@@ -72,6 +72,7 @@ import net.minecraft.network.packet.ConfigPackets;
 import net.minecraft.network.packet.CookiePackets;
 import net.minecraft.network.packet.HandshakePackets;
 import net.minecraft.network.packet.LoginPackets;
+import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.PacketType;
 import net.minecraft.network.packet.PingPackets;
@@ -400,12 +401,12 @@ public class Listener {
    @Unique
    private static Packet<?> unpackMultiPacket(ClientConnection connection, Packet<?> packet, boolean isS2C) {
       if (packet instanceof BundleS2CPacket var3) {
-         Iterable<Packet> var4 = var3.getPackets();
-         ArrayList var5 = new ArrayList();
+         Iterable<Packet<? super ClientPlayPacketListener>> var4 = var3.getPackets();
+         List<Packet<? super ClientPlayPacketListener>> var5 = new ArrayList<>();
          boolean var6 = false;
 
-         for (Packet var8 : var4) {
-            Packet var9 = unpackMultiPacket(connection, var8, isS2C);
+         for (Packet<? super ClientPlayPacketListener> var8 : var4) {
+            Packet<? super ClientPlayPacketListener> var9 = (Packet<? super ClientPlayPacketListener>)unpackMultiPacket(connection, var8, isS2C);
             if (var9 != null) {
                var5.add(var9);
                if (var9 != var8) {
@@ -683,7 +684,7 @@ public class Listener {
       aU = new KalamaHelperHelperC<>(eve -> eve.<ParticleEffect>getArgs(0).getType(), true);
       aV = new KalamaHelperHelperC<>(SoundInstance::getId);
       aW = new KalamaHelperHelperC<>(SoundInstance::getId);
-      aX = ImmutableSet.builder()
+      aX = ImmutableSet.<Class<?>>builder()
          .add(CustomPayloadS2CPacket.class)
          .add(StartChunkSendS2CPacket.class)
          .add(ChunkSentS2CPacket.class)

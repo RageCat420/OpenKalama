@@ -24,7 +24,7 @@ public class PrimitiveList<W> implements NBTParsable<PrimitiveList<W>> {
    public static final NBTType<PrimitiveList<Object>> TYPE = create();
 
    public static <R> Class<PrimitiveList<R>> type(Class<R> clazz) {
-      return PrimitiveList.class;
+      return (Class)PrimitiveList.class;
    }
 
    public PrimitiveList(NBTType<W> primitive, List<W> list) {
@@ -87,19 +87,19 @@ public class PrimitiveList<W> implements NBTParsable<PrimitiveList<W>> {
    }
 
    public static final <W> NBTType<PrimitiveList<W>> create() {
-      Codec<Primitive<W>> primitiveCodec = (Codec<Primitive<W>>)Primitive.TYPE.typeCodec();
-      return new NBTType<>(
+      Codec<Primitive<W>> primitiveCodec = (Codec<Primitive<W>>)(Codec)Primitive.TYPE.typeCodec();
+      return new NBTType<PrimitiveList<W>>(
          "primitivelist",
-         RecordCodecBuilder.create(
-            oInstance -> oInstance.group(
-                  Codec.list(primitiveCodec).fieldOf("data").forGetter(PrimitiveList::toPrimitiveList),
-                  NBTTypes.codec().fieldOf("element_type").forGetter(PrimitiveList::elementType),
-                  primitiveCodec.optionalFieldOf("default_primitive").forGetter(PrimitiveList::defaultPrimitive)
-               )
-               .apply(oInstance, PrimitiveList::new)
-         ),
-         (w, x, y, dx, dy) -> {
-            PrimitiveList<W> map = (PrimitiveList<W>)w.getOriginValue();
+         RecordCodecBuilder.<PrimitiveList<W>>create(
+               oInstance -> oInstance.group(
+                     Codec.list(primitiveCodec).fieldOf("data").<PrimitiveList<W>>forGetter(PrimitiveList::toPrimitiveList),
+                     NBTTypes.<W>codec().fieldOf("element_type").<PrimitiveList<W>>forGetter(PrimitiveList::elementType),
+                     primitiveCodec.optionalFieldOf("default_primitive").<PrimitiveList<W>>forGetter(PrimitiveList::defaultPrimitive)
+                  )
+                  .apply(oInstance, PrimitiveList::new)
+            ),
+         (AttrKeyValue.CustomWidgetFactory<PrimitiveList<W>>)(w, x, y, dx, dy) -> {
+            PrimitiveList<W> map = w.getOriginValue();
             NBTType<W> type = map.elementType();
             AttrKeyValue.CustomWidgetFactory<List<W>> widgetFactory = (w1, x1, y1, dx1, dy1) -> NBTTypes.generateListModifyButton(
                w1, type, map::createNewElement, x1, y1, dx1, dy1, 300, 20
@@ -110,7 +110,7 @@ public class PrimitiveList<W> implements NBTParsable<PrimitiveList<W>> {
             );
             return new TypeConvertAttrKeyValue<>(w, wrapperFactory, widgetFactory, stringListWrapperFactory).generateValueWidget(x, y, dx, dy);
          },
-         new PrimitiveList<>((NBTType<W>)NBTTypes.g, List.of())
+         (PrimitiveList<W>)new PrimitiveList<>(NBTTypes.g, List.of())
       );
    }
 

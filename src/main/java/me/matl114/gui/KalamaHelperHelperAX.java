@@ -11,7 +11,7 @@ import me.matl114.gui.basic.TooltipHandler;
 import me.matl114.gui.basic.TooltipHandler$TooltipProvider;
 import net.minecraft.text.Text;
 
-public class KalamaHelperHelperAX<B extends KalamaHelperHelperAX<B>> {
+public abstract class KalamaHelperHelperAX<B extends KalamaHelperHelperAX<B>> {
    public Predicate<ElementHandler> g;
    public List<KalamaHelperHelperP> f;
    public boolean b;
@@ -35,7 +35,7 @@ public class KalamaHelperHelperAX<B extends KalamaHelperHelperAX<B>> {
       return this;
    }
 
-   public ElementHandler d(WidgetSupplier var1) { }
+   public abstract ElementHandler d(WidgetSupplier var1);
 
    public KalamaHelperHelperAX<B> showTooltips(boolean showTooltips) {
       this.b = showTooltips;

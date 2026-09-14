@@ -170,7 +170,7 @@ public class StringFormat implements NBTParsable<StringFormat> {
          };
       }
 
-      return (BiConsumer<Map<String, T>, Consumer<T>>)this.cachedFormatter;
+      return (BiConsumer)this.cachedFormatter;
    }
 
    public String format(String... arguments) {

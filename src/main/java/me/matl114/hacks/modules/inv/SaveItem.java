@@ -44,12 +44,12 @@ public class SaveItem extends BaseModule {
       this.saveSlotItem = this.hotkey(this.mH.add("save-slot-item")).defaultValue(new MultiKeyBind()).registerHotkey(HotKeyUtils.e(this::saveItem)).build();
       this.nV = false;
       this.nW = new LinkedHashMap<>();
-      this.nY = Codec.list(Codec.STRING)
+      this.nY = (Codec)Codec.list(Codec.STRING)
          .xmap(
             lst -> lst.stream().collect(Collectors.toMap(Function.identity(), InvTasks.as()::getDataFromCodecId, (k, v) -> v, LinkedHashMap::new)),
             mp -> mp.keySet().stream().toList()
          )
-         .optionalFieldOf("saved-ids", Map.of())
+         .optionalFieldOf("saved-ids", new LinkedHashMap<String, ItemStackData>())
          .codec();
       this.nZ = new GsonBuilder().disableHtmlEscaping().create();
       this.kK = false;

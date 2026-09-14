@@ -242,7 +242,7 @@ public final class ExplosionUtils {
 
    private static float getExposureSimplified(KalamaHelperHelperHX access, Vec3d source, Box box, KalamaHelperHelperQ hitRule) {
       Vec3d var4 = box.getCenter();
-      List var5 = List.of(
+      List<Vec3d> var5 = List.of(
          new Vec3d(box.minX, var4.y, var4.z),
          new Vec3d(box.maxX, var4.y, var4.z),
          new Vec3d(var4.x, box.minY, var4.z),

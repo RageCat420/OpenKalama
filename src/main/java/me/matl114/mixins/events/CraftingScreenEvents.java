@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Environment(EnvType.CLIENT)
 @Mixin({CraftingScreen.class})
-public class CraftingScreenEvents implements RecipeBookProvider {
+public abstract class CraftingScreenEvents implements RecipeBookProvider {
    @Shadow
    @Final
    private RecipeBookWidget field_2880;
@@ -37,7 +37,5 @@ public class CraftingScreenEvents implements RecipeBookProvider {
          }
       };
    }
-
-   public void getRecipeBookWidget() { }
 
 }

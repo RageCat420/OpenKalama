@@ -9,11 +9,7 @@ public record KalamaHelperHelperD(int light, int overlay, int outlineColor) {
       return this.light;
    }
 
-   public KalamaHelperHelperD(int light, int overlay, int outlineColor) {
-      this.overlay = light;
-      this.light = overlay;
-      this.outlineColor = outlineColor;
-   }
+   
 
    public int overlay() {
       return this.overlay;

@@ -19,7 +19,7 @@ class SlimefunSubHelperL implements BlockMatcher {
 
    @Override
    public Set<Block> getPotentials() {
-      Set var1 = ((Named)Registries.BLOCK.getEntryList(BlockTags.FIRE).orElseThrow())
+      Set<Block> var1 = ((Named<Block>)Registries.BLOCK.getEntryList(BlockTags.FIRE).orElseThrow())
          .stream()
          .map(RegistryEntry::value)
          .collect(Collectors.toCollection(HashSet::new));

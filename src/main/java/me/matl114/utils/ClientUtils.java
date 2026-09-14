@@ -17,8 +17,8 @@ public class ClientUtils {
    public static CompletableFuture<List<String>> getServerCommandTabResult(String command) {
       StringReader var1 = new StringReader(command);
       var1.skip();
-      CommandDispatcher var2 = mc.getNetworkHandler().getCommandDispatcher();
-      ParseResults var3 = var2.parse(var1, mc.getNetworkHandler().getCommandSource());
+      CommandDispatcher<net.minecraft.command.CommandSource> var2 = mc.getNetworkHandler().getCommandDispatcher();
+      ParseResults<net.minecraft.command.CommandSource> var3 = var2.parse(var1, mc.getNetworkHandler().getCommandSource());
       return mc.getNetworkHandler()
          .getCommandDispatcher()
          .getCompletionSuggestions(var3)

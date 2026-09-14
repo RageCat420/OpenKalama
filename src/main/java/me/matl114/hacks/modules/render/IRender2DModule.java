@@ -12,7 +12,7 @@ import me.matl114.managers.config.NBTRef;
 import me.matl114.managers.input.MultiKeyBind;
 import me.matl114.versioned.api.VDrawContext;
 
-public class IRender2DModule extends BaseModule {
+public abstract class IRender2DModule extends BaseModule {
    public FlagRef right2;
    public NBTRef<WidgetPos> pos2;
    public FlagRef enable2;

@@ -51,6 +51,4 @@ public interface FileStorage extends AutoCloseable {
 
    boolean p();
 
-   default void g() {  }
-
 }

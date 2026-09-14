@@ -72,6 +72,6 @@ public class KalamaHelperHelperG<R extends KalamaHelperHelperD, W extends SubCom
    }
 
    public <S extends KalamaHelperHelperD> KalamaHelperHelperG<S, W> t() {
-      return this;
+      return (KalamaHelperHelperG<S, W>)(Object)this;
    }
 }

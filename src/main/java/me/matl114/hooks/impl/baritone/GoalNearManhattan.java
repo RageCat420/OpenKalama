@@ -44,7 +44,7 @@ public final class GoalNearManhattan implements Goal, IGoalRenderPos {
    }
 
    public BlockPos getGoalPos() {
-      return new BlockPos((int)(Object)this.x, (int)(Object)this.y, (int)(Object)this.z);
+      return new BlockPos((int)this.x, (int)this.y, (int)this.z);
    }
 
    @Override
