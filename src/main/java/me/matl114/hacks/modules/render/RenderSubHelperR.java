@@ -1,0 +1,72 @@
+package me.matl114.hacks.modules.render;
+
+import java.util.HashMap;
+
+class RenderSubHelperR extends HashMap<String, String> {
+   RenderSubHelperR() {
+      this.put("bbccddffSSWW", "blackstone_chicken");
+      this.put("bbccddffSSww", "end_stone_chicken");
+      this.put("BBCCddffssWW", "redstone_chicken");
+      this.put("BBCCddffssww", "glowstone_dust_chicken");
+      this.put("bbCCDDFFssWW", "sugar_chicken");
+      this.put("bbCCDDFFssww", "cake_chicken");
+      this.put("BBCCDDffSSWW", "flint_chicken");
+      this.put("BBCCDDffSSww", "kelp_chicken");
+      this.put("bbccddffssWW", "diamond_chicken");
+      this.put("bbccddffssww", "netherite_chicken");
+      this.put("bbccDDffSSWW", "netherrack_chicken");
+      this.put("bbccDDffSSww", "quartz_chicken");
+      this.put("BBCCDDffssWW", "gunpowder_chicken");
+      this.put("BBCCDDffssww", "lead_dust_chicken");
+      this.put("BBCCddFFSSWW", "dirt_chicken");
+      this.put("BBCCddFFSSww", "oak_log_chicken");
+      this.put("BBccddFFssWW", "copper_dust_chicken");
+      this.put("BBccddFFssww", "nether_wart_chicken");
+      this.put("bbCCDDffssWW", "silver_dust_chicken");
+      this.put("bbCCDDffssww", "phantom_membrane_chicken");
+      this.put("bbCCddFFSSWW", "string_chicken");
+      this.put("bbCCddFFSSww", "gold_dust_chicken");
+      this.put("BBccDDFFSSWW", "cobblestone_chicken");
+      this.put("BBccDDFFSSww", "ice_chicken");
+      this.put("bbCCddFFssWW", "iron_dust_chicken");
+      this.put("bbCCddFFssww", "ender_pearl_chicken");
+      this.put("BBCCddffSSWW", "granite_chicken");
+      this.put("BBCCddffSSww", "cactus_chicken");
+      this.put("BBccDDFFssWW", "gravel_chicken");
+      this.put("BBccDDFFssww", "snowball_chicken");
+      this.put("bbCCDDFFSSWW", "bone_chicken");
+      this.put("bbCCDDFFSSww", "sponge_chicken");
+      this.put("BBccddffssWW", "sulfate_chicken");
+      this.put("BBccddffssww", "emerald_chicken");
+      this.put("bbCCddffSSWW", "iron_chicken");
+      this.put("bbCCddffSSww", "basalt_chicken");
+      this.put("bbccDDFFssWW", "glass_chicken");
+      this.put("bbccDDFFssww", "soul_sand_chicken");
+      this.put("BBccDDffSSWW", "andesite_chicken");
+      this.put("BBccDDffSSww", "tin_dust_chicken");
+      this.put("bbCCddffssWW", "ghast_tear_chicken");
+      this.put("bbCCddffssww", "experience_chicken");
+      this.put("BBccDDffssWW", "lava_chicken");
+      this.put("BBccDDffssww", "magma_cream_chicken");
+      this.put("BBccddFFSSWW", "diorite_chicken");
+      this.put("BBccddFFSSww", "magnesium_dust_chicken");
+      this.put("bbCCDDffSSWW", "leather_chicken");
+      this.put("bbCCDDffSSww", "zinc_dust_chicken");
+      this.put("bbccDDffssWW", "blaze_rod_chicken");
+      this.put("bbccDDffssww", "prismarine_shard_chicken");
+      this.put("bbccddFFSSWW", "gold_chicken");
+      this.put("bbccddFFSSww", "shroomlight_chicken");
+      this.put("BBCCddFFssWW", "clay_chicken");
+      this.put("BBCCddFFssww", "aluminum_dust_chicken");
+      this.put("BBCCDDFFSSWW", "feather_chicken");
+      this.put("BBCCDDFFSSww", "water_chicken");
+      this.put("bbccddFFssWW", "soul_soil_chicken");
+      this.put("bbccddFFssww", "prismarine_crystals_chicken");
+      this.put("BBccddffSSWW", "obsidian_chicken");
+      this.put("BBccddffSSww", "crying_obsidian_chicken");
+      this.put("bbccDDFFSSWW", "coal_chicken");
+      this.put("bbccDDFFSSww", "lapis_chicken");
+      this.put("BBCCDDFFssWW", "sand_chicken");
+      this.put("BBCCDDFFssww", "slime_ball_chicken");
+   }
+}

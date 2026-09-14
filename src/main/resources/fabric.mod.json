@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "kalama",
+	"version": "1.1.6.2",
+	"name": "Kalama",
+	"description": "A utility mode for better gaming",
+	"authors": [
+		"matl114"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"me.matl114.SlimefunHelper"
+		],
+		"preLaunch": [
+			"me.matl114.SlimefunHelper"
+		]
+	},
+	"mixins": [
+		"kalama.mixins.json",
+		"kalama.mixins.hooks.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.1",
+		"minecraft": "1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"accessWidener": "overrideList.accesswidener"
+}

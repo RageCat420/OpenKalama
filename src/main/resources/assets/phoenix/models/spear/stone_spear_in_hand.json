@@ -1,0 +1,6 @@
+{
+  "parent": "phoenix:spear/spear_in_hand",
+  "textures": {
+    "layer0": "phoenix:spear/stone_spear_in_hand"
+  }
+}

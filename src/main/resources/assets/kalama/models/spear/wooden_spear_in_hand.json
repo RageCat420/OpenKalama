@@ -1,0 +1,6 @@
+{
+  "parent": "kalama:spear/spear_in_hand",
+  "textures": {
+    "layer0": "kalama:spear/wooden_spear_in_hand"
+  }
+}

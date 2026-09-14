@@ -1,0 +1,137 @@
+package me.matl114.mixins.gui;
+
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import java.util.function.Consumer;
+import me.matl114.accessors.gui.TextFieldAccess;
+import me.matl114.gui.McWidgetHelpers;
+import me.matl114.gui.basic.KalamaHelperHelperIX;
+import me.matl114.utils.config.PropertyTracker;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+@Mixin({TextFieldWidget.class})
+@Environment(EnvType.CLIENT)
+public class TextFieldWidgetMixin extends ClickableWidget implements TextFieldAccess {
+   @Unique
+   private static final KalamaHelperHelperIX ORIGIN_PROVIDER = McWidgetHelpers.getDefaultTextBoxColorProvider();
+   @Final
+   @Shadow
+   private TextRenderer field_2105;
+   @Shadow
+   private String field_2092;
+   @Shadow
+   private int field_2103;
+   @Shadow
+   private int field_2102;
+   @Unique
+   private KalamaHelperHelperIX boxColorProvider = null;
+
+   @Unique
+   TextFieldWidget cast() {
+      return (TextFieldWidget)(Object)this;
+   }
+
+   @Unique
+   public boolean isMultiLine() {
+      return false;
+   }
+
+   @Unique
+   @Override
+   public void setBorderColorProvider(KalamaHelperHelperIX provider) {
+      this.boxColorProvider = provider;
+   }
+
+   @Shadow
+   public void method_1863(Consumer<String> var1) { }
+
+   @Shadow
+   protected abstract void method_1874(String var1);
+
+   @Unique
+   @Override
+   public void setListener(PropertyTracker<TextFieldAccess, String> tracker) {
+      this.method_1863(str -> tracker.valueChange(this, str));
+   }
+
+   public TextFieldWidgetMixin(int x, int y, int width, int height, Text message) {
+      super(x, y, width, height, message);
+   }
+
+   @WrapOperation(
+      method = {"renderWidget"},
+      at = {@At(
+         value = "INVOKE",
+         target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V"
+      )}
+   )
+   public void redirectBorderBoxRender(DrawContext instance, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
+      if (this.boxColorProvider != null) {
+         McWidgetHelpers.drawTextWidgetBox(this, instance, x, y, width, height, this.isFocused(), this.boxColorProvider);
+      } else {
+         original.call(new Object[]{instance, texture, x, y, width, height});
+      }
+   }
+
+   @Inject(
+      method = {"keyPressed"},
+      at = {@At("RETURN")},
+      cancellable = true
+   )
+   public void fixInventoryKeyPressedWhenFocused(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
+      if (this.isFocused() && MinecraftClient.getInstance().options.inventoryKey.matchesKey(keyCode, scanCode)) {
+         cir.setReturnValue(true);
+      }
+   }
+
+   @Unique
+   @Override
+   public void dragSelect(int deltaX, int deltaY, boolean shiftDownAction) {
+      int i = deltaX;
+      if (this.cast().drawsBackground()) {
+         i = deltaX - 4;
+      }
+
+      String string = this.field_2105.trimToWidth(this.field_2092.substring(this.field_2103), this.cast().getInnerWidth());
+      this.cast().setCursor(this.field_2105.trimToWidth(string, i).length() + this.field_2103, shiftDownAction);
+   }
+
+   @Unique
+   @Override
+   public boolean canStartDrag(double mouseX, double mouseY) {
+      return this.isMouseOver(mouseX, mouseY);
+   }
+
+   @Inject(
+      method = {"setFocused"},
+      at = {@At("HEAD")}
+   )
+   public void resetSelectOnRelease(boolean focused, CallbackInfo ci) {
+      if (!focused) {
+         this.resetSelect();
+      }
+   }
+
+   @Unique
+   @Override
+   public void resetSelect() {
+      this.cast().setSelectionEnd(this.field_2102);
+      this.method_1874(this.field_2092);
+   }
+}

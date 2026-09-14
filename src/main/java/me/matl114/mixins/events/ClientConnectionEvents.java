@@ -1,0 +1,257 @@
+package me.matl114.mixins.events;
+
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.codec.DecoderException;
+import javax.annotation.Nullable;
+import me.matl114.accessors.events.ClientConnectionAccess;
+import me.matl114.events.Event;
+import me.matl114.events.Listener;
+import me.matl114.events.Listener$ExceptionType;
+import me.matl114.events.PacketManager;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.network.ClientConnection;
+import net.minecraft.network.NetworkSide;
+import net.minecraft.network.NetworkState;
+import net.minecraft.network.PacketCallbacks;
+import net.minecraft.network.handler.PacketSizeLogger;
+import net.minecraft.network.listener.ClientPacketListener;
+import net.minecraft.network.listener.PacketListener;
+import net.minecraft.network.listener.ServerPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.c2s.handshake.ConnectionIntent;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.At.Shift;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Environment(EnvType.CLIENT)
+@Mixin({ClientConnection.class})
+public class ClientConnectionEvents extends SimpleChannelInboundHandler<Packet<?>> implements ClientConnectionAccess {
+   @Shadow
+   public Channel field_11651;
+   @Shadow
+   @Final
+   private NetworkSide field_11643;
+   @Shadow
+   @Nullable
+   private volatile PacketListener field_11652;
+   @Shadow
+   private boolean field_11640;
+   @Shadow
+   private int field_11656;
+   @Unique
+   NetworkState<?> currentInBoundState;
+   @Unique
+   NetworkState<?> currentOutBoundState;
+
+   @Shadow
+   protected abstract void method_10770(ChannelHandlerContext var1, Packet<?> var2);
+
+   @Override
+   public NetworkState<?> getOutboundState() {
+      return this.currentOutBoundState;
+   }
+
+   @Override
+   public NetworkState<?> getInboundState() {
+      return this.currentInBoundState;
+   }
+
+   @Override
+   public void sendByteBuf(ByteBuf buf) {
+      this.field_11656++;
+      if (this.field_11651.eventLoop().inEventLoop()) {
+         this.field_11651.writeAndFlush(buf);
+      } else {
+         this.field_11651.eventLoop().execute(() -> this.field_11651.writeAndFlush(buf));
+      }
+   }
+
+   @Inject(
+      method = {"setPacketListener"},
+      at = {@At("HEAD")}
+   )
+   private void onSetPacketListener(NetworkState<?> state, PacketListener listener, CallbackInfo ci) {
+      this.currentInBoundState = state;
+   }
+
+   @Inject(
+      method = {"transitionOutbound"},
+      at = {@At("HEAD")}
+   )
+   private void onTransitionOutbound(NetworkState<?> newState, CallbackInfo ci) {
+      this.currentOutBoundState = newState;
+   }
+
+   @Inject(
+      method = {"connect(Ljava/lang/String;ILnet/minecraft/network/NetworkState;Lnet/minecraft/network/NetworkState;Lnet/minecraft/network/listener/ClientPacketListener;Lnet/minecraft/network/packet/c2s/handshake/ConnectionIntent;)V"},
+      at = {@At("HEAD")}
+   )
+   private void onConnection(
+      String address,
+      int port,
+      NetworkState outboundState,
+      NetworkState inboundState,
+      ClientPacketListener prePlayStateListener,
+      ConnectionIntent intent,
+      CallbackInfo ci
+   ) {
+      this.currentInBoundState = inboundState;
+      this.currentOutBoundState = outboundState;
+   }
+
+   @Inject(
+      method = {"exceptionCaught"},
+      at = {@At(
+         value = "FIELD",
+         target = "Lnet/minecraft/network/ClientConnection;packetListener:Lnet/minecraft/network/listener/PacketListener;",
+         shift = Shift.BEFORE
+      )},
+      cancellable = true
+   )
+   private void onChannelException(ChannelHandlerContext context, Throwable ex, CallbackInfo ci) {
+      if (ex instanceof DecoderException decodeExp && decodeExp.getMessage().contains("Failed to decode packet")) {
+         if (!Listener.handleException(ex, Listener$ExceptionType.rK, this.field_11652, this)) {
+            this.field_11640 = false;
+            ci.cancel();
+         }
+      } else if (!Listener.handleException(ex, Listener$ExceptionType.rL, this.field_11652, this)) {
+         this.field_11640 = false;
+         ci.cancel();
+      }
+   }
+
+   @Inject(
+      method = {"channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/packet/Packet;)V"},
+      at = {@At("HEAD")},
+      cancellable = true,
+      order = -999
+   )
+   private void acceptPacket(
+      ChannelHandlerContext channelHandlerContext, Packet<?> packet, CallbackInfo ci, @Local(argsOnly = true) LocalRef<Packet<?>> packetLocalRef
+   ) {
+      if (packet == null) {
+         ci.cancel();
+      } else if (this.field_11643 != NetworkSide.SERVERBOUND) {
+         if (PacketManager.handleQueueInPacket(packet, (ClientConnection)(Object)this)) {
+            ci.cancel();
+         } else {
+            Packet<?> packetToRecv = Listener.r((ClientConnection)(Object)this, packet);
+            if (packetToRecv != packet) {
+               if (packetToRecv == null) {
+                  ci.cancel();
+               } else {
+                  packetLocalRef.set(packetToRecv);
+               }
+            }
+         }
+      }
+   }
+
+   @Inject(
+      method = {"connect(Ljava/lang/String;ILnet/minecraft/network/NetworkState;Lnet/minecraft/network/NetworkState;Lnet/minecraft/network/listener/ClientPacketListener;Lnet/minecraft/network/packet/c2s/handshake/ConnectionIntent;)V"},
+      at = {@At("RETURN")}
+   )
+   private <S extends ServerPacketListener, C extends ClientPacketListener> void onConnect(
+      String address, int port, NetworkState<S> outboundState, NetworkState<C> inboundState, C prePlayStateListener, ConnectionIntent intent, CallbackInfo ci
+   ) {
+      Listener.bz().catchEvent(new Event<>((ClientConnection)(Object)this, false, false, inboundState.side(), prePlayStateListener));
+   }
+
+   @Inject(
+      method = {"send(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/PacketCallbacks;Z)V"},
+      at = {@At("HEAD")},
+      cancellable = true
+   )
+   private void sendPacket(
+      Packet<?> packet, PacketCallbacks callbacks, boolean flush, CallbackInfo ci, @Local(argsOnly = true) LocalRef<Packet<?>> packetLocalRef
+   ) {
+      if (packet == null) {
+         ci.cancel();
+      } else if (this.field_11643 != NetworkSide.SERVERBOUND) {
+         if (PacketManager.handleQueueOutPacket(packet, (ClientConnection)(Object)this)) {
+            ci.cancel();
+         } else {
+            Packet<?> packetToSend = Listener.s((ClientConnection)(Object)this, packet);
+            if (packetToSend != packet) {
+               if (packetToSend == null) {
+                  ci.cancel();
+               } else {
+                  packetLocalRef.set(packetToSend);
+               }
+            }
+         }
+      }
+   }
+
+   @Inject(
+      method = {"sendImmediately"},
+      at = {@At("RETURN")}
+   )
+   private void sendImmediately(Packet<?> packet, PacketCallbacks callbacks, boolean flush, CallbackInfo ci) {
+      if (this.field_11643 != NetworkSide.SERVERBOUND) {
+         Listener.an().h(packet, new Object[]{this});
+      }
+   }
+
+   @Inject(
+      method = {"sendInternal"},
+      at = {@At("RETURN")}
+   )
+   private void sendPacketPost(Packet<?> packet, PacketCallbacks callbacks, boolean flush, CallbackInfo ci) {
+      if (this.field_11643 != NetworkSide.SERVERBOUND) {
+         Listener.ao().h(packet, new Object[]{this});
+      }
+   }
+
+   @WrapOperation(
+      method = {"handlePacket"},
+      at = {@At(
+         value = "INVOKE",
+         target = "Lnet/minecraft/network/packet/Packet;apply(Lnet/minecraft/network/listener/PacketListener;)V"
+      )}
+   )
+   private static void applyPacketMainThread(Packet instance, PacketListener t, Operation<Void> original) {
+      if (t.getSide() == NetworkSide.SERVERBOUND) {
+         original.call(new Object[]{instance, t});
+      } else if (!MinecraftClient.getInstance().isOnThread() && !Listener.isAsyncImportantPacket(instance)) {
+         original.call(new Object[]{instance, t});
+      } else {
+         Listener.callPacketHandleEvent(instance, t, (xva$0, xva$1) -> {
+            Void var10000 = (Void)original.call(new Object[]{xva$0, xva$1});
+         });
+      }
+   }
+
+   @Inject(
+      method = {"addHandlers"},
+      at = {@At("HEAD")}
+   )
+   private static void proxyChannelIp(ChannelPipeline pipeline, NetworkSide side, boolean local, PacketSizeLogger packetSizeLogger, CallbackInfo ci) {
+      Listener.serialize().h(pipeline, side, local);
+   }
+
+   @Override
+   public void handlePacket(Packet<?> packet) {
+      try {
+         this.method_10770(null, packet);
+      } catch (NullPointerException var3) {
+      } catch (Throwable var4) {
+         throw var4;
+      }
+   }
+}

@@ -1,0 +1,24 @@
+package me.matl114.mixins.hack;
+
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import me.matl114.hacks.RenderTasks;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+
+@Mixin({EntityRenderer.class})
+public class EntityRenderDisplayNameMixin {
+   @WrapOperation(
+      method = {"render"},
+      at = {@At(
+         value = "INVOKE",
+         target = "Lnet/minecraft/client/render/entity/EntityRenderer;hasLabel(Lnet/minecraft/entity/Entity;)Z"
+      )}
+   )
+   private boolean hasLabel(EntityRenderer instance, Entity entity, Operation<Boolean> original) {
+      return entity instanceof PlayerEntity pl && RenderTasks.t().hideVanilla.get() ? false : (Boolean)original.call(new Object[]{instance, entity});
+   }
+}
